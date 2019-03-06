@@ -141,80 +141,86 @@
     </div>
     <div class="post-content ">
         <p>1.安装依赖库</p>
-<pre><code>npm i -D @vue/test-utils babel-jest  jest  jest-serializer-vue  vue-jest
-</code></pre><p>2.配置jest (package.json)</p>
-<pre><code>{   &quot;scripts&quot;:{
-        &quot;test&quot;: &quot;jest&quot;
-    },
-    &quot;jest&quot;: {
-    &quot;testURL&quot;: &quot;http://localhost&quot;,
-    &quot;moduleFileExtensions&quot;: [
-      &quot;js&quot;,
-      &quot;vue&quot;
-    ],
-    &quot;moduleNameMapper&quot;: {
-      &quot;^@/(.*)$&quot;: &quot;&lt;rootDir&gt;/src/$1&quot;
-    },
-    &quot;transform&quot;: {
-      &quot;^.+\\.js$&quot;: &quot;&lt;rootDir&gt;/node_modules/babel-jest&quot;,
-      &quot;.*\\.(vue)$&quot;: &quot;&lt;rootDir&gt;/node_modules/vue-jest&quot;
-    },
-    &quot;snapshotSerializers&quot;: [
-      &quot;&lt;rootDir&gt;/node_modules/jest-serializer-vue&quot;
-    ]
-  }
-}
-</code></pre><p>3.配置Babel (.babelrc)</p>
-<pre><code>{
-    &quot;env&quot;: {
-    &quot;test&quot;: {
-      &quot;presets&quot;: [[&quot;env&quot;, { &quot;targets&quot;: { &quot;node&quot;: &quot;current&quot; } }]]
-    }
-  }
-}
-</code></pre><p>4.项目根目录新建test文件夹 添加测试文件 <code>test.spec.js</code></p>
-<pre><code>import { shallowMount } from &#39;@vue/test-utils&#39;;
-import ContentLength from &#39;@/components/ContentLength&#39;;
-
-describe(&#39;Component.ContentLength&#39;, () =&gt; {
-  const wrapper = shallowMount(ContentLength, {
-    propsData: {
-      content: &#39;Hello&#39;,
-      maxLength: 10,
-    },
-  });
-
-  it(&#39;传值正确&#39;, () =&gt; {
-    expect(wrapper.vm.content).toBe(&#39;Hello&#39;);
-    expect(wrapper.vm.maxLength).toBe(10);
-  });
-
-  it(&#39;未超过长度渲染正确&#39;, () =&gt; {
-    expect(wrapper.find(&#39;.exceed&#39;).exists()).toBe(false);
-  });
-
-  it(&#39;超过长度渲染正确&#39;, () =&gt; {
-    wrapper.setProps({
-      content: &#39;Hello World!&#39;,
-    });
-    expect(wrapper.find(&#39;.exceed&#39;).exists()).toBe(true);
-  });
-
-  it(&#39;长度计算正确&#39;, () =&gt; {
-    wrapper.setProps({
-      content: &#39;Hello World!&#39;,
-    });
-    expect(wrapper.vm.currentLength).toBe(12);
-    wrapper.setProps({
-      content: &#39;你好世界！&#39;,
-      mode: &#39;content&#39;,
-    });
-    expect(wrapper.vm.currentLength).toBe(10);
-  });
-});
-</code></pre><p>5.运行测试</p>
-<pre><code>npm run test
+<pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> i -D @vue/test-utils babel-jest  jest  jest-serializer-vue  vue-jest
 </code></pre>
+<p>2.配置jest (package.json)</p>
+<pre class=" language-json"><code class="language-json"><span class="token punctuation">{</span>    &amp;quot<span class="token punctuation">;</span>scripts&amp;quot<span class="token punctuation">;</span><span class="token operator">:</span><span class="token punctuation">{</span>
+        &amp;quot<span class="token punctuation">;</span>test&amp;quot<span class="token punctuation">;</span><span class="token operator">:</span> &amp;quot<span class="token punctuation">;</span>jest&amp;quot<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    &amp;quot<span class="token punctuation">;</span>jest&amp;quot<span class="token punctuation">;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    &amp;quot<span class="token punctuation">;</span>testURL&amp;quot<span class="token punctuation">;</span><span class="token operator">:</span> &amp;quot<span class="token punctuation">;</span>http<span class="token operator">:</span>//localhost&amp;quot<span class="token punctuation">;</span><span class="token punctuation">,</span>
+    &amp;quot<span class="token punctuation">;</span>moduleFileExtensions&amp;quot<span class="token punctuation">;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      &amp;quot<span class="token punctuation">;</span>js&amp;quot<span class="token punctuation">;</span><span class="token punctuation">,</span>
+      &amp;quot<span class="token punctuation">;</span>vue&amp;quot<span class="token punctuation">;</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    &amp;quot<span class="token punctuation">;</span>moduleNameMapper&amp;quot<span class="token punctuation">;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      &amp;quot<span class="token punctuation">;</span>^@/(.*<span class="token punctuation">)</span>$&amp;quot<span class="token punctuation">;</span><span class="token operator">:</span> &amp;quot<span class="token punctuation">;</span>&amp;lt<span class="token punctuation">;</span>rootDir&amp;gt<span class="token punctuation">;</span>/src/$<span class="token number">1</span>&amp;quot<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    &amp;quot<span class="token punctuation">;</span>transform&amp;quot<span class="token punctuation">;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      &amp;quot<span class="token punctuation">;</span>^.+\\.js$&amp;quot<span class="token punctuation">;</span><span class="token operator">:</span> &amp;quot<span class="token punctuation">;</span>&amp;lt<span class="token punctuation">;</span>rootDir&amp;gt<span class="token punctuation">;</span>/node_modules/babel-jest&amp;quot<span class="token punctuation">;</span><span class="token punctuation">,</span>
+      &amp;quot<span class="token punctuation">;</span>.*\\.(vue<span class="token punctuation">)</span>$&amp;quot<span class="token punctuation">;</span><span class="token operator">:</span> &amp;quot<span class="token punctuation">;</span>&amp;lt<span class="token punctuation">;</span>rootDir&amp;gt<span class="token punctuation">;</span>/node_modules/vue-jest&amp;quot<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    &amp;quot<span class="token punctuation">;</span>snapshotSerializers&amp;quot<span class="token punctuation">;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      &amp;quot<span class="token punctuation">;</span>&amp;lt<span class="token punctuation">;</span>rootDir&amp;gt<span class="token punctuation">;</span>/node_modules/jest-serializer-vue&amp;quot<span class="token punctuation">;</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+</code></pre>
+<p>3.配置Babel (.babelrc)</p>
+<pre class=" language-json"><code class="language-json"><span class="token punctuation">{</span>
+    &amp;quot<span class="token punctuation">;</span>env&amp;quot<span class="token punctuation">;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    &amp;quot<span class="token punctuation">;</span>test&amp;quot<span class="token punctuation">;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      &amp;quot<span class="token punctuation">;</span>presets&amp;quot<span class="token punctuation">;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">[</span>&amp;quot<span class="token punctuation">;</span>env&amp;quot<span class="token punctuation">;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> &amp;quot<span class="token punctuation">;</span>targets&amp;quot<span class="token punctuation">;</span><span class="token operator">:</span> <span class="token punctuation">{</span> &amp;quot<span class="token punctuation">;</span>node&amp;quot<span class="token punctuation">;</span><span class="token operator">:</span> &amp;quot<span class="token punctuation">;</span>current&amp;quot<span class="token punctuation">;</span> <span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>4.项目根目录新建test文件夹<br>添加测试文件 <code>test.spec.js</code></p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> shallowMount <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>@vue<span class="token operator">/</span>test<span class="token operator">-</span>utils<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> ContentLength <span class="token keyword">from</span> <span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>@<span class="token operator">/</span>components<span class="token operator">/</span>ContentLength<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+
+<span class="token function">describe</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>Component<span class="token punctuation">.</span>ContentLength<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> wrapper <span class="token operator">=</span> <span class="token function">shallowMount</span><span class="token punctuation">(</span>ContentLength<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    propsData<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      content<span class="token punctuation">:</span> <span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>Hello<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">,</span>
+      maxLength<span class="token punctuation">:</span> <span class="token number">10</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token function">it</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>传值正确<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> <span class="token punctuation">{</span>
+    <span class="token function">expect</span><span class="token punctuation">(</span>wrapper<span class="token punctuation">.</span>vm<span class="token punctuation">.</span>content<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBe</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>Hello<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">expect</span><span class="token punctuation">(</span>wrapper<span class="token punctuation">.</span>vm<span class="token punctuation">.</span>maxLength<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBe</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token function">it</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>未超过长度渲染正确<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> <span class="token punctuation">{</span>
+    <span class="token function">expect</span><span class="token punctuation">(</span>wrapper<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">.</span>exceed<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">exists</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBe</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token function">it</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>超过长度渲染正确<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> <span class="token punctuation">{</span>
+    wrapper<span class="token punctuation">.</span><span class="token function">setProps</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      content<span class="token punctuation">:</span> <span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>Hello World<span class="token operator">!</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">expect</span><span class="token punctuation">(</span>wrapper<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">.</span>exceed<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">exists</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBe</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token function">it</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>长度计算正确<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> <span class="token punctuation">{</span>
+    wrapper<span class="token punctuation">.</span><span class="token function">setProps</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      content<span class="token punctuation">:</span> <span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>Hello World<span class="token operator">!</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">expect</span><span class="token punctuation">(</span>wrapper<span class="token punctuation">.</span>vm<span class="token punctuation">.</span>currentLength<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBe</span><span class="token punctuation">(</span><span class="token number">12</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    wrapper<span class="token punctuation">.</span><span class="token function">setProps</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      content<span class="token punctuation">:</span> <span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>你好世界！<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">,</span>
+      mode<span class="token punctuation">:</span> <span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>content<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">expect</span><span class="token punctuation">(</span>wrapper<span class="token punctuation">.</span>vm<span class="token punctuation">.</span>currentLength<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBe</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>5.运行测试</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> run <span class="token function">test</span>
+</code></pre>
+
         
         <br>
         <div id="comment-container">

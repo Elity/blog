@@ -144,66 +144,68 @@
     </div>
     <div class="post-content ">
         <p>实现一个函数LazyMan，执行情况如下：</p>
-<pre><code>LazyMan(&quot;Hank&quot;)
-// 输出:Hi! This is Hank!
+<pre class=" language-javascript"><code class="language-javascript"><span class="token function">LazyMan</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span>Hank<span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">// 输出:Hi! This is Hank!</span>
  
-LazyMan(&quot;Hank&quot;).sleep(10).eat(&quot;dinner&quot;)
-// 输出 Hi! This is Hank!
-// 等待10秒..
-// 输出 Wake up after 10
-// 输出 Eat dinner
+<span class="token function">LazyMan</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span>Hank<span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">eat</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span>dinner<span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">// 输出 Hi! This is Hank!</span>
+<span class="token comment" spellcheck="true">// 等待10秒..</span>
+<span class="token comment" spellcheck="true">// 输出 Wake up after 10</span>
+<span class="token comment" spellcheck="true">// 输出 Eat dinner</span>
  
-LazyMan(&quot;Hank&quot;).eat(&quot;dinner&quot;).eat(&quot;supper&quot;)
-// 输出 Hi This is Hank!
-// 输出 Eat dinner
-// 输出 Eat supper
+<span class="token function">LazyMan</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span>Hank<span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">eat</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span>dinner<span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">eat</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span>supper<span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">// 输出 Hi This is Hank!</span>
+<span class="token comment" spellcheck="true">// 输出 Eat dinner</span>
+<span class="token comment" spellcheck="true">// 输出 Eat supper</span>
  
-LazyMan(&quot;Hank&quot;).sleepFirst(5).eat(&quot;supper&quot;)
-// 等待5秒
-// 输出 Hi This is Hank!
-// 输出 Eat supper
-</code></pre><p>在有Promise的情况下，还是很好做的：</p>
-<pre><code>function LazyMan(name) {
-  function sleep(time) {
-    return new Promise(resolve =&gt; setTimeout(resolve, time * 1000));
-  }
-
-  function addToQueue(queue, item, addToHead) {
-    queue[addToHead ? &#39;unshift&#39; : &#39;push&#39;](item);
-  }
-
-  function resolvePromiseQueue(queue) {
-    queue.reduce((last, cur) =&gt; {
-      return last.then(cur);
-    }, Promise.resolve());
-  }
-
-  const QUEUE_NAME = Symbol(&#39;QueueName&#39;); // 通过Symbol ,使queue成为“私有”成员
-
-  return new class LazyMan {
-    constructor() {
-      this[QUEUE_NAME] = [() =&gt; console.log(`Hi! This is ${name}!`)];
-      Promise.resolve().then(resolvePromiseQueue.bind(null, this[QUEUE_NAME]));
-    }
-    eat(food) {
-      addToQueue(this[QUEUE_NAME], () =&gt; console.log(`Eat ${food}`));
-      return this;
-    }
-    sleep(time, sleepFirst) {
-      addToQueue(
-        this[QUEUE_NAME],
-        () =&gt; sleep(time).then(() =&gt; console.log(`Wake up after ${time}`)),
-        sleepFirst
-      );
-      return this;
-    }
-    sleepFirst(time) {
-      this.sleep(time, true);
-      return this;
-    }
-  }();
-}
+<span class="token function">LazyMan</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span>Hank<span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">sleepFirst</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">eat</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span>supper<span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">// 等待5秒</span>
+<span class="token comment" spellcheck="true">// 输出 Hi This is Hank!</span>
+<span class="token comment" spellcheck="true">// 输出 Eat supper</span>
 </code></pre>
+<p>在有Promise的情况下，还是很好做的：</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">LazyMan</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">function</span> <span class="token function">sleep</span><span class="token punctuation">(</span>time<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span>resolve <span class="token operator">=</span><span class="token operator">></span> <span class="token function">setTimeout</span><span class="token punctuation">(</span>resolve<span class="token punctuation">,</span> time <span class="token operator">*</span> <span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">function</span> <span class="token function">addToQueue</span><span class="token punctuation">(</span>queue<span class="token punctuation">,</span> item<span class="token punctuation">,</span> addToHead<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    queue<span class="token punctuation">[</span>addToHead <span class="token operator">?</span> <span class="token string">'unshift'</span> <span class="token punctuation">:</span> <span class="token string">'push'</span><span class="token punctuation">]</span><span class="token punctuation">(</span>item<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">function</span> <span class="token function">resolvePromiseQueue</span><span class="token punctuation">(</span>queue<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    queue<span class="token punctuation">.</span><span class="token function">reduce</span><span class="token punctuation">(</span><span class="token punctuation">(</span>last<span class="token punctuation">,</span> cur<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> last<span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>cur<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span> Promise<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">const</span> QUEUE_NAME <span class="token operator">=</span> <span class="token function">Symbol</span><span class="token punctuation">(</span><span class="token string">'QueueName'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 通过Symbol ,使queue成为“私有”成员</span>
+
+  <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">class</span> LazyMan <span class="token punctuation">{</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">[</span>QUEUE_NAME<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`Hi! This is </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>name<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">!`</span></span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+      Promise<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>resolvePromiseQueue<span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">[</span>QUEUE_NAME<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">eat</span><span class="token punctuation">(</span>food<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">addToQueue</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">[</span>QUEUE_NAME<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`Eat </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>food<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">sleep</span><span class="token punctuation">(</span>time<span class="token punctuation">,</span> sleepFirst<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">addToQueue</span><span class="token punctuation">(</span>
+        <span class="token keyword">this</span><span class="token punctuation">[</span>QUEUE_NAME<span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token function">sleep</span><span class="token punctuation">(</span>time<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`Wake up after </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>time<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        sleepFirst
+      <span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">sleepFirst</span><span class="token punctuation">(</span>time<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span>time<span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+
         
         <br>
         <div id="comment-container">

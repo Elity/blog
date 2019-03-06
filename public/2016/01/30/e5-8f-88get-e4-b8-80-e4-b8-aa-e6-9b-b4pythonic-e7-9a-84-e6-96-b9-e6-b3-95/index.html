@@ -141,28 +141,30 @@
     </div>
     <div class="post-content ">
         <p>原来自己写一个单独的类文件，常常是文件一个名字，类一个名字，在别的文件导入的时候则需要这样些：</p>
-<pre><code>from 文件名 import *
+<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> 文件名 <span class="token keyword">import</span> <span class="token operator">*</span>
+</code></pre>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> 文件名 <span class="token keyword">import</span> 类名
+</code></pre>
+<p>今天看这个文章的时候<a href="http://115.159.48.140/2015/12/29/%E8%AE%A9python%E7%A8%8B%E5%BA%8F%E6%9B%B4%E5%8A%A0pythonic%E7%9A%84%E5%BB%BA%E8%AE%AE%EF%BC%88%E4%B8%80%EF%BC%89/" target="_blank" rel="noopener">让python程序更加pythonic的建议（一）</a>看到这么一段代码：</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">_const</span><span class="token punctuation">:</span>
+    <span class="token keyword">class</span> <span class="token class-name">ConstError</span><span class="token punctuation">(</span>TypeError<span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">pass</span>
+    <span class="token keyword">class</span> <span class="token class-name">ConstCaseError</span><span class="token punctuation">(</span>ConstError<span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">pass</span>
 
+    <span class="token keyword">def</span> <span class="token function">__setattr__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> name<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>__dict__<span class="token punctuation">.</span>get<span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">raise</span> self<span class="token punctuation">.</span>ConstError<span class="token punctuation">(</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span>Can<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#039;t change const. %s&amp;quot; %name)</span>
+        <span class="token keyword">if</span> <span class="token operator">not</span> name<span class="token punctuation">.</span>isupper<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">raise</span>  self<span class="token punctuation">.</span>ConstCaseError<span class="token punctuation">(</span>\
+                <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#039;const name &amp;quot;%s&amp;quot; is not all uppercase&amp;#039; %name)</span>
+        self<span class="token punctuation">.</span>__dict__<span class="token punctuation">[</span>name<span class="token punctuation">]</span> <span class="token operator">=</span> value
 
-from 文件名 import 类名
-</code></pre><p>今天看这个文章的时候<a href="http://115.159.48.140/2015/12/29/%E8%AE%A9python%E7%A8%8B%E5%BA%8F%E6%9B%B4%E5%8A%A0pythonic%E7%9A%84%E5%BB%BA%E8%AE%AE%EF%BC%88%E4%B8%80%EF%BC%89/" target="_blank" rel="noopener">让python程序更加pythonic的建议（一）</a>看到这么一段代码：</p>
-<pre><code>class _const:
-    class ConstError(TypeError): pass
-    class ConstCaseError(ConstError): pass
-
-    def __setattr__(self, name, value):
-        if self.__dict__.get(name):
-            raise self.ConstError(&quot;Can&#39;t change const. %s&quot; %name)
-        if not name.isupper():
-            raise  self.ConstCaseError(\
-                &#39;const name &quot;%s&quot; is not all uppercase&#39; %name)
-        self.__dict__[name] = value
-
-import sys
-sys.modules[__name__] = _const()
-</code></pre><p>最后一句：</p>
-<pre><code>sys.modules[__name__] = _const()
-</code></pre><p>其中<code>sys.modules</code>是IDE启动后导入的所有模块的一个字典,<code>__name__</code>则是当前的模块名 关键点就在于<code>__name__</code>在shell模式下是<code>__main__</code>,在被导入的时候是其所在文件的文件名. 所以当上述文件被存为const.py时，我们在别的文件中：<code>import const</code>的时候，const已经是作为类_const的一个实例存在于运行环境中了</p>
+<span class="token keyword">import</span> sys
+sys<span class="token punctuation">.</span>modules<span class="token punctuation">[</span>__name__<span class="token punctuation">]</span> <span class="token operator">=</span> _const<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<p>最后一句：</p>
+<pre class=" language-python"><code class="language-python">sys<span class="token punctuation">.</span>modules<span class="token punctuation">[</span>__name__<span class="token punctuation">]</span> <span class="token operator">=</span> _const<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<p>其中<code>sys.modules</code>是IDE启动后导入的所有模块的一个字典,<code>__name__</code>则是当前的模块名<br>关键点就在于<code>__name__</code>在shell模式下是<code>__main__</code>,在被导入的时候是其所在文件的文件名.<br>所以当上述文件被存为const.py时，我们在别的文件中：<code>import const</code>的时候，const已经是作为类_const的一个实例存在于运行环境中了</p>
 
         
         <br>

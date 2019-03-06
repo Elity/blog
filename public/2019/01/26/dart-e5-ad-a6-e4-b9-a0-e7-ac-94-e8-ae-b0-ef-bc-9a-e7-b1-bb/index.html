@@ -140,288 +140,325 @@
 
     </div>
     <div class="post-content ">
-        <p>本想按《Dart学习笔记 1: xxx》格式的，但这样就相当于立了flag，后面还需要有2、3、4…还是算了吧，指不定就烂尾了。 今天刚好又回过头来瞄了下<a href="https://www.dartlang.org/guides/language/language-tour#classes" target="_blank" rel="noopener">官方文档</a>，顺便记下笔记。</p>
-<h3 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h3><pre><code>class Point {
-  num x; // 成员变量x，初始值null.
-  num y = 0; // 成员变量y，初始化为0.
-  num _z = 1; // 成员变量_z, 初始化为1，仅在库内可访问
-}
-</code></pre><h3 id="实例化"><a href="#实例化" class="headerlink" title="实例化"></a>实例化</h3><pre><code>Point p = new Point();
-// dart2.0 可以省略 new关键字
-Point p1 = Point();
-</code></pre><h3 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h3><p>几种类型的构造函数： 1. 未定义构造函数的时候，会自动生成一个无参的默认构造函数，并且会调用超类的没有参数的构造函数。 2. 普通构造函数：定义一个和类名字一样的方法就定义了一个构造函数</p>
-<pre><code>// 常规形式
-class Point {
-  num x;
-  num y;
-  Point(num x, num y) {
-    // 如果不存在同名冲突，this可以省略
-    this.x = x;
-    this.y = y;
-  }
-}
-// 语法糖形式
-class Point {
-  num x;
-  num y;
-  Point(this.x, this.y);
-}
-</code></pre><ol start="3">
+        <p>本想按《Dart学习笔记 1: xxx》格式的，但这样就相当于立了flag，后面还需要有2、3、4…还是算了吧，指不定就烂尾了。<br>今天刚好又回过头来瞄了下<a href="https://www.dartlang.org/guides/language/language-tour#classes" target="_blank" rel="noopener">官方文档</a>，顺便记下笔记。</p>
+<h3 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h3><pre class=" language-dart"><code class="language-dart"><span class="token keyword">class</span> <span class="token class-name">Point</span> <span class="token punctuation">{</span>
+  num x<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 成员变量x，初始值null.</span>
+  num y <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 成员变量y，初始化为0.</span>
+  num _z <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 成员变量_z, 初始化为1，仅在库内可访问</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="实例化"><a href="#实例化" class="headerlink" title="实例化"></a>实例化</h3><pre class=" language-dart"><code class="language-dart">Point p <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Point</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// dart2.0 可以省略 new关键字</span>
+Point p1 <span class="token operator">=</span> <span class="token function">Point</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h3 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h3><p>几种类型的构造函数：</p>
+<ol>
+<li>未定义构造函数的时候，会自动生成一个无参的默认构造函数，并且会调用超类的没有参数的构造函数。</li>
+<li>普通构造函数：定义一个和类名字一样的方法就定义了一个构造函数</li>
+</ol>
+<pre class=" language-dart"><code class="language-dart"><span class="token comment" spellcheck="true">// 常规形式</span>
+<span class="token keyword">class</span> <span class="token class-name">Point</span> <span class="token punctuation">{</span>
+  num x<span class="token punctuation">;</span>
+  num y<span class="token punctuation">;</span>
+  <span class="token function">Point</span><span class="token punctuation">(</span>num x<span class="token punctuation">,</span> num y<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// 如果不存在同名冲突，this可以省略</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>x <span class="token operator">=</span> x<span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>y <span class="token operator">=</span> y<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true">// 语法糖形式</span>
+<span class="token keyword">class</span> <span class="token class-name">Point</span> <span class="token punctuation">{</span>
+  num x<span class="token punctuation">;</span>
+  num y<span class="token punctuation">;</span>
+  <span class="token function">Point</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>x<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<ol start="3">
 <li>命名构造函数</li>
 </ol>
 <blockquote>
 <p>使用命名构造函数可以为一个类实现多个构造函数， 或者使用命名构造函数来更清晰的表明你的意图。</p>
 </blockquote>
-<pre><code>class Point {
-  num x;
-  num y;
-  Point.fromJson(Map json) {
-    x = json[&#39;x&#39;];
-    y = json[&#39;y&#39;];
-  }
-}
-</code></pre><ol start="4">
+<pre class=" language-dart"><code class="language-dart"><span class="token keyword">class</span> <span class="token class-name">Point</span> <span class="token punctuation">{</span>
+  num x<span class="token punctuation">;</span>
+  num y<span class="token punctuation">;</span>
+  Point<span class="token punctuation">.</span><span class="token function">fromJson</span><span class="token punctuation">(</span>Map json<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    x <span class="token operator">=</span> json<span class="token punctuation">[</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>x<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    y <span class="token operator">=</span> json<span class="token punctuation">[</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>y<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<ol start="4">
 <li>常量构造函数</li>
 </ol>
 <blockquote>
 <p>如果你的类提供一个状态不变的对象，你可以把这些对象 定义为编译时常量。要实现这个功能，需要定义一个 const 构造函数， 并且声明所有类的变量为 final。</p>
 </blockquote>
-<pre><code>class ImmutablePoint {
-  final num x;
-  final num y;
-  const ImmutablePoint(this.x, this.y);
-  static final ImmutablePoint origin =
-      const ImmutablePoint(0, 0);
-}
-</code></pre><ol start="5">
+<pre class=" language-dart"><code class="language-dart"><span class="token keyword">class</span> <span class="token class-name">ImmutablePoint</span> <span class="token punctuation">{</span>
+  <span class="token keyword">final</span> num x<span class="token punctuation">;</span>
+  <span class="token keyword">final</span> num y<span class="token punctuation">;</span>
+  <span class="token keyword">const</span> <span class="token function">ImmutablePoint</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>x<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">static</span> <span class="token keyword">final</span> ImmutablePoint origin <span class="token operator">=</span>
+      <span class="token keyword">const</span> <span class="token function">ImmutablePoint</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<ol start="5">
 <li>工厂方法构造函数</li>
 </ol>
 <blockquote>
 <p>如果一个构造函数并不总是返回一个新的对象，则使用 factory 来定义 这个构造函数。例如，一个工厂构造函数 可能从缓存中获取一个实例并返回，或者 返回一个子类型的实例。</p>
 </blockquote>
-<pre><code>class Logger {
-  final String name;
-  bool mute = false;
+<pre class=" language-dart"><code class="language-dart"><span class="token keyword">class</span> <span class="token class-name">Logger</span> <span class="token punctuation">{</span>
+  <span class="token keyword">final</span> String name<span class="token punctuation">;</span>
+  bool mute <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
 
-  // _cache 是库内私有
-  static final Map&lt;String, Logger&gt; _cache =
-      &lt;String, Logger&gt;{};
+  <span class="token comment" spellcheck="true">// _cache 是库内私有</span>
+  <span class="token keyword">static</span> <span class="token keyword">final</span> Map<span class="token operator">&amp;</span>lt<span class="token punctuation">;</span>String<span class="token punctuation">,</span> Logger<span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> _cache <span class="token operator">=</span>
+      <span class="token operator">&amp;</span>lt<span class="token punctuation">;</span>String<span class="token punctuation">,</span> Logger<span class="token operator">&amp;</span>gt<span class="token punctuation">;</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
 
-  factory Logger(String name) {
-    if (_cache.containsKey(name)) {
-      return _cache[name];
-    } else {
-      final logger = new Logger._internal(name);
-      _cache[name] = logger;
-      return logger;
-    }
-  }
-  Logger._internal(this.name);
+  <span class="token keyword">factory</span> <span class="token function">Logger</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>_cache<span class="token punctuation">.</span><span class="token function">containsKey</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> _cache<span class="token punctuation">[</span>name<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+      <span class="token keyword">final</span> logger <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Logger<span class="token punctuation">.</span>_internal</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      _cache<span class="token punctuation">[</span>name<span class="token punctuation">]</span> <span class="token operator">=</span> logger<span class="token punctuation">;</span>
+      <span class="token keyword">return</span> logger<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  Logger<span class="token punctuation">.</span><span class="token function">_internal</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  void log(String msg) {
-    if (!mute) {
-      print(msg);
-    }
-  }
-}
-// 使用的时候和其它构造函数一样
-var logger = Logger(&#39;UI&#39;);
-logger.log(&#39;Button clicked&#39;);
-</code></pre><h3 id="重定向构造函数"><a href="#重定向构造函数" class="headerlink" title="重定向构造函数"></a>重定向构造函数</h3><blockquote>
+  <span class="token keyword">void</span> <span class="token function">log</span><span class="token punctuation">(</span>String msg<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>mute<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">print</span><span class="token punctuation">(</span>msg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true">// 使用的时候和其它构造函数一样</span>
+<span class="token keyword">var</span> logger <span class="token operator">=</span> <span class="token function">Logger</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>UI<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+logger<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>Button clicked<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h3 id="重定向构造函数"><a href="#重定向构造函数" class="headerlink" title="重定向构造函数"></a>重定向构造函数</h3><blockquote>
 <p>有时候一个构造函数会调动类中的其他构造函数。 一个重定向构造函数是没有代码的，在构造函数声明后，使用冒号调用其他构造函数。</p>
 </blockquote>
-<pre><code>class Point {
-  num x;
-  num y;
-  Point(this.x, this.y);
-  Point.alongXAxis(num x) : this(x, 0);
-}
-</code></pre><h3 id="初始化列表"><a href="#初始化列表" class="headerlink" title="初始化列表"></a>初始化列表</h3><blockquote>
+<pre class=" language-dart"><code class="language-dart"><span class="token keyword">class</span> <span class="token class-name">Point</span> <span class="token punctuation">{</span>
+  num x<span class="token punctuation">;</span>
+  num y<span class="token punctuation">;</span>
+  <span class="token function">Point</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>x<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  Point<span class="token punctuation">.</span><span class="token function">alongXAxis</span><span class="token punctuation">(</span>num x<span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token keyword">this</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="初始化列表"><a href="#初始化列表" class="headerlink" title="初始化列表"></a>初始化列表</h3><blockquote>
 <p>在构造函数体执行之前除了可以调用超类构造函数之外，还可以 初始化实例参数。 使用逗号分隔初始化表达式。</p>
 </blockquote>
-<pre><code>class Point {
-  final num x;
-  final num y;
-  final num distanceFromOrigin;
+<pre class=" language-dart"><code class="language-dart"><span class="token keyword">class</span> <span class="token class-name">Point</span> <span class="token punctuation">{</span>
+  <span class="token keyword">final</span> num x<span class="token punctuation">;</span>
+  <span class="token keyword">final</span> num y<span class="token punctuation">;</span>
+  <span class="token keyword">final</span> num distanceFromOrigin<span class="token punctuation">;</span>
 
-  Point(x, y)
-      : x = x,
-        y = y,
-        distanceFromOrigin = sqrt(x * x + y * y){
-            print(&#39;In Point.fromJson(): ($x, $y)&#39;);
-        }
-}
-</code></pre><h3 id="调用超类构造函数"><a href="#调用超类构造函数" class="headerlink" title="调用超类构造函数"></a>调用超类构造函数</h3><pre><code>class Person {
-  String firstName;
-  Person.fromJson(Map data) {
-    print(&#39;in Person&#39;);
-  }
-}
+  <span class="token function">Point</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span>
+      <span class="token punctuation">:</span> x <span class="token operator">=</span> x<span class="token punctuation">,</span>
+        y <span class="token operator">=</span> y<span class="token punctuation">,</span>
+        distanceFromOrigin <span class="token operator">=</span> <span class="token function">sqrt</span><span class="token punctuation">(</span>x <span class="token operator">*</span> x <span class="token operator">+</span> y <span class="token operator">*</span> y<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token function">print</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>In Point<span class="token punctuation">.</span><span class="token function">fromJson</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">(</span>$x<span class="token punctuation">,</span> $y<span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="调用超类构造函数"><a href="#调用超类构造函数" class="headerlink" title="调用超类构造函数"></a>调用超类构造函数</h3><pre class=" language-dart"><code class="language-dart"><span class="token keyword">class</span> <span class="token class-name">Person</span> <span class="token punctuation">{</span>
+  String firstName<span class="token punctuation">;</span>
+  Person<span class="token punctuation">.</span><span class="token function">fromJson</span><span class="token punctuation">(</span>Map data<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token keyword">in</span> Person<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-class Employee extends Person {
-  // Person类没有默认构造函数，必须手动调用super.fromJson(data);
-  Employee.fromJson(Map data) : super.fromJson(data) {
-    print(&#39;in Employee&#39;);
-  }
-}
-</code></pre><h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><pre><code>import &#39;dart:math&#39;;
+<span class="token keyword">class</span> <span class="token class-name">Employee</span> <span class="token keyword">extends</span> <span class="token class-name">Person</span> <span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">// Person类没有默认构造函数，必须手动调用super.fromJson(data);</span>
+  Employee<span class="token punctuation">.</span><span class="token function">fromJson</span><span class="token punctuation">(</span>Map data<span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">fromJson</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token keyword">in</span> Employee<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><pre class=" language-dart"><code class="language-dart"><span class="token keyword">import</span> <span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>dart<span class="token punctuation">:</span>math<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
 
-class Point {
-  num x;
-  num y;
-  Point(this.x, this.y);
+<span class="token keyword">class</span> <span class="token class-name">Point</span> <span class="token punctuation">{</span>
+  num x<span class="token punctuation">;</span>
+  num y<span class="token punctuation">;</span>
+  <span class="token function">Point</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>x<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  num distanceTo(Point other) {
-    var dx = x - other.x;
-    var dy = y - other.y;
-    return sqrt(dx * dx + dy * dy);
-  }
-}
-</code></pre><h3 id="Getters-and-Setters"><a href="#Getters-and-Setters" class="headerlink" title="Getters and Setters"></a>Getters and Setters</h3><blockquote>
+  num <span class="token function">distanceTo</span><span class="token punctuation">(</span>Point other<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> dx <span class="token operator">=</span> x <span class="token operator">-</span> other<span class="token punctuation">.</span>x<span class="token punctuation">;</span>
+    <span class="token keyword">var</span> dy <span class="token operator">=</span> y <span class="token operator">-</span> other<span class="token punctuation">.</span>y<span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token function">sqrt</span><span class="token punctuation">(</span>dx <span class="token operator">*</span> dx <span class="token operator">+</span> dy <span class="token operator">*</span> dy<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="Getters-and-Setters"><a href="#Getters-and-Setters" class="headerlink" title="Getters and Setters"></a>Getters and Setters</h3><blockquote>
 <p>Getters 和 Setters 是用来设置和访问对象属性的特殊函数。每个实例变量都隐含的具有一个 getter， 如果变量不是 final 的则还有一个 setter。 你可以通过实现 getter 和 setter 来创建新的属性， 使用 get 和 set 关键字定义 getter 和 setter。getter 和 setter 的好处是，我们在代码中一开始使用实例变量，后来，把实例变量用函数包裹起来，而使用实例变量的地方不需要修改。</p>
 </blockquote>
-<pre><code>class Rectangle {
-  num left;
-  num top;
-  num width;
-  num height;
+<pre class=" language-dart"><code class="language-dart"><span class="token keyword">class</span> <span class="token class-name">Rectangle</span> <span class="token punctuation">{</span>
+  num left<span class="token punctuation">;</span>
+  num top<span class="token punctuation">;</span>
+  num width<span class="token punctuation">;</span>
+  num height<span class="token punctuation">;</span>
 
-  Rectangle(this.left, this.top, this.width, this.height);
+  <span class="token function">Rectangle</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>left<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>top<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>width<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>height<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  num get right             =&gt; left + width;
-      set right(num value)  =&gt; left = value - width;
-  num get bottom            =&gt; top + height;
-      set bottom(num value) =&gt; top = value - height;
-}
-</code></pre><h3 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h3><blockquote>
+  num <span class="token keyword">get</span> right             <span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> left <span class="token operator">+</span> width<span class="token punctuation">;</span>
+      <span class="token keyword">set</span> <span class="token function">right</span><span class="token punctuation">(</span>num value<span class="token punctuation">)</span>  <span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> left <span class="token operator">=</span> value <span class="token operator">-</span> width<span class="token punctuation">;</span>
+  num <span class="token keyword">get</span> bottom            <span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> top <span class="token operator">+</span> height<span class="token punctuation">;</span>
+      <span class="token keyword">set</span> <span class="token function">bottom</span><span class="token punctuation">(</span>num value<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> top <span class="token operator">=</span> value <span class="token operator">-</span> height<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h3><blockquote>
 <p>使用 abstract 修饰符定义一个 抽象类—一个不能被实例化的类。 抽象类通常用来定义接口， 以及部分实现。抽象类通常具有抽象函数。</p>
 </blockquote>
-<pre><code>abstract class AbstractContainer {
-  void updateChildren(); // 抽象方法
-}
-</code></pre><h3 id="隐式接口"><a href="#隐式接口" class="headerlink" title="隐式接口"></a>隐式接口</h3><blockquote>
+<pre class=" language-dart"><code class="language-dart"><span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name">AbstractContainer</span> <span class="token punctuation">{</span>
+  <span class="token keyword">void</span> <span class="token function">updateChildren</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 抽象方法</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="隐式接口"><a href="#隐式接口" class="headerlink" title="隐式接口"></a>隐式接口</h3><blockquote>
 <p>dart已经移除了interface关键字，也就是说，在dart中不存在如java或ts中那样明确定义接口的语法，取而代之的是每个类都隐式的定义了一个包含所有实例成员的接口， 并且这个类自己实现了这些接口，当然，由于dart同时也不支持成员函数的<code>overload</code>，所以，实现接口的时候，函数签名必须与接口定义的一致</p>
 </blockquote>
-<pre><code>// A person. The implicit interface contains greet().
-class Person {
-  // In the interface, but visible only in this library.
-  final _name;
+<pre class=" language-dart"><code class="language-dart"><span class="token comment" spellcheck="true">// A person. The implicit interface contains greet().</span>
+<span class="token keyword">class</span> <span class="token class-name">Person</span> <span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">// In the interface, but visible only in this library.</span>
+  <span class="token keyword">final</span> _name<span class="token punctuation">;</span>
 
-  // Not in the interface, since this is a constructor.
-  Person(this._name);
+  <span class="token comment" spellcheck="true">// Not in the interface, since this is a constructor.</span>
+  <span class="token function">Person</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>_name<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  // In the interface.
-  String greet(String who) =&gt; &#39;Hello, $who. I am $_name.&#39;;
-}
+  <span class="token comment" spellcheck="true">// In the interface.</span>
+  String <span class="token function">greet</span><span class="token punctuation">(</span>String who<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> <span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>Hello<span class="token punctuation">,</span> $who<span class="token punctuation">.</span> I am $_name<span class="token punctuation">.</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-// Impostor必须实现Person的所有成员函数及变量.
-class Impostor implements Person {
-  // 尽管不会用到_name，也必须定义该成员变量
-  get _name =&gt; &#39;&#39;;
+<span class="token comment" spellcheck="true">// Impostor必须实现Person的所有成员函数及变量.</span>
+<span class="token keyword">class</span> <span class="token class-name">Impostor</span> <span class="token keyword">implements</span> <span class="token class-name">Person</span> <span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">// 尽管不会用到_name，也必须定义该成员变量</span>
+  <span class="token keyword">get</span> _name <span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> <span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
 
-  String greet(String who) =&gt; &#39;Hi $who. Do you know who I am?&#39;;
-}
-</code></pre><p>实现多个接口：</p>
-<pre><code>class Point implements Comparable, Location {...}
-</code></pre><h3 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h3><blockquote>
+  String <span class="token function">greet</span><span class="token punctuation">(</span>String who<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> <span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>Hi $who<span class="token punctuation">.</span> Do you know who I am<span class="token operator">?</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+</code></pre>
+<p>实现多个接口：</p>
+<pre class=" language-dart"><code class="language-dart"><span class="token keyword">class</span> <span class="token class-name">Point</span> <span class="token keyword">implements</span> <span class="token class-name">Comparable</span><span class="token punctuation">,</span> Location <span class="token punctuation">{</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">}</span>
+</code></pre>
+<h3 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h3><blockquote>
 <p>继承就跟es6差不多了，使用<code>extends</code>关键字来定义子类，并可以在子类中通过<code>super</code>关键字来引用超类(所有祖宗类)</p>
 </blockquote>
-<pre><code>class Television {
-  void turnOn() {
-    _illuminateDisplay();
-    _activateIrSensor();
-  }
-  // ···
-}
+<pre class=" language-dart"><code class="language-dart"><span class="token keyword">class</span> <span class="token class-name">Television</span> <span class="token punctuation">{</span>
+  <span class="token keyword">void</span> <span class="token function">turnOn</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">_illuminateDisplay</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">_activateIrSensor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token comment" spellcheck="true">// ···</span>
+<span class="token punctuation">}</span>
 
-class SmartTelevision extends Television {
-  void turnOn() {
-    super.turnOn();
-    _bootNetworkInterface();
-    _initializeMemory();
-    _upgradeApps();
-  }
-  // ···
-}
-</code></pre><h3 id="重写方法"><a href="#重写方法" class="headerlink" title="重写方法"></a>重写方法</h3><blockquote>
+<span class="token keyword">class</span> <span class="token class-name">SmartTelevision</span> <span class="token keyword">extends</span> <span class="token class-name">Television</span> <span class="token punctuation">{</span>
+  <span class="token keyword">void</span> <span class="token function">turnOn</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">turnOn</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">_bootNetworkInterface</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">_initializeMemory</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">_upgradeApps</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token comment" spellcheck="true">// ···</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="重写方法"><a href="#重写方法" class="headerlink" title="重写方法"></a>重写方法</h3><blockquote>
 <p>可以使用 @override 注解来表明你的函数是想重写超类的一个函数</p>
 </blockquote>
-<pre><code>class SmartTelevision extends Television {
-  @override
-  void turnOn() {...}
-  // ···
-}
-</code></pre><h3 id="重写操作符"><a href="#重写操作符" class="headerlink" title="重写操作符"></a>重写操作符</h3><blockquote>
+<pre class=" language-dart"><code class="language-dart"><span class="token keyword">class</span> <span class="token class-name">SmartTelevision</span> <span class="token keyword">extends</span> <span class="token class-name">Television</span> <span class="token punctuation">{</span>
+  <span class="token metadata symbol">@override</span>
+  <span class="token keyword">void</span> <span class="token function">turnOn</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">}</span>
+  <span class="token comment" spellcheck="true">// ···</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="重写操作符"><a href="#重写操作符" class="headerlink" title="重写操作符"></a>重写操作符</h3><blockquote>
 <p><a href="https://www.dartlang.org/guides/language/language-tour#overridable-operators" target="_blank" rel="noopener">这些操作符</a>可以被覆写。 例如，如果你定义了一个 Vector 类， 你可以定义一个 + 函数来实现两个向量相加。</p>
 </blockquote>
-<pre><code>class Vector {
-  final int x;
-  final int y;
-  const Vector(this.x, this.y);
+<pre class=" language-dart"><code class="language-dart"><span class="token keyword">class</span> <span class="token class-name">Vector</span> <span class="token punctuation">{</span>
+  <span class="token keyword">final</span> int x<span class="token punctuation">;</span>
+  <span class="token keyword">final</span> int y<span class="token punctuation">;</span>
+  <span class="token keyword">const</span> <span class="token function">Vector</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>x<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  /// 覆写 + (a + b).
-  Vector operator +(Vector v) {
-    return new Vector(x + v.x, y + v.y);
-  }
+  <span class="token comment" spellcheck="true">/// 覆写 + (a + b).</span>
+  Vector <span class="token keyword">operator</span> <span class="token operator">+</span><span class="token punctuation">(</span>Vector v<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Vector</span><span class="token punctuation">(</span>x <span class="token operator">+</span> v<span class="token punctuation">.</span>x<span class="token punctuation">,</span> y <span class="token operator">+</span> v<span class="token punctuation">.</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
 
-  /// 覆写 - (a - b).
-  Vector operator -(Vector v) {
-    return new Vector(x - v.x, y - v.y);
-  }
-}
-</code></pre><h3 id="类的Mixins"><a href="#类的Mixins" class="headerlink" title="类的Mixins"></a>类的Mixins</h3><blockquote>
+  <span class="token comment" spellcheck="true">/// 覆写 - (a - b).</span>
+  Vector <span class="token keyword">operator</span> <span class="token operator">-</span><span class="token punctuation">(</span>Vector v<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Vector</span><span class="token punctuation">(</span>x <span class="token operator">-</span> v<span class="token punctuation">.</span>x<span class="token punctuation">,</span> y <span class="token operator">-</span> v<span class="token punctuation">.</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="类的Mixins"><a href="#类的Mixins" class="headerlink" title="类的Mixins"></a>类的Mixins</h3><blockquote>
 <p>“我们需要一种在多个类层次结构中重用类的代码的方法”，大白话就是当我们想要在不共享相同类层次结构的多个类之间共享行为时，或者在超类中实现此类行为没有意义时，Mixins非常有用。</p>
 </blockquote>
-<p>先看定义mixin的方式： 1. 通过类隐式定义(不能有构造函数)</p>
-<pre><code>class Walker {
-  void walk() {
-    print(&quot;I&#39;m walking&quot;);
-  }
-}
-</code></pre><ol start="2">
-<li><p>通过抽象类定义</p>
-<p>abstract class Walker {<br>  // This class is intended to be used as a mixin, and should not be extended directly.<br>  factory Walker._() =&gt; null;<br>  void walk() {</p>
-<pre><code>print(&quot;I&#39;m walking&quot;);
-</code></pre><p>  }<br>}</p>
-</li>
+<p>先看定义mixin的方式：</p>
+<ol>
+<li>通过类隐式定义(不能有构造函数)</li>
 </ol>
+<pre class=" language-dart"><code class="language-dart"><span class="token keyword">class</span> <span class="token class-name">Walker</span> <span class="token punctuation">{</span>
+  <span class="token keyword">void</span> <span class="token function">walk</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span>I<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>m walking<span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<ol start="2">
+<li>通过抽象类定义</li>
+</ol>
+<pre class=" language-dart"><code class="language-dart"><span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name">Walker</span> <span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">// This class is intended to be used as a mixin, and should not be extended directly.</span>
+  <span class="token keyword">factory</span> Walker<span class="token punctuation">.</span><span class="token function">_</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+  <span class="token keyword">void</span> <span class="token function">walk</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span>I<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>m walking<span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
 <ol start="3">
-<li><p>通过<code>mixin</code>关键字定义</p>
-<p>mixin Musical {<br>  bool canPlayPiano = false;<br>  bool canCompose = false;<br>  bool canConduct = false;</p>
-<p>  void entertainMe() {</p>
-<pre><code>if (canPlayPiano) {
-  print(&#39;Playing piano&#39;);
-} else if (canConduct) {
-  print(&#39;Waving hands&#39;);
-} else {
-  print(&#39;Humming to self&#39;);
-}
-</code></pre><p>  }<br>}</p>
-</li>
+<li>通过<code>mixin</code>关键字定义</li>
 </ol>
+<pre class=" language-dart"><code class="language-dart">mixin Musical <span class="token punctuation">{</span>
+  bool canPlayPiano <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+  bool canCompose <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+  bool canConduct <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">void</span> <span class="token function">entertainMe</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>canPlayPiano<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">print</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>Playing piano<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>canConduct<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">print</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>Waving hands<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+      <span class="token function">print</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>Humming to self<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
 <p>使用的时候，通过<code>with</code>关键字，后面跟一个或多个mixin</p>
-<pre><code>class Cat extends Mammal with Walker {}
-class Dove extends Bird with Walker, Flyer {}
-</code></pre><h3 id="静态成员"><a href="#静态成员" class="headerlink" title="静态成员"></a>静态成员</h3><blockquote>
+<pre class=" language-dart"><code class="language-dart"><span class="token keyword">class</span> <span class="token class-name">Cat</span> <span class="token keyword">extends</span> <span class="token class-name">Mammal</span> <span class="token keyword">with</span> Walker <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token keyword">class</span> <span class="token class-name">Dove</span> <span class="token keyword">extends</span> <span class="token class-name">Bird</span> <span class="token keyword">with</span> Walker<span class="token punctuation">,</span> Flyer <span class="token punctuation">{</span><span class="token punctuation">}</span>
+</code></pre>
+<h3 id="静态成员"><a href="#静态成员" class="headerlink" title="静态成员"></a>静态成员</h3><blockquote>
 <p>使用<code>static</code>关键字来实现类级别的变量和函数。</p>
 </blockquote>
-<pre><code>class Queue {
-  static const initialCapacity = 16;
-  // ···
-}
+<pre class=" language-dart"><code class="language-dart"><span class="token keyword">class</span> <span class="token class-name">Queue</span> <span class="token punctuation">{</span>
+  <span class="token keyword">static</span> <span class="token keyword">const</span> initialCapacity <span class="token operator">=</span> <span class="token number">16</span><span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">// ···</span>
+<span class="token punctuation">}</span>
 
-class Point {
-  num x;
-  num y;
-  Point(this.x, this.y);
-  // 由于静态方法不是通过实例访问，所以其内部无法使用this
-  static num distanceBetween(Point a, Point b) {
-    var dx = a.x - b.x;
-    var dy = a.y - b.y;
-    return sqrt(dx * dx + dy * dy);
-  }
-}
+<span class="token keyword">class</span> <span class="token class-name">Point</span> <span class="token punctuation">{</span>
+  num x<span class="token punctuation">;</span>
+  num y<span class="token punctuation">;</span>
+  <span class="token function">Point</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>x<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">// 由于静态方法不是通过实例访问，所以其内部无法使用this</span>
+  <span class="token keyword">static</span> num <span class="token function">distanceBetween</span><span class="token punctuation">(</span>Point a<span class="token punctuation">,</span> Point b<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> dx <span class="token operator">=</span> a<span class="token punctuation">.</span>x <span class="token operator">-</span> b<span class="token punctuation">.</span>x<span class="token punctuation">;</span>
+    <span class="token keyword">var</span> dy <span class="token operator">=</span> a<span class="token punctuation">.</span>y <span class="token operator">-</span> b<span class="token punctuation">.</span>y<span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token function">sqrt</span><span class="token punctuation">(</span>dx <span class="token operator">*</span> dx <span class="token operator">+</span> dy <span class="token operator">*</span> dy<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
+
         
         <br>
         <div id="comment-container">

@@ -10,141 +10,142 @@ categories:
 date: 2018-10-31 21:57:03
 ---
 
-    const PENDING = 'pending';
-    const RESOLVED = 'resolved';
-    const REJECTED = 'rejected';
-    
-    const stateSymbol = Symbol('state');
-    const valueSymbol = Symbol('value');
-    const innerPropsSymbol = Symbol('innerProps');
-    
-    const isFunction = val => typeof val === 'function';
-    const isObject = val => val && typeof val === 'object';
-    const isThenable = val => (isFunction(val) || isObject(val)) && 'then' in val;
-    const nextTick = fn => setTimeout(fn);
-    
-    function handleTasks(ctx) {
-      const {
-        [innerPropsSymbol]: { tasks },
-        [stateSymbol]: state,
-        [valueSymbol]: value,
-      } = ctx;
-      nextTick(() => {
-        if (state === REJECTED) {
-          if (ctx[innerPropsSymbol].haveUnhandleReject && tasks.length === 0) {
-            console.error('未处理reject');
-          } else {
-            ctx[innerPropsSymbol].haveUnhandleReject = false;
-          }
-        }
-        while (tasks.length) {
-          handleTask(tasks.shift(), state, value);
-        }
-      });
-    }
-    
-    function handleTask(task, state, value) {
-      const { onFulfilled, onRejected, resolve, reject } = task;
-      try {
-        if (state === RESOLVED) {
-          isFunction(onFulfilled) ? resolve(onFulfilled(value)) : resolve(value);
-        } else if (state === REJECTED) {
-          isFunction(onRejected) ? resolve(onRejected(value)) : reject(value);
-        }
-      } catch (err) {
-        reject(err);
+```javascript
+const PENDING = &#039;pending&#039;;
+const RESOLVED = &#039;resolved&#039;;
+const REJECTED = &#039;rejected&#039;;
+
+const stateSymbol = Symbol(&#039;state&#039;);
+const valueSymbol = Symbol(&#039;value&#039;);
+const innerPropsSymbol = Symbol(&#039;innerProps&#039;);
+
+const isFunction = val =&gt; typeof val === &#039;function&#039;;
+const isObject = val =&gt; val &amp;&amp; typeof val === &#039;object&#039;;
+const isThenable = val =&gt; (isFunction(val) || isObject(val)) &amp;&amp; &#039;then&#039; in val;
+const nextTick = fn =&gt; setTimeout(fn);
+
+function handleTasks(ctx) {
+  const {
+    [innerPropsSymbol]: { tasks },
+    [stateSymbol]: state,
+    [valueSymbol]: value,
+  } = ctx;
+  nextTick(() =&gt; {
+    if (state === REJECTED) {
+      if (ctx[innerPropsSymbol].haveUnhandleReject &amp;&amp; tasks.length === 0) {
+        console.error(&#039;未处理reject&#039;);
+      } else {
+        ctx[innerPropsSymbol].haveUnhandleReject = false;
       }
     }
-    
-    function MyPromise(fn) {
-      if (!this instanceof MyPromise) throw new Error('只能用于构造函数');
-      if (!isFunction(fn)) throw new TypeError('MyPromise的参数只能是函数');
-    
-      this[stateSymbol] = PENDING;
-      this[innerPropsSymbol] = {
-        tasks: [],
-        haveUnhandleReject: true,
-      };
-      this[valueSymbol] = undefined;
-    
-      const transValue = (state, value) => {
-        if (this[stateSymbol] !== PENDING) return;
-        this[valueSymbol] = value;
-        this[stateSymbol] = state;
-        handleTasks(this);
-      };
-    
-      const onFulfilled = value => transValue(RESOLVED, value);
-      const onRejected = reason => transValue(REJECTED, reason);
-      // 由于resolve的过程可能存在异步改变状态的情况
-      // 所以，需要确保resolve或reject只能有一个被调用，且只调用一次
-      let ignor = false;
-      const resolve = value => {
-        if (ignor) return;
-        ignor = true;
-        if (value === this) {
-          onRejected(new TypeError('promise循环调用错误'));
-        } else if (value instanceof MyPromise) {
-          value.then(onFulfilled, onRejected);
-        } else if (isThenable(value)) {
-          try {
-            const then = value.then;
-            if (isFunction(then)) {
-              new MyPromise(then.bind(value)).then(onFulfilled, onRejected);
-            } else {
-              onFulfilled(value);
-            }
-          } catch (err) {
-            onRejected(err);
-          }
+    while (tasks.length) {
+      handleTask(tasks.shift(), state, value);
+    }
+  });
+}
+
+function handleTask(task, state, value) {
+  const { onFulfilled, onRejected, resolve, reject } = task;
+  try {
+    if (state === RESOLVED) {
+      isFunction(onFulfilled) ? resolve(onFulfilled(value)) : resolve(value);
+    } else if (state === REJECTED) {
+      isFunction(onRejected) ? resolve(onRejected(value)) : reject(value);
+    }
+  } catch (err) {
+    reject(err);
+  }
+}
+
+function MyPromise(fn) {
+  if (!this instanceof MyPromise) throw new Error(&#039;只能用于构造函数&#039;);
+  if (!isFunction(fn)) throw new TypeError(&#039;MyPromise的参数只能是函数&#039;);
+
+  this[stateSymbol] = PENDING;
+  this[innerPropsSymbol] = {
+    tasks: [],
+    haveUnhandleReject: true,
+  };
+  this[valueSymbol] = undefined;
+
+  const transValue = (state, value) =&gt; {
+    if (this[stateSymbol] !== PENDING) return;
+    this[valueSymbol] = value;
+    this[stateSymbol] = state;
+    handleTasks(this);
+  };
+
+  const onFulfilled = value =&gt; transValue(RESOLVED, value);
+  const onRejected = reason =&gt; transValue(REJECTED, reason);
+  // 由于resolve的过程可能存在异步改变状态的情况
+  // 所以，需要确保resolve或reject只能有一个被调用，且只调用一次
+  let ignor = false;
+  const resolve = value =&gt; {
+    if (ignor) return;
+    ignor = true;
+    if (value === this) {
+      onRejected(new TypeError(&#039;promise循环调用错误&#039;));
+    } else if (value instanceof MyPromise) {
+      value.then(onFulfilled, onRejected);
+    } else if (isThenable(value)) {
+      try {
+        const then = value.then;
+        if (isFunction(then)) {
+          new MyPromise(then.bind(value)).then(onFulfilled, onRejected);
         } else {
           onFulfilled(value);
         }
-      };
-    
-      const reject = reason => {
-        if (ignor) return;
-        ignor = true;
-        onRejected(reason);
-      };
-    
-      try {
-        fn(resolve, reject);
       } catch (err) {
-        reject(err);
+        onRejected(err);
       }
+    } else {
+      onFulfilled(value);
     }
-    
-    MyPromise.prototype.then = function(onFulfilled, onRejected) {
-      return new MyPromise((resolve, reject) => {
-        this[innerPropsSymbol].tasks.push({
-          onFulfilled,
-          onRejected,
-          resolve,
-          reject,
-        });
-        // new Promise(resolve=>resolve()).then(fn1,fn2) 过程中
-        // 状态改变在前，push task在后，所以，这里也触发一次任务队列处理
-        // 或者为已经不在pending状态的promise添加then，也需要触发任务处理
-        if (this[stateSymbol] !== PENDING) {
-          handleTasks(this);
-        }
-      });
-    };
-    
-    // 两个重要的工具函数
-    
-    MyPromise.resolve = function(value) {
-        // fix on 2019.02.12
-        // Promise.resolve的参数为Promise时，直接返其本身
-      if(value instanceof MyPromise)return value;
-      return new MyPromise(resolve => resolve(value));
-    };
-    
-    MyPromise.reject = function(reason) {
-      return new MyPromise((_, reject) => reject(reason));
-    };
-    
-    
+  };
+
+  const reject = reason =&gt; {
+    if (ignor) return;
+    ignor = true;
+    onRejected(reason);
+  };
+
+  try {
+    fn(resolve, reject);
+  } catch (err) {
+    reject(err);
+  }
+}
+
+MyPromise.prototype.then = function(onFulfilled, onRejected) {
+  return new MyPromise((resolve, reject) =&gt; {
+    this[innerPropsSymbol].tasks.push({
+      onFulfilled,
+      onRejected,
+      resolve,
+      reject,
+    });
+	// new Promise(resolve=&gt;resolve()).then(fn1,fn2) 过程中
+	// 状态改变在前，push task在后，所以，这里也触发一次任务队列处理
+	// 或者为已经不在pending状态的promise添加then，也需要触发任务处理
+    if (this[stateSymbol] !== PENDING) {
+      handleTasks(this);
+    }
+  });
+};
+
+// 两个重要的工具函数
+
+MyPromise.resolve = function(value) {
+	// fix on 2019.02.12
+	// Promise.resolve的参数为Promise时，直接返其本身
+  if(value instanceof MyPromise)return value;
+  return new MyPromise(resolve =&gt; resolve(value));
+};
+
+MyPromise.reject = function(reason) {
+  return new MyPromise((_, reject) =&gt; reject(reason));
+};
+
+```
 
 标准文档中文翻译：[Promise A+](https://malcolmyu.github.io/2015/06/12/Promises-A-Plus/)

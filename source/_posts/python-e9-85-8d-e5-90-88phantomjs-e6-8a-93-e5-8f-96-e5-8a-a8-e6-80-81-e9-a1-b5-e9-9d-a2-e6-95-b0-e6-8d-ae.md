@@ -10,38 +10,39 @@ categories:
 date: 2015-09-08 01:32:04
 ---
 
-首先事先准备js页面，方便phantomjs调用。路径为 d:\\stdout.js 需要网页地址作为第一个参数
-
-    var page = require('webpage').create(),
-        args = require('system').args;
-    if(args.length == 1){
+首先事先准备js页面，方便phantomjs调用。路径为 d:\stdout.js 需要网页地址作为第一个参数
+```javascript
+var page = require(&#039;webpage&#039;).create(),
+    args = require(&#039;system&#039;).args;
+if(args.length == 1){
+    console.log(false)
+    phantom.exit()
+}
+var url = args[1];
+page.settings = {
+  javascriptEnabled: true,
+  loadImages: false, //禁止加载图片，提供速度
+  userAgent: &#039;Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.31 (KHTML, like Gecko) PhantomJS/19.0&#039;
+};
+page.open(url, function (status) {
+    if(status != &quot;success&quot;){
         console.log(false)
-        phantom.exit()
+    }else{
+        var result = page.evaluate(function(){
+            return document.documentElement.innerHTML;
+        });
+        console.log(result);//标准输出，方便python获取
     }
-    var url = args[1];
-    page.settings = {
-      javascriptEnabled: true,
-      loadImages: false, //禁止加载图片，提供速度
-      userAgent: 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.31 (KHTML, like Gecko) PhantomJS/19.0'
-    };
-    page.open(url, function (status) {
-        if(status != "success"){
-            console.log(false)
-        }else{
-            var result = page.evaluate(function(){
-                return document.documentElement.innerHTML;
-            });
-            console.log(result);//标准输出，方便python获取
-        }
-        phantom.exit();
-    });
-    
-
+    phantom.exit();
+});
+```
 python中则可利用截获命令行的标准输出获取到phantomjs的输出数据
+```python
+import subprocess
+ 
+url = r&quot;http://www.baidu.com&quot;
+cmd = &quot;phantomjs d:\stdout.js %s&quot; % url
+stdout,stderr = subprocess.Popen(cmd,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE).communicate()
+print(stdout)
 
-    import subprocess
-    
-    url = r"http://www.baidu.com"
-    cmd = "phantomjs d:\stdout.js %s" % url
-    stdout,stderr = subprocess.Popen(cmd,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE).communicate()
-    print(stdout)
+```

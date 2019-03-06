@@ -138,19 +138,18 @@
     </div>
     <div class="post-content ">
         <ul>
-<li><p>用如下表达式表示包含数字的情况</p>
-<p>/\D*\d/</p>
-</li>
-</ul>
-<ul>
-<li><p>至少包含三个数字的表示</p>
-<p>/(?:\D*\d){3}/</p>
-</li>
-</ul>
-<h6 id="测试："><a href="#测试：" class="headerlink" title="测试："></a>测试：</h6><pre><code>/(?:\D*\d){3}/.test(&#39;aaawqdw&#39;)   //false
-/(?:\D*\d){3}/.test(&#39;aaa12wqdw&#39;)   //false
-/(?:\D*\d){3}/.test(&#39;a1aaw2qd3w&#39;)   //true
+<li>用如下表达式表示包含数字的情况<pre class=" language-javascript"><code class="language-javascript"><span class="token regex">/\D*\d/</span>
 </code></pre>
+</li>
+<li>至少包含三个数字的表示<pre class=" language-javascript"><code class="language-javascript"><span class="token regex">/(?:\D*\d){3}/</span>
+</code></pre>
+</li>
+</ul>
+<h6 id="测试："><a href="#测试：" class="headerlink" title="测试："></a>测试：</h6><pre class=" language-javascript"><code class="language-javascript"><span class="token regex">/(?:\D*\d){3}/</span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>aaawqdw<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span>   <span class="token comment" spellcheck="true">//false</span>
+<span class="token regex">/(?:\D*\d){3}/</span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>aaa12wqdw<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span>   <span class="token comment" spellcheck="true">//false</span>
+<span class="token regex">/(?:\D*\d){3}/</span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>a1aaw2qd3w<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span>   <span class="token comment" spellcheck="true">//true</span>
+</code></pre>
+
         
         <br>
         <div id="comment-container">

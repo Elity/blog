@@ -140,37 +140,38 @@
 
     </div>
     <div class="post-content ">
-        <p>DFS与BFS实现，考虑到递归有爆栈的可能，所以，采用循环来做，实现思路都是通过维护一个stack，只是入栈的规则不一样。 以遍历DOM节点为例：</p>
-<pre><code>function dfs(node) {
-    const stack = [node];
-    const nodes = [];
-    let tmp;
-    while (tmp = stack.pop()) {
-        nodes.push(tmp)
-        let childs = tmp.children, len = childs.length, i = len - 1;
-        for (; i &gt; -1; i--) {
-            stack.push(childs[i])
-        }
-    }
-    return nodes
-}
+        <p>DFS与BFS实现，考虑到递归有爆栈的可能，所以，采用循环来做，实现思路都是通过维护一个stack，只是入栈的规则不一样。<br>以遍历DOM节点为例：</p>
+<pre class=" language-javascript"><code class="language-javascript">
+<span class="token keyword">function</span> <span class="token function">dfs</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> stack <span class="token operator">=</span> <span class="token punctuation">[</span>node<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> nodes <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> tmp<span class="token punctuation">;</span>
+    <span class="token keyword">while</span> <span class="token punctuation">(</span>tmp <span class="token operator">=</span> stack<span class="token punctuation">.</span><span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        nodes<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>tmp<span class="token punctuation">)</span>
+        <span class="token keyword">let</span> childs <span class="token operator">=</span> tmp<span class="token punctuation">.</span>children<span class="token punctuation">,</span> len <span class="token operator">=</span> childs<span class="token punctuation">.</span>length<span class="token punctuation">,</span> i <span class="token operator">=</span> len <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span> i <span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            stack<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>childs<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> nodes
+<span class="token punctuation">}</span>
 
-
-
-function bfs(node) {
-    const stack = [node];
-    const nodes = [];
-    let tmp;
-    while (tmp = stack.pop()) {
-        nodes.push(tmp)
-        let childs = tmp.children, len = childs.length, i = 0;
-        for (; i &lt; len; i++) {
-            stack.unshift(childs[i])
-        }
-    }
-    return nodes
-}
 </code></pre>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">bfs</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> stack <span class="token operator">=</span> <span class="token punctuation">[</span>node<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> nodes <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> tmp<span class="token punctuation">;</span>
+    <span class="token keyword">while</span> <span class="token punctuation">(</span>tmp <span class="token operator">=</span> stack<span class="token punctuation">.</span><span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        nodes<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>tmp<span class="token punctuation">)</span>
+        <span class="token keyword">let</span> childs <span class="token operator">=</span> tmp<span class="token punctuation">.</span>children<span class="token punctuation">,</span> len <span class="token operator">=</span> childs<span class="token punctuation">.</span>length<span class="token punctuation">,</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span> i <span class="token operator">&amp;</span>lt<span class="token punctuation">;</span> len<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            stack<span class="token punctuation">.</span><span class="token function">unshift</span><span class="token punctuation">(</span>childs<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> nodes
+<span class="token punctuation">}</span>
+</code></pre>
+
         
         <br>
         <div id="comment-container">

@@ -138,40 +138,43 @@
     </div>
     <div class="post-content ">
         <p>我原来以为PHP中的and和&amp;&amp;是一样的, 只是写法上为了可读性和美观, 事实上我错了. 这里面深藏了一个坑!</p>
-<pre><code>$bA = true;
-$bB = false;
-$b1 = $bA and $bB;
-$b2 = $bA &amp;&amp; $bB;
-var_dump($b1); // $b1 = true
-var_dump($b2); // $b2 = false
+<pre class=" language-php"><code class="language-php"><span class="token variable">$bA</span> <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+<span class="token variable">$bB</span> <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+<span class="token variable">$b1</span> <span class="token operator">=</span> <span class="token variable">$bA</span> <span class="token keyword">and</span> <span class="token variable">$bB</span><span class="token punctuation">;</span>
+<span class="token variable">$b2</span> <span class="token operator">=</span> <span class="token variable">$bA</span> <span class="token operator">&amp;</span>amp<span class="token punctuation">;</span><span class="token operator">&amp;</span>amp<span class="token punctuation">;</span> <span class="token variable">$bB</span><span class="token punctuation">;</span>
+<span class="token function">var_dump</span><span class="token punctuation">(</span><span class="token variable">$b1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// $b1 = true</span>
+<span class="token function">var_dump</span><span class="token punctuation">(</span><span class="token variable">$b2</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// $b2 = false</span>
 
-$bA = false;
-$bB = true;
-$b3 = $bA or $bB;
-$b4 = $bA || $bB;
-var_dump($b3); // $b3 = false
-var_dump($b4); // $b4 = true
-</code></pre><p>奇怪吧,and/&amp;&amp;和or/||出来的结果竟然不一样的. 问题出在哪里呢?我们再看一段代码:</p>
-<pre><code>$bA = true;
-$bB = false;
-var_dump($bA and $bB); // false
-var_dump($bA &amp;&amp; $bB); // false
+<span class="token variable">$bA</span> <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+<span class="token variable">$bB</span> <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+<span class="token variable">$b3</span> <span class="token operator">=</span> <span class="token variable">$bA</span> <span class="token keyword">or</span> <span class="token variable">$bB</span><span class="token punctuation">;</span>
+<span class="token variable">$b4</span> <span class="token operator">=</span> <span class="token variable">$bA</span> <span class="token operator">||</span> <span class="token variable">$bB</span><span class="token punctuation">;</span>
+<span class="token function">var_dump</span><span class="token punctuation">(</span><span class="token variable">$b3</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// $b3 = false</span>
+<span class="token function">var_dump</span><span class="token punctuation">(</span><span class="token variable">$b4</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// $b4 = true</span>
+</code></pre>
+<p>奇怪吧,and/&amp;&amp;和or/||出来的结果竟然不一样的. 问题出在哪里呢?我们再看一段代码:</p>
+<pre class=" language-php"><code class="language-php"><span class="token variable">$bA</span> <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+<span class="token variable">$bB</span> <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+<span class="token function">var_dump</span><span class="token punctuation">(</span><span class="token variable">$bA</span> <span class="token keyword">and</span> <span class="token variable">$bB</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// false</span>
+<span class="token function">var_dump</span><span class="token punctuation">(</span><span class="token variable">$bA</span> <span class="token operator">&amp;</span>amp<span class="token punctuation">;</span><span class="token operator">&amp;</span>amp<span class="token punctuation">;</span> <span class="token variable">$bB</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// false</span>
 
-$bA = false;
-$bB = true;
-var_dump($bA or $bB); // true
-var_dump($bA || $bB); // true
-</code></pre><p>更奇怪, 这时怎么是对的. 所以问题可能出现在<code>=</code>上, 一番google和文档,终于找到了答案! <a href="http://cn2.php.net/manual/en/language.operators.precedence.php" target="_blank" rel="noopener">运算符优先级</a>通过这个表, 我们可以看到and/&amp;&amp;和or/||这两组运算符的优先级竟然是不一样的.and和or的优先级是低于<code>=</code>的, 所以上面的代码就好理解了, 就是先做赋值然后再做了一个and或or的逻辑运算, 这个运算的结果并没有存下来. 所以最后出来让我们匪夷所思的结果.</p>
+<span class="token variable">$bA</span> <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+<span class="token variable">$bB</span> <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+<span class="token function">var_dump</span><span class="token punctuation">(</span><span class="token variable">$bA</span> <span class="token keyword">or</span> <span class="token variable">$bB</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// true</span>
+<span class="token function">var_dump</span><span class="token punctuation">(</span><span class="token variable">$bA</span> <span class="token operator">||</span> <span class="token variable">$bB</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// true</span>
+</code></pre>
+<p>更奇怪, 这时怎么是对的. 所以问题可能出现在<code>=</code>上, 一番google和文档,终于找到了答案! <a href="http://cn2.php.net/manual/en/language.operators.precedence.php" target="_blank" rel="noopener">运算符优先级</a>通过这个表, 我们可以看到and/&amp;&amp;和or/||这两组运算符的优先级竟然是不一样的.and和or的优先级是低于<code>=</code>的, 所以上面的代码就好理解了, 就是先做赋值然后再做了一个and或or的逻辑运算, 这个运算的结果并没有存下来. 所以最后出来让我们匪夷所思的结果.</p>
 <blockquote>
 <p>The following table lists the operators in order of precedence, with the highest-precedence ones at the top. Operators on the same line have equal precedence, in which case associativity decides grouping.</p>
 </blockquote>
-<p>总结:慎重使用and,or和xor的逻辑运算符, 避免和赋值号以及&amp;&amp;和||一起用, 以免发生不必要的逻辑错误. 其实我更喜欢javascript那样的逻辑运算符:</p>
-<pre><code>var  a=&quot;a&quot;,b=&quot;b&quot;;
-console.log( a&amp;&amp;b );//  &quot;b&quot;
+<p>总结:慎重使用and,or和xor的逻辑运算符, 避免和赋值号以及&amp;&amp;和||一起用, 以免发生不必要的逻辑错误.<br>其实我更喜欢javascript那样的逻辑运算符:</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">var</span>  a<span class="token operator">=</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span>a<span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token punctuation">,</span>b<span class="token operator">=</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span>b<span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span> a<span class="token operator">&amp;</span>amp<span class="token punctuation">;</span><span class="token operator">&amp;</span>amp<span class="token punctuation">;</span>b <span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//  &amp;quot;b&amp;quot;</span>
 
-var  a=&quot;a&quot;,b=&quot;b&quot;;
-console.log( a||b );//  &quot;a&quot;
+<span class="token keyword">var</span>  a<span class="token operator">=</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span>a<span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token punctuation">,</span>b<span class="token operator">=</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span>b<span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span> a<span class="token operator">||</span>b <span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//  &amp;quot;a&amp;quot;</span>
 </code></pre>
+
         
         <br>
         <div id="comment-container">

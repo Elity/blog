@@ -140,22 +140,26 @@
 
     </div>
     <div class="post-content ">
-        <p>多年前看腾讯前端的一篇技术文章讲反柯里化的，原来只是觉得很神奇，完全看不懂。今天尝试着自己去实现一下uncurry这个函数，反而一下就想明白了。 所谓反柯里化对应于柯里化的概念，就是说，把原来已经固定的参数或者this上下文等当作参数延迟到未来传递。比如我们经常有这样的需求（把ArrayLike转为Array）:</p>
-<pre><code>var arr = Array.prototype.slice.call(document.querySelectorAll(&#39;script&#39;))
-</code></pre><p>如果需要每次都写这么一长串<code>Array.prototype.slice.call</code>必然不是做技术的该有的态度。 我们可能期望的是有slice这么个函数，然后直接这样使用：</p>
-<pre><code>var slice = Array.prototype.slice.uncurry();
-var arr = slice(document.querySelectorAll(&#39;script&#39;))
-</code></pre><p>uncurry实现如下：</p>
-<pre><code>Function.prototype.uncrrying = function(){
-    let self = this;
-    return function(...arg){
-        return Function.prototype.call.apply(self,arg)  
-        //return self.apply(arg.splice(0,1)[0],arg)   //这样亦可
-    }
-}
-</code></pre><p>其实如果在支持<code>Function.prototype.bind</code>的环境还有更快得到slice的方式：</p>
-<pre><code>var slice = Function.prototype.call.bind(Array.prototype.slice);
+        <p>  多年前看腾讯前端的一篇技术文章讲反柯里化的，原来只是觉得很神奇，完全看不懂。今天尝试着自己去实现一下uncurry这个函数，反而一下就想明白了。<br>  所谓反柯里化对应于柯里化的概念，就是说，把原来已经固定的参数或者this上下文等当作参数延迟到未来传递。比如我们经常有这样的需求（把ArrayLike转为Array）:</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">var</span> arr <span class="token operator">=</span> Array<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>slice<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>document<span class="token punctuation">.</span><span class="token function">querySelectorAll</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>script<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 </code></pre>
+<p>如果需要每次都写这么一长串<code>Array.prototype.slice.call</code>必然不是做技术的该有的态度。<br>我们可能期望的是有slice这么个函数，然后直接这样使用：</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">var</span> slice <span class="token operator">=</span> Array<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>slice<span class="token punctuation">.</span><span class="token function">uncurry</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> arr <span class="token operator">=</span> <span class="token function">slice</span><span class="token punctuation">(</span>document<span class="token punctuation">.</span><span class="token function">querySelectorAll</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>script<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+<p>uncurry实现如下：</p>
+<pre class=" language-javascript"><code class="language-javascript">Function<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>uncrrying <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">let</span> self <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token operator">...</span>arg<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> Function<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>call<span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span>arg<span class="token punctuation">)</span>    
+        <span class="token comment" spellcheck="true">//return self.apply(arg.splice(0,1)[0],arg)   //这样亦可</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>其实如果在支持<code>Function.prototype.bind</code>的环境还有更快得到slice的方式：</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">var</span> slice <span class="token operator">=</span> Function<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>call<span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span>Array<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>slice<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+
         
         <br>
         <div id="comment-container">

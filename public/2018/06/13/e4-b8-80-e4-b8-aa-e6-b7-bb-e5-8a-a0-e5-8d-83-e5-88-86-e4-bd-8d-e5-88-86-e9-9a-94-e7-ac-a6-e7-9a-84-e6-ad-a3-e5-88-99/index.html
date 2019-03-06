@@ -137,44 +137,60 @@
 
     </div>
     <div class="post-content ">
-        <p>在只使用正则的情况下，把一个整数用千分位分隔符（半角逗号）分隔，如 原始字符：</p>
+        <p>在只使用正则的情况下，把一个整数用千分位分隔符（半角逗号）分隔，如<br>原始字符：</p>
 <pre><code>198123123123123
 </code></pre><p>变为</p>
 <pre><code>198,123,123,123,123
-</code></pre><p>分析： - 从后往前每三个数字加一个逗号 - 如果恰好是3的倍数个数字，最前面不需要逗号 - 由于强制逗号后面必须跟3位数字，可能需要用到零宽断言找到符合条件的位置 思路： - 1.可以找空白位置插入逗号 - 2.可以找空白位置的前一位，替换成该位数字+逗号</p>
+</code></pre><p>分析：</p>
+<ul>
+<li>从后往前每三个数字加一个逗号</li>
+<li>如果恰好是3的倍数个数字，最前面不需要逗号</li>
+<li>由于强制逗号后面必须跟3位数字，可能需要用到零宽断言找到符合条件的位置</li>
+</ul>
+<p>思路：</p>
+<ul>
+<li>1.可以找空白位置插入逗号</li>
+<li>2.可以找空白位置的前一位，替换成该位数字+逗号</li>
+</ul>
 <h5 id="思路1、"><a href="#思路1、" class="headerlink" title="思路1、"></a>思路1、</h5><p>1.找到所有后面接三位数字的位置，不消耗位置</p>
-<pre><code>/(?=\d{3})/g
-</code></pre><p>2.这个位置后面的数字个数应该是3的倍数，也就是最终恰好匹配到结尾($)</p>
-<pre><code>/(?=(\d{3})+$)/g
-</code></pre><p>3.这个位置不能是开始位置</p>
-<pre><code>/(?!^)(?=(\d{3})+$)/g
-</code></pre><p>4.测试</p>
-<pre><code>&#39;123123123123123123123123&#39;.replace(/(?!^)(?=(\d{3})+$)/g,&#39;,&#39;)
-
-
-&#39;9123123123123123123123123&#39;.replace(/(?!^)(?=(\d{3})+$)/g,&#39;,&#39;)
-
-
-&#39;99123123123123123123123123&#39;.replace(/(?!^)(?=(\d{3})+$)/g,&#39;,&#39;)
-</code></pre><h5 id="思路2、"><a href="#思路2、" class="headerlink" title="思路2、"></a>思路2、</h5><p>1.找到所有挨着的三个数字</p>
-<pre><code>/\d{3}/
-</code></pre><p>2.重复匹配1中的结果，直到匹配最末尾的结束符($)</p>
-<pre><code>/X+$/           // X指代(1)中匹配的3个数字位
-</code></pre><p>3.找到所有这样的位置，它的后面是(2)中找到的位置</p>
-<pre><code>/(?=X+$)/g          // X指代(1)中匹配的3个数字位
-</code></pre><p>4.这个位置的前面必须有一个数字(确保在数字位数是3的倍数的时候，不在最开始添加逗号)，这个数字我们需要捕获</p>
-<pre><code>/(\d)(?=X+$)/g          // X指代(1)中匹配的3个数字位
-</code></pre><p>5.将X换回</p>
-<pre><code>/(\d)(?=(\d{3})+$)/g
-</code></pre><p>6.测试</p>
-<pre><code>&#39;123123123123123123123123&#39;.replace(/(\d)(?=(?:\d{3})+$)/g,&#39;$1,&#39;)
-
-
-&#39;9123123123123123123123123&#39;.replace(/(\d)(?=(?:\d{3})+$)/g,&#39;$1,&#39;)
-
-
-&#39;99123123123123123123123123&#39;.replace(/(\d)(?=(?:\d{3})+$)/g,&#39;$1,&#39;)
+<pre class=" language-javascript"><code class="language-javascript"><span class="token regex">/(?=\d{3})/g</span>
 </code></pre>
+<p>2.这个位置后面的数字个数应该是3的倍数，也就是最终恰好匹配到结尾($)</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token regex">/(?=(\d{3})+$)/g</span>
+</code></pre>
+<p>3.这个位置不能是开始位置</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token regex">/(?!^)(?=(\d{3})+$)/g</span>
+</code></pre>
+<p>4.测试</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token number">123123123123123123123123</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex">/(?!^)(?=(\d{3})+$)/g</span><span class="token punctuation">,</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">,</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span>
+</code></pre>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token number">9123123123123123123123123</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex">/(?!^)(?=(\d{3})+$)/g</span><span class="token punctuation">,</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">,</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span>
+</code></pre>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token number">99123123123123123123123123</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex">/(?!^)(?=(\d{3})+$)/g</span><span class="token punctuation">,</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">,</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span>
+</code></pre>
+<h5 id="思路2、"><a href="#思路2、" class="headerlink" title="思路2、"></a>思路2、</h5><p>1.找到所有挨着的三个数字</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token regex">/\d{3}/</span>
+</code></pre>
+<p>2.重复匹配1中的结果，直到匹配最末尾的结束符($)</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token regex">/X+$/</span>           <span class="token comment" spellcheck="true">// X指代(1)中匹配的3个数字位</span>
+</code></pre>
+<p>3.找到所有这样的位置，它的后面是(2)中找到的位置</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token regex">/(?=X+$)/g</span>          <span class="token comment" spellcheck="true">// X指代(1)中匹配的3个数字位</span>
+</code></pre>
+<p>4.这个位置的前面必须有一个数字(确保在数字位数是3的倍数的时候，不在最开始添加逗号)，这个数字我们需要捕获</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token regex">/(\d)(?=X+$)/g</span>          <span class="token comment" spellcheck="true">// X指代(1)中匹配的3个数字位</span>
+</code></pre>
+<p>5.将X换回</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token regex">/(\d)(?=(\d{3})+$)/g</span>
+</code></pre>
+<p>6.测试</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token number">123123123123123123123123</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex">/(\d)(?=(?:\d{3})+$)/g</span><span class="token punctuation">,</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>$<span class="token number">1</span><span class="token punctuation">,</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span>
+</code></pre>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token number">9123123123123123123123123</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex">/(\d)(?=(?:\d{3})+$)/g</span><span class="token punctuation">,</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>$<span class="token number">1</span><span class="token punctuation">,</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span>
+</code></pre>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token number">99123123123123123123123123</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex">/(\d)(?=(?:\d{3})+$)/g</span><span class="token punctuation">,</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>$<span class="token number">1</span><span class="token punctuation">,</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span>
+</code></pre>
+
         
         <br>
         <div id="comment-container">

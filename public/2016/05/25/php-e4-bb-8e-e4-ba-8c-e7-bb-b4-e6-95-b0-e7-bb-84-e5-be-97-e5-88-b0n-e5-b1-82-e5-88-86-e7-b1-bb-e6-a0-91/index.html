@@ -131,45 +131,48 @@
 
     </div>
     <div class="post-content ">
-        <p>公司的产品分类存在一张表内，以mid标识其父分类，需要得到有层次结构的数组，以备后续操作。想了下，想了一会儿没想出不去重复读取数据库的方法或者不需要递归的操作。后来看到这个：<a href="http://blog.hexu.org/archives/1731.shtml" target="_blank" rel="noopener">http://blog.hexu.org/archives/1731.shtml</a> 数据源：（数据要求一维key与对应value二维数组的id要一样）</p>
-<pre><code>$items = array(
-    1 =&gt; array(&#39;id&#39; =&gt; 1, &#39;pid&#39; =&gt; 0, &#39;name&#39; =&gt; &#39;江西省&#39;),
-    2 =&gt; array(&#39;id&#39; =&gt; 2, &#39;pid&#39; =&gt; 0, &#39;name&#39; =&gt; &#39;黑龙江省&#39;),
-    3 =&gt; array(&#39;id&#39; =&gt; 3, &#39;pid&#39; =&gt; 1, &#39;name&#39; =&gt; &#39;南昌市&#39;),
-    4 =&gt; array(&#39;id&#39; =&gt; 4, &#39;pid&#39; =&gt; 2, &#39;name&#39; =&gt; &#39;哈尔滨市&#39;),
-    5 =&gt; array(&#39;id&#39; =&gt; 5, &#39;pid&#39; =&gt; 2, &#39;name&#39; =&gt; &#39;鸡西市&#39;),
-    6 =&gt; array(&#39;id&#39; =&gt; 6, &#39;pid&#39; =&gt; 4, &#39;name&#39; =&gt; &#39;香坊区&#39;),
-    7 =&gt; array(&#39;id&#39; =&gt; 7, &#39;pid&#39; =&gt; 4, &#39;name&#39; =&gt; &#39;南岗区&#39;),
-    8 =&gt; array(&#39;id&#39; =&gt; 8, &#39;pid&#39; =&gt; 6, &#39;name&#39; =&gt; &#39;和兴路&#39;),
-    9 =&gt; array(&#39;id&#39; =&gt; 9, &#39;pid&#39; =&gt; 7, &#39;name&#39; =&gt; &#39;西大直街&#39;),
-    10 =&gt; array(&#39;id&#39; =&gt; 10, &#39;pid&#39; =&gt; 8, &#39;name&#39; =&gt; &#39;东北林业大学&#39;),
-    11 =&gt; array(&#39;id&#39; =&gt; 11, &#39;pid&#39; =&gt; 9, &#39;name&#39; =&gt; &#39;哈尔滨工业大学&#39;),
-    12 =&gt; array(&#39;id&#39; =&gt; 12, &#39;pid&#39; =&gt; 8, &#39;name&#39; =&gt; &#39;哈尔滨师范大学&#39;),
-    13 =&gt; array(&#39;id&#39; =&gt; 13, &#39;pid&#39; =&gt; 1, &#39;name&#39; =&gt; &#39;赣州市&#39;),
-    14 =&gt; array(&#39;id&#39; =&gt; 14, &#39;pid&#39; =&gt; 13, &#39;name&#39; =&gt; &#39;赣县&#39;),
-    15 =&gt; array(&#39;id&#39; =&gt; 15, &#39;pid&#39; =&gt; 13, &#39;name&#39; =&gt; &#39;于都县&#39;),
-    16 =&gt; array(&#39;id&#39; =&gt; 16, &#39;pid&#39; =&gt; 14, &#39;name&#39; =&gt; &#39;茅店镇&#39;),
-    17 =&gt; array(&#39;id&#39; =&gt; 17, &#39;pid&#39; =&gt; 14, &#39;name&#39; =&gt; &#39;大田乡&#39;),
-    18 =&gt; array(&#39;id&#39; =&gt; 18, &#39;pid&#39; =&gt; 16, &#39;name&#39; =&gt; &#39;义源村&#39;),
-    19 =&gt; array(&#39;id&#39; =&gt; 19, &#39;pid&#39; =&gt; 16, &#39;name&#39; =&gt; &#39;上坝村&#39;),
-);
-</code></pre><p>生成树的函数：</p>
-<pre><code>function genTree9($items) {
-    $tree = array(); 
-    foreach ($items as $item)
-        if (isset($items[$item[&#39;pid&#39;]]))
-            $items[$item[&#39;pid&#39;]][&#39;son&#39;][] = &amp;$items[$item[&#39;id&#39;]];
-        else
-            $tree[] = &amp;$items[$item[&#39;id&#39;]];
-    return $tree;
-}
-</code></pre><p>当然。满足特定条件下的数据，更是可以把函数缩到只有短短5行：</p>
-<pre><code>function genTree5($items) { 
-    foreach ($items as $item) 
-        $items[$item[&#39;pid&#39;]][&#39;son&#39;][$item[&#39;id&#39;]] = &amp;$items[$item[&#39;id&#39;]]; 
-    return isset($items[0][&#39;son&#39;]) ? $items[0][&#39;son&#39;] : array(); 
-}
-</code></pre><p>一遍循环，内存引用。省时又省空间。</p>
+        <p>公司的产品分类存在一张表内，以mid标识其父分类，需要得到有层次结构的数组，以备后续操作。想了下，想了一会儿没想出不去重复读取数据库的方法或者不需要递归的操作。后来看到这个：<a href="http://blog.hexu.org/archives/1731.shtml" target="_blank" rel="noopener">http://blog.hexu.org/archives/1731.shtml</a><br>数据源：（数据要求一维key与对应value二维数组的id要一样）</p>
+<pre class=" language-php"><code class="language-php"><span class="token variable">$items</span> <span class="token operator">=</span> <span class="token keyword">array</span><span class="token punctuation">(</span>
+    <span class="token number">1</span> <span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token shell-comment comment">#039;id&amp;#039; =&amp;gt; 1, &amp;#039;pid&amp;#039; =&amp;gt; 0, &amp;#039;name&amp;#039; =&amp;gt; &amp;#039;江西省&amp;#039;),</span>
+    <span class="token number">2</span> <span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token shell-comment comment">#039;id&amp;#039; =&amp;gt; 2, &amp;#039;pid&amp;#039; =&amp;gt; 0, &amp;#039;name&amp;#039; =&amp;gt; &amp;#039;黑龙江省&amp;#039;),</span>
+    <span class="token number">3</span> <span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token shell-comment comment">#039;id&amp;#039; =&amp;gt; 3, &amp;#039;pid&amp;#039; =&amp;gt; 1, &amp;#039;name&amp;#039; =&amp;gt; &amp;#039;南昌市&amp;#039;),</span>
+    <span class="token number">4</span> <span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token shell-comment comment">#039;id&amp;#039; =&amp;gt; 4, &amp;#039;pid&amp;#039; =&amp;gt; 2, &amp;#039;name&amp;#039; =&amp;gt; &amp;#039;哈尔滨市&amp;#039;),</span>
+    <span class="token number">5</span> <span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token shell-comment comment">#039;id&amp;#039; =&amp;gt; 5, &amp;#039;pid&amp;#039; =&amp;gt; 2, &amp;#039;name&amp;#039; =&amp;gt; &amp;#039;鸡西市&amp;#039;),</span>
+    <span class="token number">6</span> <span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token shell-comment comment">#039;id&amp;#039; =&amp;gt; 6, &amp;#039;pid&amp;#039; =&amp;gt; 4, &amp;#039;name&amp;#039; =&amp;gt; &amp;#039;香坊区&amp;#039;),</span>
+    <span class="token number">7</span> <span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token shell-comment comment">#039;id&amp;#039; =&amp;gt; 7, &amp;#039;pid&amp;#039; =&amp;gt; 4, &amp;#039;name&amp;#039; =&amp;gt; &amp;#039;南岗区&amp;#039;),</span>
+    <span class="token number">8</span> <span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token shell-comment comment">#039;id&amp;#039; =&amp;gt; 8, &amp;#039;pid&amp;#039; =&amp;gt; 6, &amp;#039;name&amp;#039; =&amp;gt; &amp;#039;和兴路&amp;#039;),</span>
+    <span class="token number">9</span> <span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token shell-comment comment">#039;id&amp;#039; =&amp;gt; 9, &amp;#039;pid&amp;#039; =&amp;gt; 7, &amp;#039;name&amp;#039; =&amp;gt; &amp;#039;西大直街&amp;#039;),</span>
+    <span class="token number">10</span> <span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token shell-comment comment">#039;id&amp;#039; =&amp;gt; 10, &amp;#039;pid&amp;#039; =&amp;gt; 8, &amp;#039;name&amp;#039; =&amp;gt; &amp;#039;东北林业大学&amp;#039;),</span>
+    <span class="token number">11</span> <span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token shell-comment comment">#039;id&amp;#039; =&amp;gt; 11, &amp;#039;pid&amp;#039; =&amp;gt; 9, &amp;#039;name&amp;#039; =&amp;gt; &amp;#039;哈尔滨工业大学&amp;#039;),</span>
+    <span class="token number">12</span> <span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token shell-comment comment">#039;id&amp;#039; =&amp;gt; 12, &amp;#039;pid&amp;#039; =&amp;gt; 8, &amp;#039;name&amp;#039; =&amp;gt; &amp;#039;哈尔滨师范大学&amp;#039;),</span>
+    <span class="token number">13</span> <span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token shell-comment comment">#039;id&amp;#039; =&amp;gt; 13, &amp;#039;pid&amp;#039; =&amp;gt; 1, &amp;#039;name&amp;#039; =&amp;gt; &amp;#039;赣州市&amp;#039;),</span>
+    <span class="token number">14</span> <span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token shell-comment comment">#039;id&amp;#039; =&amp;gt; 14, &amp;#039;pid&amp;#039; =&amp;gt; 13, &amp;#039;name&amp;#039; =&amp;gt; &amp;#039;赣县&amp;#039;),</span>
+    <span class="token number">15</span> <span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token shell-comment comment">#039;id&amp;#039; =&amp;gt; 15, &amp;#039;pid&amp;#039; =&amp;gt; 13, &amp;#039;name&amp;#039; =&amp;gt; &amp;#039;于都县&amp;#039;),</span>
+    <span class="token number">16</span> <span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token shell-comment comment">#039;id&amp;#039; =&amp;gt; 16, &amp;#039;pid&amp;#039; =&amp;gt; 14, &amp;#039;name&amp;#039; =&amp;gt; &amp;#039;茅店镇&amp;#039;),</span>
+    <span class="token number">17</span> <span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token shell-comment comment">#039;id&amp;#039; =&amp;gt; 17, &amp;#039;pid&amp;#039; =&amp;gt; 14, &amp;#039;name&amp;#039; =&amp;gt; &amp;#039;大田乡&amp;#039;),</span>
+    <span class="token number">18</span> <span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token shell-comment comment">#039;id&amp;#039; =&amp;gt; 18, &amp;#039;pid&amp;#039; =&amp;gt; 16, &amp;#039;name&amp;#039; =&amp;gt; &amp;#039;义源村&amp;#039;),</span>
+    <span class="token number">19</span> <span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token shell-comment comment">#039;id&amp;#039; =&amp;gt; 19, &amp;#039;pid&amp;#039; =&amp;gt; 16, &amp;#039;name&amp;#039; =&amp;gt; &amp;#039;上坝村&amp;#039;),</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>生成树的函数：</p>
+<pre class=" language-php"><code class="language-php"><span class="token keyword">function</span> <span class="token function">genTree9</span><span class="token punctuation">(</span><span class="token variable">$items</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token variable">$tree</span> <span class="token operator">=</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+    <span class="token keyword">foreach</span> <span class="token punctuation">(</span><span class="token variable">$items</span> <span class="token keyword">as</span> <span class="token variable">$item</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isset</span><span class="token punctuation">(</span><span class="token variable">$items</span><span class="token punctuation">[</span><span class="token variable">$item</span><span class="token punctuation">[</span><span class="token operator">&amp;</span><span class="token shell-comment comment">#039;pid&amp;#039;]]))</span>
+            <span class="token variable">$items</span><span class="token punctuation">[</span><span class="token variable">$item</span><span class="token punctuation">[</span><span class="token operator">&amp;</span><span class="token shell-comment comment">#039;pid&amp;#039;]][&amp;#039;son&amp;#039;][] = &amp;amp;$items[$item[&amp;#039;id&amp;#039;]];</span>
+        <span class="token keyword">else</span>
+            <span class="token variable">$tree</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">&amp;</span>amp<span class="token punctuation">;</span><span class="token variable">$items</span><span class="token punctuation">[</span><span class="token variable">$item</span><span class="token punctuation">[</span><span class="token operator">&amp;</span><span class="token shell-comment comment">#039;id&amp;#039;]];</span>
+    <span class="token keyword">return</span> <span class="token variable">$tree</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>当然。满足特定条件下的数据，更是可以把函数缩到只有短短5行：</p>
+<pre class=" language-php"><code class="language-php"><span class="token keyword">function</span> <span class="token function">genTree5</span><span class="token punctuation">(</span><span class="token variable">$items</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> 
+    <span class="token keyword">foreach</span> <span class="token punctuation">(</span><span class="token variable">$items</span> <span class="token keyword">as</span> <span class="token variable">$item</span><span class="token punctuation">)</span> 
+        <span class="token variable">$items</span><span class="token punctuation">[</span><span class="token variable">$item</span><span class="token punctuation">[</span><span class="token operator">&amp;</span><span class="token shell-comment comment">#039;pid&amp;#039;]][&amp;#039;son&amp;#039;][$item[&amp;#039;id&amp;#039;]] = &amp;amp;$items[$item[&amp;#039;id&amp;#039;]]; </span>
+    <span class="token keyword">return</span> <span class="token function">isset</span><span class="token punctuation">(</span><span class="token variable">$items</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token operator">&amp;</span><span class="token shell-comment comment">#039;son&amp;#039;]) ? $items[0][&amp;#039;son&amp;#039;] : array(); </span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>一遍循环，内存引用。省时又省空间。</p>
 
         
         <br>

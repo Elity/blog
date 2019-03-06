@@ -144,43 +144,45 @@
     </div>
     <div class="post-content ">
         <p>throttle适用于resize或者鼠标移动事件，防止浏览器频繁响应事件，严重拉低性能</p>
-<pre><code>function throttle(method, delay) {
-  var timer = null,
-    last = 0,
-    ctx,
-    args,
-    exec = function () {
-      method.apply(ctx, args);
-      last = +new Date;
-    };
-  return function () {
-    var now = +new Date,
-    diff = now - last - delay;
-    ctx = this;
-    args = arguments;
-    clearTimeout(timer);
-    if (diff &gt;= 0) {
-      exec()
-    } else {
-      timer = setTimeout(exec, -diff)
-    }
-  }
-}
-</code></pre><p>debounce适用于诸如input事件，当用户输入时需要响应ajax请求，多次input只响应一次回调方法</p>
-<pre><code>function debounce(method, delay) {
-  var timer = null,
-  ctx,
-  args;
-  return function () {
-    ctx = this;
-    args = arguments;
-    clearTimeout(timer);
-    timer = setTimeout(function () {
-      method.apply(ctx, args);
-    }, delay);
-  }
-}
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">throttle</span><span class="token punctuation">(</span>method<span class="token punctuation">,</span> delay<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> timer <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+    last <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>
+    ctx<span class="token punctuation">,</span>
+    args<span class="token punctuation">,</span>
+    exec <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      method<span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      last <span class="token operator">=</span> <span class="token operator">+</span><span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> now <span class="token operator">=</span> <span class="token operator">+</span><span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">,</span>
+    diff <span class="token operator">=</span> now <span class="token operator">-</span> last <span class="token operator">-</span> delay<span class="token punctuation">;</span>
+    ctx <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    args <span class="token operator">=</span> arguments<span class="token punctuation">;</span>
+    <span class="token function">clearTimeout</span><span class="token punctuation">(</span>timer<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>diff <span class="token operator">&amp;</span>gt<span class="token punctuation">;</span><span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">exec</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+      timer <span class="token operator">=</span> <span class="token function">setTimeout</span><span class="token punctuation">(</span>exec<span class="token punctuation">,</span> <span class="token operator">-</span>diff<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
+<p>debounce适用于诸如input事件，当用户输入时需要响应ajax请求，多次input只响应一次回调方法</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">debounce</span><span class="token punctuation">(</span>method<span class="token punctuation">,</span> delay<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> timer <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+  ctx<span class="token punctuation">,</span>
+  args<span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    ctx <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    args <span class="token operator">=</span> arguments<span class="token punctuation">;</span>
+    <span class="token function">clearTimeout</span><span class="token punctuation">(</span>timer<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    timer <span class="token operator">=</span> <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      method<span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span> delay<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+
         
         <br>
         <div id="comment-container">

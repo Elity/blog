@@ -141,34 +141,46 @@
     </div>
     <div class="post-content ">
         <p>最近发现组内的很多人基础太不牢固，打算整一个关于JavaScript的思维导图，搞一次技术分享。结果发现原来自己也遗漏了相当多得细节。接下来，我就来细数下那些不能被new的函数，这些函数被new的时候会抛出错误：</p>
-<pre><code>Uncaught TypeError: xxx is not a constructor
-</code></pre><p>在js中，<code>function</code>类型是一种特殊的对象，特殊在何处呢？特殊在于它是一个在引擎内部实现了<code>[[Call]]</code>方法的对象，所以，在使用<code>typeof</code>取值的时候被特殊对待，返回了<code>function</code>。 对于<code>new</code>操作符也是一样，会去查看该对象内部是否实现了<code>[[Construct]]</code>方法，未实现则抛出上述的<code>TypeError</code>。</p>
-<pre><code>var obj = {
-    a(){},
-    b: ()=&gt;{},
-    c: function* (){},
-    d: async function d(){},
-    e: async function* e(){},
-    f: function f(){}
-}
-</code></pre><p>以上列出的这些函数中仅仅<code>obj.f</code>可以被实例化。 另外，内置对象上的一些静态方法大多(未验证全部)不可实例化，如：<code>Math.pow</code>、<code>JSON.parse</code>等。 内置对象的一些实例方法也是同样，如：<code>[].splice</code>、<code>&quot;hello&quot;.split</code>等。 内置的一些函数也是无法被实例化的，如：<code>encodeURI</code>、<code>Symbol</code>等。 最后还有<code>Function.prototype</code>，这个特殊的函数也不可被实例化。 ps: 以上提及的这些不能被实例化的函数有一个功能特点（除了Symbol）,那就是它们都没有<code>prototype</code>属性，然鹅，并不能说明一个类能不能被实例化与这个构造函数有没有<code>prototype</code>属性有必然联系，比如：</p>
-<pre><code>var A = (function test(){}).bind(this);
-</code></pre><p>bind得到的函数<code>A</code>就不存在<code>prototype</code>属性，但<code>A</code>依然可以被实例化。所以，还是开头的那个结论，一个函数能不能被实例化，就看其内部是否有实现<code>[[Construct]]</code>方法。 当然，话说回来，<code>prototype</code>属性决定了一个可被实例化的函数能否作为父类被继承。还是看这个代码：</p>
-<pre><code>var A = (function test(){}).bind(this);
-class B extends A{}   // 报错 Uncaught TypeError: Class extends value does not have valid prototype property undefined
-
-A.prototype = null;
-class C extends A{}  // 正常
-</code></pre><p>当当当然，null又是个特例，ES6规范规定了，跟在extends后面的只能是一个可被实例化且其<code>prototype</code>属性为对象(包括函数)或<code>null</code>的对象(包括函数)，所以下面的代码是合法的：</p>
-<pre><code>class D extends null{}
-</code></pre><p>但是这样声明的<code>D</code>无法被实例化，因为找不到超类的构造函数，需要这样处理：</p>
-<pre><code>class D extends null{
-    constructor(){
-        return Object.create(new.target.prototype)
-    }
-    otherMethod(){}
-}
+<pre class=" language-bash"><code class="language-bash">Uncaught TypeError: xxx is not a constructor
 </code></pre>
+<p>在js中，<code>function</code>类型是一种特殊的对象，特殊在何处呢？特殊在于它是一个在引擎内部实现了<code>[[Call]]</code>方法的对象，所以，在使用<code>typeof</code>取值的时候被特殊对待，返回了<code>function</code>。<br>对于<code>new</code>操作符也是一样，会去查看该对象内部是否实现了<code>[[Construct]]</code>方法，未实现则抛出上述的<code>TypeError</code>。</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">var</span> obj <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token function">a</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    b<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    c<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token operator">*</span> <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    d<span class="token punctuation">:</span> <span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">d</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    e<span class="token punctuation">:</span> <span class="token keyword">async</span> <span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">e</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    f<span class="token punctuation">:</span> <span class="token keyword">function</span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>以上列出的这些函数中仅仅<code>obj.f</code>可以被实例化。</p>
+<p>另外，内置对象上的一些静态方法大多(未验证全部)不可实例化，如：<code>Math.pow</code>、<code>JSON.parse</code>等。</p>
+<p>内置对象的一些实例方法也是同样，如：<code>[].splice</code>、<code>&quot;hello&quot;.split</code>等。</p>
+<p>内置的一些函数也是无法被实例化的，如：<code>encodeURI</code>、<code>Symbol</code>等。</p>
+<p>最后还有<code>Function.prototype</code>，这个特殊的函数也不可被实例化。</p>
+<p>ps:<br>以上提及的这些不能被实例化的函数有一个功能特点（除了Symbol）,那就是它们都没有<code>prototype</code>属性，然鹅，并不能说明一个类能不能被实例化与这个构造函数有没有<code>prototype</code>属性有必然联系，比如：</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">var</span> A <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>bind得到的函数<code>A</code>就不存在<code>prototype</code>属性，但<code>A</code>依然可以被实例化。所以，还是开头的那个结论，一个函数能不能被实例化，就看其内部是否有实现<code>[[Construct]]</code>方法。</p>
+<p>当然，话说回来，<code>prototype</code>属性决定了一个可被实例化的函数能否作为父类被继承。还是看这个代码：</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">var</span> A <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">class</span> <span class="token class-name">B</span> <span class="token keyword">extends</span> <span class="token class-name">A</span><span class="token punctuation">{</span><span class="token punctuation">}</span>   <span class="token comment" spellcheck="true">// 报错 Uncaught TypeError: Class extends value does not have valid prototype property undefined</span>
+
+A<span class="token punctuation">.</span>prototype <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+<span class="token keyword">class</span> <span class="token class-name">C</span> <span class="token keyword">extends</span> <span class="token class-name">A</span><span class="token punctuation">{</span><span class="token punctuation">}</span>  <span class="token comment" spellcheck="true">// 正常</span>
+</code></pre>
+<p>当当当然，null又是个特例，ES6规范规定了，跟在extends后面的只能是一个可被实例化且其<code>prototype</code>属性为对象(包括函数)或<code>null</code>的对象(包括函数)，所以下面的代码是合法的：</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">class</span> <span class="token class-name">D</span> <span class="token keyword">extends</span> <span class="token class-name">null</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+</code></pre>
+<p>但是这样声明的<code>D</code>无法被实例化，因为找不到超类的构造函数，需要这样处理：</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">class</span> <span class="token class-name">D</span> <span class="token keyword">extends</span> <span class="token class-name">null</span><span class="token punctuation">{</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> Object<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token keyword">new</span><span class="token punctuation">.</span>target<span class="token punctuation">.</span>prototype<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">otherMethod</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+
         
         <br>
         <div id="comment-container">

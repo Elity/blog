@@ -143,31 +143,59 @@
 
     </div>
     <div class="post-content ">
-        <p>我一直以为的深度复制就是这样： * for…in循环 <em> 判断属性是否是自己的 </em> typeof结果为<code>object</code>还要额外区分具体是普通对象、还是array、还是map… <em> 函数、Error无法被深度复制 </em> 注意循环引用 * JSON API满足大部分需求 昨天看到<a href="https://zhuanlan.zhihu.com/p/33489557" target="_blank" rel="noopener">某篇</a>又是关于深度复制的文章，惯性思维告诉我，不就是深度复制么，写来写去有啥好写的。还好，看在作者是前端大佬的份上，倒是看他能不能把这份冷饭炒出鲜味来。这一看不得了，一个占据大篇幅的新概念冒了出来：<a href="https://developer.mozilla.org/zh-CN/docs/Web/Guide/API/DOM/The_structured_clone_algorithm" target="_blank" rel="noopener">结构化克隆算法</a> 。 具体的介绍直接看MDN，我这里只搬运几种常见的使用结构化克隆方式实现深度拷贝的方法：</p>
+        <p>我一直以为的深度复制就是这样：</p>
 <ul>
-<li><p>MessageChannel</p>
-<p>function structuralClone(obj) {<br>  return new Promise(resolve =&gt; {</p>
-<pre><code>const {port1, port2} = new MessageChannel();
-port2.onmessage = ev =&gt; resolve(ev.data);
-port1.postMessage(obj);
-</code></pre><p>  });<br>}<br>const obj = /<em> … </em>/;<br>const clone = await structuralClone(obj);</p>
+<li>for…in循环</li>
+<li>判断属性是否是自己的</li>
+<li>typeof结果为<code>object</code>还要额外区分具体是普通对象、还是array、还是map…</li>
+<li>函数、Error无法被深度复制</li>
+<li>注意循环引用</li>
+<li>JSON API满足大部分需求</li>
+</ul>
+<p>昨天看到<a href="https://zhuanlan.zhihu.com/p/33489557" target="_blank" rel="noopener">某篇</a>又是关于深度复制的文章，惯性思维告诉我，不就是深度复制么，写来写去有啥好写的。还好，看在作者是前端大佬的份上，倒是看他能不能把这份冷饭炒出鲜味来。这一看不得了，一个占据大篇幅的新概念冒了出来：<a href="https://developer.mozilla.org/zh-CN/docs/Web/Guide/API/DOM/The_structured_clone_algorithm" target="_blank" rel="noopener">结构化克隆算法
+</a>。</p>
+<p>具体的介绍直接看MDN，我这里只搬运几种常见的使用结构化克隆方式实现深度拷贝的方法：</p>
+<ul>
+<li>MessageChannel<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">structuralClone</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span>resolve <span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> <span class="token punctuation">{</span>port1<span class="token punctuation">,</span> port2<span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MessageChannel</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  port2<span class="token punctuation">.</span>onmessage <span class="token operator">=</span> ev <span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> <span class="token function">resolve</span><span class="token punctuation">(</span>ev<span class="token punctuation">.</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  port1<span class="token punctuation">.</span><span class="token function">postMessage</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">const</span> obj <span class="token operator">=</span> <span class="token comment" spellcheck="true">/* ... */</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> clone <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">structuralClone</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
 </li>
 </ul>
 <p>特点：异步、兼容性ok</p>
 <ul>
-<li><p>History API</p>
-<p>function structuralClone(obj) {<br>  const oldState = history.state;<br>  history.replaceState(obj, document.title);<br>  const copy = history.state;<br>  history.replaceState(oldState, document.title);<br>  return copy;<br>}</p>
-<p>const obj = /<em> … </em>/;<br>const clone = structuralClone(obj); </p>
-</li>
+<li>History API</li>
 </ul>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">structuralClone</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> oldState <span class="token operator">=</span> history<span class="token punctuation">.</span>state<span class="token punctuation">;</span>
+  history<span class="token punctuation">.</span><span class="token function">replaceState</span><span class="token punctuation">(</span>obj<span class="token punctuation">,</span> document<span class="token punctuation">.</span>title<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> copy <span class="token operator">=</span> history<span class="token punctuation">.</span>state<span class="token punctuation">;</span>
+  history<span class="token punctuation">.</span><span class="token function">replaceState</span><span class="token punctuation">(</span>oldState<span class="token punctuation">,</span> document<span class="token punctuation">.</span>title<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> copy<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">const</span> obj <span class="token operator">=</span> <span class="token comment" spellcheck="true">/* ... */</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> clone <span class="token operator">=</span> <span class="token function">structuralClone</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">;</span> 
+</code></pre>
 <p>特点：Safari对replaceState调用的限制数量为 30 秒内 100 次。</p>
 <ul>
-<li><p>Notification API</p>
-<p>function structuralClone(obj) {<br>  return new Notification(‘’, {data: obj, silent: true}).data;<br>}</p>
-<p>const obj = /<em> … </em>/;<br>const clone = structuralClone(obj);</p>
-</li>
+<li>Notification API</li>
 </ul>
-<p>特点：简洁、兼容性不佳（safari全系列不支持） 当然，由于是<a href="https://html.spec.whatwg.org/multipage/structured-data.html#structuredserializeinternal" target="_blank" rel="noopener">whatwg</a>提出的东西，nodejs是沾不上边的，这三个方法都只能用于浏览器端。</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">structuralClone</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Notification</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>data<span class="token punctuation">:</span> obj<span class="token punctuation">,</span> silent<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span>data<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">const</span> obj <span class="token operator">=</span> <span class="token comment" spellcheck="true">/* ... */</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> clone <span class="token operator">=</span> <span class="token function">structuralClone</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>特点：简洁、兼容性不佳（safari全系列不支持）</p>
+<p>当然，由于是<a href="https://html.spec.whatwg.org/multipage/structured-data.html#structuredserializeinternal" target="_blank" rel="noopener">whatwg</a>提出的东西，nodejs是沾不上边的，这三个方法都只能用于浏览器端。</p>
 
         
         <br>

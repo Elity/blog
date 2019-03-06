@@ -138,23 +138,24 @@
     </div>
     <div class="post-content ">
         <p>瞎写的，就当学习使用DirectoryIterator</p>
-<pre><code>function getFileTree($path,$deep=0){
-    $cur = basename($path);
-    echo str_repeat(&quot;│&quot;.str_repeat(&quot; &quot;,12),$deep).&quot;│————&quot;.$cur.PHP_EOL;
-    if(is_file($path) || !file_exists($path)){
-        return;
-    }
-    foreach(new DirectoryIterator($path) as $file){
-        if($file == &quot;.&quot; || $file == &quot;..&quot;){
-            continue;
-        }
-        getFileTree($path.&quot;/&quot;.$file-&gt;getFilename(),$deep+1);
-    }
-}
+<pre class=" language-php"><code class="language-php"><span class="token keyword">function</span> <span class="token function">getFileTree</span><span class="token punctuation">(</span><span class="token variable">$path</span><span class="token punctuation">,</span><span class="token variable">$deep</span><span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token variable">$cur</span> <span class="token operator">=</span> <span class="token function">basename</span><span class="token punctuation">(</span><span class="token variable">$path</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">echo</span> <span class="token function">str_repeat</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span>│<span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token punctuation">.</span><span class="token function">str_repeat</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span> <span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token punctuation">,</span><span class="token number">12</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token variable">$deep</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span>│————<span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token punctuation">.</span><span class="token variable">$cur</span><span class="token punctuation">.</span><span class="token constant">PHP_EOL</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">is_file</span><span class="token punctuation">(</span><span class="token variable">$path</span><span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token operator">!</span><span class="token function">file_exists</span><span class="token punctuation">(</span><span class="token variable">$path</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">foreach</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">DirectoryIterator</span><span class="token punctuation">(</span><span class="token variable">$path</span><span class="token punctuation">)</span> <span class="token keyword">as</span> <span class="token variable">$file</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token variable">$file</span> <span class="token operator">==</span> <span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token punctuation">.</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span> <span class="token operator">||</span> <span class="token variable">$file</span> <span class="token operator">==</span> <span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">continue</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token function">getFileTree</span><span class="token punctuation">(</span><span class="token variable">$path</span><span class="token punctuation">.</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token operator">/</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token punctuation">.</span><span class="token variable">$file</span><span class="token operator">-</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span><span class="token function">getFilename</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token variable">$deep</span><span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-//useag
-getFileTree(&quot;love&quot;);
-</code></pre><p>输出： │————love │ │————index.html │ │————index_files │ │ │————default.css │ │ │————functions.js │ │ │————jquery.min.js │ │ │————jscex-async-powerpack.min.js │ │ │————jscex-async.min.js │ │ │————jscex-builderbase.min.js │ │ │————jscex-jit.js │ │ │————jscex-parser.js │ │ │————jscex.min.js │ │ │————love.js │ │ │————music.mp3</p>
+<span class="token comment" spellcheck="true">//useag</span>
+<span class="token function">getFileTree</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span>love<span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>输出：<br>│————love<br>│            │————index.html<br>│            │————index_files<br>│            │            │————default.css<br>│            │            │————functions.js<br>│            │            │————jquery.min.js<br>│            │            │————jscex-async-powerpack.min.js<br>│            │            │————jscex-async.min.js<br>│            │            │————jscex-builderbase.min.js<br>│            │            │————jscex-jit.js<br>│            │            │————jscex-parser.js<br>│            │            │————jscex.min.js<br>│            │            │————love.js<br>│            │            │————music.mp3</p>
 
         
         <br>

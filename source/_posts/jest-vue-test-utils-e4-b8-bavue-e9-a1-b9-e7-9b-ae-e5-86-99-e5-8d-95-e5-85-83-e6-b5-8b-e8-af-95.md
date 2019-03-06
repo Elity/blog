@@ -12,90 +12,90 @@ date: 2018-07-30 22:10:09
 ---
 
 1.安装依赖库
-
-    npm i -D @vue/test-utils babel-jest  jest  jest-serializer-vue  vue-jest
-    
-
+```bash
+npm i -D @vue/test-utils babel-jest  jest  jest-serializer-vue  vue-jest
+```
 2.配置jest (package.json)
+```json
+{	&quot;scripts&quot;:{
+		&quot;test&quot;: &quot;jest&quot;
+	},
+	&quot;jest&quot;: {
+    &quot;testURL&quot;: &quot;http://localhost&quot;,
+    &quot;moduleFileExtensions&quot;: [
+      &quot;js&quot;,
+      &quot;vue&quot;
+    ],
+    &quot;moduleNameMapper&quot;: {
+      &quot;^@/(.*)$&quot;: &quot;&lt;rootDir&gt;/src/$1&quot;
+    },
+    &quot;transform&quot;: {
+      &quot;^.+\\.js$&quot;: &quot;&lt;rootDir&gt;/node_modules/babel-jest&quot;,
+      &quot;.*\\.(vue)$&quot;: &quot;&lt;rootDir&gt;/node_modules/vue-jest&quot;
+    },
+    &quot;snapshotSerializers&quot;: [
+      &quot;&lt;rootDir&gt;/node_modules/jest-serializer-vue&quot;
+    ]
+  }
+}
 
-    {   "scripts":{
-            "test": "jest"
-        },
-        "jest": {
-        "testURL": "http://localhost",
-        "moduleFileExtensions": [
-          "js",
-          "vue"
-        ],
-        "moduleNameMapper": {
-          "^@/(.*)$": "<rootDir>/src/$1"
-        },
-        "transform": {
-          "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
-          ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest"
-        },
-        "snapshotSerializers": [
-          "<rootDir>/node_modules/jest-serializer-vue"
-        ]
-      }
-    }
-    
-    
-
+```
 3.配置Babel (.babelrc)
 
-    {
-        "env": {
-        "test": {
-          "presets": [["env", { "targets": { "node": "current" } }]]
-        }
-      }
+```json
+{
+	&quot;env&quot;: {
+    &quot;test&quot;: {
+      &quot;presets&quot;: [[&quot;env&quot;, { &quot;targets&quot;: { &quot;node&quot;: &quot;current&quot; } }]]
     }
-    
+  }
+}
+```
+4.项目根目录新建test文件夹
+添加测试文件 `test.spec.js`
+```javascript
+import { shallowMount } from &#039;@vue/test-utils&#039;;
+import ContentLength from &#039;@/components/ContentLength&#039;;
 
-4.项目根目录新建test文件夹 添加测试文件 `test.spec.js`
+describe(&#039;Component.ContentLength&#039;, () =&gt; {
+  const wrapper = shallowMount(ContentLength, {
+    propsData: {
+      content: &#039;Hello&#039;,
+      maxLength: 10,
+    },
+  });
 
-    import { shallowMount } from '@vue/test-utils';
-    import ContentLength from '@/components/ContentLength';
-    
-    describe('Component.ContentLength', () => {
-      const wrapper = shallowMount(ContentLength, {
-        propsData: {
-          content: 'Hello',
-          maxLength: 10,
-        },
-      });
-    
-      it('传值正确', () => {
-        expect(wrapper.vm.content).toBe('Hello');
-        expect(wrapper.vm.maxLength).toBe(10);
-      });
-    
-      it('未超过长度渲染正确', () => {
-        expect(wrapper.find('.exceed').exists()).toBe(false);
-      });
-    
-      it('超过长度渲染正确', () => {
-        wrapper.setProps({
-          content: 'Hello World!',
-        });
-        expect(wrapper.find('.exceed').exists()).toBe(true);
-      });
-    
-      it('长度计算正确', () => {
-        wrapper.setProps({
-          content: 'Hello World!',
-        });
-        expect(wrapper.vm.currentLength).toBe(12);
-        wrapper.setProps({
-          content: '你好世界！',
-          mode: 'content',
-        });
-        expect(wrapper.vm.currentLength).toBe(10);
-      });
+  it(&#039;传值正确&#039;, () =&gt; {
+    expect(wrapper.vm.content).toBe(&#039;Hello&#039;);
+    expect(wrapper.vm.maxLength).toBe(10);
+  });
+
+  it(&#039;未超过长度渲染正确&#039;, () =&gt; {
+    expect(wrapper.find(&#039;.exceed&#039;).exists()).toBe(false);
+  });
+
+  it(&#039;超过长度渲染正确&#039;, () =&gt; {
+    wrapper.setProps({
+      content: &#039;Hello World!&#039;,
     });
-    
+    expect(wrapper.find(&#039;.exceed&#039;).exists()).toBe(true);
+  });
+
+  it(&#039;长度计算正确&#039;, () =&gt; {
+    wrapper.setProps({
+      content: &#039;Hello World!&#039;,
+    });
+    expect(wrapper.vm.currentLength).toBe(12);
+    wrapper.setProps({
+      content: &#039;你好世界！&#039;,
+      mode: &#039;content&#039;,
+    });
+    expect(wrapper.vm.currentLength).toBe(10);
+  });
+});
+```
 
 5.运行测试
-
-    npm run test
+```bash
+npm run test
+```

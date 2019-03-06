@@ -10,22 +10,25 @@ categories:
 date: 2018-05-27 22:12:30
 ---
 
-二级标题
-----
+## 二级标题
 
 ### 任务清单
+- js
+- php
+- java
+- python
 
-*   js
-*   php
-*   java
-*   python
 
-下面演示`Javascript`代码块 代码示例：
+下面演示`Javascript`代码块
+代码示例：
+```javascript
+function say(){
+	console.log(&#039;Hello World!&#039;)
+	return true
+}
+```
+插入图片
+![图片title](https://www.baidu.com/img/bd_logo1.png?where=super)
+插入链接
 
-    function say(){
-        console.log('Hello World!')
-        return true
-    }
-    
-
-插入图片 ![图片title](https://www.baidu.com/img/bd_logo1.png?where=super) 插入链接 [回到首页](/)
+[回到首页](/)

@@ -132,16 +132,17 @@
     </div>
     <div class="post-content ">
         <p>找到pyquery.py文件，在PyQuery类下添加如下代码：</p>
-<pre><code>@with_camel_case_alias                #装饰器，兼容驼峰式命名调用
-def next_until(self, selector=None):
-    all = self._next_all()        #获取匹配到的所有元素
-    results = []
-    for e in all:
-        if self.__class__(e).is_(selector):   #到了指定选择器则break
-            break
-        results.append(e)
-    return self.__class__(results, **dict(parent=self)) #将list通过自身构造函数转换成pyquery对象
-</code></pre><p>还有，原谅我的无知，用了这么久的python，刚刚才知道函数内部引用全局变量并不需要在内部声明为global，当需要对全局变量进行修改时才需要</p>
+<pre class=" language-python"><code class="language-python">@with_camel_case_alias                <span class="token comment" spellcheck="true">#装饰器，兼容驼峰式命名调用</span>
+<span class="token keyword">def</span> <span class="token function">next_until</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> selector<span class="token operator">=</span>None<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    all <span class="token operator">=</span> self<span class="token punctuation">.</span>_next_all<span class="token punctuation">(</span><span class="token punctuation">)</span>        <span class="token comment" spellcheck="true">#获取匹配到的所有元素</span>
+    results <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    <span class="token keyword">for</span> e <span class="token keyword">in</span> all<span class="token punctuation">:</span>
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>__class__<span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">.</span>is_<span class="token punctuation">(</span>selector<span class="token punctuation">)</span><span class="token punctuation">:</span>   <span class="token comment" spellcheck="true">#到了指定选择器则break</span>
+            <span class="token keyword">break</span>
+        results<span class="token punctuation">.</span>append<span class="token punctuation">(</span>e<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> self<span class="token punctuation">.</span>__class__<span class="token punctuation">(</span>results<span class="token punctuation">,</span> <span class="token operator">**</span>dict<span class="token punctuation">(</span>parent<span class="token operator">=</span>self<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#将list通过自身构造函数转换成pyquery对象</span>
+</code></pre>
+<p>还有，原谅我的无知，用了这么久的python，刚刚才知道函数内部引用全局变量并不需要在内部声明为global，当需要对全局变量进行修改时才需要</p>
 
         
         <br>

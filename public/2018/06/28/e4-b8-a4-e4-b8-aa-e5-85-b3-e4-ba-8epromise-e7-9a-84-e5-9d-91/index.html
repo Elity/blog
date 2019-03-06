@@ -137,13 +137,18 @@
 
     </div>
     <div class="post-content ">
-        <h3 id="1-Promise-race"><a href="#1-Promise-race" class="headerlink" title="1.Promise.race"></a>1.Promise.race</h3><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise/race#Description" target="_blank" rel="noopener">Promise.race</a>用于处理一般竞态问题，参数为一个迭代器可迭代对象，该对象中的任意成员状态发生改变，<code>Promise.race</code>返回的<code>promise</code>状态随即发生改变。 然而，当该对象里面没有值的情况下，<code>Promise.race</code>返回的<code>promise</code>将永远处于<code>pending</code>状态。 <code>Promise.all</code>对于空的可迭代对象则永远返回一个<code>resolved</code>状态的<code>promise</code>。 此情此景类似于<code>Array.prototype.some</code>与<code>Array.prototype.every</code>: <code>[].some(()=&gt;{}) === false</code> <code>[].every(()=&gt;{}) === true</code></p>
-<h3 id="2-thenable"><a href="#2-thenable" class="headerlink" title="2.thenable"></a>2.thenable</h3><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise/resolve" target="_blank" rel="noopener">Promise.resolve</a> 接受的参数可能为一个<code>promise</code>对象或其他对象，当这个对象不是<code>Promise</code>对象的实例时，若这个对象有then方法或其原型链上面有then方法，我们称这个对象为thenable对象，<code>Promise.resolve</code>内部会执行这个<code>then</code>方法，并传入<code>onFulfilled</code>与<code>onRejected</code>两个原生函数，用于调用决定返回的Promise实例的状态。 此策略用于将<code>jQuery.Deferred()</code>返回的对象及其他<code>类Promise</code>对象转成原生Promise，然而，此举导致我们在<code>resolve</code>一个值时需要格外小心，这个值的原型链上面是否有自定义的then方法，比如：</p>
-<pre><code>Array.prototype.then = function(){}
-const pro = Promise.resolve([1,23])
-</code></pre><p>pro将永远处于<code>pending</code>状态。 要弄瘫一个现代化的网站（大量依托于Promise来实现异步逻辑），只需要一行代码：</p>
-<pre><code>Object.prototype.then = function(){}
-</code></pre><p>而且造成的错误原因还很不好查找根源。 PS： 1.若某对象有next方法，则其可能是迭代器 2.若某对象有<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Iteration_protocols" target="_blank" rel="noopener">[Symbol.iterator]</a>方法，则其是可迭代对象 生成器对象既是迭代器，也是可迭代对象，其[Symbol.iterator]方法执行后返回其自身</p>
+        <h3 id="1-Promise-race"><a href="#1-Promise-race" class="headerlink" title="1.Promise.race"></a>1.Promise.race</h3><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise/race#Description" target="_blank" rel="noopener">Promise.race</a>用于处理一般竞态问题，参数为一个<del>迭代器</del>可迭代对象，该对象中的任意成员状态发生改变，<code>Promise.race</code>返回的<code>promise</code>状态随即发生改变。<br>然而，当该对象里面没有值的情况下，<code>Promise.race</code>返回的<code>promise</code>将永远处于<code>pending</code>状态。<br><code>Promise.all</code>对于空的可迭代对象则永远返回一个<code>resolved</code>状态的<code>promise</code>。<br>此情此景类似于<code>Array.prototype.some</code>与<code>Array.prototype.every</code>:<br><code>[].some(()=&gt;{}) === false</code><br><code>[].every(()=&gt;{}) === true</code></p>
+<h3 id="2-thenable"><a href="#2-thenable" class="headerlink" title="2.thenable"></a>2.thenable</h3><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise/resolve" target="_blank" rel="noopener">Promise.resolve</a> 接受的参数可能为一个<code>promise</code>对象或其他对象，当这个对象不是<code>Promise</code>对象的实例时，若这个对象有then方法或其原型链上面有then方法，我们称这个对象为thenable对象，<code>Promise.resolve</code>内部会执行这个<code>then</code>方法，并传入<code>onFulfilled</code>与<code>onRejected</code>两个原生函数，用于调用决定返回的Promise实例的状态。<br>此策略用于将<code>jQuery.Deferred()</code>返回的对象及其他<code>类Promise</code>对象转成原生Promise，然而，此举导致我们在<code>resolve</code>一个值时需要格外小心，这个值的原型链上面是否有自定义的then方法，比如：</p>
+<pre class=" language-javascript"><code class="language-javascript">Array<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>then <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token keyword">const</span> pro <span class="token operator">=</span> Promise<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">23</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+</code></pre>
+<p>pro将永远处于<code>pending</code>状态。</p>
+<p>要弄瘫一个现代化的网站（大量依托于Promise来实现异步逻辑），只需要一行代码：</p>
+<pre class=" language-javascript"><code class="language-javascript">Object<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>then <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+</code></pre>
+<p>而且造成的错误原因还很不好查找根源。</p>
+<p>PS：<br>1.若某对象有next方法，则其可能是迭代器<br>2.若某对象有<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Iteration_protocols" target="_blank" rel="noopener">[Symbol.iterator]</a>方法，则其是可迭代对象</p>
+<p>生成器对象既是迭代器，也是可迭代对象，其[Symbol.iterator]方法执行后返回其自身</p>
 
         
         <br>

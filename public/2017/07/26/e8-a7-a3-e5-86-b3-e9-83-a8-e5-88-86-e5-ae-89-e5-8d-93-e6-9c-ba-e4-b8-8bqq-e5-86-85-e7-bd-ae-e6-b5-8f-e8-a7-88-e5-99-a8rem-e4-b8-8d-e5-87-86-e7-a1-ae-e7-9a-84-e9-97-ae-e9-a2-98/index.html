@@ -140,21 +140,22 @@
 
     </div>
     <div class="post-content ">
-        <p>部分安卓机由于rem计算不准确，导致页面在这些机型下出现了水平滚动条。 主要解决思路是： 1.设置1rem与px的对应关系，即html元素的font-size，我这里设置为屏幕视口宽度的1/10; 2.然后设置body的宽度为10rem; 3.取body的计算宽度,是否与html的宽度一致，不一致则说明rem计算有误，将html的font-size按比例缩放至正确大小</p>
-<pre><code>function fixRem () {
-    var html = document.documentElement,
-        body = document.body,
-        bodyW = body.style.width;
-    body.style.width = &#39;10rem&#39;; // 假如页面的视口宽度为10rem
-    var bodyWidth = parseInt(window.getComputedStyle(body, null).width),
-        htmlWidth = parseInt(window.getComputedStyle(html, null).width);
-    if (bodyWidth != htmlWidth) {
-        var size =  parseInt(html.style.fontSize)* htmlWidth/bodyWidth;
-        html.style.fontSize = size + &#39;px&#39;;
-    }
-    body.style.width = bodyW;
-}
-</code></pre><p>这里要注意，document的DOMContentLoaded事件，在某些浏览器上触发时，html元素可能还没显示，此时去取其计算高度可能为auto，所以fixRem应当放在window.onpageshow事件回调里面。</p>
+        <p>部分安卓机由于rem计算不准确，导致页面在这些机型下出现了水平滚动条。<br>主要解决思路是：<br>1.设置1rem与px的对应关系，即html元素的font-size，我这里设置为屏幕视口宽度的1/10;<br>2.然后设置body的宽度为10rem;<br>3.取body的计算宽度,是否与html的宽度一致，不一致则说明rem计算有误，将html的font-size按比例缩放至正确大小</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">function</span> fixRem <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> html <span class="token operator">=</span> document<span class="token punctuation">.</span>documentElement<span class="token punctuation">,</span>
+        body <span class="token operator">=</span> document<span class="token punctuation">.</span>body<span class="token punctuation">,</span>
+        bodyW <span class="token operator">=</span> body<span class="token punctuation">.</span>style<span class="token punctuation">.</span>width<span class="token punctuation">;</span>
+    body<span class="token punctuation">.</span>style<span class="token punctuation">.</span>width <span class="token operator">=</span> <span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>10rem<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 假如页面的视口宽度为10rem</span>
+    <span class="token keyword">var</span> bodyWidth <span class="token operator">=</span> <span class="token function">parseInt</span><span class="token punctuation">(</span>window<span class="token punctuation">.</span><span class="token function">getComputedStyle</span><span class="token punctuation">(</span>body<span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">.</span>width<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        htmlWidth <span class="token operator">=</span> <span class="token function">parseInt</span><span class="token punctuation">(</span>window<span class="token punctuation">.</span><span class="token function">getComputedStyle</span><span class="token punctuation">(</span>html<span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">.</span>width<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>bodyWidth <span class="token operator">!=</span> htmlWidth<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">var</span> size <span class="token operator">=</span>  <span class="token function">parseInt</span><span class="token punctuation">(</span>html<span class="token punctuation">.</span>style<span class="token punctuation">.</span>fontSize<span class="token punctuation">)</span><span class="token operator">*</span> htmlWidth<span class="token operator">/</span>bodyWidth<span class="token punctuation">;</span>
+        html<span class="token punctuation">.</span>style<span class="token punctuation">.</span>fontSize <span class="token operator">=</span> size <span class="token operator">+</span> <span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>px<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    body<span class="token punctuation">.</span>style<span class="token punctuation">.</span>width <span class="token operator">=</span> bodyW<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>这里要注意，document的DOMContentLoaded事件，在某些浏览器上触发时，html元素可能还没显示，此时去取其计算高度可能为auto，所以fixRem应当放在window.onpageshow事件回调里面。</p>
 
         
         <br>

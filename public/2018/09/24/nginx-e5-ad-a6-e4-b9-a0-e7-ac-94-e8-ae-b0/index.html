@@ -137,32 +137,35 @@
 
     </div>
     <div class="post-content ">
-        <h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><h3 id="自定义变量"><a href="#自定义变量" class="headerlink" title="自定义变量"></a>自定义变量</h3><p>set $a 123; set $b “$a 456”; set $c “{$b}789”</p>
+        <h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><h3 id="自定义变量"><a href="#自定义变量" class="headerlink" title="自定义变量"></a>自定义变量</h3><p>set $a 123;<br>set $b “$a 456”;<br>set $c “{$b}789”</p>
 <blockquote>
 <p>自定义变量在配置被加载时创建，执行时才被赋值。定义全局有效，甚至可以跨vhost，但值仅在内部跳转间有效。<a href="http://openresty.org/download/agentzh-nginx-tutorials-zhcn.html#01-NginxVariables02" target="_blank" rel="noopener">详见</a></p>
 </blockquote>
-<h3 id="常用内置变量"><a href="#常用内置变量" class="headerlink" title="常用内置变量"></a>常用内置变量</h3><p>$request $request_uri $uri $args $arg_xxx $header_xxx $cookie_xxx <a href="http://nginx.org/en/docs/http/ngx_http_core_module.html#variables" target="_blank" rel="noopener">更多。。。</a> !!!任何时候都不应该去覆盖内置变量，有些内置变量被覆盖会导致报错甚至进程崩溃。</p>
-<h3 id="map"><a href="#map" class="headerlink" title="map"></a>map</h3><p>对于配置CORS的域名白名单，使用map是比if更好的选择，毕竟<a href="https://www.nginx.com/resources/wiki/start/topics/depth/ifisevil/" target="_blank" rel="noopener">If Is Evil</a> map只能写于http模块，但不用担心访问任何location都会计算map，nginx的<a href="http://nginx.org/en/docs/http/ngx_http_map_module.html" target="_blank" rel="noopener">ngx_map</a>模块实现了只有在该用户变量被实际读取时才会执行，也就是惰性求值。<a href="http://openresty.org/download/agentzh-nginx-tutorials-zhcn.html#01-NginxVariables04" target="_blank" rel="noopener">更多参考</a>。</p>
-<pre><code># $http_origin是自变量，而$cors_header是因变量
-map $http_origin $cors_header {
-    default &quot;&quot;;
-    &quot;~^https?://(localhost|www\.abc\.com&quot; &quot;$http_origin&quot;;
-}
+<h3 id="常用内置变量"><a href="#常用内置变量" class="headerlink" title="常用内置变量"></a>常用内置变量</h3><p>$request<br>$request_uri<br>$uri<br>$args<br>$arg_xxx<br>$header_xxx<br>$cookie_xxx<br><a href="http://nginx.org/en/docs/http/ngx_http_core_module.html#variables" target="_blank" rel="noopener">更多。。。</a></p>
+<p>!!!任何时候都不应该去覆盖内置变量，有些内置变量被覆盖会导致报错甚至进程崩溃。</p>
+<h3 id="map"><a href="#map" class="headerlink" title="map"></a>map</h3><p>对于配置CORS的域名白名单，使用map是比if更好的选择，毕竟<a href="https://www.nginx.com/resources/wiki/start/topics/depth/ifisevil/" target="_blank" rel="noopener">If Is Evil</a></p>
+<p>map只能写于http模块，但不用担心访问任何location都会计算map，nginx的<a href="http://nginx.org/en/docs/http/ngx_http_map_module.html" target="_blank" rel="noopener">ngx_map</a>模块实现了只有在该用户变量被实际读取时才会执行，也就是惰性求值。<a href="http://openresty.org/download/agentzh-nginx-tutorials-zhcn.html#01-NginxVariables04" target="_blank" rel="noopener">更多参考</a>。</p>
+<pre class=" language-nginx"><code class="language-nginx"><span class="token comment" spellcheck="true"># $http_origin是自变量，而$cors_header是因变量</span>
+<span class="token keyword">map</span> <span class="token variable">$http_origin</span> <span class="token variable">$cors_header</span> <span class="token punctuation">{</span>
+    default <span class="token string">""</span><span class="token punctuation">;</span>
+    <span class="token string">"~^https?://(localhost|www\.abc\.com"</span> <span class="token string">"$http_origin"</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-server {
-    ...
-    location / {
-        add_header Access-Control-Allow-Origin $cors_header;
-        try_files $uri @other_location; # This try_files is working
-    }
-    ...
- }
-</code></pre><h2 id="rewrite"><a href="#rewrite" class="headerlink" title="rewrite"></a>rewrite</h2><p>server中的rewrite break和last没什么区别，都会去匹配location，所以没必要用last再发起新的请求，可以留空，以下针对location中的rewrite：</p>
+<span class="token keyword">server</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token keyword">location</span> <span class="token operator">/</span> <span class="token punctuation">{</span>
+        <span class="token keyword">add_header</span> Access<span class="token operator">-</span>Control<span class="token operator">-</span><span class="token keyword">Allow</span><span class="token operator">-</span>Origin <span class="token variable">$cors_header</span><span class="token punctuation">;</span>
+        <span class="token keyword">try_files</span> <span class="token variable">$uri</span> @other_location<span class="token punctuation">;</span> <span class="token comment" spellcheck="true"># This try_files is working</span>
+    <span class="token punctuation">}</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+ <span class="token punctuation">}</span>
+</code></pre>
+<h2 id="rewrite"><a href="#rewrite" class="headerlink" title="rewrite"></a>rewrite</h2><p>server中的rewrite break和last没什么区别，都会去匹配location，所以没必要用last再发起新的请求，可以留空，以下针对location中的rewrite：</p>
 <h3 id="last"><a href="#last" class="headerlink" title="last"></a>last</h3><p>用重写后的uri重新去匹配location，默认10次匹配不到报500错误</p>
 <h3 id="break"><a href="#break" class="headerlink" title="break"></a>break</h3><p>终止rewrite阶段，执行后续的其它阶段，对比last，不会重新去匹配location</p>
 <h3 id="redirect"><a href="#redirect" class="headerlink" title="redirect"></a>redirect</h3><p>302临时重定向</p>
 <h3 id="permanent"><a href="#permanent" class="headerlink" title="permanent"></a>permanent</h3><p>301永久重定向</p>
-<h2 id="if"><a href="#if" class="headerlink" title="if"></a>if</h2><p>由于nginx中的配置是分阶段执行的，而非一般编程语言中的线性执行，所以执行顺序看上去会有些怪异，再加上nginx内部对于if处理的一些机制，让初学者很是不解。看文章：<a href="http://damacheng009.iteye.com/blog/1583879" target="_blank" rel="noopener">How nginx “location if” works</a></p>
+<h2 id="if"><a href="#if" class="headerlink" title="if"></a>if</h2><p>由于nginx中的配置是分阶段执行的，而非一般编程语言中的线性执行，所以执行顺序看上去会有些怪异，再加上nginx内部对于if处理的一些机制，让初学者很是不解。看文章：<a href="http://damacheng009.iteye.com/blog/1583879" target="_blank" rel="noopener">How nginx &quot;location if&quot; works</a></p>
 <h2 id="location匹配"><a href="#location匹配" class="headerlink" title="location匹配"></a>location匹配</h2><p>语法：</p>
 <pre><code> location [=|~|~*|^~] /uri/ { … }
  location @name { ... } 
@@ -216,6 +219,7 @@ location ~ /images/abc/ {
   # 只有去掉 config D 才有效：先最长匹配 config G 开头的地址，继续往下搜索，匹配到这一条正则，采用
     [ configuration H ]
 }
+
 </code></pre>
         
         <br>

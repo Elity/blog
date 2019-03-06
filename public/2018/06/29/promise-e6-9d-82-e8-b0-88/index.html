@@ -143,55 +143,74 @@
         <blockquote>
 <p>最近又花时间理了一下Promise的设计逻辑，有一些小收获整理下。</p>
 </blockquote>
-<h2 id="控制反转-IOC"><a href="#控制反转-IOC" class="headerlink" title="控制反转(IOC)"></a>控制反转(IOC)</h2><p>如果我们使用Spring(Java)或Laravel(PHP)这样的后端语言框架，我们不可避免的会与控制反转(IOC)、依赖注入(DI)这俩概念打交道，事实上，他们是同一个概念站在不同角度的描述。 我们有如下类，<code>Man</code>继承自<code>People</code>：</p>
-<pre><code>class People{
-    work(){}
-}
+<h2 id="控制反转-IOC"><a href="#控制反转-IOC" class="headerlink" title="控制反转(IOC)"></a>控制反转(IOC)</h2><p>如果我们使用Spring(Java)或Laravel(PHP)这样的后端语言框架，我们不可避免的会与控制反转(IOC)、依赖注入(DI)这俩概念打交道，事实上，他们是同一个概念站在不同角度的描述。<br>我们有如下类，<code>Man</code>继承自<code>People</code>：</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">class</span> <span class="token class-name">People</span><span class="token punctuation">{</span>
+    <span class="token function">work</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-class Man extends People{}
-</code></pre><p>现有另一个<code>Work</code>类：</p>
-<pre><code>class Work{
-    constructor(){
-        this.people = new Man()
-    }
-    doWork(){
-        this.people.work()
-    }
-}
-</code></pre><p>这样，我们就把<code>Man</code>写死在了<code>Work</code>里面。 现在我们增加一个<code>Woman</code>,也继承自<code>People</code>:</p>
-<pre><code>class Woman extends People{}
-</code></pre><p>我们想让<code>Woman</code>工作的时候，要么就重新写一个类<code>Work1</code>，要么就只能把<code>Man</code>改为<code>Woman</code>，这显然不是一种好的实现。通过控制反转的思想，我们重构<code>Work</code>:</p>
-<pre><code>class Work{
-    constructor(people){
-        if(people instanceof People){
-            this.people = people
-        }else{
-            throw new TypeError(&#39;类Work构造函数应该传入类People的实例&#39;)
-        }
-    }
-    doWork(){
-        this.people.work()
-    }
-}
-</code></pre><p>然后，我们可以分别在<code>Work</code>中使用<code>Man</code>与<code>Woman</code>：</p>
-<pre><code>    const man = new Man()
-    const woman = new Woman()
-    new Work(man).work()
-    new Work(woman).work()
-</code></pre><p>显然，重构以后，使用<code>Man</code>与<code>Woman</code>的控制权交到了使用<code>Work</code>类的人手中，而不是创建<code>Work</code>类的人手中，这就是控制反转。 控制反转的情况，在Javascript代码经常打交道的回调函数处体现得淋漓尽致：</p>
-<pre><code>function work(workFn){
-    workFn &amp;&amp; workFn()
-}
+<span class="token keyword">class</span> <span class="token class-name">Man</span> <span class="token keyword">extends</span> <span class="token class-name">People</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+</code></pre>
+<p>现有另一个<code>Work</code>类：</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">class</span> <span class="token class-name">Work</span><span class="token punctuation">{</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>people <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Man</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">doWork</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>people<span class="token punctuation">.</span><span class="token function">work</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>这样，我们就把<code>Man</code>写死在了<code>Work</code>里面。<br>现在我们增加一个<code>Woman</code>,也继承自<code>People</code>:</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">class</span> <span class="token class-name">Woman</span> <span class="token keyword">extends</span> <span class="token class-name">People</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+</code></pre>
+<p>我们想让<code>Woman</code>工作的时候，要么就重新写一个类<code>Work1</code>，要么就只能把<code>Man</code>改为<code>Woman</code>，这显然不是一种好的实现。通过控制反转的思想，我们重构<code>Work</code>:</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">class</span> <span class="token class-name">Work</span><span class="token punctuation">{</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span>people<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>people <span class="token keyword">instanceof</span> <span class="token class-name">People</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>people <span class="token operator">=</span> people
+        <span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">TypeError</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>类Work构造函数应该传入类People的实例<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">doWork</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>people<span class="token punctuation">.</span><span class="token function">work</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>然后，我们可以分别在<code>Work</code>中使用<code>Man</code>与<code>Woman</code>：</p>
+<pre class=" language-javascript"><code class="language-javascript">    <span class="token keyword">const</span> man <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Man</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">const</span> woman <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Woman</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">new</span> <span class="token class-name">Work</span><span class="token punctuation">(</span>man<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">work</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">new</span> <span class="token class-name">Work</span><span class="token punctuation">(</span>woman<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">work</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<p>显然，重构以后，使用<code>Man</code>与<code>Woman</code>的控制权交到了使用<code>Work</code>类的人手中，而不是创建<code>Work</code>类的人手中，这就是控制反转。</p>
+<p>控制反转的情况，在Javascript代码经常打交道的回调函数处体现得淋漓尽致：</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">work</span><span class="token punctuation">(</span>workFn<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    workFn <span class="token operator">&amp;</span>amp<span class="token punctuation">;</span><span class="token operator">&amp;</span>amp<span class="token punctuation">;</span> <span class="token function">workFn</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 
-work(function(){
-    console.log(&#39;A&#39;)
-})
+<span class="token function">work</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>A<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
 
-work(function(){
-    console.log(&#39;B&#39;)
-})
-</code></pre><p>然而，控制反转被应用于回调这样的场景带来了诸多问题： 1. work会不会真的调用workFn？ 2. work会调用几次workFn？ 3. work会同步还是异步调用workFn？ 4. 传入workFn的参数是否恒定？ 5. work内部出现错误或调用workFn出现错误如何处理？ 6. 无法组合多个回调逻辑（并联、串联） 出现这么多疑问，终究归到两个字：<code>信任</code>。由于<code>work</code>可能由其他小伙伴提供，甚至极端的可能由第三方提供，这种情况下，我们把回调函数交给<code>work</code>，内心是充满诸多不安的，我们无法信任<code>work</code>是否会如我们期望的方式执行。 而Promise的出现，反转了控制反转，很好的解决了代码的信任问题。</p>
-<h2 id="承诺"><a href="#承诺" class="headerlink" title="承诺"></a>承诺</h2><p>Promise即承诺，Promise的实现遵循Promise的相关规范(目前为<a href="https://malcolmyu.github.io/2015/06/12/Promises-A-Plus" target="_blank" rel="noopener">Promise/A+翻译版</a>，<a href="https://promisesaplus.com/" target="_blank" rel="noopener">原文</a>) Promise会在语法层面上确保promise状态发生改变时，会去调用用户传递给then方法的回调函数，并自动返回一个经<code>Promise.resolve</code>包装的promise，这也就是之所以Promise取名叫Promise的原因吧。换句话说，我们把控制反转反转了，但这个回调也不是由我们自己调用，而是交由一个可靠的系统（Promise）来调用，确保用户的回调函数执行情况是可以被信任的。 Promise只有三种状态：<code>Pending</code>、<code>Fulfilled</code>、<code>Rejected</code>，而且状态变化的方向只能是： <code>Pending-&gt;Fulfilled</code> 或 <code>Pending-&gt;Rejected</code> 一旦状态改变，就不会再次发生变化，确保了回调问题2、4，只会调用一次业务逻辑，且值是确定的。 状态改变的同时，Promise内部就会异步调用<code>Promise.prototype.then</code>的回调函数，要么成功，要么失败，此解决了回调问题3，promise的回调永远都是异步的 配合 Promise.race即可处理某些Promise一直处于<code>Pending</code>状况的问题，解决回调问题1 配合Promise.prototype.catch可以很方便的处理promise中的异常情况，解决回调问题5 配合Promise.all可以实现多个Promise的并联，再加上Promise的链式传递特性，解决回调问题6</p>
+<span class="token function">work</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>B<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<p>然而，控制反转被应用于回调这样的场景带来了诸多问题：</p>
+<ol>
+<li>work会不会真的调用workFn？</li>
+<li>work会调用几次workFn？</li>
+<li>work会同步还是异步调用workFn？</li>
+<li>传入workFn的参数是否恒定？</li>
+<li>work内部出现错误或调用workFn出现错误如何处理？</li>
+<li>无法组合多个回调逻辑（并联、串联）</li>
+</ol>
+<p>出现这么多疑问，终究归到两个字：<code>信任</code>。由于<code>work</code>可能由其他小伙伴提供，甚至极端的可能由第三方提供，这种情况下，我们把回调函数交给<code>work</code>，内心是充满诸多不安的，我们无法信任<code>work</code>是否会如我们期望的方式执行。</p>
+<p>而Promise的出现，反转了控制反转，很好的解决了代码的信任问题。</p>
+<h2 id="承诺"><a href="#承诺" class="headerlink" title="承诺"></a>承诺</h2><p>Promise即承诺，Promise的实现遵循Promise的相关规范(目前为<a href="https://malcolmyu.github.io/2015/06/12/Promises-A-Plus" target="_blank" rel="noopener">Promise/A+翻译版</a>，<a href="https://promisesaplus.com/" target="_blank" rel="noopener">原文</a>)</p>
+<p>Promise会在语法层面上确保promise状态发生改变时，会去调用用户传递给then方法的回调函数，并自动返回一个经<code>Promise.resolve</code>包装的promise，这也就是之所以Promise取名叫Promise的原因吧。换句话说，我们把控制反转反转了，但这个回调也不是由我们自己调用，而是交由一个可靠的系统（Promise）来调用，确保用户的回调函数执行情况是可以被信任的。</p>
+<p>Promise只有三种状态：<code>Pending</code>、<code>Fulfilled</code>、<code>Rejected</code>，而且状态变化的方向只能是：<br><code>Pending-&gt;Fulfilled</code><br>或<br><code>Pending-&gt;Rejected</code><br>一旦状态改变，就不会再次发生变化，确保了回调问题2、4，只会调用一次业务逻辑，且值是确定的。<br>状态改变的同时，Promise内部就会异步调用<code>Promise.prototype.then</code>的回调函数，要么成功，要么失败，此解决了回调问题3，promise的回调永远都是异步的<br>配合 Promise.race即可处理某些Promise一直处于<code>Pending</code>状况的问题，解决回调问题1<br>配合Promise.prototype.catch可以很方便的处理promise中的异常情况，解决回调问题5<br>配合Promise.all可以实现多个Promise的并联，再加上Promise的链式传递特性，解决回调问题6</p>
 
         
         <br>

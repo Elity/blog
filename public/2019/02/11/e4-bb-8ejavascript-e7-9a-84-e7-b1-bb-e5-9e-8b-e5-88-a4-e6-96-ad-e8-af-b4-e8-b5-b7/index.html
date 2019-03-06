@@ -140,13 +140,18 @@
 
     </div>
     <div class="post-content ">
-        <h2 id="变量名与变量值"><a href="#变量名与变量值" class="headerlink" title="变量名与变量值"></a>变量名与变量值</h2><pre><code>var age = 15;
-</code></pre><p>变量名只是标识符，可以理解为内部指针，指向变量值所在的内存地址。变量名没有类型一说。 在一个姓名唯一的星球上，张三用于指代某个人，张三就是变量名，那个人就是变量值。当然，这个人还可以同时拥有多个其它名字：阿三、阿三哥、小三、小三三等。 由于无名之人会挂掉。所以，当把张三、阿三…这些名字都分配给其它人之后，这个人就没有存在的意义了，别人无法描述这个人，也就无法再次给他分配名字（<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Memory_Management#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6" target="_blank" rel="noopener">垃圾回收</a>机制）。 <strong>后面我们依然会用这个设定来解释变量的引用。</strong> PS：以上仅仅提到了垃圾回收机制中最简单的一种，复杂的，比如：</p>
-<pre><code>var o = {};
-var arr = [];
-arr.push(o);
-o = undefined;
-</code></pre><p>由于<code>arr</code>依然持有原来变量<code>o</code>指向的对象，所以就算标识符<code>o</code>不再引用该对象，但该对象依然被标记引用，不能被作为垃圾回收</p>
+        <h2 id="变量名与变量值"><a href="#变量名与变量值" class="headerlink" title="变量名与变量值"></a>变量名与变量值</h2><pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">var</span> age <span class="token operator">=</span> <span class="token number">15</span><span class="token punctuation">;</span>
+</code></pre>
+<p>变量名只是标识符，可以理解为内部指针，指向变量值所在的内存地址。变量名没有类型一说。</p>
+<p>在一个姓名唯一的星球上，张三用于指代某个人，张三就是变量名，那个人就是变量值。当然，这个人还可以同时拥有多个其它名字：阿三、阿三哥、小三、小三三等。<br>由于无名之人会挂掉。所以，当把张三、阿三…这些名字都分配给其它人之后，这个人就没有存在的意义了，别人无法描述这个人，也就无法再次给他分配名字（<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Memory_Management#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6" target="_blank" rel="noopener">垃圾回收</a>机制）。</p>
+<p><strong>后面我们依然会用这个设定来解释变量的引用。</strong></p>
+<p>PS：以上仅仅提到了垃圾回收机制中最简单的一种，复杂的，比如：</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">var</span> o <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> arr <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+arr<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>o<span class="token punctuation">)</span><span class="token punctuation">;</span>
+o <span class="token operator">=</span> undefined<span class="token punctuation">;</span>
+</code></pre>
+<p>由于<code>arr</code>依然持有原来变量<code>o</code>指向的对象，所以就算标识符<code>o</code>不再引用该对象，但该对象依然被标记引用，不能被作为垃圾回收</p>
 <h2 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h2><ul>
 <li>6 种基本类型<ul>
 <li>null</li>
@@ -162,234 +167,298 @@ o = undefined;
 </ul>
 </li>
 </ul>
-<p>看到这里很多人就会发问了，那么我们用的数组、函数都算什么呢？ <a href="https://imgchr.com/i/ky4eJg" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/02/17/ky4eJg.gif" alt="ky4eJg.gif"></a> 又有机智的小伙伴会问了，那 JSON 又是什么？ <a href="http://www.baike.com/wiki/json" target="_blank" rel="noopener">JSON_互动百科</a> 看很多人的简历写了：精通 JavaScript、JSON 等技术。我就一直在纳闷，JSON 有什么好精通的。</p>
+<p>看到这里很多人就会发问了，那么我们用的数组、函数都算什么呢？</p>
+<p><a href="https://imgchr.com/i/ky4eJg" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/02/17/ky4eJg.gif" alt="ky4eJg.gif"></a></p>
+<p>又有机智的小伙伴会问了，那 JSON 又是什么？ <a href="http://www.baike.com/wiki/json" target="_blank" rel="noopener">JSON_互动百科</a></p>
+<p>看很多人的简历写了：精通 JavaScript、JSON 等技术。我就一直在纳闷，JSON 有什么好精通的。</p>
 <h3 id="基本类型"><a href="#基本类型" class="headerlink" title="基本类型"></a>基本类型</h3><p>基本类型直接代表了最底层的语言实现，具有如下特点：</p>
 <ul>
 <li>不可变</li>
 <li>无方法/属性</li>
 </ul>
-<h4 id="不可变："><a href="#不可变：" class="headerlink" title="不可变："></a>不可变：</h4><pre><code>var s = &#39;hello world&#39;;
-console.log(s[1]); // 输出 e
-s[1] = &#39;a&#39;;
-console.log(s); // 依然是 hello world
-</code></pre><p>扩展概念：<a href="http://en.wikipedia.org/wiki/String_interning" target="_blank" rel="noopener">字符串驻留</a> 可以通过<a href="https://developers.google.com/web/tools/chrome-devtools/memory-problems/heap-snapshots" target="_blank" rel="noopener">内存快照</a>的方式验证如下变量<code>a</code>和<code>b</code>是否指向同样的内存地址:</p>
-<pre><code>var a = &#39;hello&#39;;
-var b = &#39;hello&#39;;
-</code></pre><h4 id="无方法-属性："><a href="#无方法-属性：" class="headerlink" title="无方法/属性："></a>无方法/属性：</h4><p>初看有些难以理解，毕竟我们经常这样用：</p>
-<pre><code>&#39;Hello World&#39;.split(&#39; &#39;);
-</code></pre><p>我们首先要搞明白两个事情：</p>
+<h4 id="不可变："><a href="#不可变：" class="headerlink" title="不可变："></a>不可变：</h4><pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">var</span> s <span class="token operator">=</span> <span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>hello world<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>s<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 输出 e</span>
+s<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>a<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 依然是 hello world</span>
+</code></pre>
+<p>扩展概念：<a href="http://en.wikipedia.org/wiki/String_interning" target="_blank" rel="noopener">字符串驻留</a></p>
+<p>可以通过<a href="https://developers.google.com/web/tools/chrome-devtools/memory-problems/heap-snapshots" target="_blank" rel="noopener">内存快照</a>的方式验证如下变量<code>a</code>和<code>b</code>是否指向同样的内存地址:</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">var</span> a <span class="token operator">=</span> <span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>hello<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> b <span class="token operator">=</span> <span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>hello<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+</code></pre>
+<h4 id="无方法-属性："><a href="#无方法-属性：" class="headerlink" title="无方法/属性："></a>无方法/属性：</h4><p>初看有些难以理解，毕竟我们经常这样用：</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>Hello World<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span> <span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>我们首先要搞明白两个事情：</p>
 <ul>
-<li><p>上面的<code>split</code>方法就是<code>String.prototype.split</code>，验证：</p>
-<p>‘Hello World’.split === String.prototype.split; // true</p>
-</li>
+<li>上面的<code>split</code>方法就是<code>String.prototype.split</code>，验证：</li>
 </ul>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>Hello World<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">.</span>split <span class="token operator">===</span> String<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>split<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// true</span>
+</code></pre>
 <ul>
-<li><p>而 <code>&quot;Hello World&quot;</code> 并不是 <code>String</code> 的实例，验证：</p>
-<p>‘Hello World’ instanceof String; // false</p>
-</li>
+<li>而 <code>&quot;Hello World&quot;</code> 并不是 <code>String</code> 的实例，验证：</li>
 </ul>
-<p>上面这个例子要铭记，原始类型不能用<code>instanceof</code>判断。 那么为什么可以这样调用：<code>&quot;Hello World&quot;.split(&quot; &quot;)</code>？ 答案呼之欲出: <a href="https://www.baidu.com/s?wd=JavaScript%20%E8%A3%85%E7%AE%B1&amp;rsv_spt=1&amp;rsv_iqid=0x9976ccb70006cf99&amp;issp=1&amp;f=8&amp;rsv_bp=1&amp;rsv_idx=2&amp;ie=utf-8&amp;rqlang=cn&amp;tn=baiduhome_pg&amp;rsv_enter=1&amp;inputT=543&amp;rsv_t=89520xyq7IZs9HTqFvSDlQfzFv3uYUDzrPJTG2YcAbFfM5EEvQpzOP%2BlxsvNpLpb92Wt&amp;oq=JavaScript%2520%25E8%2587%25AA%25E5%258A%25A8%25E8%25A3%2585%25E7%25AE%25B1&amp;rsv_pq=dccc221f00098ae5&amp;rsv_n=2&amp;rsv_sug3=56&amp;rsv_sug2=0&amp;rsv_sug4=544" target="_blank" rel="noopener">百度:JavaScript 装箱</a> <a href="https://www.google.com/search?newwindow=1&amp;source=hp&amp;ei=N61mXOP_Jsbj-Aa5h6WgAg&amp;q=JavaScript+boxing&amp;btnK=Google+Search&amp;oq=JavaScript+boxing&amp;gs_l=psy-ab.3..0i13j0i8i13i10i30j0i8i13i30j0i8i13i10i30j0i8i13i30l2.21077.24694..24738...1.0..0.131.1385.11j3......0....1..gws-wiz.....0..35i39j0i67j0i131j0j0i20i263.wUZG64TGqsM" target="_blank" rel="noopener">Google:JavaScript boxing</a> 所以，在调用<code>&quot;Hello World&quot;.split(&quot; &quot;)</code>时，实际调用的是<code>&quot;Hello World&quot;</code>对应的包装类<code>String</code>,实例化后的方法，等同于：</p>
-<pre><code>new String(&#39;Hello World&#39;).split(&#39; &#39;);
-</code></pre><p>如下几种基本类型：<code>string</code>、<code>number</code>、<code>boolean</code>、<code>symbol</code>都有对于的包装类，分别是<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/String" target="_blank" rel="noopener">String</a>、<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Number" target="_blank" rel="noopener">Number</a>、<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Boolean" target="_blank" rel="noopener">Boolean</a>、<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Symbol" target="_blank" rel="noopener">Symbol</a> 除了<code>Symbol</code>外，另外三个包装器类均可以被显示实例化，即<code>new String</code>、<code>new Number</code>、<code>new Boolean</code>均合法，但这并不好，而且任何时候都不鼓励显示创建包装器对象，这会模糊原始值与包装器对象的差异。所以在 ES6 中引入的<code>Symbol</code>不让被显示实例化(<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Symbol#Description" target="_blank" rel="noopener">参考</a>)：</p>
-<pre><code>new Symbol(); // 报错： Symbol is not a constructor
-</code></pre><p>但如果有别的原因，需要创建<code>symbol</code>的包装器对象，还是有方式的：</p>
-<pre><code>var a = Object(Symbol());
-typeof a; // object
-</code></pre><h3 id="复合类型"><a href="#复合类型" class="headerlink" title="复合类型"></a>复合类型</h3><p>复合类型仅一种<code>object</code></p>
-<pre><code>typeof []; // object
-typeof {}; // object
-typeof Promise.resolve(); // object
-typeof function() {}; // function    咦！我们中出了叛徒
-</code></pre><p>莫慌，尽管在判断函数的时候返回了<code>function</code>，但就算烧成灰，在 JavaScript 中函数依然是属于<code>object</code>类型，一种在底层实现了<code>[[Call]]</code>内部方法的特殊<code>object</code>。 复合类型可变，可添加属性/方法，另外一大特点是按引用传值，怎么理解呢？看示例：</p>
-<pre><code>var arr = [1, 2, 3];
-var arr1 = arr;
-arr1.push(4);
-console.log(arr1); // [1,2,3,4]
-console.log(arr); // [1,2,3,4]
-</code></pre><p>发现异常没？明明我对<code>arr1</code>进行的操作，<code>arr</code>也跟着变了。我们这里不扯高深的内存操作，还是用那外星球的张三来做类比：</p>
-<pre><code>var arr = [1, 2, 3]; // 某个人([1,2,3])一出生就被分配了名字：arr(张三)
-var arr1 = arr; // 后面他又得到一个名字：阿三(arr1)
-arr1.push(4); // 阿三(arr1)被人揍了一顿，毁了容，变成了 [1,2,3,4]
-console.log(arr); // 你说张三毁容没毁容？
-</code></pre><p>搞清数据类型的情况下，什么时候是按值传递，什么时候按引用传递是不是一目了然？ 大声说出来，以下代码的输出结果：</p>
-<pre><code>function fn() {}
-fn.hehe = &#39;hehe&#39;;
-console.log(fn.hehe); // 输出啥？
-function factory(o) {
-  o.hehe = &#39;haha&#39;;
-}
-factory(fn);
-console.log(fn.hehe); // 输出啥？
-</code></pre><p>另外，复合类型还有一大特性，不存在两个一样的值：</p>
-<pre><code>{} === {} // false
-[] === [] // flase
-function a(){} === function a(){} // false
-</code></pre><h2 id="类型判断"><a href="#类型判断" class="headerlink" title="类型判断"></a>类型判断</h2><ul>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>Hello World<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span> <span class="token keyword">instanceof</span> <span class="token class-name">String</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// false</span>
+</code></pre>
+<p>上面这个例子要铭记，原始类型不能用<code>instanceof</code>判断。</p>
+<p>那么为什么可以这样调用：<code>&quot;Hello World&quot;.split(&quot; &quot;)</code>？</p>
+<p>答案呼之欲出:</p>
+<p><a href="https://www.baidu.com/s?wd=JavaScript%20%E8%A3%85%E7%AE%B1&amp;rsv_spt=1&amp;rsv_iqid=0x9976ccb70006cf99&amp;issp=1&amp;f=8&amp;rsv_bp=1&amp;rsv_idx=2&amp;ie=utf-8&amp;rqlang=cn&amp;tn=baiduhome_pg&amp;rsv_enter=1&amp;inputT=543&amp;rsv_t=89520xyq7IZs9HTqFvSDlQfzFv3uYUDzrPJTG2YcAbFfM5EEvQpzOP%2BlxsvNpLpb92Wt&amp;oq=JavaScript%2520%25E8%2587%25AA%25E5%258A%25A8%25E8%25A3%2585%25E7%25AE%25B1&amp;rsv_pq=dccc221f00098ae5&amp;rsv_n=2&amp;rsv_sug3=56&amp;rsv_sug2=0&amp;rsv_sug4=544" target="_blank" rel="noopener">百度:JavaScript 装箱</a></p>
+<p><a href="https://www.google.com/search?newwindow=1&amp;source=hp&amp;ei=N61mXOP_Jsbj-Aa5h6WgAg&amp;q=JavaScript+boxing&amp;btnK=Google+Search&amp;oq=JavaScript+boxing&amp;gs_l=psy-ab.3..0i13j0i8i13i10i30j0i8i13i30j0i8i13i10i30j0i8i13i30l2.21077.24694..24738...1.0..0.131.1385.11j3......0....1..gws-wiz.....0..35i39j0i67j0i131j0j0i20i263.wUZG64TGqsM" target="_blank" rel="noopener">Google:JavaScript boxing</a></p>
+<p>所以，在调用<code>&quot;Hello World&quot;.split(&quot; &quot;)</code>时，实际调用的是<code>&quot;Hello World&quot;</code>对应的包装类<code>String</code>,实例化后的方法，等同于：</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>Hello World<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span> <span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>如下几种基本类型：<code>string</code>、<code>number</code>、<code>boolean</code>、<code>symbol</code>都有对于的包装类，分别是<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/String" target="_blank" rel="noopener">String</a>、<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Number" target="_blank" rel="noopener">Number</a>、<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Boolean" target="_blank" rel="noopener">Boolean</a>、<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Symbol" target="_blank" rel="noopener">Symbol</a></p>
+<p>除了<code>Symbol</code>外，另外三个包装器类均可以被显示实例化，即<code>new String</code>、<code>new Number</code>、<code>new Boolean</code>均合法，但这并不好，而且任何时候都不鼓励显示创建包装器对象，这会模糊原始值与包装器对象的差异。所以在 ES6 中引入的<code>Symbol</code>不让被显示实例化(<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Symbol#Description" target="_blank" rel="noopener">参考</a>)：</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">new</span> <span class="token class-name">Symbol</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 报错： Symbol is not a constructor</span>
+</code></pre>
+<p>但如果有别的原因，需要创建<code>symbol</code>的包装器对象，还是有方式的：</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">var</span> a <span class="token operator">=</span> <span class="token function">Object</span><span class="token punctuation">(</span><span class="token function">Symbol</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">typeof</span> a<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// object</span>
+</code></pre>
+<h3 id="复合类型"><a href="#复合类型" class="headerlink" title="复合类型"></a>复合类型</h3><p>复合类型仅一种<code>object</code></p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">typeof</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// object</span>
+<span class="token keyword">typeof</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// object</span>
+<span class="token keyword">typeof</span> Promise<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// object</span>
+<span class="token keyword">typeof</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// function    咦！我们中出了叛徒</span>
+</code></pre>
+<p>莫慌，尽管在判断函数的时候返回了<code>function</code>，但就算烧成灰，在 JavaScript 中函数依然是属于<code>object</code>类型，一种在底层实现了<code>[[Call]]</code>内部方法的特殊<code>object</code>。</p>
+<p>复合类型可变，可添加属性/方法，另外一大特点是按引用传值，怎么理解呢？看示例：</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">var</span> arr <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> arr1 <span class="token operator">=</span> arr<span class="token punctuation">;</span>
+arr1<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>arr1<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [1,2,3,4]</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>arr<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [1,2,3,4]</span>
+</code></pre>
+<p>发现异常没？明明我对<code>arr1</code>进行的操作，<code>arr</code>也跟着变了。我们这里不扯高深的内存操作，还是用那外星球的张三来做类比：</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">var</span> arr <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 某个人([1,2,3])一出生就被分配了名字：arr(张三)</span>
+<span class="token keyword">var</span> arr1 <span class="token operator">=</span> arr<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 后面他又得到一个名字：阿三(arr1)</span>
+arr1<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 阿三(arr1)被人揍了一顿，毁了容，变成了 [1,2,3,4]</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>arr<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 你说张三毁容没毁容？</span>
+</code></pre>
+<p>搞清数据类型的情况下，什么时候是按值传递，什么时候按引用传递是不是一目了然？</p>
+<p>大声说出来，以下代码的输出结果：</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">fn</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+fn<span class="token punctuation">.</span>hehe <span class="token operator">=</span> <span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>hehe<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>fn<span class="token punctuation">.</span>hehe<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 输出啥？</span>
+<span class="token keyword">function</span> <span class="token function">factory</span><span class="token punctuation">(</span>o<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  o<span class="token punctuation">.</span>hehe <span class="token operator">=</span> <span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>haha<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token function">factory</span><span class="token punctuation">(</span>fn<span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>fn<span class="token punctuation">.</span>hehe<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 输出啥？</span>
+</code></pre>
+<p>另外，复合类型还有一大特性，不存在两个一样的值：</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token operator">===</span> <span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token comment" spellcheck="true">// false</span>
+<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">===</span> <span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true">// flase</span>
+<span class="token keyword">function</span> <span class="token function">a</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token operator">===</span> <span class="token keyword">function</span> <span class="token function">a</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token comment" spellcheck="true">// false</span>
+</code></pre>
+<h2 id="类型判断"><a href="#类型判断" class="headerlink" title="类型判断"></a>类型判断</h2><ul>
 <li>typeof</li>
 <li>instanceof</li>
 <li>Object.prototype.toString.call</li>
 </ul>
 <h3 id="typeof"><a href="#typeof" class="headerlink" title="typeof"></a>typeof</h3><p>有 7 种数据类型，<code>typeof</code> 也返回了 7 个不同的类型值，然鹅这两个 7 并不一一对应：</p>
-<pre><code>typeof 123 // number
-typeof &#39;str&#39; // string
-typeof true // boolean
-typeof Symbol() // symbol
-typeof undefined // undefined
-typeof fucntion(){} // function
-typeof {} // object
-typeof null // object
-typeof new String(&quot;hello&quot;) // object
-</code></pre><p><code>typeof null === &#39;object&#39;</code>是一开始设计 JavaScript 的时候产生的<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/typeof#null" target="_blank" rel="noopener">bug</a>，只能将错就错一直沿用下来，这是客户端语言的无奈（向下兼容）。 所以，当使用<code>typeof</code>判断一个数据是否为<code>object</code>时一定要排除<code>null</code>的情况：</p>
-<pre><code>function isObject(obj) {
-  return obj &amp;&amp; typeof obj === &#39;object&#39;;
-}
-</code></pre><p>至于<code>typeof fucntion(){}</code>返回<code>function</code>，是<a href="http://www.ecma-international.org/ecma-262/5.1/#sec-11.4.3" target="_blank" rel="noopener">标准</a>规定的。 另外另外另外，还有一种<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/typeof#%E4%BE%8B%E5%A4%96" target="_blank" rel="noopener">特例</a>：</p>
-<pre><code>typeof document.all === &#39;undefined&#39;;
-</code></pre><p>至于原因，看看<code>document.all</code>与 IE 的<a href="https://www.cnblogs.com/ziyunfei/p/5618152.html" target="_blank" rel="noopener">爱恨纠葛</a> 所以，除了<code>null</code>，其他任意的数据我们均可以通过<code>typeof</code>操作符得到其类型。 至于，我们需要知道某对象具体是什么对象，比如：</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">typeof</span> <span class="token number">123</span> <span class="token comment" spellcheck="true">// number</span>
+<span class="token keyword">typeof</span> <span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>str<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// string</span>
+<span class="token keyword">typeof</span> <span class="token boolean">true</span> <span class="token comment" spellcheck="true">// boolean</span>
+<span class="token keyword">typeof</span> <span class="token function">Symbol</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// symbol</span>
+<span class="token keyword">typeof</span> undefined <span class="token comment" spellcheck="true">// undefined</span>
+<span class="token keyword">typeof</span> <span class="token function">fucntion</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token comment" spellcheck="true">// function</span>
+<span class="token keyword">typeof</span> <span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token comment" spellcheck="true">// object</span>
+<span class="token keyword">typeof</span> <span class="token keyword">null</span> <span class="token comment" spellcheck="true">// object</span>
+<span class="token keyword">typeof</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span>hello<span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// object</span>
+</code></pre>
+<p><code>typeof null === &#39;object&#39;</code>是一开始设计 JavaScript 的时候产生的<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/typeof#null" target="_blank" rel="noopener">bug</a>，只能将错就错一直沿用下来，这是客户端语言的无奈（向下兼容）。</p>
+<p>所以，当使用<code>typeof</code>判断一个数据是否为<code>object</code>时一定要排除<code>null</code>的情况：</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">isObject</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> obj <span class="token operator">&amp;</span>amp<span class="token punctuation">;</span><span class="token operator">&amp;</span>amp<span class="token punctuation">;</span> <span class="token keyword">typeof</span> obj <span class="token operator">===</span> <span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>object<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>至于<code>typeof fucntion(){}</code>返回<code>function</code>，是<a href="http://www.ecma-international.org/ecma-262/5.1/#sec-11.4.3" target="_blank" rel="noopener">标准</a>规定的。</p>
+<p>另外另外另外，还有一种<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/typeof#%E4%BE%8B%E5%A4%96" target="_blank" rel="noopener">特例</a>：</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">typeof</span> document<span class="token punctuation">.</span>all <span class="token operator">===</span> <span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>undefined<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+</code></pre>
+<p>至于原因，看看<code>document.all</code>与 IE 的<a href="https://www.cnblogs.com/ziyunfei/p/5618152.html" target="_blank" rel="noopener">爱恨纠葛</a></p>
+<p>所以，除了<code>null</code>，其他任意的数据我们均可以通过<code>typeof</code>操作符得到其类型。</p>
+<p>至于，我们需要知道某对象具体是什么对象，比如：</p>
 <ul>
 <li>我们怎么知道变量<code>arr</code>是否是<code>Array</code>的实例？</li>
 <li>我们怎么知道变量<code>pro</code>是否是<code>Promise</code>的实例？</li>
 </ul>
 <p>那么就要请出<code>instanceof</code>了</p>
-<h3 id="instanceof"><a href="#instanceof" class="headerlink" title="instanceof"></a>instanceof</h3><p><code>instanceof</code> 顾名思义：<code>a instanceof A</code>的意义就是判断对象<code>a</code>是否是函数(也可以叫类)<code>A</code>的实例。 当然，以上表述不是完全准确，准确的表述应该是：判断<code>A.prototype</code>是否出现在了对象<code>a</code>的原型链上。 至于原型与原型链的概念及用途，看<a href="./prototype-chain.md">这篇文章</a>。 下面简述<code>__proto__</code>的背景，方便代码演示，会在上面提到的文章中详细阐述。</p>
+<h3 id="instanceof"><a href="#instanceof" class="headerlink" title="instanceof"></a>instanceof</h3><p><code>instanceof</code> 顾名思义：<code>a instanceof A</code>的意义就是判断对象<code>a</code>是否是函数(也可以叫类)<code>A</code>的实例。</p>
+<p>当然，以上表述不是完全准确，准确的表述应该是：判断<code>A.prototype</code>是否出现在了对象<code>a</code>的原型链上。</p>
+<p>至于原型与原型链的概念及用途，看<a href="./prototype-chain.md">这篇文章</a>。</p>
+<p>下面简述<code>__proto__</code>的背景，方便代码演示，会在上面提到的文章中详细阐述。</p>
 <blockquote>
 <p>最早由 Firefox 实现了通过属性<code>__proto__</code>访问对象的原型，这一特性如今几乎被所有的现代浏览器所实现，甚至还写入了 ES6 标准（尽管强烈不推荐在生产环境使用它，而是使用 Object.getPrototypeOf 方法），为方便，我们在演示代码中均用该特性读取原型，比如<code>a.__proto__</code>则是对象<code>a</code>的原型。</p>
 </blockquote>
 <p>回到<code>instanceof</code>：</p>
-<pre><code>var arr = [];
-// 因为，以下表达式的结果为 true
-arr.__proto__ === Array.prototype;
-// 所以，以下表达式的结果也为 true
-arr instanceof Array;
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">var</span> arr <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// 因为，以下表达式的结果为 true</span>
+arr<span class="token punctuation">.</span>__proto__ <span class="token operator">===</span> Array<span class="token punctuation">.</span>prototype<span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// 所以，以下表达式的结果也为 true</span>
+arr <span class="token keyword">instanceof</span> <span class="token class-name">Array</span><span class="token punctuation">;</span>
 
-// 同样，由于以下表达式结果为 true
-arr.__proto__.__proto__ === Object.prototype;
-// 所以，以下表达式的结果也为 true
-arr instanceof Object;
-</code></pre><p>使用<code>instanceof</code>去判断对象的子类型有一些弊端，比如：</p>
+<span class="token comment" spellcheck="true">// 同样，由于以下表达式结果为 true</span>
+arr<span class="token punctuation">.</span>__proto__<span class="token punctuation">.</span>__proto__ <span class="token operator">===</span> Object<span class="token punctuation">.</span>prototype<span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// 所以，以下表达式的结果也为 true</span>
+arr <span class="token keyword">instanceof</span> <span class="token class-name">Object</span><span class="token punctuation">;</span>
+</code></pre>
+<p>使用<code>instanceof</code>去判断对象的子类型有一些弊端，比如：</p>
 <ul>
-<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/instanceof#instanceof%E5%92%8C%E5%A4%9A%E5%85%A8%E5%B1%80%E5%AF%B9%E8%B1%A1(%E5%A4%9A%E4%B8%AAframe%E6%88%96%E5%A4%9A%E4%B8%AAwindow%E4%B9%8B%E9%97%B4%E7%9A%84%E4%BA%A4%E4%BA%92" target="_blank" rel="noopener">跨窗口的类型判断</a>)</p>
+<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/instanceof#instanceof%E5%92%8C%E5%A4%9A%E5%85%A8%E5%B1%80%E5%AF%B9%E8%B1%A1(%E5%A4%9A%E4%B8%AAframe%E6%88%96%E5%A4%9A%E4%B8%AAwindow%E4%B9%8B%E9%97%B4%E7%9A%84%E4%BA%A4%E4%BA%92" target="_blank" rel="noopener">跨窗口的类型判断</a>&gt;)</p>
 </li>
 <li><p>无原型的对象</p>
 </li>
 </ul>
-<pre><code>var o = Object.create(null);
-o.__proto__; // undefined
-typeof o; // object
-o instanceof Object; // false
-</code></pre><ul>
-<li><p>强行嫁接原型的情况</p>
-<p>var obj = {};<br>obj.<strong>proto</strong> = Array.prototype;<br>obj instanceof Array; // true</p>
-</li>
-</ul>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">var</span> o <span class="token operator">=</span> Object<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+o<span class="token punctuation">.</span>__proto__<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// undefined</span>
+<span class="token keyword">typeof</span> o<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// object</span>
+o <span class="token keyword">instanceof</span> <span class="token class-name">Object</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// false</span>
+</code></pre>
 <ul>
-<li><p><code>instanceof</code>的行为可被自定义</p>
-<p>class MyClass {<br>  static <a href="instance">Symbol.hasInstance</a> {</p>
-<pre><code>return true;
-</code></pre><p>  }<br>}</p>
-<p>[] instanceof MyClass; // true</p>
-<p>Object.create(null) instanceof MyClass; // true   完全不顾原型了</p>
-<p>‘sss’ instanceof MyClass; // 连基本类型也不管了</p>
-<p>var a;<br>// 理论上来讲，a 是任意值，下面表达式都为 true<br>a instanceof MyClass; // true</p>
-</li>
+<li>强行嫁接原型的情况</li>
 </ul>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">var</span> obj <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+obj<span class="token punctuation">.</span>__proto__ <span class="token operator">=</span> Array<span class="token punctuation">.</span>prototype<span class="token punctuation">;</span>
+obj <span class="token keyword">instanceof</span> <span class="token class-name">Array</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// true</span>
+</code></pre>
+<ul>
+<li><code>instanceof</code>的行为可被自定义</li>
+</ul>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">class</span> <span class="token class-name">MyClass</span> <span class="token punctuation">{</span>
+  <span class="token keyword">static</span> <span class="token punctuation">[</span>Symbol<span class="token punctuation">.</span>hasInstance<span class="token punctuation">]</span><span class="token punctuation">(</span>instance<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token keyword">instanceof</span> <span class="token class-name">MyClass</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// true</span>
+
+Object<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token keyword">instanceof</span> <span class="token class-name">MyClass</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// true   完全不顾原型了</span>
+
+<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>sss<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span> <span class="token keyword">instanceof</span> <span class="token class-name">MyClass</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 连基本类型也不管了</span>
+
+<span class="token keyword">var</span> a<span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// 理论上来讲，a 是任意值，下面表达式都为 true</span>
+a <span class="token keyword">instanceof</span> <span class="token class-name">MyClass</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// true</span>
+</code></pre>
 <p>所以，除非你很确定的情况，不然不要轻易使用<code>instanceof</code>去判断一个值是否属于某个类型。</p>
 <h3 id="Object-prototype-toString-call"><a href="#Object-prototype-toString-call" class="headerlink" title="Object.prototype.toString.call"></a>Object.prototype.toString.call</h3><p>人狠话不多，先看效果：</p>
-<pre><code>Object.prototype.toString.call([]); // [object Array]
-Object.prototype.toString.call({}); // [object Object]
-Object.prototype.toString.call(&#39;&#39;); // [object String]
-Object.prototype.toString.call(new Date()); // [object Date]
-Object.prototype.toString.call(1); // [object Number]
-Object.prototype.toString.call(function() {}); // [object Function]
-Object.prototype.toString.call(/test/i); // [object RegExp]
-Object.prototype.toString.call(true); // [object Boolean]
-Object.prototype.toString.call(null); // [object Null]
-Object.prototype.toString.call(); // [object Undefined]
-</code></pre><p>这些形如：”[object Array]“的值是从哪冒出来的呢？ 依据<a href="https://www.ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring" target="_blank" rel="noopener">ES6 规范</a>中关于<code>Object.prototype.toString</code>的实现要求，我们翻译成伪代码就一目了然了：</p>
-<pre><code>// 以下代码仅表示逻辑，不可作为js代码运行
-function toString(val){
-  if(val === undefined)return &quot;[object Undefined]&quot;
-  if(val === null)return &quot;[object Null]&quot;
-  let O = ToObject(val)
-  let isArr = IsArray(val)
-  ReturnIfAbrupt(isArr) // 如果 isArr 不是一个正常值，比如抛出一个错误，则中断执行
-  let builtingTag;
-  if(isArr) builtingTag = &quot;Array&quot;;
-  else if(O 是 exotic String object) builtingTag = &quot;String&quot;;
-  else if(O 有内部插槽 [[ParameterMap]]) builtingTag = &quot;Arguments&quot;;
-  else if(O 有内部方法 [[Call]]) builtingTag = &quot;Function&quot;;
-  else if(O 有内部插槽 [[ErrorData]]) builtingTag = &quot;Error&quot;;
-  else if(O 有内部插槽 [[BooleanData]]) builtingTag = &quot;Boolean&quot;;
-  else if(O 有内部插槽 [[NumberData]]) builtingTag = &quot;Number&quot;;
-  else if(O 有内部插槽 [[DateValue]]) builtingTag = &quot;Date&quot;;
-  else if(O 有内部插槽 [[RegExpMatcher]]) builtingTag = &quot;RegExp&quot;;
-  else builtingTag = &quot;Object&quot;;
-  let tag = O[Symbol.toStringTag];
-  ReturnIfAbrupt(tag);
-  if(Type(tag) 不是 String)tag = builtingTag
-  return `[object ${tag}]`
-}
-</code></pre><p>上述伪代码用到了内部方法<a href="https://www.ecma-international.org/ecma-262/6.0/#sec-toobject" target="_blank" rel="noopener">ToObject</a>、<a href="https://www.ecma-international.org/ecma-262/6.0/#sec-isarray" target="_blank" rel="noopener">IsArray</a>、<a href="https://www.ecma-international.org/ecma-262/6.0/#sec-ecmascript-data-types-and-values" target="_blank" rel="noopener">Type</a>及<a href="https://www.ecma-international.org/ecma-262/6.0/#sec-returnifabrupt" target="_blank" rel="noopener">ReturnIfAbrupt</a>，内部类型<a href="https://www.ecma-international.org/ecma-262/6.0/#sec-string-exotic-objects" target="_blank" rel="noopener">String Exotic Objects</a> 特别说明下，很多书籍、博客里面提到的内部属性<code>[[Class]]</code>，在 ES6 规范中的<code>Object.prototype.toString</code>不再读取。 通过上面的伪代码，我们可以知道，用户可以控制<code>Object.prototype.toString</code>的返回值：</p>
-<pre><code>let o = [];
-Object.prototype.toString.call(o); // [object Array]
-o[Symbol.toStringTag] = &#39;MyClass&#39;;
-Object.prototype.toString.call(o); // [object MyClass]
-</code></pre><p>至此，我们对三种判断类型的方式都已经做了介绍。 但是，你还需要搞清楚，类型判断的初衷是什么？ 什么场景下使用什么方法你也需要仔细思量。</p>
+<pre class=" language-javascript"><code class="language-javascript">Object<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>toString<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [object Array]</span>
+Object<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>toString<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [object Object]</span>
+Object<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>toString<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [object String]</span>
+Object<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>toString<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [object Date]</span>
+Object<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>toString<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [object Number]</span>
+Object<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>toString<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [object Function]</span>
+Object<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>toString<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token regex">/test/i</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [object RegExp]</span>
+Object<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>toString<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [object Boolean]</span>
+Object<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>toString<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [object Null]</span>
+Object<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>toString<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [object Undefined]</span>
+</code></pre>
+<p>这些形如：”[object Array]”的值是从哪冒出来的呢？</p>
+<p>依据<a href="https://www.ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring" target="_blank" rel="noopener">ES6 规范</a>中关于<code>Object.prototype.toString</code>的实现要求，我们翻译成伪代码就一目了然了：</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token comment" spellcheck="true">// 以下代码仅表示逻辑，不可作为js代码运行</span>
+<span class="token keyword">function</span> <span class="token function">toString</span><span class="token punctuation">(</span>val<span class="token punctuation">)</span><span class="token punctuation">{</span>
+  <span class="token keyword">if</span><span class="token punctuation">(</span>val <span class="token operator">===</span> undefined<span class="token punctuation">)</span><span class="token keyword">return</span> <span class="token string">"[object Undefined]"</span>
+  <span class="token keyword">if</span><span class="token punctuation">(</span>val <span class="token operator">===</span> <span class="token keyword">null</span><span class="token punctuation">)</span><span class="token keyword">return</span> <span class="token string">"[object Null]"</span>
+  <span class="token keyword">let</span> O <span class="token operator">=</span> <span class="token function">ToObject</span><span class="token punctuation">(</span>val<span class="token punctuation">)</span>
+  <span class="token keyword">let</span> isArr <span class="token operator">=</span> <span class="token function">IsArray</span><span class="token punctuation">(</span>val<span class="token punctuation">)</span>
+  <span class="token function">ReturnIfAbrupt</span><span class="token punctuation">(</span>isArr<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 如果 isArr 不是一个正常值，比如抛出一个错误，则中断执行</span>
+  <span class="token keyword">let</span> builtingTag<span class="token punctuation">;</span>
+  <span class="token keyword">if</span><span class="token punctuation">(</span>isArr<span class="token punctuation">)</span> builtingTag <span class="token operator">=</span> <span class="token string">"Array"</span><span class="token punctuation">;</span>
+  <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>O 是 exotic String object<span class="token punctuation">)</span> builtingTag <span class="token operator">=</span> <span class="token string">"String"</span><span class="token punctuation">;</span>
+  <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>O 有内部插槽 <span class="token punctuation">[</span><span class="token punctuation">[</span>ParameterMap<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span> builtingTag <span class="token operator">=</span> <span class="token string">"Arguments"</span><span class="token punctuation">;</span>
+  <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>O 有内部方法 <span class="token punctuation">[</span><span class="token punctuation">[</span>Call<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span> builtingTag <span class="token operator">=</span> <span class="token string">"Function"</span><span class="token punctuation">;</span>
+  <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>O 有内部插槽 <span class="token punctuation">[</span><span class="token punctuation">[</span>ErrorData<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span> builtingTag <span class="token operator">=</span> <span class="token string">"Error"</span><span class="token punctuation">;</span>
+  <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>O 有内部插槽 <span class="token punctuation">[</span><span class="token punctuation">[</span>BooleanData<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span> builtingTag <span class="token operator">=</span> <span class="token string">"Boolean"</span><span class="token punctuation">;</span>
+  <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>O 有内部插槽 <span class="token punctuation">[</span><span class="token punctuation">[</span>NumberData<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span> builtingTag <span class="token operator">=</span> <span class="token string">"Number"</span><span class="token punctuation">;</span>
+  <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>O 有内部插槽 <span class="token punctuation">[</span><span class="token punctuation">[</span>DateValue<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span> builtingTag <span class="token operator">=</span> <span class="token string">"Date"</span><span class="token punctuation">;</span>
+  <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>O 有内部插槽 <span class="token punctuation">[</span><span class="token punctuation">[</span>RegExpMatcher<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span> builtingTag <span class="token operator">=</span> <span class="token string">"RegExp"</span><span class="token punctuation">;</span>
+  <span class="token keyword">else</span> builtingTag <span class="token operator">=</span> <span class="token string">"Object"</span><span class="token punctuation">;</span>
+  <span class="token keyword">let</span> tag <span class="token operator">=</span> O<span class="token punctuation">[</span>Symbol<span class="token punctuation">.</span>toStringTag<span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token function">ReturnIfAbrupt</span><span class="token punctuation">(</span>tag<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">Type</span><span class="token punctuation">(</span>tag<span class="token punctuation">)</span> 不是 String<span class="token punctuation">)</span>tag <span class="token operator">=</span> builtingTag
+  <span class="token keyword">return</span> <span class="token template-string"><span class="token string">`[object </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>tag<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">]`</span></span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>上述伪代码用到了内部方法<a href="https://www.ecma-international.org/ecma-262/6.0/#sec-toobject" target="_blank" rel="noopener">ToObject</a>、<a href="https://www.ecma-international.org/ecma-262/6.0/#sec-isarray" target="_blank" rel="noopener">IsArray</a>、<a href="https://www.ecma-international.org/ecma-262/6.0/#sec-ecmascript-data-types-and-values" target="_blank" rel="noopener">Type</a>及<a href="https://www.ecma-international.org/ecma-262/6.0/#sec-returnifabrupt" target="_blank" rel="noopener">ReturnIfAbrupt</a>，内部类型<a href="https://www.ecma-international.org/ecma-262/6.0/#sec-string-exotic-objects" target="_blank" rel="noopener">String Exotic Objects</a></p>
+<p>特别说明下，很多书籍、博客里面提到的内部属性<code>[[Class]]</code>，在 ES6 规范中的<code>Object.prototype.toString</code>不再读取。</p>
+<p>通过上面的伪代码，我们可以知道，用户可以控制<code>Object.prototype.toString</code>的返回值：</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">let</span> o <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+Object<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>toString<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>o<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [object Array]</span>
+o<span class="token punctuation">[</span>Symbol<span class="token punctuation">.</span>toStringTag<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>MyClass<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+Object<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>toString<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>o<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [object MyClass]</span>
+</code></pre>
+<p>至此，我们对三种判断类型的方式都已经做了介绍。</p>
+<p>但是，你还需要搞清楚，类型判断的初衷是什么？</p>
+<p>什么场景下使用什么方法你也需要仔细思量。</p>
 <h3 id="鸭子类型（duck-typing）"><a href="#鸭子类型（duck-typing）" class="headerlink" title="鸭子类型（duck typing）"></a>鸭子类型（duck typing）</h3><p><a href="https://zh.wikipedia.org/wiki/%E9%B8%AD%E5%AD%90%E7%B1%BB%E5%9E%8B" target="_blank" rel="noopener">鸭子类型</a>这个概念来自<a href="https://zh.wikipedia.org/wiki/%E9%B8%AD%E5%AD%90%E6%B5%8B%E8%AF%95" target="_blank" rel="noopener">鸭子测试</a>，当看到一只鸟走起来像鸭子、游泳起来像鸭子、叫起来也像鸭子，那么这只鸟就可以被称为鸭子。而在程序设计中：</p>
 <blockquote>
 <p>鸭子类型（英语：duck typing）是动态类型的一种风格。在这种风格中，一个对象有效的语义，不是由继承自特定的类或实现特定的接口，而是由”当前方法和属性的集合”决定。在鸭子类型中，关注点在于对象的行为，能作什么；而不是关注对象所属的类型。</p>
 </blockquote>
-<p>鸭子类型在原生的 JavaScript 中最显著的代表莫过于<code>Promise/A+</code>中的<a href="https://promisesaplus.com/#the-promise-resolution-procedure" target="_blank" rel="noopener">thenable</a>对象了。 <code>thenable</code>就是一个特殊的 js 对象，特殊在于这个对象本身或其原型链上存在<code>then</code>方法。所以，你懂的，当你在原型链的顶端添加了<code>then</code>方法，js 下任何的对象都成为了<code>thenable</code>对象：</p>
-<pre><code>Object.prototype.then = function(resolve, reject) {};
-</code></pre><p>如上的代码被添加以后，一个正常依赖<code>Promise</code>的项目就无法工作正常了。这是鸭子类型一直被诟病的地方。 但，凡事具有两面性，既然引入这个概念，而且在各大编程语言特别是动态语言中作为一种设计模式，具有不可替代的作用。 依然拿<code>thenable</code>来说，在<code>Promise</code>正式进入规范之前，已经有很多库实现了类似思想，比如<a href="https://github.com/kriskowal/q" target="_blank" rel="noopener">Q</a>、<a href="https://api.jquery.com/category/deferred-object/" target="_blank" rel="noopener">jQuery.Deferred</a>，如何保证已经使用了这些库的既有项目如何快速过度到标准的<code>Promise</code>呢？噢！感谢上帝，这些类库有一个共同特点，就是它们的对象都有<code>then</code>方法，在实现<code>Promise</code>时只需要这样判断一个值是否是<code>thenable</code>：</p>
-<pre><code>var isThenable = obj =&gt;
-  (typeof obj === &#39;function&#39; || (obj &amp;&amp; typeof obj === &#39;object&#39;)) &amp;&amp;
-  &#39;then&#39; in obj;
-</code></pre><p>如果用判断鸭子类型的方式来判断一个数组，我们可能需要这样判断：</p>
-<pre><code>var obj = {};
-var isArr = false;
-if(&#39;splice&#39; in obj &amp;&amp; &#39;push&#39; in obj &amp;&amp; &#39;pop&#39; in obj....){
-  isArr = true;
-}
-</code></pre><p>更有甚者，我们可能还需要判断<code>push</code>或<code>pop</code>操作以后，数组的长度是否自动发生了变化…一切的判断取决于你的需求。 你需要知道一个值是否如你所期望的那样，你得去察其外貌观其行为，如果都符合你的预期，你就把它当你所需类型使用，这就是鸭子类型。 无论是使用 js 提供的类型判断，还是使用鸭子类型去判断，在动态语言下面都不存在绝对的靠谱，<code>动态</code>提供了便利的同时，对于开发人员的素质要求也会更高。多人协作的项目、中大型项目、频繁迭代的项目，也许拥抱强类型语言是更稳妥的选择。 个人觉得，从语言层面上来讲，鸭子类型比较像是强类型语言里面的接口(interface)，接口的约束性更强，实现一个接口必须实现接口的所有方法与属性，甚至方法的签名都需要一模一样，减少了很多的不确定性。 下面以 typescript 的<code>接口</code>做演示结束本文：</p>
-<pre><code>interface Animal {
-  name: string;
-  say();
-}
-
-class Cat implements Animal {
-  name = &#39;&#39;;
-  constructor(name: string) {
-    this.name = name;
-  }
-  say() {
-    console.log(`我是猫，我叫${this.name}`);
-  }
-}
-
-class People implements Animal {
-  name = &#39;&#39;;
-  constructor(name: string) {
-    this.name = name;
-  }
-  say() {
-    console.log(`我是人，我叫${this.name}`);
-  }
-}
-
-function factory(animal: Animal) {
-  animal.say();
-}
-
-const tom = new Cat(&#39;tom&#39;);
-const zs = new People(&#39;张三&#39;);
-
-factory(tom);
-factory(zs);
-
-// 我是猫，我叫tom
-// 我是人，我叫张三
+<p>鸭子类型在原生的 JavaScript 中最显著的代表莫过于<code>Promise/A+</code>中的<a href="https://promisesaplus.com/#the-promise-resolution-procedure" target="_blank" rel="noopener">thenable</a>对象了。</p>
+<p><code>thenable</code>就是一个特殊的 js 对象，特殊在于这个对象本身或其原型链上存在<code>then</code>方法。所以，你懂的，当你在原型链的顶端添加了<code>then</code>方法，js 下任何的对象都成为了<code>thenable</code>对象：</p>
+<pre class=" language-javascript"><code class="language-javascript">Object<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>then <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>resolve<span class="token punctuation">,</span> reject<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
+<p>如上的代码被添加以后，一个正常依赖<code>Promise</code>的项目就无法工作正常了。这是鸭子类型一直被诟病的地方。</p>
+<p>但，凡事具有两面性，既然引入这个概念，而且在各大编程语言特别是动态语言中作为一种设计模式，具有不可替代的作用。</p>
+<p>依然拿<code>thenable</code>来说，在<code>Promise</code>正式进入规范之前，已经有很多库实现了类似思想，比如<a href="https://github.com/kriskowal/q" target="_blank" rel="noopener">Q</a>、<a href="https://api.jquery.com/category/deferred-object/" target="_blank" rel="noopener">jQuery.Deferred</a>，如何保证已经使用了这些库的既有项目如何快速过度到标准的<code>Promise</code>呢？噢！感谢上帝，这些类库有一个共同特点，就是它们的对象都有<code>then</code>方法，在实现<code>Promise</code>时只需要这样判断一个值是否是<code>thenable</code>：</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">var</span> isThenable <span class="token operator">=</span> obj <span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span>
+  <span class="token punctuation">(</span><span class="token keyword">typeof</span> obj <span class="token operator">===</span> <span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token keyword">function</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span> <span class="token operator">||</span> <span class="token punctuation">(</span>obj <span class="token operator">&amp;</span>amp<span class="token punctuation">;</span><span class="token operator">&amp;</span>amp<span class="token punctuation">;</span> <span class="token keyword">typeof</span> obj <span class="token operator">===</span> <span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>object<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>amp<span class="token punctuation">;</span><span class="token operator">&amp;</span>amp<span class="token punctuation">;</span>
+  <span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>then<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span> <span class="token keyword">in</span> obj<span class="token punctuation">;</span>
+</code></pre>
+<p>如果用判断鸭子类型的方式来判断一个数组，我们可能需要这样判断：</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">var</span> obj <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> isArr <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>splice<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span> <span class="token keyword">in</span> obj <span class="token operator">&amp;</span>amp<span class="token punctuation">;</span><span class="token operator">&amp;</span>amp<span class="token punctuation">;</span> <span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>push<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span> <span class="token keyword">in</span> obj <span class="token operator">&amp;</span>amp<span class="token punctuation">;</span><span class="token operator">&amp;</span>amp<span class="token punctuation">;</span> <span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>pop<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span> <span class="token keyword">in</span> obj<span class="token operator">...</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+  isArr <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>更有甚者，我们可能还需要判断<code>push</code>或<code>pop</code>操作以后，数组的长度是否自动发生了变化…一切的判断取决于你的需求。</p>
+<p>你需要知道一个值是否如你所期望的那样，你得去察其外貌观其行为，如果都符合你的预期，你就把它当你所需类型使用，这就是鸭子类型。</p>
+<p>无论是使用 js 提供的类型判断，还是使用鸭子类型去判断，在动态语言下面都不存在绝对的靠谱，<code>动态</code>提供了便利的同时，对于开发人员的素质要求也会更高。多人协作的项目、中大型项目、频繁迭代的项目，也许拥抱强类型语言是更稳妥的选择。</p>
+<p>个人觉得，从语言层面上来讲，鸭子类型比较像是强类型语言里面的接口(interface)，接口的约束性更强，实现一个接口必须实现接口的所有方法与属性，甚至方法的签名都需要一模一样，减少了很多的不确定性。</p>
+<p>下面以 typescript 的<code>接口</code>做演示结束本文：</p>
+<pre class=" language-typescript"><code class="language-typescript"><span class="token keyword">interface</span> <span class="token class-name">Animal</span> <span class="token punctuation">{</span>
+  name<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">;</span>
+  <span class="token function">say</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Cat</span> <span class="token keyword">implements</span> <span class="token class-name">Animal</span> <span class="token punctuation">{</span>
+  name <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">;</span>
+  <span class="token keyword">constructor</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token function">say</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`我是猫，我叫</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token keyword">this</span><span class="token punctuation">.</span>name<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">class</span> <span class="token class-name">People</span> <span class="token keyword">implements</span> <span class="token class-name">Animal</span> <span class="token punctuation">{</span>
+  name <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">;</span>
+  <span class="token keyword">constructor</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token function">say</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`我是人，我叫</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token keyword">this</span><span class="token punctuation">.</span>name<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">factory</span><span class="token punctuation">(</span>animal<span class="token punctuation">:</span> Animal<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  animal<span class="token punctuation">.</span><span class="token function">say</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">const</span> tom <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Cat</span><span class="token punctuation">(</span><span class="token string">'tom'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> zs <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">People</span><span class="token punctuation">(</span><span class="token string">'张三'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token function">factory</span><span class="token punctuation">(</span>tom<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">factory</span><span class="token punctuation">(</span>zs<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">// 我是猫，我叫tom</span>
+<span class="token comment" spellcheck="true">// 我是人，我叫张三</span>
+</code></pre>
+
         
         <br>
         <div id="comment-container">
