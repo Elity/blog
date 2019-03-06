@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Fighting">
+    <meta name="keyword" content="Fighting">
+    <link rel="shortcut icon" href="/blog/img/favicon.ico">
+
+    <title>
+        
+        Dart学习笔记：Future - Fighting的博客 | Fighting&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/blog/css/aircloud.css">
+    <link rel="stylesheet" href="/blog/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Fighting&#39;s Blog </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/blog/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Fighting</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/blog/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#构造函数"><span class="toc-text">构造函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实例方法"><span class="toc-text">实例方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#静态方法"><span class="toc-text">静态方法</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Fighting&#39;s Blog </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        Dart学习笔记：Future
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2019-01-28 22:19:41</span></span>
+        
+        <span class="attr">Tags：/
+        
+        <a class="tag" href="/blog/tags/#dart" title="dart">dart</a>
+        <span>/</span>
+        
+        <a class="tag" href="/blog/tags/#学习" title="学习">学习</a>
+        <span>/</span>
+        
+        <a class="tag" href="/blog/tags/#Future" title="Future">Future</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <p>Dart下的<code>Future</code>类似于ES6下新增的<code>Promise</code>，也是为了解决异步回调带来的各种问题。</p>
+<h3 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h3><blockquote>
+<p><code>Future(FutureOr&lt;T&gt; computation())</code></p>
+</blockquote>
+<p>computation 的返回值可以是普通值或者是<code>Future</code>对象</p>
+<pre><code>Future&lt;num&gt; future1 = Future((){
+    print(&#39;async call1&#39;);
+    return 123;
+});
+
+Future&lt;Future&gt; future2 = Future((){
+    print(&#39;async call2&#39;);
+    return future1;
+});
+</code></pre><p>需要注意的是，<code>computation</code>函数体中的代码是被异步执行的，这与<code>Promise</code>构造函数的回调执行时机是不一样的，如需要被同步执行，则使用如下这个命名构造函数：</p>
+<blockquote>
+<p><code>Future.sync(FutureOr&lt;T&gt; computation())</code></p>
+</blockquote>
+<pre><code>Future&lt;num&gt; future = Future.sync((){
+    print(&#39;sync call&#39;);
+    return 123;
+});
+</code></pre><blockquote>
+<p><code>Future.delayed(Duration duration, [ FutureOr&lt;T&gt; computation() ])</code></p>
+</blockquote>
+<p>延时后再执行computation</p>
+<pre><code>Future.delayed(Duration(seconds: 1), () {
+    print(&quot;print after 1 second&quot;);
+});
+</code></pre><blockquote>
+<p><code>Future.value([FutureOr&lt;T&gt; value ])</code></p>
+</blockquote>
+<p>创建一个future对象，以value完成</p>
+<pre><code>Future.value(123);
+</code></pre><blockquote>
+<p><code>Future.error(Object error, [ StackTrace stackTrace ])</code></p>
+</blockquote>
+<p>创建一个future对象，以错误状态完成</p>
+<pre><code>Future.error(&#39;some error&#39;);
+</code></pre><blockquote>
+<p><code>Future.microtask(FutureOr&lt;T&gt; computation())</code></p>
+</blockquote>
+<p>dart下的异步任务队列有两个：<code>event queue</code>和<code>microtask queue</code>，<code>microtask queue</code>的优先级更高，而future的任务默认是属于<code>event queue</code>。上面这个构造函数就可以创建属于<code>microtask queue</code>的future。</p>
+<pre><code>Future.microtask(()=&gt;print(&quot;microtask&quot;));
+</code></pre><h3 id="实例方法"><a href="#实例方法" class="headerlink" title="实例方法"></a>实例方法</h3><blockquote>
+<p><code>then&lt;R&gt;(FutureOr&lt;R&gt; onValue(T value), { Function onError }) → Future&lt;R&gt;</code></p>
+</blockquote>
+<p>行为与ES6中<code>Promise.prototype.then</code>几乎一致</p>
+<pre><code>Future.val(123).then((val)=&gt;print(val));
+
+Future.error(&quot;some error&quot;).then((val) {},{onError: (err) =&gt; print(err)});
+</code></pre><blockquote>
+<p><code>catchError(Function onError, { bool test(Object error) }) → Future&lt;T&gt;</code></p>
+</blockquote>
+<p>处理future中的异常，第二个参数不使用的情况下，与ES6中的<code>Promise.prototype.catch</code>一致</p>
+<pre><code>Future.error(&quot;some error&quot;).catchError((err) =&gt; print(err));
+</code></pre><p>第二个参数提供的情况下，必须返回true，回调函数才能正常捕获错误。暂没想到该参数有什么用。</p>
+<blockquote>
+<p><code>asStream() → Stream&lt;T&gt;</code></p>
+</blockquote>
+<p>创建流，该流包含future中的值或错误</p>
+<blockquote>
+<p><code>timeout(Duration timeLimit, { FutureOr&lt;T&gt; onTimeout() }) → Future&lt;T&gt;</code></p>
+</blockquote>
+<p>给future指定一个超时时间，若超时了执行<code>onTimeout</code>回调，并返回新的值作为下一个future的值</p>
+<pre><code>  Future.delayed(Duration(seconds: 2)).timeout(Duration(seconds: 1),
+      onTimeout: () {
+    print(&quot;timeout&quot;);
+    return &quot;TIME OUT&quot;;
+  });
+</code></pre><blockquote>
+<p><code>whenComplete(FutureOr action()) → Future&lt;T&gt;</code></p>
+</blockquote>
+<p>类似于ES7中的<code>Promise.prototype.finally</code>,无论future是正常完成还是产生异常都会执行</p>
+<pre><code>Future.value(&quot;value&quot;).whenComplete(() {
+    print(&#39;complete&#39;);
+  })
+</code></pre><h3 id="静态方法"><a href="#静态方法" class="headerlink" title="静态方法"></a>静态方法</h3><blockquote>
+<p><code>any&lt;T&gt;(Iterable&lt;Future&lt;T&gt;&gt; futures) → Future&lt;T&gt;</code></p>
+</blockquote>
+<p>行为与ES6中<code>Promise.race</code>一致，若futures为空，则返回的future永远不会完成</p>
+<pre><code>Future.any([
+  Future.delayed(Duration(seconds: 1)).then((val) =&gt; 1),
+  Future.delayed(Duration(seconds: 2)).then((val) =&gt; 2),
+  Future.delayed(Duration(seconds: 3)).then((val) =&gt; 3),
+]).then((val) {
+  print(val); // val == 1
+});
+</code></pre><blockquote>
+<p><code>doWhile(FutureOr&lt;bool&gt; action()) → Future</code></p>
+</blockquote>
+<p>do{}while()的异步版本</p>
+<pre><code>var i = 0;
+Future.doWhile(() {
+  print(i++);
+  return Future.value(i &lt; 10);
+}).then((val) =&gt; print(&#39;after doWhile&#39;));
+</code></pre><blockquote>
+<p><code>forEach&lt;T&gt;(Iterable&lt;T&gt; elements, FutureOr action(T element)) → Future</code></p>
+</blockquote>
+<p>异步forEach，future会一直等待elements遍历完毕才会变成完成状态，除非在遍历过程中出现错误</p>
+<pre><code>Future.forEach([1, Future.delayed(Duration(seconds: 2)), 3], (val) {
+  print(val);
+  return val;
+}).then((val) =&gt; print(&#39;success=&gt;&gt;&gt;$val&#39;));
+</code></pre><blockquote>
+<p><code>wait&lt;T&gt;(Iterable&lt;Future&lt;T&gt;&gt; futures, { bool eagerError: false, void cleanUp(T successValue) }) → Future&lt;List&lt;T&gt;&gt;</code></p>
+</blockquote>
+<p>只<code>eagerError</code>参数未<code>true</code>的情况下，其行为与ES6中<code>Promise.all</code>基本一致</p>
+<pre><code>Future.wait([
+  Future.delayed(Duration(seconds: 1)).then((val) =&gt; 1),
+  Future.delayed(Duration(seconds: 2)).then((val) =&gt; 2),
+  Future.delayed(Duration(seconds: 3)).then((val) =&gt; 3),
+]).then((val) =&gt; print(val));  // 3s后得到val 为 [1,2,3]
+</code></pre><p><code>eagerError</code>默认值为<code>false</code>，表明futures中任何一项执行出错都不会立即返回新的future，而是需要等待所有项都是完成状态才会返回。 举例来讲，以下代码在<code>eagerError</code>为<code>false</code>的情况下，需要经历3s才会输出<code>err=&gt;error</code>,而设置<code>eagerError</code>为<code>true</code>,则只需要1.5s:</p>
+<pre><code>Future.wait([
+  Future.delayed(Duration(milliseconds: 1500))
+      .then((val) =&gt; Future.error(&#39;error&#39;)),
+  Future.delayed(Duration(seconds: 1)).then((val) =&gt; 1),
+  Future.delayed(Duration(seconds: 2)).then((val) =&gt; 2),
+  Future.delayed(Duration(seconds: 3)).then((val) =&gt; 3),
+], eagerError: false)
+    .then((val) =&gt; print(&#39;then=&gt;$val&#39;), onError: (err) =&gt; print(&#39;err=&gt;$err&#39;));
+</code></pre><p><code>cleanUp</code>在futures中某项出错的时候，会给每项正常执行的future提供清理操作，传递给<code>cleanUp</code>的参数为每个正常执行项的完成值，<code>Future.await</code>只会处理最先抛出的错误，但是整个程序会等待所有的future项完成才会结束。</p>
+<pre><code>Future.wait([
+  Future.delayed(Duration(milliseconds: 1500))
+      .then((val) =&gt; Future.error(&#39;error&#39;)),
+  Future.delayed(Duration(seconds: 1)).then((val) =&gt; 1),
+  Future.delayed(Duration(seconds: 2)).then((val) =&gt; 2),
+], cleanUp: (val) =&gt; print(&#39;complete=&gt;${val}&#39;))
+    .then((val) =&gt; print(&#39;then=&gt;$val&#39;), onError: (err) =&gt; print(&#39;err=&gt;$err&#39;));
+</code></pre><p>以上代码会在1.5s后依次输出：</p>
+<pre><code>complete=&gt;1
+complete=&gt;2
+err=&gt;error
+</code></pre><hr>
+<p>粗略过完了所有的API，应该还有很多细节遗漏的地方，特别是在内部任务调度这块，涉及到代码执行顺序的问题，需要在实际项目中去摸索、加深。</p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/blog/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/blog/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

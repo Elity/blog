@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Fighting">
+    <meta name="keyword" content="Fighting">
+    <link rel="shortcut icon" href="/blog/img/favicon.ico">
+
+    <title>
+        
+        javascript利用window.name实现跨域传输数据 - Fighting的博客 | Fighting&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/blog/css/aircloud.css">
+    <link rel="stylesheet" href="/blog/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Fighting&#39;s Blog </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/blog/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Fighting</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/blog/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Fighting&#39;s Blog </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        javascript利用window.name实现跨域传输数据
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2013-09-15 14:44:18</span></span>
+        
+        <span class="attr">Tags：/
+        
+        <a class="tag" href="/blog/tags/#Javascript" title="Javascript">Javascript</a>
+        <span>/</span>
+        
+        <a class="tag" href="/blog/tags/#跨域" title="跨域">跨域</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <p>好吧。。我OUT了，直到前几天才知道window.name居然有这神奇功效</p>
+<p>例如：有a.com和b.com两个域，a.com/res.html想接收b.com/send.html发来的数据</p>
+<p>可以这么实现，</p>
+<p>①先在b.com/send.html下利用javascript设置window.name 为需要传输的数据</p>
+<p>②然后在a.com/res.html下插入iframe,其src指向b.com/send.html</p>
+<p>③理论上此时a.com/res.html下的window[“iframe”].contentWindow.name应该就是b.com/send.html下设置的window.name了</p>
+<p>但这只是理论，由于浏览器的跨域限制，我们在此时并不能访问window[“iframe”].contentWindow.name</p>
+<p>④既然不能访问， 那么我们便将iframe的src指向a.com下的一个空白页面（如proxy.html）,此时再访问window[“iframe”].contentWindow.name，发现b.com 传输过来的 window.name在src改变后仍然神奇般地保存了下来。。</p>
+<p>当然前提是proxy.html没有设置window.name</p>
+<p>大致就是这样了  ，下面附上网上流传很广的代码</p>
+<p><strong>b.com/send.html</strong></p>
+<p>&lt;!DOCTYPE html PUBLIC “-//W3C//DTD XHTML 1.1//EN” “<a href="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd&quot;&gt;" target="_blank" rel="noopener">http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd&quot;&gt;</a></p>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"><br><head><meta name="generator" content="Hexo 3.8.0"><br>    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"><br>    <title>Document</title><br><link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head><br><body><br>    <script type="text/javascript"><br>    window.name = ‘需要跨域的数据’;<br></script><br></body><br></html>
+
+<p><strong>a.com/res.html</strong></p>
+<p>&lt;!DOCTYPE html PUBLIC “-//W3C//DTD XHTML 1.1//EN” “<a href="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd&quot;&gt;" target="_blank" rel="noopener">http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd&quot;&gt;</a></p>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"><br><head><meta name="generator" content="Hexo 3.8.0"><br>    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"><br>    <title>test window.name跨域</title><br></head><br><body><br>    <script><br>    var state = 0,<br>    iframe = document.createElement(‘iframe’),<br>    loadfn = function() {<br>        if (state === 1) {<br>            alert(“state=1”);<br>            var data = iframe.contentWindow.name;    // 读取数据<br>            alert(data);    //弹出 ‘需要跨域的数据’<br>        } else if (state === 0) {<br>            alert(“state=0”);<br>            state = 1;<br>            iframe.contentWindow.location = “<a href="http://a.com/proxy.html&quot;">http://a.com/proxy.html&quot;</a>;    // 把src设为本地域<br>        }<br>    };<br>    iframe.src = ‘<a href="http://b.com/send.html&#39;">http://b.com/send.html&#39;</a>;<br>    iframe.onload  = loadfn;<br>    document.body.appendChild(iframe);<br>    </script><br></body><br></html>
+
+<p>proxy.html设为空白页面就好了</p>
+<p>============== 纠错分割线 2013.09.26====================</p>
+<p>今天翻看《javascript高级程序设计 第三版》268页， 其中提到</p>
+<p>IE7 及更早版本的IE浏览器中</p>
+<blockquote>
+<p>不能设置动态创建的<iframe>元素的name特性</iframe></p>
+</blockquote>
+<p>那么我们上面的代码在兼容性上是有问题的。</p>
+<p>。</p>
+<p>。</p>
+<p>。</p>
+<p>写着写着发现我们上面并不是设置的iframe的name,好吧  我神经了</p>
+<p>不过好在对那句话印象深刻了</p>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/blog/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/blog/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

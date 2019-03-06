@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Fighting">
+    <meta name="keyword" content="Fighting">
+    <link rel="shortcut icon" href="/blog/img/favicon.ico">
+
+    <title>
+        
+        PHP从二维数组得到N层分类树 - Fighting的博客 | Fighting&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/blog/css/aircloud.css">
+    <link rel="stylesheet" href="/blog/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Fighting&#39;s Blog </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/blog/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Fighting</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/blog/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Fighting&#39;s Blog </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        PHP从二维数组得到N层分类树
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2016-05-25 18:25:09</span></span>
+        
+        
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <p>公司的产品分类存在一张表内，以mid标识其父分类，需要得到有层次结构的数组，以备后续操作。想了下，想了一会儿没想出不去重复读取数据库的方法或者不需要递归的操作。后来看到这个：<a href="http://blog.hexu.org/archives/1731.shtml" target="_blank" rel="noopener">http://blog.hexu.org/archives/1731.shtml</a> 数据源：（数据要求一维key与对应value二维数组的id要一样）</p>
+<pre><code>$items = array(
+    1 =&gt; array(&#39;id&#39; =&gt; 1, &#39;pid&#39; =&gt; 0, &#39;name&#39; =&gt; &#39;江西省&#39;),
+    2 =&gt; array(&#39;id&#39; =&gt; 2, &#39;pid&#39; =&gt; 0, &#39;name&#39; =&gt; &#39;黑龙江省&#39;),
+    3 =&gt; array(&#39;id&#39; =&gt; 3, &#39;pid&#39; =&gt; 1, &#39;name&#39; =&gt; &#39;南昌市&#39;),
+    4 =&gt; array(&#39;id&#39; =&gt; 4, &#39;pid&#39; =&gt; 2, &#39;name&#39; =&gt; &#39;哈尔滨市&#39;),
+    5 =&gt; array(&#39;id&#39; =&gt; 5, &#39;pid&#39; =&gt; 2, &#39;name&#39; =&gt; &#39;鸡西市&#39;),
+    6 =&gt; array(&#39;id&#39; =&gt; 6, &#39;pid&#39; =&gt; 4, &#39;name&#39; =&gt; &#39;香坊区&#39;),
+    7 =&gt; array(&#39;id&#39; =&gt; 7, &#39;pid&#39; =&gt; 4, &#39;name&#39; =&gt; &#39;南岗区&#39;),
+    8 =&gt; array(&#39;id&#39; =&gt; 8, &#39;pid&#39; =&gt; 6, &#39;name&#39; =&gt; &#39;和兴路&#39;),
+    9 =&gt; array(&#39;id&#39; =&gt; 9, &#39;pid&#39; =&gt; 7, &#39;name&#39; =&gt; &#39;西大直街&#39;),
+    10 =&gt; array(&#39;id&#39; =&gt; 10, &#39;pid&#39; =&gt; 8, &#39;name&#39; =&gt; &#39;东北林业大学&#39;),
+    11 =&gt; array(&#39;id&#39; =&gt; 11, &#39;pid&#39; =&gt; 9, &#39;name&#39; =&gt; &#39;哈尔滨工业大学&#39;),
+    12 =&gt; array(&#39;id&#39; =&gt; 12, &#39;pid&#39; =&gt; 8, &#39;name&#39; =&gt; &#39;哈尔滨师范大学&#39;),
+    13 =&gt; array(&#39;id&#39; =&gt; 13, &#39;pid&#39; =&gt; 1, &#39;name&#39; =&gt; &#39;赣州市&#39;),
+    14 =&gt; array(&#39;id&#39; =&gt; 14, &#39;pid&#39; =&gt; 13, &#39;name&#39; =&gt; &#39;赣县&#39;),
+    15 =&gt; array(&#39;id&#39; =&gt; 15, &#39;pid&#39; =&gt; 13, &#39;name&#39; =&gt; &#39;于都县&#39;),
+    16 =&gt; array(&#39;id&#39; =&gt; 16, &#39;pid&#39; =&gt; 14, &#39;name&#39; =&gt; &#39;茅店镇&#39;),
+    17 =&gt; array(&#39;id&#39; =&gt; 17, &#39;pid&#39; =&gt; 14, &#39;name&#39; =&gt; &#39;大田乡&#39;),
+    18 =&gt; array(&#39;id&#39; =&gt; 18, &#39;pid&#39; =&gt; 16, &#39;name&#39; =&gt; &#39;义源村&#39;),
+    19 =&gt; array(&#39;id&#39; =&gt; 19, &#39;pid&#39; =&gt; 16, &#39;name&#39; =&gt; &#39;上坝村&#39;),
+);
+</code></pre><p>生成树的函数：</p>
+<pre><code>function genTree9($items) {
+    $tree = array(); 
+    foreach ($items as $item)
+        if (isset($items[$item[&#39;pid&#39;]]))
+            $items[$item[&#39;pid&#39;]][&#39;son&#39;][] = &amp;$items[$item[&#39;id&#39;]];
+        else
+            $tree[] = &amp;$items[$item[&#39;id&#39;]];
+    return $tree;
+}
+</code></pre><p>当然。满足特定条件下的数据，更是可以把函数缩到只有短短5行：</p>
+<pre><code>function genTree5($items) { 
+    foreach ($items as $item) 
+        $items[$item[&#39;pid&#39;]][&#39;son&#39;][$item[&#39;id&#39;]] = &amp;$items[$item[&#39;id&#39;]]; 
+    return isset($items[0][&#39;son&#39;]) ? $items[0][&#39;son&#39;] : array(); 
+}
+</code></pre><p>一遍循环，内存引用。省时又省空间。</p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/blog/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/blog/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

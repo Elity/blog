@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Fighting">
+    <meta name="keyword" content="Fighting">
+    <link rel="shortcut icon" href="/blog/img/favicon.ico">
+
+    <title>
+        
+        WordPress防盗链方法 - Fighting的博客 | Fighting&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/blog/css/aircloud.css">
+    <link rel="stylesheet" href="/blog/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Fighting&#39;s Blog </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/blog/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Fighting</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/blog/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#BEGIN-WordPress"><span class="toc-text">BEGIN WordPress</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#END-WordPress"><span class="toc-text">END WordPress</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#BEGIN-WordPress-1"><span class="toc-text">BEGIN WordPress</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#END-WordPress-1"><span class="toc-text">END WordPress</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Fighting&#39;s Blog </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        WordPress防盗链方法
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2011-10-15 00:14:37</span></span>
+        
+        <span class="attr">Tags：/
+        
+        <a class="tag" href="/blog/tags/#盗链" title="盗链">盗链</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <p>一篇精彩的原创博文,可能很快会被转载无数次.有些转载者图方便直接复制粘贴到自己的网站或博客,如果文章中有图片,也会被一起转载,造成的流量损失会很惊人.因此喜欢在日志中加入本地上传图片的童鞋,保护自己的图片不被盗链还是非常重要的.这篇简易教程可以让你轻松实现图片防盗链.  </p>
+<p>安装完成Wordpress程序,一般会在WP程序目录创建一个名称为.htaccess的文件,我们就是要用到这个.htaccess文件,如果没有可以自己创建一个.</p>
+<p>用FTP软件将.htaccess文件下载到本地电脑中,用文本编辑软件打开这个文件,里面默认内容为:</p>
+<ol>
+<li><h1 id="BEGIN-WordPress"><a href="#BEGIN-WordPress" class="headerlink" title="BEGIN WordPress"></a>BEGIN WordPress</h1></li>
+<li><p>RewriteEngine On</p>
+</li>
+<li>RewriteBase /</li>
+<li>RewriteRule ^index\.php$ - [L]</li>
+<li>RewriteCond %{REQUEST_FILENAME} !-f</li>
+<li>RewriteCond %{REQUEST_FILENAME} !-d</li>
+<li><p>RewriteRule . /index.php [L]</p>
+</li>
+<li><h1 id="END-WordPress"><a href="#END-WordPress" class="headerlink" title="END WordPress"></a>END WordPress</h1></li>
+</ol>
+<p>在上面添加如下内容:</p>
+<ol>
+<li>RewriteBase /wp-content/uploads/</li>
+<li>RewriteCond %{HTTP_REFERER} !^$ [NC]</li>
+<li>RewriteCond %{HTTP_REFERER} !ccc5.cc [NC]</li>
+<li>RewriteCond %{HTTP_REFERER} !photozero.net [NC]</li>
+<li>RewriteCond %{HTTP_REFERER} !zhuaxia.com [NC]</li>
+<li>RewriteCond %{HTTP_REFERER} !xianguo.com [NC]</li>
+<li>RewriteCond %{HTTP_REFERER} !google.com [NC]</li>
+<li>RewriteCond %{HTTP_REFERER} !feedburner.com [NC]</li>
+<li>RewriteCond %{HTTP_REFERER} !feedsky.com [NC]</li>
+<li>RewriteCond %{HTTP_REFERER} !baidu.com [NC]</li>
+<li>RewriteRule .*\.(gif|jpg|png|rar)$ <a href="http://i.6.cn/cvbnm/00/70/5e/dfb8695041a1b3b0c50d8ab634fff20c.png" target="_blank" rel="noopener">http://i.6.cn/cvbnm/00/70/5e/dfb8695041a1b3b0c50d8ab634fff20c.png</a> [L]</li>
+</ol>
+<p>添加后变为:</p>
+<ol>
+<li><h1 id="BEGIN-WordPress-1"><a href="#BEGIN-WordPress-1" class="headerlink" title="BEGIN WordPress"></a>BEGIN WordPress</h1></li>
+<li><p>RewriteEngine On</p>
+</li>
+<li>RewriteBase /</li>
+<li>RewriteCond %{REQUEST_FILENAME} !-f</li>
+<li>RewriteCond %{REQUEST_FILENAME} !-d</li>
+<li>RewriteRule . /index.php [L]</li>
+<li>RewriteBase /wp-content/uploads/</li>
+<li>RewriteCond %{HTTP_REFERER} !^$ [NC]</li>
+<li>RewriteCond %{HTTP_REFERER} !ccc5.cc [NC]</li>
+<li>RewriteCond %{HTTP_REFERER} !photozero.net [NC]</li>
+<li>RewriteCond %{HTTP_REFERER} !zhuaxia.com [NC]</li>
+<li>RewriteCond %{HTTP_REFERER} !xianguo.com [NC]</li>
+<li>RewriteCond %{HTTP_REFERER} !google.com [NC]</li>
+<li>RewriteCond %{HTTP_REFERER} !feedburner.com [NC]</li>
+<li>RewriteCond %{HTTP_REFERER} !feedsky.com [NC]</li>
+<li>RewriteCond %{HTTP_REFERER} !baidu.com [NC]</li>
+<li><p>RewriteRule .*\.(gif|jpg|png|rar)$ <a href="http://i.6.cn/cvbnm/00/70/5e/dfb8695041a1b3b0c50d8ab634fff20c.png" target="_blank" rel="noopener">http://i.6.cn/cvbnm/00/70/5e/dfb8695041a1b3b0c50d8ab634fff20c.png</a>  [L]</p>
+</li>
+<li><h1 id="END-WordPress-1"><a href="#END-WordPress-1" class="headerlink" title="END WordPress"></a>END WordPress</h1></li>
+</ol>
+<p>说明:</p>
+<ol>
+<li>RewriteCond %{HTTP_REFERER} !ccc5.cc [NC]</li>
+<li>RewriteCond %{HTTP_REFERER} !photozero.net [NC]</li>
+<li>RewriteCond %{HTTP_REFERER} !zhuaxia.com [NC]</li>
+<li>RewriteCond %{HTTP_REFERER} !xianguo.com [NC]</li>
+<li>RewriteCond %{HTTP_REFERER} !google.com [NC]</li>
+<li>RewriteCond %{HTTP_REFERER} !feedburner.com [NC]</li>
+<li>RewriteCond %{HTTP_REFERER} !feedsky.com [NC]</li>
+<li>RewriteCond %{HTTP_REFERER} !baidu.com [NC]</li>
+<li>RewriteRule .*\.(gif|jpg|png|rar)$ <a href="http://i.6.cn/cvbnm/00/70/5e/dfb8695041a1b3b0c50d8ab634fff20c.png" target="_blank" rel="noopener">http://i.6.cn/cvbnm/00/70/5e/dfb8695041a1b3b0c50d8ab634fff20c.png</a>  [L]</li>
+</ol>
+<p>如果访问图片的请求，来自上面的网站,则正常显示图片,否则直接转到一张指定的固定图片.</p>
+<p>请将其中的ccc5.cc和<a href="http://i.6.cn/cvbnm/00/70/5e/dfb8695041a1b3b0c50d8ab634fff20c.png替换为自己域名和一张盗链提示图片" target="_blank" rel="noopener">http://i.6.cn/cvbnm/00/70/5e/dfb8695041a1b3b0c50d8ab634fff20c.png替换为自己域名和一张盗链提示图片</a></p>
+<p>注:将修改后的.htaccess文件覆盖空间原文件,并将其权限设置为:444只读,既可以防止设置程序时被自动替换掉,还可以增加网站的安全性.</p>
+<p>推荐图片外链网站（无水印 速度快） <a href="http://tu.6.cn" target="_blank" rel="noopener">http://tu.6.cn</a></p>
+<p>转载自: <a href="http://zmingcx.com/wordpress-the-most-convenient-method-of-image-hotlinking-prevention.html" title="本文固定链接 http://zmingcx.com/wordpress-the-most-convenient-method-of-image-hotlinking-prevention.html" target="_blank" rel="noopener">WordPress防盗链方法 | 知更鸟</a></p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/blog/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/blog/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

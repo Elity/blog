@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Fighting">
+    <meta name="keyword" content="Fighting">
+    <link rel="shortcut icon" href="/blog/img/favicon.ico">
+
+    <title>
+        
+        一个符合Promise/A+的Promise实现 - Fighting的博客 | Fighting&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/blog/css/aircloud.css">
+    <link rel="stylesheet" href="/blog/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Fighting&#39;s Blog </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/blog/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Fighting</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/blog/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Fighting&#39;s Blog </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        一个符合Promise/A+的Promise实现
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2018-10-31 21:57:03</span></span>
+        
+        <span class="attr">Tags：/
+        
+        <a class="tag" href="/blog/tags/#Promise" title="Promise">Promise</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <pre><code>const PENDING = &#39;pending&#39;;
+const RESOLVED = &#39;resolved&#39;;
+const REJECTED = &#39;rejected&#39;;
+
+const stateSymbol = Symbol(&#39;state&#39;);
+const valueSymbol = Symbol(&#39;value&#39;);
+const innerPropsSymbol = Symbol(&#39;innerProps&#39;);
+
+const isFunction = val =&gt; typeof val === &#39;function&#39;;
+const isObject = val =&gt; val &amp;&amp; typeof val === &#39;object&#39;;
+const isThenable = val =&gt; (isFunction(val) || isObject(val)) &amp;&amp; &#39;then&#39; in val;
+const nextTick = fn =&gt; setTimeout(fn);
+
+function handleTasks(ctx) {
+  const {
+    [innerPropsSymbol]: { tasks },
+    [stateSymbol]: state,
+    [valueSymbol]: value,
+  } = ctx;
+  nextTick(() =&gt; {
+    if (state === REJECTED) {
+      if (ctx[innerPropsSymbol].haveUnhandleReject &amp;&amp; tasks.length === 0) {
+        console.error(&#39;未处理reject&#39;);
+      } else {
+        ctx[innerPropsSymbol].haveUnhandleReject = false;
+      }
+    }
+    while (tasks.length) {
+      handleTask(tasks.shift(), state, value);
+    }
+  });
+}
+
+function handleTask(task, state, value) {
+  const { onFulfilled, onRejected, resolve, reject } = task;
+  try {
+    if (state === RESOLVED) {
+      isFunction(onFulfilled) ? resolve(onFulfilled(value)) : resolve(value);
+    } else if (state === REJECTED) {
+      isFunction(onRejected) ? resolve(onRejected(value)) : reject(value);
+    }
+  } catch (err) {
+    reject(err);
+  }
+}
+
+function MyPromise(fn) {
+  if (!this instanceof MyPromise) throw new Error(&#39;只能用于构造函数&#39;);
+  if (!isFunction(fn)) throw new TypeError(&#39;MyPromise的参数只能是函数&#39;);
+
+  this[stateSymbol] = PENDING;
+  this[innerPropsSymbol] = {
+    tasks: [],
+    haveUnhandleReject: true,
+  };
+  this[valueSymbol] = undefined;
+
+  const transValue = (state, value) =&gt; {
+    if (this[stateSymbol] !== PENDING) return;
+    this[valueSymbol] = value;
+    this[stateSymbol] = state;
+    handleTasks(this);
+  };
+
+  const onFulfilled = value =&gt; transValue(RESOLVED, value);
+  const onRejected = reason =&gt; transValue(REJECTED, reason);
+  // 由于resolve的过程可能存在异步改变状态的情况
+  // 所以，需要确保resolve或reject只能有一个被调用，且只调用一次
+  let ignor = false;
+  const resolve = value =&gt; {
+    if (ignor) return;
+    ignor = true;
+    if (value === this) {
+      onRejected(new TypeError(&#39;promise循环调用错误&#39;));
+    } else if (value instanceof MyPromise) {
+      value.then(onFulfilled, onRejected);
+    } else if (isThenable(value)) {
+      try {
+        const then = value.then;
+        if (isFunction(then)) {
+          new MyPromise(then.bind(value)).then(onFulfilled, onRejected);
+        } else {
+          onFulfilled(value);
+        }
+      } catch (err) {
+        onRejected(err);
+      }
+    } else {
+      onFulfilled(value);
+    }
+  };
+
+  const reject = reason =&gt; {
+    if (ignor) return;
+    ignor = true;
+    onRejected(reason);
+  };
+
+  try {
+    fn(resolve, reject);
+  } catch (err) {
+    reject(err);
+  }
+}
+
+MyPromise.prototype.then = function(onFulfilled, onRejected) {
+  return new MyPromise((resolve, reject) =&gt; {
+    this[innerPropsSymbol].tasks.push({
+      onFulfilled,
+      onRejected,
+      resolve,
+      reject,
+    });
+    // new Promise(resolve=&gt;resolve()).then(fn1,fn2) 过程中
+    // 状态改变在前，push task在后，所以，这里也触发一次任务队列处理
+    // 或者为已经不在pending状态的promise添加then，也需要触发任务处理
+    if (this[stateSymbol] !== PENDING) {
+      handleTasks(this);
+    }
+  });
+};
+
+// 两个重要的工具函数
+
+MyPromise.resolve = function(value) {
+    // fix on 2019.02.12
+    // Promise.resolve的参数为Promise时，直接返其本身
+  if(value instanceof MyPromise)return value;
+  return new MyPromise(resolve =&gt; resolve(value));
+};
+
+MyPromise.reject = function(reason) {
+  return new MyPromise((_, reject) =&gt; reject(reason));
+};
+</code></pre><p>标准文档中文翻译：<a href="https://malcolmyu.github.io/2015/06/12/Promises-A-Plus/" target="_blank" rel="noopener">Promise A+</a></p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/blog/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/blog/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

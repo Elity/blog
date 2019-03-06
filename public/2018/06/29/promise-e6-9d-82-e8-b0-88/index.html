@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Fighting">
+    <meta name="keyword" content="Fighting">
+    <link rel="shortcut icon" href="/blog/img/favicon.ico">
+
+    <title>
+        
+        Promise杂谈 - Fighting的博客 | Fighting&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/blog/css/aircloud.css">
+    <link rel="stylesheet" href="/blog/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Fighting&#39;s Blog </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/blog/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Fighting</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/blog/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#控制反转-IOC"><span class="toc-text">控制反转(IOC)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#承诺"><span class="toc-text">承诺</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Fighting&#39;s Blog </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        Promise杂谈
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2018-06-29 20:42:08</span></span>
+        
+        <span class="attr">Tags：/
+        
+        <a class="tag" href="/blog/tags/#Promise" title="Promise">Promise</a>
+        <span>/</span>
+        
+        <a class="tag" href="/blog/tags/#js" title="js">js</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <blockquote>
+<p>最近又花时间理了一下Promise的设计逻辑，有一些小收获整理下。</p>
+</blockquote>
+<h2 id="控制反转-IOC"><a href="#控制反转-IOC" class="headerlink" title="控制反转(IOC)"></a>控制反转(IOC)</h2><p>如果我们使用Spring(Java)或Laravel(PHP)这样的后端语言框架，我们不可避免的会与控制反转(IOC)、依赖注入(DI)这俩概念打交道，事实上，他们是同一个概念站在不同角度的描述。 我们有如下类，<code>Man</code>继承自<code>People</code>：</p>
+<pre><code>class People{
+    work(){}
+}
+
+class Man extends People{}
+</code></pre><p>现有另一个<code>Work</code>类：</p>
+<pre><code>class Work{
+    constructor(){
+        this.people = new Man()
+    }
+    doWork(){
+        this.people.work()
+    }
+}
+</code></pre><p>这样，我们就把<code>Man</code>写死在了<code>Work</code>里面。 现在我们增加一个<code>Woman</code>,也继承自<code>People</code>:</p>
+<pre><code>class Woman extends People{}
+</code></pre><p>我们想让<code>Woman</code>工作的时候，要么就重新写一个类<code>Work1</code>，要么就只能把<code>Man</code>改为<code>Woman</code>，这显然不是一种好的实现。通过控制反转的思想，我们重构<code>Work</code>:</p>
+<pre><code>class Work{
+    constructor(people){
+        if(people instanceof People){
+            this.people = people
+        }else{
+            throw new TypeError(&#39;类Work构造函数应该传入类People的实例&#39;)
+        }
+    }
+    doWork(){
+        this.people.work()
+    }
+}
+</code></pre><p>然后，我们可以分别在<code>Work</code>中使用<code>Man</code>与<code>Woman</code>：</p>
+<pre><code>    const man = new Man()
+    const woman = new Woman()
+    new Work(man).work()
+    new Work(woman).work()
+</code></pre><p>显然，重构以后，使用<code>Man</code>与<code>Woman</code>的控制权交到了使用<code>Work</code>类的人手中，而不是创建<code>Work</code>类的人手中，这就是控制反转。 控制反转的情况，在Javascript代码经常打交道的回调函数处体现得淋漓尽致：</p>
+<pre><code>function work(workFn){
+    workFn &amp;&amp; workFn()
+}
+
+work(function(){
+    console.log(&#39;A&#39;)
+})
+
+work(function(){
+    console.log(&#39;B&#39;)
+})
+</code></pre><p>然而，控制反转被应用于回调这样的场景带来了诸多问题： 1. work会不会真的调用workFn？ 2. work会调用几次workFn？ 3. work会同步还是异步调用workFn？ 4. 传入workFn的参数是否恒定？ 5. work内部出现错误或调用workFn出现错误如何处理？ 6. 无法组合多个回调逻辑（并联、串联） 出现这么多疑问，终究归到两个字：<code>信任</code>。由于<code>work</code>可能由其他小伙伴提供，甚至极端的可能由第三方提供，这种情况下，我们把回调函数交给<code>work</code>，内心是充满诸多不安的，我们无法信任<code>work</code>是否会如我们期望的方式执行。 而Promise的出现，反转了控制反转，很好的解决了代码的信任问题。</p>
+<h2 id="承诺"><a href="#承诺" class="headerlink" title="承诺"></a>承诺</h2><p>Promise即承诺，Promise的实现遵循Promise的相关规范(目前为<a href="https://malcolmyu.github.io/2015/06/12/Promises-A-Plus" target="_blank" rel="noopener">Promise/A+翻译版</a>，<a href="https://promisesaplus.com/" target="_blank" rel="noopener">原文</a>) Promise会在语法层面上确保promise状态发生改变时，会去调用用户传递给then方法的回调函数，并自动返回一个经<code>Promise.resolve</code>包装的promise，这也就是之所以Promise取名叫Promise的原因吧。换句话说，我们把控制反转反转了，但这个回调也不是由我们自己调用，而是交由一个可靠的系统（Promise）来调用，确保用户的回调函数执行情况是可以被信任的。 Promise只有三种状态：<code>Pending</code>、<code>Fulfilled</code>、<code>Rejected</code>，而且状态变化的方向只能是： <code>Pending-&gt;Fulfilled</code> 或 <code>Pending-&gt;Rejected</code> 一旦状态改变，就不会再次发生变化，确保了回调问题2、4，只会调用一次业务逻辑，且值是确定的。 状态改变的同时，Promise内部就会异步调用<code>Promise.prototype.then</code>的回调函数，要么成功，要么失败，此解决了回调问题3，promise的回调永远都是异步的 配合 Promise.race即可处理某些Promise一直处于<code>Pending</code>状况的问题，解决回调问题1 配合Promise.prototype.catch可以很方便的处理promise中的异常情况，解决回调问题5 配合Promise.all可以实现多个Promise的并联，再加上Promise的链式传递特性，解决回调问题6</p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/blog/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/blog/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Fighting">
+    <meta name="keyword" content="Fighting">
+    <link rel="shortcut icon" href="/blog/img/favicon.ico">
+
+    <title>
+        
+        继续折腾burg的修复问题 - Fighting的博客 | Fighting&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/blog/css/aircloud.css">
+    <link rel="stylesheet" href="/blog/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Fighting&#39;s Blog </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/blog/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Fighting</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/blog/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Fighting&#39;s Blog </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        继续折腾burg的修复问题
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2013-05-26 16:37:10</span></span>
+        
+        <span class="attr">Tags：/
+        
+        <a class="tag" href="/blog/tags/#Ubuntu" title="Ubuntu">Ubuntu</a>
+        <span>/</span>
+        
+        <a class="tag" href="/blog/tags/#burg" title="burg">burg</a>
+        <span>/</span>
+        
+        <a class="tag" href="/blog/tags/#Linux" title="Linux">Linux</a>
+        <span>/</span>
+        
+        <a class="tag" href="/blog/tags/#修复" title="修复">修复</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <p>一直用burg引导ubuntu和windows,前几天开机发现莫名其妙丢失了引导，机子自检完毕理应出现：</p>
+<p>burg is loading….</p>
+<p>但卡在那个命令出现之前的命令行，然后几秒钟后又自动重启了</p>
+<p>那天被毕业设计烦得不行，就没去修复了，拿个写了带windows引导的u盘直接进入了windows</p>
+<p>今天周末，闲着蛋疼，然后觉着每天用u盘启动系统也不是个长久之法，决定修复burg</p>
+<p>以前自己修复过,但一直觉得挺麻烦..开个<a href="http://www.ccc5.cc/266.html" target="_blank" rel="noopener">传送门</a></p>
+<p>今天无非是整合以前的方法，思路：</p>
+<p>直接下个grub2引导的镜像，进入你的linux系统，然后重新安装下burg</p>
+<p>1.grub2引导镜像下载地址：<a href="http://pan.baidu.com/share/link?shareid=487510&amp;uk=369340502" target="_blank" rel="noopener">http://pan.baidu.com/share/link?shareid=487510&amp;uk=369340502</a></p>
+<p>2.用U盘量产工具写入u盘</p>
+<p>3.重启选择U盘引导</p>
+<p>4.来到grub2界面  按C进入命令行模式</p>
+<p>逐行输入如下命令即可进入系统上的linux，其中(hdx,y)  sdzn 中的 x、y、z、n根据自己磁盘的实际情况修改</p>
+<p>set root=(hd0,8)<br>linux /boot/vmlinuz(按Tab键补全) root=/dev/sdb8<br>initrd /boot/initrd(按Tab键补全)<br>boot</p>
+<p>如果一切顺利的话,应该是可以顺利进入linux了，如果(hdx,y)输入有误，下面的命令是无法按Tab键补全的</p>
+<p>其它还有问题的话就是 /dev/sdzn 的问题了</p>
+<p>5.来到linux,打开终端，输入  </p>
+<p>sudo burg-install “(hd0)”</p>
+<p>6.重启….又见到熟悉的burg界面啦</p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/blog/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/blog/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

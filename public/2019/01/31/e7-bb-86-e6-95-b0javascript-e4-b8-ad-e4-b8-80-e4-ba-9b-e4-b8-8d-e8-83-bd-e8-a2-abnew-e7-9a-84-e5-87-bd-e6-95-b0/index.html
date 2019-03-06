@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Fighting">
+    <meta name="keyword" content="Fighting">
+    <link rel="shortcut icon" href="/blog/img/favicon.ico">
+
+    <title>
+        
+        细数JavaScript中一些不能被new的函数 - Fighting的博客 | Fighting&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/blog/css/aircloud.css">
+    <link rel="stylesheet" href="/blog/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Fighting&#39;s Blog </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/blog/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Fighting</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/blog/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Fighting&#39;s Blog </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        细数JavaScript中一些不能被new的函数
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2019-01-31 00:52:38</span></span>
+        
+        <span class="attr">Tags：/
+        
+        <a class="tag" href="/blog/tags/#Javascript" title="Javascript">Javascript</a>
+        <span>/</span>
+        
+        <a class="tag" href="/blog/tags/#对象" title="对象">对象</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <p>最近发现组内的很多人基础太不牢固，打算整一个关于JavaScript的思维导图，搞一次技术分享。结果发现原来自己也遗漏了相当多得细节。接下来，我就来细数下那些不能被new的函数，这些函数被new的时候会抛出错误：</p>
+<pre><code>Uncaught TypeError: xxx is not a constructor
+</code></pre><p>在js中，<code>function</code>类型是一种特殊的对象，特殊在何处呢？特殊在于它是一个在引擎内部实现了<code>[[Call]]</code>方法的对象，所以，在使用<code>typeof</code>取值的时候被特殊对待，返回了<code>function</code>。 对于<code>new</code>操作符也是一样，会去查看该对象内部是否实现了<code>[[Construct]]</code>方法，未实现则抛出上述的<code>TypeError</code>。</p>
+<pre><code>var obj = {
+    a(){},
+    b: ()=&gt;{},
+    c: function* (){},
+    d: async function d(){},
+    e: async function* e(){},
+    f: function f(){}
+}
+</code></pre><p>以上列出的这些函数中仅仅<code>obj.f</code>可以被实例化。 另外，内置对象上的一些静态方法大多(未验证全部)不可实例化，如：<code>Math.pow</code>、<code>JSON.parse</code>等。 内置对象的一些实例方法也是同样，如：<code>[].splice</code>、<code>&quot;hello&quot;.split</code>等。 内置的一些函数也是无法被实例化的，如：<code>encodeURI</code>、<code>Symbol</code>等。 最后还有<code>Function.prototype</code>，这个特殊的函数也不可被实例化。 ps: 以上提及的这些不能被实例化的函数有一个功能特点（除了Symbol）,那就是它们都没有<code>prototype</code>属性，然鹅，并不能说明一个类能不能被实例化与这个构造函数有没有<code>prototype</code>属性有必然联系，比如：</p>
+<pre><code>var A = (function test(){}).bind(this);
+</code></pre><p>bind得到的函数<code>A</code>就不存在<code>prototype</code>属性，但<code>A</code>依然可以被实例化。所以，还是开头的那个结论，一个函数能不能被实例化，就看其内部是否有实现<code>[[Construct]]</code>方法。 当然，话说回来，<code>prototype</code>属性决定了一个可被实例化的函数能否作为父类被继承。还是看这个代码：</p>
+<pre><code>var A = (function test(){}).bind(this);
+class B extends A{}   // 报错 Uncaught TypeError: Class extends value does not have valid prototype property undefined
+
+A.prototype = null;
+class C extends A{}  // 正常
+</code></pre><p>当当当然，null又是个特例，ES6规范规定了，跟在extends后面的只能是一个可被实例化且其<code>prototype</code>属性为对象(包括函数)或<code>null</code>的对象(包括函数)，所以下面的代码是合法的：</p>
+<pre><code>class D extends null{}
+</code></pre><p>但是这样声明的<code>D</code>无法被实例化，因为找不到超类的构造函数，需要这样处理：</p>
+<pre><code>class D extends null{
+    constructor(){
+        return Object.create(new.target.prototype)
+    }
+    otherMethod(){}
+}
+</code></pre>
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/blog/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/blog/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Fighting">
+    <meta name="keyword" content="Fighting">
+    <link rel="shortcut icon" href="/blog/img/favicon.ico">
+
+    <title>
+        
+        重装windows修复Ubuntu Grub - Fighting的博客 | Fighting&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/blog/css/aircloud.css">
+    <link rel="stylesheet" href="/blog/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Fighting&#39;s Blog </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/blog/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Fighting</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/blog/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Fighting&#39;s Blog </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        重装windows修复Ubuntu Grub
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2011-06-30 04:06:10</span></span>
+        
+        <span class="attr">Tags：/
+        
+        <a class="tag" href="/blog/tags/#Grub2" title="Grub2">Grub2</a>
+        <span>/</span>
+        
+        <a class="tag" href="/blog/tags/#Linux" title="Linux">Linux</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <p>当我们的脆弱的Windows定期瘫痪，无法修复只能重新安装的尴尬时刻，我们发现“霸道”的Windows 在安装时丝毫没有顾及在硬盘的MBR上还存在操作系统的引导程序（grub），直接删除，只写入Windows的引导信息。</p>
+<p>不管微软这样是不是有意而为，这都看出Windows的陋习和微软的强盗行径。我们怎么办，放弃Windows？但是我们还要我们心爱的游戏，反正Windows已经是我硬盘上的一个因为游戏还存在的附属系统，我们忍了。</p>
+<p>发扬Linux人的DIY精神，我们自己动手找回丢失的Linux引导程序。</p>
+<p>1，使用Ubuntu live关盘引导进入 Ubuntu live 模式</p>
+<p>2，在Ubuntu中运行终端，执行下列命令：</p>
+<p>$sudo grub</p>
+<p>其实，grub不仅只在我们引导时候出现在我们眼前，我们平时也可以直接运行grub命令进入模拟grub引导程序。</p>
+<p>3，之后，我们在grub 命令行模式下接着执行</p>
+<p>root (hdx,y)</p>
+<p><strong>注意：</strong>其中x为硬盘号，数字 “ 0 ”指我们机器上的第一块硬盘，grub的排列顺序是从 “ 0 ”开始的。同理，如果你的系统在第二个硬盘上则是1，依次类推。另外，其中的“ y ”表示前面所指硬盘的 /boot 所在分区号，如果实在不知道，后面信息怎么填，你可以在输入逗号后按Tab键，这样可列出硬盘的分区信息。</p>
+<p>4，安装 grub ，执行命令：</p>
+<p>setup (hdx)</p>
+<p>setup (hdx)就是把GRUB写到”x”硬盘的MBR上。如果成功会有一个successful…… </p>
+<p>5，安成安装后，退出 grub 。</p>
+<p>quit</p>
+<p>6，重启机器，重新引导Linux。</p>
+<p>$sudo reboot</p>
+<p><strong>备注：</strong>其实，当我们安装完毕grub之后，还需要检查 grub 的配置文件信息是否正确，方法是在 Ubuntu live 模式下利用 mount 命令加载原来ubuntu 的分区，在原 /boot 目录下的 grub/menu1.st 文件中的信息。</p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/blog/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/blog/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

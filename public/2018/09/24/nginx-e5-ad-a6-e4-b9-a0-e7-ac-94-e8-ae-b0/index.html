@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Fighting">
+    <meta name="keyword" content="Fighting">
+    <link rel="shortcut icon" href="/blog/img/favicon.ico">
+
+    <title>
+        
+        nginx学习笔记 - Fighting的博客 | Fighting&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/blog/css/aircloud.css">
+    <link rel="stylesheet" href="/blog/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Fighting&#39;s Blog </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/blog/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Fighting</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/blog/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#变量"><span class="toc-text">变量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#自定义变量"><span class="toc-text">自定义变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常用内置变量"><span class="toc-text">常用内置变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#map"><span class="toc-text">map</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#rewrite"><span class="toc-text">rewrite</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#last"><span class="toc-text">last</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#break"><span class="toc-text">break</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#redirect"><span class="toc-text">redirect</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#permanent"><span class="toc-text">permanent</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#if"><span class="toc-text">if</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#location匹配"><span class="toc-text">location匹配</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Fighting&#39;s Blog </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        nginx学习笔记
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2018-09-24 22:12:24</span></span>
+        
+        <span class="attr">Tags：/
+        
+        <a class="tag" href="/blog/tags/#nginx" title="nginx">nginx</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><h3 id="自定义变量"><a href="#自定义变量" class="headerlink" title="自定义变量"></a>自定义变量</h3><p>set $a 123; set $b “$a 456”; set $c “{$b}789”</p>
+<blockquote>
+<p>自定义变量在配置被加载时创建，执行时才被赋值。定义全局有效，甚至可以跨vhost，但值仅在内部跳转间有效。<a href="http://openresty.org/download/agentzh-nginx-tutorials-zhcn.html#01-NginxVariables02" target="_blank" rel="noopener">详见</a></p>
+</blockquote>
+<h3 id="常用内置变量"><a href="#常用内置变量" class="headerlink" title="常用内置变量"></a>常用内置变量</h3><p>$request $request_uri $uri $args $arg_xxx $header_xxx $cookie_xxx <a href="http://nginx.org/en/docs/http/ngx_http_core_module.html#variables" target="_blank" rel="noopener">更多。。。</a> !!!任何时候都不应该去覆盖内置变量，有些内置变量被覆盖会导致报错甚至进程崩溃。</p>
+<h3 id="map"><a href="#map" class="headerlink" title="map"></a>map</h3><p>对于配置CORS的域名白名单，使用map是比if更好的选择，毕竟<a href="https://www.nginx.com/resources/wiki/start/topics/depth/ifisevil/" target="_blank" rel="noopener">If Is Evil</a> map只能写于http模块，但不用担心访问任何location都会计算map，nginx的<a href="http://nginx.org/en/docs/http/ngx_http_map_module.html" target="_blank" rel="noopener">ngx_map</a>模块实现了只有在该用户变量被实际读取时才会执行，也就是惰性求值。<a href="http://openresty.org/download/agentzh-nginx-tutorials-zhcn.html#01-NginxVariables04" target="_blank" rel="noopener">更多参考</a>。</p>
+<pre><code># $http_origin是自变量，而$cors_header是因变量
+map $http_origin $cors_header {
+    default &quot;&quot;;
+    &quot;~^https?://(localhost|www\.abc\.com&quot; &quot;$http_origin&quot;;
+}
+
+server {
+    ...
+    location / {
+        add_header Access-Control-Allow-Origin $cors_header;
+        try_files $uri @other_location; # This try_files is working
+    }
+    ...
+ }
+</code></pre><h2 id="rewrite"><a href="#rewrite" class="headerlink" title="rewrite"></a>rewrite</h2><p>server中的rewrite break和last没什么区别，都会去匹配location，所以没必要用last再发起新的请求，可以留空，以下针对location中的rewrite：</p>
+<h3 id="last"><a href="#last" class="headerlink" title="last"></a>last</h3><p>用重写后的uri重新去匹配location，默认10次匹配不到报500错误</p>
+<h3 id="break"><a href="#break" class="headerlink" title="break"></a>break</h3><p>终止rewrite阶段，执行后续的其它阶段，对比last，不会重新去匹配location</p>
+<h3 id="redirect"><a href="#redirect" class="headerlink" title="redirect"></a>redirect</h3><p>302临时重定向</p>
+<h3 id="permanent"><a href="#permanent" class="headerlink" title="permanent"></a>permanent</h3><p>301永久重定向</p>
+<h2 id="if"><a href="#if" class="headerlink" title="if"></a>if</h2><p>由于nginx中的配置是分阶段执行的，而非一般编程语言中的线性执行，所以执行顺序看上去会有些怪异，再加上nginx内部对于if处理的一些机制，让初学者很是不解。看文章：<a href="http://damacheng009.iteye.com/blog/1583879" target="_blank" rel="noopener">How nginx “location if” works</a></p>
+<h2 id="location匹配"><a href="#location匹配" class="headerlink" title="location匹配"></a>location匹配</h2><p>语法：</p>
+<pre><code> location [=|~|~*|^~] /uri/ { … }
+ location @name { ... } 
+</code></pre><p>demo</p>
+<pre><code>location  = / {
+  # 精确匹配 / ，主机名后面不能带任何字符串
+  [ configuration A ]
+}
+
+location  / {
+  # 因为所有的地址都以 / 开头，所以这条规则将匹配到所有请求
+  # 但是正则和最长字符串会优先匹配
+  [ configuration B ]
+}
+
+location /documents/ {
+  # 匹配任何以 /documents/ 开头的地址，匹配符合以后，记住还要继续往下搜索
+  # 只有后面的正则表达式没有匹配到时，这一条才会采用这一条
+  [ configuration C ]
+}
+
+location ~ /documents/Abc {
+  # 匹配任何以 /documents/Abc 开头的地址，匹配符合以后，还要继续往下搜索
+  # 只有后面的正则表达式没有匹配到时，这一条才会采用这一条
+  [ configuration CC ]
+}
+
+location ^~ /images/ {
+  # 匹配任何以 /images/ 开头的地址，匹配符合以后，停止往下搜索正则，采用这一条。
+  [ configuration D ]
+}
+
+location ~* \.(gif|jpg|jpeg)$ {
+  # 匹配所有以 gif,jpg或jpeg 结尾的请求
+  # 然而，所有请求 /images/ 下的图片会被 config D 处理，因为 ^~ 到达不了这一条正则
+  [ configuration E ]
+}
+
+location /images/ {
+  # 字符匹配到 /images/，继续往下，会发现 ^~ 存在
+  [ configuration F ]
+}
+
+location /images/abc {
+  # 最长字符匹配到 /images/abc，继续往下，会发现 ^~ 存在
+  # F与G的放置顺序是没有关系的
+  [ configuration G ]
+}
+
+location ~ /images/abc/ {
+  # 只有去掉 config D 才有效：先最长匹配 config G 开头的地址，继续往下搜索，匹配到这一条正则，采用
+    [ configuration H ]
+}
+</code></pre>
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/blog/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/blog/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

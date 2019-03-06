@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Fighting">
+    <meta name="keyword" content="Fighting">
+    <link rel="shortcut icon" href="/blog/img/favicon.ico">
+
+    <title>
+        
+        JS Array 中 shift 和 pop 的妙用 - Fighting的博客 | Fighting&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/blog/css/aircloud.css">
+    <link rel="stylesheet" href="/blog/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Fighting&#39;s Blog </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/blog/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Fighting</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/blog/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、使用-shift"><span class="toc-text">一、使用 shift</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、使用pop"><span class="toc-text">二、使用pop</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Fighting&#39;s Blog </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        JS Array 中 shift 和 pop 的妙用
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2013-04-27 23:30:34</span></span>
+        
+        <span class="attr">Tags：/
+        
+        <a class="tag" href="/blog/tags/#Javascript" title="Javascript">Javascript</a>
+        <span>/</span>
+        
+        <a class="tag" href="/blog/tags/#技巧" title="技巧">技巧</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <p>在 JS Array 中支持两个方法，shift() 和pop()，分别是指从一个数据中的最前面和最后面删除一个值，并返删除值。看一个示例就明白了：</p>
+<p>var arr = [‘s’,’o’,’f’,’i’,’s’,’h’];<br>arr.shift(); // 返回 ‘s’<br>arr; // 目前是 [‘o’,’f’,’i’,’s’,’h’]<br>arr.pop() // 返回 ‘h’<br>arr // 目前是 [‘o’,’f’,’i’,’s’]</p>
+<p>在很多 JS 框架中可以很常见的是，一个方法提供你传几个参数，而这些参数中，部分是可以忽略的，这些可以忽略的点可能是第一个，也可能是最后一个。传统的写法是判断参数有没有存在，或者参数的个数来决定最终取值。</p>
+<p>这里，我们可以利用函数的arguments 对象，以及 Array 中的 shift 和 pop来实现灵活的应用。</p>
+<h3 id="一、使用-shift"><a href="#一、使用-shift" class="headerlink" title="一、使用 shift"></a>一、使用 shift</h3><p>如何实现一个 .bind() 方法，让 fn api 如下：</p>
+<p>// fn 的作用域限定于 object 下<br>// 除 object 外，所有 bind 方法的参数都将传给 fn<br>fn.bind(object, param1, param2, [, paramN]);</p>
+<p>看一个实例先。当然，这例子可能更为重要的是call和apply的应用。不过，我们想要说的是 shift 的应用：</p>
+<p>// 来自 Prototype.js 的 [<code>.bind</code>](<a href="http://www.prototypejs.org/api/function/bind" target="_blank" rel="noopener">http://www.prototypejs.org/api/function/bind</a>) 方法<br>Function.prototype.bind = function(){<br>  var fn = this,<br>      args = Array.prototype.slice.call(arguments),<br>      object = args.shift();<br>  return function(){<br>      return fn.apply(object,<br>          args.concat(Array.prototype.slice.call(arguments)));<br>      };<br>};</p>
+<p>我们可以利用对arguments 对象(array-like object，需要转换成真正的 array)进行shift来取出，像这个方法，主要利用它们来分出作为作用域的object，然后巧妙地把余下的参数数组传给 fn，即调用我们想限定到 object 作用域内的函数。</p>
+<h3 id="二、使用pop"><a href="#二、使用pop" class="headerlink" title="二、使用pop"></a>二、使用pop</h3><p>最近在试用 seajs，我们就拿它的一个 api 来说吧：</p>
+<p>define(id, dependencies, callback)</p>
+<p>这个定义一个模块的 api，id 和 dependencies 都是可以省略的。这里，如何实现这个支持呢？如果使用 if 来判断，真就得 if (arguments === 1) {…} elseif … 一大堆了。当然，这样有时候也有好处的（?，想想）。这里，我们可能用来 pop来方便实现这样的支持：</p>
+<p>var define = function(){<br>    // 取出这个 callback<br>    var args = [].slice.call(arguments)<br>        fn = args.pop();<br>    // 做点其他神马事<br>        fn.apply(null, args)<br>    // …<br>    },<br>    callback = function(){<br>        var args = arguments, i = 0, len = args.length;<br>        if(len === 0) console.log(‘只有一个 callback’);<br>        for(;i&lt;len;i++) {<br>            console.log(args[i]);<br>        }<br>    }</p>
+<p>// 看看他们三个的执行结果<br>define(callback);<br>define(‘有两个参数’, callback);<br>define(‘有三个参数’, ‘hello world’, callback);</p>
+<p>文章来源：<a href="http://sofish.de/2062#more-2062" target="_blank" rel="noopener"></a><a href="http://sofish.de/2062#more-2062" target="_blank" rel="noopener">http://sofish.de/2062#more-2062</a></p>
+<p>==============================</p>
+<p>JS的总能带给人无限惊喜啊。。</p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/blog/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/blog/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

@@ -9,6 +9,7 @@ description: Fighting
 author: Fighting
 language: zh-CN
 timezone: Asia/Shanghai
+sidebar-avatar: img/avatar.png
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
@@ -16,6 +17,26 @@ url: https://elity.github.io/blog/
 root: /blog/
 permalink: :year/:month/:day/:title/
 permalink_defaults:
+
+# Site settings
+# 网站综合内容设置：
+SEOTitle: Fighting的博客 | Fighting's Blog
+email: me@ccc5.cc
+keyword: 'Fighting'
+
+# 文章样式(是否首行缩进)：
+post_style:
+  indent: default
+
+search:
+  path: search.json
+  field: post
+
+prism_plugin:
+  mode: 'preprocess' # realtime/preprocess
+  theme: 'tomorrow'
+  line_number: false # default false
+  # custom_css: 'path/to/your/custom.css'     # optional
 
 # Directory
 source_dir: source
@@ -38,7 +59,7 @@ post_asset_folder: false
 relative_link: false
 future: true
 highlight:
-  enable: true
+  enable: false
   line_number: true
   auto_detect: false
   tab_replace:
@@ -72,7 +93,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: landscape
+theme: aircloud
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html

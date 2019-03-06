@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Fighting">
+    <meta name="keyword" content="Fighting">
+    <link rel="shortcut icon" href="/blog/img/favicon.ico">
+
+    <title>
+        
+        ++[[]][+[]]+[+[]] = 10？ - Fighting的博客 | Fighting&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/blog/css/aircloud.css">
+    <link rel="stylesheet" href="/blog/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Fighting&#39;s Blog </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/blog/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Fighting</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/blog/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Fighting&#39;s Blog </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        ++[[]][+[]]+[+[]] = 10？
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2013-06-16 02:28:28</span></span>
+        
+        <span class="attr">Tags：/
+        
+        <a class="tag" href="/blog/tags/#Javascript" title="Javascript">Javascript</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <p>这是一个Javascript语言题目，一个完全有效的等式，不信自己可以试一下，下面看看高人的题解：</p>
+<p>++[[]][+[]]+[+[]]如果把这段表达式拆分开来，它相等于：</p>
+<p>++[[]][+[]]</p>
+<p>+</p>
+<p>[+[]]在JavaScript里，+[] === 0 是完全正确的。 + 会把一些字符转化成数字，在这里，这个式子会变成 +”” 或 0。</p>
+<p>因此，我们可以简化一下(++ 比 + 有更高的优先级)：</p>
+<p>++[[]][0]</p>
+<p>+</p>
+<p>[0]因为 [[]][0] 的意思是：获取 [[]] 的第一个元素，这就得出了下面的结果：[[]][0] 返回内部数组 ([])。根据语言规范，我们说 [[]][0] === [] 是不正确的，但让我们把这个内部数组称作 A，以避免错误的写法。++[[]][0] == A + 1， 因为 ++ 的意思是“加一”。++[[]][0] === +(A + 1)；换句话说，你得到的永远是个数值( +1 并不一定得到的是个数值，但 ++ 一定是)。同样，我们可以把这一堆代码简化的更清晰。让我们把 A 换回成 [] :</p>
+<p>+([] + 1)</p>
+<p>+</p>
+<p>[0]在JavaScript里，这也是正确的：[] + 1 === “1″，因为 [] == “” (这相当于一个空的数组的内部元素连接)，于是：+([] + 1) === +(“” + 1)，并且+(“” + 1) === +(“1″)，并且+(“1″) === 1让我们再次简化一下：</p>
+<p>1</p>
+<p>+</p>
+<p>[0]同样，在Javascript里，这是正确的：[0] == “0″，因为这是相当于一个有一个元素的数组的内部元素的连接。各元素会使用，分隔。当只有一个元素时，你可以推论出这个过程的结果就是它自身的第一个元素。</p>
+<p>所以，最终我们得到(数字 + 字符串 = 字符串)：</p>
+<p>1</p>
+<p>+</p>
+<p>“0”</p>
+<p>=== “10”</p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/blog/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/blog/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

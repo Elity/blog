@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Fighting">
+    <meta name="keyword" content="Fighting">
+    <link rel="shortcut icon" href="/blog/img/favicon.ico">
+
+    <title>
+        
+        Vue中异步错误处理 - Fighting的博客 | Fighting&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/blog/css/aircloud.css">
+    <link rel="stylesheet" href="/blog/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Fighting&#39;s Blog </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/blog/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Fighting</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/blog/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Fighting&#39;s Blog </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        Vue中异步错误处理
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2018-03-14 10:15:40</span></span>
+        
+        <span class="attr">Tags：/
+        
+        <a class="tag" href="/blog/tags/#vue" title="vue">vue</a>
+        <span>/</span>
+        
+        <a class="tag" href="/blog/tags/#异步，异步错误" title="异步，异步错误">异步，异步错误</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <p>一般在一个项目开始之前，我们一般会对现有的框架做一定功能上的丰富，比如对ajax请求功能的二次封装，封装的功能可能包含了：通用错误处理，请求过滤，响应过滤等等。如果我们封装的函数叫request，那么业务中触发一个ajax请求的流程大致如图： <img src="http://ww1.sinaimg.cn/large/0060lm7Tly1fpc3uu4pp5j30p90qbmyc.jpg" alt="正常ajax请求流程图"> 通常，这样的流程处理能满足需求，然而，更多的情况，我们希望request的返回数据，经过request预处理后，首先交由业务代码这边自行判断是否合法，是否需要处理错误，如果不合法，且自己不打算处理错误，则再抛出错误，这样的话，就符合很多后端框架的流程了，业务层的错误，先自己catch，要么处理，要么往框架抛，框架统一处理，流程大致如图： <img src="http://ww2.sinaimg.cn/large/0060lm7Tly1fpc4gonkflj30p90qbmya.jpg" alt="改造后的request请求图"> 这样的话，所有的错误，业务层有了优先处理的权利，不需要自行处理的情况才交由框架做通用处理。 当然，在javascript中，异步错误的处理不能简简单单地通过<code>window.onerror</code>可以搞定的，在vue下改造，具体的思路是将我们需要按新的流程处理的函数处理成async函数，这样，我们就能用promise的那套错误处理机制来处理了。 具体实现看代码：</p>
+<pre><code>//为了不影响vue自有的Vue.config.errorHandler正常工作
+//我们再单独定义一个异步错误处理函数
+Vue.config.asyncErrorHandler = err =&gt; {
+  console.log(&#39;catch async error:&#39;, err)
+}
+
+
+
+//然后是在vue实例创建之前，包裹所有method方法
+//根据method执行后返回的是否是promise，来决定是否需要catch错误
+Vue.mixin({
+  beforeCreate() {
+    const methods = this.$options.methods || {}
+    Object.keys(methods).forEach(key =&gt; {
+      let fn = methods[key]
+      this.$options.methods[key] = function(...args) {
+        let ret = fn.apply(this, args);
+        if (ret &amp;&amp; typeof ret.catch === &#39;function&#39;) {
+          return ret.catch(Vue.config.asyncErrorHandler)
+        } else {
+          return ret
+        }
+      }
+    })
+  },
+})
+</code></pre><p>这样的话，我们在新建vue实例的时候，将我们需要按新流程处理错误的方法声明为async：</p>
+<pre><code>new Vue({
+  el: &#39;#test&#39;,
+  methods: {
+    async fn() {
+      this.name = &#39;click&#39;
+      await timeout()  // &lt;==== timeout中reject的错误会被捕获
+    },
+    async fn1() {
+      this.name = &#39;click1&#39;
+      throw {msg:&#39;async函数中同步抛错&#39;,status:1000} // &lt;==== 同步抛错也会被捕获
+    },
+    test() {
+      // 原来的方式书写method，人为触发不捕获，
+      // 生命周期中调用被Vue.config.errorHandler捕获
+      throw {
+        msg: &#39;非async方法还是按照原来的方式处理错误&#39;,
+        status: 3000
+      }
+    }
+  }
+})
+</code></pre><p>测试代码：<a href="https://jsfiddle.net/a408115319/od5fgL4v/28/" target="_blank" rel="noopener">https://jsfiddle.net/a408115319/od5fgL4v/28/</a> 封装了一个vue插件 ：<a href="https://github.com/Elity/VueGlobalError" target="_blank" rel="noopener">https://github.com/Elity/VueGlobalError</a></p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/blog/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/blog/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

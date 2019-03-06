@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Fighting">
+    <meta name="keyword" content="Fighting">
+    <link rel="shortcut icon" href="/blog/img/favicon.ico">
+
+    <title>
+        
+        Dart学习笔记：异常 - Fighting的博客 | Fighting&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/blog/css/aircloud.css">
+    <link rel="stylesheet" href="/blog/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Fighting&#39;s Blog </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/blog/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Fighting</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/blog/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Throw"><span class="toc-text">Throw</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Catch"><span class="toc-text">Catch</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Finally"><span class="toc-text">Finally</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Fighting&#39;s Blog </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        Dart学习笔记：异常
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2019-01-28 00:58:27</span></span>
+        
+        <span class="attr">Tags：/
+        
+        <a class="tag" href="/blog/tags/#dart" title="dart">dart</a>
+        <span>/</span>
+        
+        <a class="tag" href="/blog/tags/#学习" title="学习">学习</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <p>Dart 和 Java 不同的是，所有的 Dart 异常是非检查异常。 方法不声明他们可能抛出的异常， 并且你不被要求捕获任何异常。 Dart 提供了 <code>Exception</code> 和 <code>Error</code> 类型， 以及许多预定义的子类型。你还可以定义自己的异常类型。</p>
+<h3 id="Throw"><a href="#Throw" class="headerlink" title="Throw"></a>Throw</h3><blockquote>
+<p>Dart 不仅仅可以抛出<code>Exception</code>或者<code>Error</code>对象，还可以抛出任何非<code>null</code>对象为异常。</p>
+</blockquote>
+<pre><code>throw new FormatException(&#39;Expected at least 1 section&#39;);
+
+throw &#39;Out of llamas!&#39;;
+</code></pre><h3 id="Catch"><a href="#Catch" class="headerlink" title="Catch"></a>Catch</h3><blockquote>
+<p>捕获异常可以避免异常继续传递（你重新抛出异常除外）。 捕获异常给你一个处理该异常的机会。</p>
+</blockquote>
+<pre><code>try {
+  breedMoreLlamas();
+} on OutOfLlamasException {
+  buyMoreLlamas();
+}
+</code></pre><blockquote>
+<p>对于可以抛出多种类型异常的代码，你可以指定多个捕获语句。每个语句分别对应一个异常类型， 如果捕获语句没有指定异常类型，则该可以捕获任何异常类型：</p>
+</blockquote>
+<pre><code>try {
+  breedMoreLlamas();
+} on OutOfLlamasException {
+  // A specific exception
+  buyMoreLlamas();
+// e为异常对象，s为调用堆栈信息
+} on Exception catch (e, s) {
+  // Anything else that is an exception
+  print(&#39;Unknown exception: $e&#39;);
+} catch (e) {
+  // No specified type, handles all
+  print(&#39;Something really unknown: $e&#39;);
+}
+</code></pre><blockquote>
+<p>使用 <code>rethrow</code> 关键字可以把捕获的异常重新抛出。</p>
+</blockquote>
+<pre><code>final foo = &#39;&#39;;
+
+void misbehave() {
+  try {
+    foo = &quot;You can&#39;t change a final variable&#39;s value.&quot;;
+  } catch (e) {
+    print(&#39;misbehave() partially handled ${e.runtimeType}.&#39;);
+    rethrow; // Allow callers to see the exception.
+  }
+}
+</code></pre><h3 id="Finally"><a href="#Finally" class="headerlink" title="Finally"></a>Finally</h3><blockquote>
+<p>要确保某些代码执行，不管有没有出现异常都需要执行，可以使用 一个 <code>finally</code> 语句来实现。如果没有 <code>catch</code> 语句来捕获异常， 则在执行完 <code>finally</code> 语句后， 异常还是会被抛出。</p>
+</blockquote>
+<pre><code>try {
+  breedMoreLlamas();
+} finally {
+  // Always clean up, even if an exception is thrown.
+  cleanLlamaStalls();
+}
+
+try {
+  breedMoreLlamas();
+} catch(e) {
+  print(&#39;Error: $e&#39;);  // Handle the exception first.
+} finally {
+  cleanLlamaStalls();  // Then clean up.
+}
+</code></pre>
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/blog/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/blog/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

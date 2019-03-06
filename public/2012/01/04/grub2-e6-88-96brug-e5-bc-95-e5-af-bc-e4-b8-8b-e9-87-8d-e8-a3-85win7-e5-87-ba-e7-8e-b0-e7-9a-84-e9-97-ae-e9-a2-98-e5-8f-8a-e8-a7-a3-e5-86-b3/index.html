@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Fighting">
+    <meta name="keyword" content="Fighting">
+    <link rel="shortcut icon" href="/blog/img/favicon.ico">
+
+    <title>
+        
+        grub2(或brug)引导下重装Win7出现的问题及解决 - Fighting的博客 | Fighting&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/blog/css/aircloud.css">
+    <link rel="stylesheet" href="/blog/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Fighting&#39;s Blog </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/blog/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Fighting</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/blog/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Fighting&#39;s Blog </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        grub2(或brug)引导下重装Win7出现的问题及解决
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2012-01-04 16:56:33</span></span>
+        
+        <span class="attr">Tags：/
+        
+        <a class="tag" href="/blog/tags/#burg" title="burg">burg</a>
+        <span>/</span>
+        
+        <a class="tag" href="/blog/tags/#Grub" title="Grub">Grub</a>
+        <span>/</span>
+        
+        <a class="tag" href="/blog/tags/#MBR" title="MBR">MBR</a>
+        <span>/</span>
+        
+        <a class="tag" href="/blog/tags/#重装Win7" title="重装Win7">重装Win7</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <p>系统安装情况   64位win7 +xp+ubuntu11.10</p>
+<p>主硬盘分区情况如下：</p>
+<p><a href="http://www.ccc5.cc/wp-content/uploads/2012/01/fdisk.png" target="_blank" rel="noopener"><img src="http://www.ccc5.cc/wp-content/uploads/2012/01/fdisk.png" alt title="fdisk"></a></p>
+<p>/dev/sda1 安装的win7</p>
+<p>/dev/sda2 安装的XP</p>
+<p>ubuntu安装在 /dev/sda8</p>
+<p>系统引导一直由grub2引导，后来又安装了burg</p>
+<p>由于64位win7实在不方便折腾系统美化，于是昨晚做了个十分艰难的决定：重新装回32位win7</p>
+<p>U盘、光盘（备用）准备完毕</p>
+<p>开机重U盘启动，加载已写入的win7安装程序  一切都看起来是那么顺利….等啊等  终于等到“系统安装将在重启后继续”</p>
+<p>尼玛，光明就在前方，果断重启。。。BIOS检测完毕  继续‘顺利’进行着    “正在配置系统设置”、”正在更新…“、”….“….  </p>
+<p>接下来的事情就只能这么说了：你吃着瓜子，装着这系统，突然就弹出个错误框 “Windows无法更新计算机启动配置..”。。。。我简直比葛优还郁闷啊</p>
+<p>冷静下，重启看看。还未等几秒钟  下头就提示 “Brug is loading…”     好吧  这明显是没有重写MBR啊    Burg都还在加载     我是在想不出我哪出错了，理论上来说，安装版的系统安装过程中应该会重写MBR的  难道是Burg的原因导致的？既然想到就试试吧    进Ubuntu的终端执行</p>
+<blockquote>
+<p>sudo apt-get remove burg burg-themes burg-emu</p>
+</blockquote>
+<p>不多时  提示卸载成功了</p>
+<p>接着更新下grub（免得到时候又不成功 我连XP都进不去了）</p>
+<blockquote>
+<p>sudo update-grub</p>
+</blockquote>
+<p>再次就绪  再次重启安装</p>
+<p>等啊等啊 ····反正是漫长的等待，重启，继续悲催中…</p>
+<p>这就郁闷了    MBR被写保护了？没道理啊  </p>
+<p>进入PE用winPM重建MBR  重启   “grub is loading…”</p>
+<p>我还能说点什么呢····简直是要奔溃     </p>
+<p>试试Ghost吧 （真的不抱一点希望，传说ghost还原是不会去动MBR的）</p>
+<p>无论是用Ghost的硬盘版还是一键还原版   不是提示先前的那个错误就是安装到一半直接蓝屏了····苍天哪！！救救我吧</p>
+<p>纠结了半天，还是决定去DOS下用</p>
+<blockquote>
+<p>fdisk /mbr</p>
+</blockquote>
+<p>试试   </p>
+<p>本来就不抱希望（毕竟WinPM也试过了）   God果然也不给我一点希望  依旧   grub is loading…        </p>
+<p>spfdisk /mbr 实在不想去试了</p>
+<p>慢慢的</p>
+<p>my despair is loading<code></code></p>
+<p>绝望中  想过  全盘格式化    这终极必杀技想必能行  但一定得酝酿几天才有那么大的勇气啊！！！！</p>
+<p>要不试试把win7分区删了再新建试试吧 这也是最后的得救之道了</p>
+<p>继续进PE  删除 新建 格式化    </p>
+<p>终于  </p>
+<p>终于  </p>
+<p>那可亲可爱的Win7引导界面终于出来了   尽管是提示在不到启动文件  但那只是多二三十分钟重新安装的问题   你想啊   亲    我都已经这样不停的安装持续了三四个小时了   还在乎这点时间吗！！！</p>
+<p>好吧  激动了  本来两句话可以写清的问题写了这么多    但实在是在绝望中突然抓到了那么希望居然顺利解决问题   咱能不激动吗    </p>
+<p>至于MBR出的那问题再慢慢研究吧</p>
+<p>==============时间分割线=============</p>
+<p>2012.1.7</p>
+<p>win7装成功了   可是习惯了以前的Burg引导界面  于是乎去修复ubuntu</p>
+<p>Livcd下成功挂载分区到 \mnt 然后安装了grub  重启</p>
+<p>偶滴个神哪！  grub引导界面居然没出来  还是win7的引导界面  难道我的MBR真的出问题了</p>
+<p>一次次尝试  终于发现问题了   由于我的是双硬盘    那个没有安装系统的硬盘在逻辑上排在了我系统硬盘的前面</p>
+<p>也就是说系统默认把我那块非系统硬盘当作了引导盘  导致我每次尝试安装系统（包括今天修复Grub）时重写的MBR是位于那块非系统盘上</p>
+<p>然后我重启时 加载的确实主硬盘上的引导  自然就造成了MBR无论如何都不改变的假象</p>
+<p>（以上纯属猜测  高手飘过请指教）</p>
+<p>既然是这样  重启进入BIOS 先暂时把那块非系统盘禁用  这时便看到了久违的Grub引导了   进入Ubuntu     update-grub  更新下引导</p>
+<p>然后安装Burg</p>
+<p>…….</p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/blog/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/blog/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

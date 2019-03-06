@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Fighting">
+    <meta name="keyword" content="Fighting">
+    <link rel="shortcut icon" href="/blog/img/favicon.ico">
+
+    <title>
+        
+        如何不使用loop循环，创建一个长度为100的数组，并且每个元素的值等于它的下标 - Fighting的博客 | Fighting&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/blog/css/aircloud.css">
+    <link rel="stylesheet" href="/blog/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Fighting&#39;s Blog </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/blog/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Fighting</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/blog/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Fighting&#39;s Blog </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        如何不使用loop循环，创建一个长度为100的数组，并且每个元素的值等于它的下标
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2016-08-18 00:29:04</span></span>
+        
+        <span class="attr">Tags：/
+        
+        <a class="tag" href="/blog/tags/#Javascript" title="Javascript">Javascript</a>
+        <span>/</span>
+        
+        <a class="tag" href="/blog/tags/#ES6" title="ES6">ES6</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <p><a href="https://www.zhihu.com/question/41493194" target="_blank" rel="noopener">知乎</a>下一个提问炸出一堆见所未见的答案，当然，是我学识浅薄了。 ①</p>
+<pre><code>Object.keys(Array.apply(null,{length:100}));
+//or
+Object.keys(new Int8Array(100));
+//or   
+Object.keys(String(Array(101)));
+</code></pre><p>②</p>
+<pre><code>Array.from({length:100},(v,k)=&gt;k);
+//or
+Array.from(Array(100), (v,k)=&gt;k);
+</code></pre><p>③</p>
+<pre><code>Array.from(Array(100).keys());
+</code></pre><p>④</p>
+<pre><code>[...Array(100).keys()];
+</code></pre><p>⑤ 这个略微惊叹：</p>
+<pre><code>Number.prototype[Symbol.iterator] = function() {
+    return {
+        v: 0,
+        e: this,
+        next() {
+            return {
+                value: this.v++,
+                done: this.v &gt; this.e
+            }
+        }
+    }
+}
+[...100];
+</code></pre><p>⑥生成器+递归</p>
+<pre><code>function* angry(i){
+  yield i;
+  if (i &lt; 99) { yield* angry(i + 1); }
+};
+Array.from(angry(0));
+</code></pre><p>⑦递归</p>
+<pre><code>(function wallace(i) { return (i &lt; 0) ? [] : wallace(i - 1).concat(i); })(99);
+</code></pre><p>⑧尾递归</p>
+<pre><code>(function mistake(i, acc) { return (i &lt; 100) ? mistake(i + 1, acc.concat(i)) : acc; })(0, []);
+</code></pre><p>⑨计时器都想到了</p>
+<pre><code>var i = 0;
+var a = [];
+var timer = setInterval(function () {
+  a[i] = i++;
+  if (i &gt;= 100) {
+    clearInterval(timer);
+    console.log(a);
+  }
+}, 1);
+
+//or
+
+var a = [];
+var i = 0;
+function step(timestamp) { 
+  if (i &lt; 100) {
+    a[i] = i++;
+    requestAnimationFrame(step);
+  } else {
+    console.log(a);
+  }
+}
+requestAnimationFrame(step);
+</code></pre><p>⑩</p>
+<pre><code>new Array(101).join(&#39;a&#39;)
+    .replace(/a/g, function (v, i) { return i + &#39;,&#39;; })
+    .split(&#39;,&#39;).splice(0, 100);
+</code></pre><p>⑾ Y组合子</p>
+<pre><code>(function (excited) {
+    return function (f) {
+        return f(f);
+    }(function (f) {
+        return excited(function (x) { return (f(f))(x); });
+    });
+})(function (excited) {
+    return function (i) {
+        return (i &lt; 0) ? [] : excited(i - 1).concat(i);
+    }
+})(99);
+</code></pre><p>最后是<strong>大杀器</strong></p>
+<pre><code>function VM() {
+  this.stack = []
+  this.cs = []
+  this.pc = 0
+  this.ax = undefined
+  this.bx = undefined
+}
+VM.prototype.run = function(codes) {
+  this.cs = codes
+  this.pc = 0
+  return this.interpret()
+}
+VM.prototype.interpret = function() {
+  var vm = this
+  var instruction = vm.cs[vm.pc]
+  var op = instruction[0]
+  var ops = instruction.slice(1)
+
+  switch (op) {
+    case &#39;jl&#39;:
+      if (vm.ax &lt; vm.bx) {
+        vm.pc = ops[0]
+        return vm.interpret()
+      }
+    case &#39;inc&#39;:
+      vm.ax++
+      break
+    case &#39;ld&#39;:
+      vm[ops[0]] = ops[1]
+      break
+    case &#39;push&#39;:
+      vm.stack.push(vm[ops[0]])
+      break
+    case &#39;pop&#39;:
+      vm[ops[0]] = vm.stack.pop()
+      break
+    case &#39;arr_push&#39;:
+      vm.bx.push(vm.ax)
+      break
+    case &#39;ret&#39;:
+      return vm.ax
+      break
+    default:
+      throw &#39;wtf??&#39;
+  }
+  vm.pc++
+  return vm.interpret()
+}
+
+function make_a_100_len_array_without_fucking_loop() {
+  var codes = [
+    [&#39;ld&#39;, &#39;ax&#39;, 0],  // 0
+    [&#39;ld&#39;, &#39;bx&#39;, []], // 1
+    [&#39;push&#39;, &#39;bx&#39;],   // 2
+    [&#39;push&#39;, &#39;ax&#39;],   // 3
+    [&#39;pop&#39;, &#39;ax&#39;],    // 4
+    [&#39;pop&#39;, &#39;bx&#39;],    // 5
+    [&#39;arr_push&#39;],     // 6
+    [&#39;inc&#39;],          // 7
+    [&#39;push&#39;, &#39;bx&#39;],   // 8
+    [&#39;push&#39;, &#39;ax&#39;],   // 9
+    [&#39;ld&#39;, &#39;bx&#39;, 100],// 10
+    [&#39;jl&#39;, 4],        // 11
+    [&#39;pop&#39;, &#39;bx&#39;],    // 12
+    [&#39;pop&#39;, &#39;ax&#39;],    // 13
+    [&#39;ret&#39;]
+  ]
+  var vm = new VM()
+  return vm.run(codes)
+}
+
+var arr = make_a_100_len_array_without_fucking_loop();
+</code></pre>
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/blog/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/blog/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

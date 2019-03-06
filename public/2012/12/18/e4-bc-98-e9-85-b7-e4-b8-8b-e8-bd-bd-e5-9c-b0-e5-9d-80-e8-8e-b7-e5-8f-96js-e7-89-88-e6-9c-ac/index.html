@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Fighting">
+    <meta name="keyword" content="Fighting">
+    <link rel="shortcut icon" href="/blog/img/favicon.ico">
+
+    <title>
+        
+        优酷下载地址获取JS版本   附土豆下载地址获取简单分析 - Fighting的博客 | Fighting&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/blog/css/aircloud.css">
+    <link rel="stylesheet" href="/blog/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Fighting&#39;s Blog </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/blog/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Fighting</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/blog/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Fighting&#39;s Blog </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        优酷下载地址获取JS版本   附土豆下载地址获取简单分析
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2012-12-18 20:35:18</span></span>
+        
+        <span class="attr">Tags：/
+        
+        <a class="tag" href="/blog/tags/#js" title="js">js</a>
+        <span>/</span>
+        
+        <a class="tag" href="/blog/tags/#优酷" title="优酷">优酷</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <p>为解决JS的跨域问题，先在自己博客所在虚拟主机上写个简单的php 获取</p>
+<p><a href="http://v.youku.com/player/getPlayList/VideoIDS/*的下载地址列表" target="_blank" rel="noopener"></a><a href="http://v.youku.com/player/getPlayList/VideoIDS/*" target="_blank" rel="noopener">http://v.youku.com/player/getPlayList/VideoIDS/*</a></p>
+<p>的下载地址列表，并接受传入callback参数，方便跨域调用</p>
+<p>&lt;?php<br>    $handle = fopen(“<a href="http://v.youku.com/player/getPlayList/VideoIDS/&quot;.$_GET\[&#39;ids&#39;\]" target="_blank" rel="noopener">http://v.youku.com/player/getPlayList/VideoIDS/&quot;.$_GET\[&#39;ids&#39;\]</a>, “rb”);<br>    $contents = stream_get_contents($handle);<br>    echo $_GET[‘callback’].’(‘.$contents.’)’;<br>    fclose($handle);<br>?&gt;</p>
+<p>每个下载地址的特征如下：  都可在获取的JSON中得到</p>
+<p><a href="http://f.youku.com/player/getFlvPath/sid/130086939328910582812_00/st/flv/fileid/03000201004D8858360BD1047C4F5FF471CDD7-C742-8D74-3EED-90A9EF54EEC1?K=de1515a31372faac182698bc" target="_blank" rel="noopener">http://f.youku.com/player/getFlvPath/sid/130086939328910582812_00/st/flv/fileid/03000201004D8858360BD1047C4F5FF471CDD7-C742-8D74-3EED-90A9EF54EEC1?K=de1515a31372faac182698bc</a></p>
+<p>蓝色部分的00代表分段视频的第一段，接下来以16进制依次类推</p>
+<p>客户端js调用（用了JQuery的getJson）(下载地址解密算法来自互联网，具体出处我也找不到了….N多转载，我只是换成了JS版本)</p>
+<p>var ids=’XMzM0OTgyNzEy’;//视频的IDS <a href="http://v.youku.com/v\_show/id\_XMzM0OTgyNzEy.html" target="_blank" rel="noopener">http://v.youku.com/v\_show/id\_XMzM0OTgyNzEy.html</a><br>$.getJSON(‘<a href="http://www.ccc5.cc/youku.php?ids=&#39;+ids+&#39;&amp;callback=?&#39;,function(d){" target="_blank" rel="noopener">http://www.ccc5.cc/youku.php?ids=&#39;+ids+&#39;&amp;callback=?&#39;,function(d){</a><br>    var filedidObj=d.data[0].streamfileids,<br>        keyObj=d.data[0].segs,<br>        seed=d.data[0].seed;<br>    for(var i in filedidObj){<br>        var fildid=getFileId(filedidObj[i],seed),key=’’,format=’’,url=’’,size;<br>        for(var j in keyObj){<br>            if(i==j){<br>                if(j==’hd2’)format=’flv’;//高清 格式也为flv<br>                else format=j;<br>                var x=0;<br>                for(var n in keyObj[j]){//当第三个key以后为*号 说明为付费视频<br>                    key=keyObj[j][n].k;<br>                    size=(parseInt(keyObj[j][n].size)/1024/1024).toFixed(1);<br>                    url+=’<a href="http://f.youku.com/player/getFlvPath/sid/&#39;+" target="_blank" rel="noopener">http://f.youku.com/player/getFlvPath/sid/&#39;+</a> getSid()+’_00/st/‘+format+’/fileid/‘+fixedId(fildid,x)+’?K=’+key+’     大小:’+size+’M<br>‘;<br>                    x++;<br>                    }<br>                document.write(j+’: <br><br>‘+url)  //输出<br>                break<br>            }<br>        }<br>    }<br>})<br>function fixedId(id,i){<br>    var hex=i.toString(16).toUpperCase();<br>    if(hex.length&lt;2)hex=’0’+hex;<br>    return id.replace(/^(\w{8})\w{2}/i,’$1’+hex)<br>} </p>
+<p>function getSid(){<br>    var i1 = parseInt(1000 + Math.floor(Math.random() <em> 999)),<br>        i2 = parseInt(1000 + Math.floor(Math.random() </em> 9000));<br>    return (new Date).getTime() + “” + i1 + “” + i2;<br>}</p>
+<p>function getFileId(fileid,seed) {<br>    var mixed = getFileIDMixString(seed),<br>        ids = fileid.split(“*”),<br>        realId=’’,idx;<br>    for (var i = 0; i &lt; ids.length; i++) {<br>        idx = parseInt(ids[i]);<br>        realId+=mixed.charAt(idx);<br>    }<br>  return realId;<br>}</p>
+<p>function getFileIDMixString(seed){<br>    var mixed =’’,<br>        source =”abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ/\\:._-1234567890”,<br>        index,<br>        len = source.length;<br>    for (var i = 0; i &lt; len; i++) {<br>        seed = (seed <em> 211 + 30031) % 65536;<br>        index = parseInt(seed / 65536 </em> source.length);<br>        mixed+=source.charAt(index);<br>        source=source.split(source.charAt(index)).join(‘’);<br>    }<br>    return mixed;<br>}</p>
+<p>====================2012-12-19========================</p>
+<p>几天又去看了下土豆的视频</p>
+<p>发现它的下载地址获取没优酷那么复杂，通过</p>
+<p><a href="http://v2.tudou.com/v.action?pw=&amp;it=159399776" target="_blank" rel="noopener">http://v2.tudou.com/v.action?pw=&amp;it=159399776</a></p>
+<p>获得一个XML,其中就包含可视频各个清晰版本的下载地址</p>
+<v lg="0" wt="0" tm="199600" vi="1" ch="99" tt="【感谢你，我挚爱的人】如果明天就是末日，此时此刻的你最大的遗憾是什么？" cd="77t7WcEwhr4"><br>    <f st="3" s1="2b57b3ccfeaa74c204124cd2f23a33e41296541d" bc="0" brt="3"><br>        <a href="http://119.84.31.134/f4v/76/159399776.h264_2.f4v?key=1c0831ccdc9e6551e4b69a50d1d8910040db8509f3&amp;playtype=1&amp;tk=165100774880403682730491980&amp;brt=3&amp;bc=0&amp;nt=0&amp;du=199600&amp;ispid=109&amp;rc=200&amp;inf=1&amp;si=10000&amp;npc=3644&amp;pp=0&amp;ul=0&amp;mt=0&amp;sid=10000&amp;au=0&amp;pc=0&amp;cip=(这里是你的ip地址)&amp;hf=0&amp;id=tudou&amp;itemid=129901704&amp;fi=159399776&amp;sz=11267213" target="_blank" rel="noopener">http://119.84.31.134/f4v/76/159399776.h264_2.f4v?key=1c0831ccdc9e6551e4b69a50d1d8910040db8509f3&amp;playtype=1&amp;tk=165100774880403682730491980&amp;brt=3&amp;bc=0&amp;nt=0&amp;du=199600&amp;ispid=109&amp;rc=200&amp;inf=1&amp;si=10000&amp;npc=3644&amp;pp=0&amp;ul=0&amp;mt=0&amp;sid=10000&amp;au=0&amp;pc=0&amp;cip=(这里是你的ip地址)&amp;hf=0&amp;id=tudou&amp;itemid=129901704&amp;fi=159399776&amp;sz=11267213</a><br>    </f><br></v>
+
+<p>这里由于这个视频只有一种清晰度 所以只有一个下载地址</p>
+<p>问题的关键在于传递给地址的参数 it   这个参数与视频一一对应，我通过chrome带的开发者工具查找网页中的“159399776“，找到了</p>
+<p>itemData={<br>iid:159399776<br>,kw:”【感谢你，我挚爱的人】如果明天就是末日，此时此刻的你最大的遗憾是什么？”<br>,icode:”77t7WcEwhr4”<br>,cid:99<br>,oid:118516358<br>,hd:3<br>,dl:true<br>,tict:3<br>,vcode:””<br>,onic:”小奇_L”<br>,oname:”_118516358”<br>,mediaType: ‘vi’<br>,NA: 0<br>,np:0<br>,pic:”<a href="http://i3.tdimg.com/159/399/776/p.jpg&quot;" target="_blank" rel="noopener">http://i3.tdimg.com/159/399/776/p.jpg&quot;</a><br>,time:”03:19”<br> ,ol: 1<br>,olw: 1920<br>,olh: 1080<br>,olr: 3366224<br>,pt:1355639022000<br>,k: ‘末日|原创|遗憾|挚爱|感谢|刘原廷’<br>,cs: ‘’<br>}</p>
+<p>其中的iid就是我们要找的…itemData是个全局对象，找了所有的加载JS文件中的itemData也没找到itemData是如何冒出来的，更别提iid的算法了，那么可能就是在服务器中生成的了 ，这个也没办法了</p>
+<p>如果用js来直接获取iid还是挺简单</p>
+<p>var iid=window.itemData.iid</p>
+<p>然后ajax获取下载地址（由于子域V2.tudou.com与主域tudou.com也会有跨域限制，除了通过服务器把XML中转成JSON，貌似没别的办法）</p>
+<p>……</p>
+<p>就这样   哪天无聊搞个油猴脚本，方便自己下载视频，不过蛋疼的是优酷的长视频分段….不是一般的蛋疼</p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/blog/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/blog/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Fighting">
+    <meta name="keyword" content="Fighting">
+    <link rel="shortcut icon" href="/blog/img/favicon.ico">
+
+    <title>
+        
+        重装Windows系统 修复Ubuntu引导 - Fighting的博客 | Fighting&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/blog/css/aircloud.css">
+    <link rel="stylesheet" href="/blog/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Fighting&#39;s Blog </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/blog/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Fighting</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/blog/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Fighting&#39;s Blog </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        重装Windows系统 修复Ubuntu引导
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2011-05-07 12:31:18</span></span>
+        
+        <span class="attr">Tags：/
+        
+        <a class="tag" href="/blog/tags/#Grub2" title="Grub2">Grub2</a>
+        <span>/</span>
+        
+        <a class="tag" href="/blog/tags/#Ubuntu" title="Ubuntu">Ubuntu</a>
+        <span>/</span>
+        
+        <a class="tag" href="/blog/tags/#重装系统" title="重装系统">重装系统</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <p>先介绍下情况：原来是win7.XP和ubuntu10.10三系统，最近XP变慢了 格XP盘重装。修复ubuntu10.04的grub2引导。修复步骤：</p>
+<p>1)ubntu  liveCD启动电脑。没有的话可以用U盘做一个。</p>
+<p>2)应用程序-&gt;附件-&gt;终端</p>
+<p>3)sudo -i //获得root权限</p>
+<p>4)fdisk -l //列出硬盘分区详细情况我的情况如下：</p>
+<blockquote>
+<p>Device Boot  Start         End      Blocks   Id  System</p>
+<p>/dev/sda1           1        6528    52436128+   7  HPFS/NTFS</p>
+<p>/dev/sda2        6529       13056    52436160    7  HPFS/NTFS</p>
+<p>/dev/sda3       13057       60801   383511682    f  W95 Ext’d (LBA)</p>
+<p>/dev/sda5       13057       26111   104864256    7  HPFS/NTFS</p>
+<p>/dev/sda6       26112       39166   104864256    7  HPFS/NTFS</p>
+<p>/dev/sda7       39167       52221   104864256    7  HPFS/NTFS</p>
+<p>/dev/sda8       52222       60280    64727040   83  Linux</p>
+</blockquote>
+<p>5)找到ubuntu各个分区，例如我的情况是：</p>
+<blockquote>
+<p>/dev/sda8/</p>
+</blockquote>
+<p>6)挂载分区：</p>
+<blockquote>
+<p>cd /mnt</p>
+<p>sudo mkdir ubuntu</p>
+<p>mount /dev/sda8  /mnt/ubuntu</p>
+</blockquote>
+<p>但如果/boot分区单独分出来，一定要挂在：</p>
+<blockquote>
+<p>mount /dev/sda*  /mnt/boot</p>
+</blockquote>
+<p>7)执行命令：</p>
+<blockquote>
+<p>grub-install –boot-directory=/mnt/ubuntu  /dev/sda</p>
+</blockquote>
+<p>如果看到</p>
+<p>Installation finished.No Error Reported.就表示已经成功啦！</p>
+<p>8)重启电脑，进入ubuntu，打开终端，更新grub2信息：</p>
+<blockquote>
+<p>sudo update-grub</p>
+</blockquote>
+<p>OK!</p>
+<p>再次重启 见到了亲切熟悉的系统选择界面<a href="http://ccc5.cc/wp-content/uploads/2011/05/13.jpg" target="_blank" rel="noopener"><img src="http://ccc5.cc/wp-content/uploads/2011/05/13.jpg" alt title="1"></a></p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/blog/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/blog/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

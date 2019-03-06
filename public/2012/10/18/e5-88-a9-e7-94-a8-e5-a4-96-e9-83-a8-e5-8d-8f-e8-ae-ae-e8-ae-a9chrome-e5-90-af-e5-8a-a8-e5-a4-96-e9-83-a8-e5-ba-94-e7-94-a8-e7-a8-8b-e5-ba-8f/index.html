@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Fighting">
+    <meta name="keyword" content="Fighting">
+    <link rel="shortcut icon" href="/blog/img/favicon.ico">
+
+    <title>
+        
+        利用外部协议让chrome启动外部应用程序 - Fighting的博客 | Fighting&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/blog/css/aircloud.css">
+    <link rel="stylesheet" href="/blog/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Fighting&#39;s Blog </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/blog/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Fighting</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/blog/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Fighting&#39;s Blog </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        利用外部协议让chrome启动外部应用程序
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2012-10-18 20:14:45</span></span>
+        
+        <span class="attr">Tags：/
+        
+        <a class="tag" href="/blog/tags/#Chrome" title="Chrome">Chrome</a>
+        <span>/</span>
+        
+        <a class="tag" href="/blog/tags/#外部协议" title="外部协议">外部协议</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <p>原理：很简单，标题写的很明确了，不懂的google去。  </p>
+<p>步骤：举个例子，我要启动D:\Programe files\Psiphon\Psiphon.exe  </p>
+<p>  一，将下面内容复制到记事本，保存成F1.reg导入注册表</p>
+<ol>
+<li><p>Windows Registry Editor Version 5.00  </p>
+</li>
+<li></li>
+<li><p>[HKEY_CLASSES_ROOT\F1]  </p>
+</li>
+<li><p>@=”URL:F1 Protocol Handler”  </p>
+</li>
+<li><p>“URL Protocol”=””  </p>
+</li>
+<li></li>
+<li><p>[HKEY_CLASSES_ROOT\F1\shell]  </p>
+</li>
+<li></li>
+<li><p>[HKEY_CLASSES_ROOT\F1\shell\open]  </p>
+</li>
+<li></li>
+<li><p>[HKEY_CLASSES_ROOT\F1\shell\open\command]  </p>
+</li>
+<li><p>@=”D:\\Program Files\\Psiphon\\Psiphon.exe \“%1\“”</p>
+</li>
+</ol>
+<p>二，打开新标签页，点五角星收藏，然后修改书签，Name:Psiphon    URL:F1://  </p>
+<p>三，点击书签，会弹出启动外部协议的对话框，允许就可以启动Psiphon.exe  </p>
+<p>补充：默认的书签图标是小地球，很丑，我们可以给它加个Psiphon图标  </p>
+<p>方法：<br> 一、首先导出收藏夹  </p>
+<p> 二、右键编辑和html文件，我们会发现刚才加Psiphon书签是这样的格式：</p>
+<ol>
+<li><dt><a href="F1://" add_date="1330861510" target="_blank" rel="noopener">Psiphon</a></dt></li>
+</ol>
+<p>三、在ADD_DATE后面加上图标的代码,注意空格，注意图标是base64格式，可以找一张16px的图片转成base64格式。提供一个在线转换的网站<a href="http://www.vgot.net/test/image2base64.php" target="_blank" rel="noopener">www.vgot.net/test/image2base64.php</a>?</p>
+<ol>
+<li><dt><a href="F1://" add_date="1330861510" icon="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABnklEQVQ4ja2RvUscQRyGn9kPo1GQHCnCNcpxlRZiUAgk2IY0KbSxvvwLNiFV8hek0iKNQkgnQbCTWPsRiSYK4gdyS7wj7h6Hl3Pvsne7Y7ErO7t3qEVemGJ3fu8z7zsjSGvkVYHx1x+R0kYKBxnYeDWbhnuBbe1S2l+htOPejIuUXefZm0Pyk/kO8I3arRJnOzNsLm4AaInN3NQsuhmb3UtwLKiWoV4FKcEws+QnvpLNPkwDBJnht4lQTRcq52BbUD6GP2fRpPGEoecvk4Dc6DRCjCZKCUBoIKKfjZpS9lEuCcg8fddxLULEZoCePmVPCwAMALJjLxDaeNrPQAbMPgj88Lt/UKln/4oBuvE4mTuS0ROutFrtb2wvr8eAALNzCmjWwa2Bpocr8Ctc/H7P1qcFQKlg+PExaufGX7CL4LU8gvY81sYHLq2qekYIEL3dE3ieRPqrOAdznO8ddRuJAGoFJcEDc5Hvnwtd4ZHCZwyUm1JfQYqr28xKAiNO8K8B5ROQ/MQprt0P4Ld1mjJAp0Ld+cLp9hL23o+7zP9F157Rh4DbjctMAAAAAElFTkSuQmCC" target="_blank" rel="noopener">Psiphon</a></dt></li>
+</ol>
+<p>四、删除所有书签，重新将修改的html文件导入收藏夹</p>
+<p><a href="http://bbs.kafan.cn/forum.php?mod=viewthread&amp;tid=1254526&amp;extra=page%3D1&amp;page=1" target="_blank" rel="noopener">原文</a></p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/blog/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/blog/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

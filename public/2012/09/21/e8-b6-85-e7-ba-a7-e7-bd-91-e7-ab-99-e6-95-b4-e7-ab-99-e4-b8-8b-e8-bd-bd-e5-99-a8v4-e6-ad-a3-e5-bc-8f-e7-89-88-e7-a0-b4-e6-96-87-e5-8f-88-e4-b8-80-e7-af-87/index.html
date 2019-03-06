@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Fighting">
+    <meta name="keyword" content="Fighting">
+    <link rel="shortcut icon" href="/blog/img/favicon.ico">
+
+    <title>
+        
+        超级网站整站下载器V4正式版 破文又一篇 - Fighting的博客 | Fighting&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/blog/css/aircloud.css">
+    <link rel="stylesheet" href="/blog/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Fighting&#39;s Blog </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/blog/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Fighting</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/blog/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Fighting&#39;s Blog </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        超级网站整站下载器V4正式版 破文又一篇
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2012-09-21 22:30:31</span></span>
+        
+        <span class="attr">Tags：/
+        
+        <a class="tag" href="/blog/tags/#超级网站整站下载器" title="超级网站整站下载器">超级网站整站下载器</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <p>上次破解了V2.5版  <a href="http://www.ccc5.cc/1245.html" target="_blank" rel="noopener">http://www.ccc5.cc/1245.html</a> 今天想下载个静态网页，找了好几个软件都不满意，找来找去又找到了这<a href="http://www.onlinedown.net/soft/118426.htm" target="_blank" rel="noopener">http://www.onlinedown.net/soft/118426.htm</a> 发现这货居然升级到了V4.0版  而且运行就要登陆  还增加了什么SEO用户  站群用户…. 正好好久没搞破解了  继续拿来练练手 查壳依旧和原来一样结果 E Language -&gt; WuTao   <em> Sign.By.fly </em> 依旧舍不得加壳 易语言独立编译的   好吧  对付这种软件的老规矩了 OD载入—-找字符串“error”——下段该字符串上面的第一个”je”——–F9跑起来,断在了je处———–Alt+E查看加载的模块  双击krnln.fnr模块 ————–Ctrl+B搜索FF55FC—————–下断找到的第一个CALL————F9来到CALL——F7跟进 来到程序的关键段了 开始找关键地方了 查找字符串  留意“用户密码错误”、“商业用户”之类的字眼  找到其上的关键跳下断 首先我找到这个三个跳   <code>00533D2D    A3 BC044D01     mov dword ptr ds:[14D04BC],eax 00533D32    68 BC044D01     push 14D04BC 00533D37    E8 C3340000     call 超级网站.005371FF 00533D3C    8945 E4         mov dword ptr ss:[ebp-1C],eax 00533D3F    837D E4 01      cmp dword ptr ss:[ebp-1C],1 00533D43    0F85 F30A0000   jnz 超级网站.0053483C        ; 大跳 00533D49    68 01000000     push 1 00533D4E    68 02000000     push 2 00533D53    68 BC044D01     push 14D04BC 00533D58    E8 13350000     call 超级网站.00537270 00533D5D    8945 E8         mov dword ptr ss:[ebp-18],eax 00533D60    8B45 FC         mov eax,dword ptr ss:[ebp-4] 00533D63    50              push eax</code> <code>00533DE5    B8 01000000     mov eax,1 00533DEA    EB 02           jmp short 超级网站.00533DEE 00533DEC    33C0            xor eax,eax 00533DEE    85C0            test eax,eax 00533DF0    0F84 110A0000   je 超级网站.00534807     ; 这也是个大跳 00533DF6    68 01000000     push 1 00533DFB    68 0A000000     push 0A 00533E00    68 BC044D01     push 14D04BC 00533E05    E8 66340000     call 超级网站.00537270 00533E0A    8945 E8         mov dword ptr ss:[ebp-18],eax 00533E0D    68 04000080     push 80000004</code> <code>00533F56    E8 E86AFEFF     call 超级网站.0051AA43 00533F5B    8945 EC         mov dword ptr ss:[ebp-14],eax 00533F5E    837D EC 01      cmp dword ptr ss:[ebp-14],1 00533F62    0F85 1F020000   jnz 超级网站.00534187     ; 这还是个大跳 00533F68    68 01000000     push 1 00533F6D    68 05000000     push 5 00533F72    68 BC044D01     push 14D04BC 00533F77    E8 F4320000     call 超级网站.00537270</code> 均是大跳，如果实现则把下面的“商业用户”跳过去了，下断它，继续寻找~~~ 还找到几个，由于我试验过，均没什么影响，就不提了 然后F9把程序跑起来，跑了好久才跑起来，期待的启动界面没出来 给我弹出个框框说</p>
+<blockquote>
+<p>初始化失败,可能一下原因\n服务器地址不对,通讯密保不对,或者软件号不对</p>
+</blockquote>
+<p>，可能是服务器挂了吧！！！尝试进入官网，果然进不去，难怪程序跑了半天才跑起来 好吧，找到关键的地方，把错误提示JMP过去，顺便把上面链接服务器的CALL都NOP掉~~~不然启动程序都要花费几十秒   <code>00532F9C    6A 01           push 1 00532F9E    B8 52BA4100     mov eax,超级网站.0041BA52                 ; POST 00532FA3    8945 FC         mov dword ptr ss:[ebp-4],eax 00532FA6    8D45 FC         lea eax,dword ptr ss:[ebp-4] 00532FA9    50              push eax 00532FAA    68 8039F100     push 0F13980 ;一大堆的PUSH 把下面的CALL看不顺眼的都NOP掉吧 00532FAF    B8 29BC4100     mov eax,超级网站.0041BC29                    ; 515236498 00532FB4    8945 F8         mov dword ptr ss:[ebp-8],eax 00532FB7    8D45 F8         lea eax,dword ptr ss:[ebp-8] 00532FBA    50              push eax 00532FBB    B8 33BC4100     mov eax,超级网站.0041BC33           ; http://www.oferry.com/vip/AppEn.php 00532FC0    8945 F4         mov dword ptr ss:[ebp-C],eax 00532FC3    8D45 F4         lea eax,dword ptr ss:[ebp-C]</code> 改好重新F9 登录框出来鸟。 <a href="http://www.ccc5.cc/wp-content/uploads/2012/09/12223.png" target="_blank" rel="noopener"><img src="http://www.ccc5.cc/wp-content/uploads/2012/09/12223-300x195.png" alt title="12223"></a>                 选择3.0老用户，然后随便输入帐号密码 点登陆 成功断在了我们下的断点上，依据情况自己把跳给改了，别让它把关键地方跳过去 然后F9 好吧就是这个效果 <a href="http://www.ccc5.cc/wp-content/uploads/2012/09/12243242332.png" target="_blank" rel="noopener"><img src="http://www.ccc5.cc/wp-content/uploads/2012/09/12243242332-300x210.png" alt title="12243242332"></a> 破解了的下载地址就不提供了</p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/blog/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/blog/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

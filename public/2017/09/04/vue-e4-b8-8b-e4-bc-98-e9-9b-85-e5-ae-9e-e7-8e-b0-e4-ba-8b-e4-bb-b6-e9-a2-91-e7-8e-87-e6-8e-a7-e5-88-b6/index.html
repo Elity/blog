@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Fighting">
+    <meta name="keyword" content="Fighting">
+    <link rel="shortcut icon" href="/blog/img/favicon.ico">
+
+    <title>
+        
+        Vue下优雅实现事件频率控制 - Fighting的博客 | Fighting&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/blog/css/aircloud.css">
+    <link rel="stylesheet" href="/blog/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Fighting&#39;s Blog </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/blog/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Fighting</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/blog/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Fighting&#39;s Blog </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        Vue下优雅实现事件频率控制
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2017-09-04 09:26:18</span></span>
+        
+        <span class="attr">Tags：/
+        
+        <a class="tag" href="/blog/tags/#vue" title="vue">vue</a>
+        <span>/</span>
+        
+        <a class="tag" href="/blog/tags/#debounce" title="debounce">debounce</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <blockquote>
+<p>该方式在vue2.4以后不再可用，之后的版本，在绑定事件的时候，内部给函数有包装了一层，我们无法在指令内部移除事件监听。源码见 <a href="https://github.com/vuejs/vue/blob/c3553196b8b15a71f982bd5e04c61be52e87c828/src/platforms/web/runtime/modules/events.js#L48" target="_blank" rel="noopener">-&gt;-&gt;-&gt;这里</a></p>
+</blockquote>
+<p>在web开发中，对DOM事件做频率限制随处可见，特别是涉及网络请求。这样的需求下，我们希望事件在第一次触发后立即响应,然后不接受响应，接下来在特定的时间内没再次收到该事件，则解除该限制。 借鉴<code>debounce</code>与<code>throttle</code>的思路，我们第一次可能想到的是自己定义一个频率控制的高阶函数(比如<code>oneTime</code>)，接受我们传入的事件响应函数作为参数，得到一个新的函数传入<code>@click</code>里面，就像：</p>
+<pre><code>&lt;button @click=&quot;oneTime(myFn)&gt;测试&lt;/button&gt;
+</code></pre><p>经过实验，发现这样不行。查看vue.js<a href="https://github.com/vuejs/vue/blob/91deb4fd910afd51137820f120d4c26d0a99e629/src/core/vdom/helpers/update-listeners.js#L26" target="_blank" rel="noopener">源码</a>：</p>
+<pre><code>export function createFnInvoker (fns: Function | Array&lt;Function&gt;): Function {
+  function invoker () {
+    const fns = invoker.fns
+    if (Array.isArray(fns)) {
+      const cloned = fns.slice()
+      for (let i = 0; i &lt; cloned.length; i++) {
+        cloned[i].apply(null, arguments)
+      }
+    } else {
+      // return handler return value for single handlers
+      return fns.apply(null, arguments)
+    }
+  }
+  invoker.fns = fns
+  return invoker
+}
+</code></pre><p>可发现，我们在模版里面传入的部分，也就是函数中的<code>fns</code>，包裹在<code>invoker</code>中每次都会被执行，也就是绑定的过程每次点击都会进行。所以，这样行不通。 那么，我们只能在data里面单独定义一个变量来保存生成的函数，然后把这个变量塞入<code>@click</code>里面。这样就导致每次需要使用该特性都得单独定义一个变量来保存新的函数，更优雅地实现方式是咋样的呢？我首先想到的是指令，想象下，在需要控制频率的地方使用自定义的指令，传入需要被控制的事件及时间，一切都和谐多了。附上指令实现方式：</p>
+<pre><code>function oneTime(method, duration) {
+    let timer = null,running = false;
+    return function (...args) {
+        clearTimeout(timer);
+        timer = setTimeout(()=&gt;{
+            running = false
+        }, duration);
+        if(running)return;
+        running = true;
+        method.apply(this, args);
+    }
+}
+
+Vue.directive(&#39;freq&#39;, { 
+    inserted(el,bd,vnode) { 
+            console.log(&#39;here&#39;,vnode.data.on)
+        let all = {};
+        if(typeof bd.value === &#39;string&#39;){
+            all[bd.value] = 500
+        }else if(Array.isArray(bd.value)){
+            bd.value.forEach(val=&gt;all[val] = 500)
+        }else{
+            all = bd.value
+        }
+        for(let ev in all){
+            if(!vnode.data.on[ev])continue;
+            el.removeEventListener(ev,vnode.data.on[ev]);
+            vnode.data.on[ev] = oneTime(vnode.data.on[ev],all[ev])
+            el.addEventListener(ev,vnode.data.on[ev])
+        }
+    }
+})
+</code></pre><p>然后我们就可以这样使用了：</p>
+<pre><code>&lt;button @click=&quot;fn&quot; v-freq=&quot;{click:500}&quot;&gt;
+    测试
+&lt;/button&gt;
+</code></pre><p>或者这样：</p>
+<pre><code>&lt;button @click=&quot;fn&quot; v-freq=&quot;&#39;click&#39;&quot;&gt;
+    测试
+&lt;/button&gt;
+</code></pre><p>甚至这样：</p>
+<pre><code>&lt;button @click=&quot;fn&quot; v-freq=&quot;[&#39;click&#39;,&#39;mouseenter&#39;]&quot;&gt;
+    测试
+&lt;/button&gt;
+</code></pre>
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/blog/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/blog/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

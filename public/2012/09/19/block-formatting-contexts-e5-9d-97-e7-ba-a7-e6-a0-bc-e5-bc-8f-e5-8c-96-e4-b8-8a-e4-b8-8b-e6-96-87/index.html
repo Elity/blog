@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Fighting">
+    <meta name="keyword" content="Fighting">
+    <link rel="shortcut icon" href="/blog/img/favicon.ico">
+
+    <title>
+        
+        Block Formatting Contexts(块级格式化上下文) - Fighting的博客 | Fighting&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/blog/css/aircloud.css">
+    <link rel="stylesheet" href="/blog/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Fighting&#39;s Blog </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/blog/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Fighting</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/blog/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#先看一下有关BFC的规则或者定义"><span class="toc-text">先看一下有关BFC的规则或者定义</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#块级格式化上下文如何浮动"><span class="toc-text">块级格式化上下文如何浮动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#怎样触发块级格式化上下文"><span class="toc-text">怎样触发块级格式化上下文</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#块级格式化上下文都做些什么"><span class="toc-text">块级格式化上下文都做些什么</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#说了这么多规则之后，在现实世界中这意味着什么？"><span class="toc-text">说了这么多规则之后，在现实世界中这意味着什么？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#块级格式化上下文会阻止外边距叠加"><span class="toc-text">块级格式化上下文会阻止外边距叠加</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#块级格式化上下文包含浮动"><span class="toc-text">块级格式化上下文包含浮动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#块级格式化上下文不会重叠浮动元素"><span class="toc-text">块级格式化上下文不会重叠浮动元素</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hasLayout和BFC"><span class="toc-text">hasLayout和BFC</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#可以给元素添加布局的属性或者声明"><span class="toc-text">可以给元素添加布局的属性或者声明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#需要考虑的事："><span class="toc-text">需要考虑的事：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTML元素通常都会有布局："><span class="toc-text">HTML元素通常都会有布局：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Fighting&#39;s Blog </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        Block Formatting Contexts(块级格式化上下文)
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2012-09-19 02:44:18</span></span>
+        
+        <span class="attr">Tags：/
+        
+        <a class="tag" href="/blog/tags/#CSS" title="CSS">CSS</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <p>前几天看到kejun‘s blog里面的一篇文章：“<a href="http://hikejun.com/blog/2011/10/26/%E8%BF%91%E6%9C%9F%E9%9D%A2%E8%AF%95%E6%84%9F%E5%8F%97/" target="_blank" rel="noopener">近期面试感受</a>”， 里面提到面试时的一道题的不同的解决方案，比较它们之间的优缺点，其中出现了一个概念：Block Formatting Contexts(块级格式化上下文)，而我一点印象都没有，所以就找了一些相关的文章学习一下，看到一篇很好的文章，所以就翻译出来和大家共享一下。原 文是：<a href="http://www.yuiblog.com/blog/2010/05/19/css-101-block-formatting-contexts" target="_blank" rel="noopener">Block Formatting Contexts</a> 一个块级格式化上下文是满足以下条件中至少一条的盒模型：</p>
+<ul>
+<li>float的值不为空</li>
+<li>overflow的值不为visible</li>
+<li>display的值是table-cell、table-caption或者inline-block之一</li>
+<li>position的值不为static或者relative</li>
+</ul>
+<p>当谈到<a href="http://www.w3.org/TR/CSS21/visuren.html" target="_blank" rel="noopener">视觉格式模型</a>(visual formatting model，针对<a href="http://www.w3.org/TR/CSS21/media.html" target="_blank" rel="noopener">可视化媒体</a>，用户代理如何处理<a href="http://www.w3.org/TR/CSS21/conform.html#doctree" target="_blank" rel="noopener">DOM树</a>),块级格式化上下文发挥着巨大的作用。所以对于CSS编程人员来说，深刻的理解块级格式化上下文和flow、float、clear、margin的关系至关重要。</p>
+<h2 id="先看一下有关BFC的规则或者定义"><a href="#先看一下有关BFC的规则或者定义" class="headerlink" title="先看一下有关BFC的规则或者定义"></a>先看一下有关BFC的规则或者定义</h2><h3 id="块级格式化上下文如何浮动"><a href="#块级格式化上下文如何浮动" class="headerlink" title="块级格式化上下文如何浮动"></a>块级格式化上下文如何浮动</h3><p>块级格式化上下文的<a href="http://www.w3.org/TR/CSS21/visuren.html#positioning-scheme" target="_blank" rel="noopener">定位方案</a>(positioning scheme)属于<a href="http://www.w3.org/TR/CSS21/visuren.html#normal-flow" target="_blank" rel="noopener">普通流</a>(normal flow)。块级格式化上下文中的块是通过页面流中的<a href="http://www.w3.org/TR/CSS21/visuren.html#block-box" target="_blank" rel="noopener">块级元素</a>、<a href="http://www.w3.org/TR/CSS21/visuren.html#inline-box" target="_blank" rel="noopener">行内元素</a>的<a href="http://www.w3.org/TR/CSS21/visuren.html#inline-formatting" target="_blank" rel="noopener">行内格式化</a>、块级元素或者行内元素的<a href="http://www.w3.org/TR/CSS21/visuren.html#relative-positioning" target="_blank" rel="noopener">相对定位</a>以及将元素定位为<a href="http://www.w3.org/TR/CSS21/visuren.html#run-in" target="_blank" rel="noopener">run-in</a>来定位的。简言之，块级格式化上下文就是页面流的一部分。</p>
+<h3 id="怎样触发块级格式化上下文"><a href="#怎样触发块级格式化上下文" class="headerlink" title="怎样触发块级格式化上下文"></a>怎样触发块级格式化上下文</h3><p>以下方法可以创建新的块级格式化上下文：</p>
+<ul>
+<li>floats</li>
+<li>元素的绝对定位</li>
+<li>inline-blocks</li>
+<li>table-cells</li>
+<li>table-captions</li>
+<li>给元素添加overflow样式，并且值不为visible</li>
+</ul>
+<p>但是根据<a href="http://www.w3.org/TR/css3-box/#block-level0" target="_blank" rel="noopener">CSS3标准</a>，当以下条件符合的时候就会创建块级格式化上下文：</p>
+<pre><code>position的值不是static或者relative（见【CSS3POS】）
+</code></pre><p>这个定义意味着当position为fixed的时候也会创建新的块级格式化上下文。参照标准，一个绝对定位的元素就暗示着这个元素的<a href="http://www.w3.org/TR/CSS21/visuren.html#propdef-position" target="_blank" rel="noopener">position</a>属性值为absolute或者fixed。 请注意display:table本身不会创建块级格式化上下文。但是由于它可以产生<a href="http://www.w3.org/TR/CSS21/tables.html#anonymous-boxes" target="_blank" rel="noopener">匿名盒</a>(anonymous boxes)，而匿名盒中的display:table-cell可以创建新的块级格式化上下文。换句话说，触发块级格式化上下文的是匿名盒，而不是 display:table。编程人员需要铭记于心的是，虽然这两种样式都能够创建新的块级格式化上下文（间接的或者直接的），但是 display:table的clear却和display:table-cell的clear效果不一样。 最后一个触发块级格式化上下文的是fieldset元素。奇怪的是，<a href="http://www.w3.org里没有任何有关这个触发行为的信息，直到[HTML5](http://jeehon.info/log/2011/11/11/block-formatting-contexts%e5%9d%97%e7%ba%a7%e6%a0%bc%e5%bc%8f%e5%8c%96%e4%b8%8a%e4%b8%8b%e6%96%87/www.w3.org/TR/html5/the-xhtml-syntax.html#the-fieldset-element-0)标准里才出现。有些浏览器bugs（Webkit，Mozilla）提到过这个触发行为，但是没有任何官方声明。实际上，即使fieldset在大多数的浏览器上都能创建新的块级格式化上下文，开发者也不应该把这当做理所当然的：" target="_blank" rel="noopener">www.w3.org里没有任何有关这个触发行为的信息，直到[HTML5](http://jeehon.info/log/2011/11/11/block-formatting-contexts%e5%9d%97%e7%ba%a7%e6%a0%bc%e5%bc%8f%e5%8c%96%e4%b8%8a%e4%b8%8b%e6%96%87/www.w3.org/TR/html5/the-xhtml-syntax.html#the-fieldset-element-0)标准里才出现。有些浏览器bugs（Webkit，Mozilla）提到过这个触发行为，但是没有任何官方声明。实际上，即使fieldset在大多数的浏览器上都能创建新的块级格式化上下文，开发者也不应该把这当做理所当然的：</a></p>
+<pre><code>CSS 2.1没有定义哪种属性适用于表单控件和相框，也没有定义如何使用CSS来给它 们添加样式。用户代理可能会给这些属性应用CSS属性，建议开发者们把这种支撑 当做实验性的。更高版本的CSS可能会进一步规定这个。
+</code></pre><h3 id="块级格式化上下文都做些什么"><a href="#块级格式化上下文都做些什么" class="headerlink" title="块级格式化上下文都做些什么"></a>块级格式化上下文都做些什么</h3><p>由于块级格式化上下文的流动方式，所以它包含了浮动，这样可以阻止外边距叠加和浮动重叠： 在块级格式化上下文中，盒（boxes）都是从一个包含块的顶部开始，垂直的一个接一个排列着。两个兄弟元素之间的垂直距离由<a href="http://www.w3.org/TR/CSS21/box.html#propdef-margin" target="_blank" rel="noopener">margin</a>属性来决定的。在块级格式化上下文中，相邻的块元素之间的垂直外边距会产生<a href="http://www.w3.org/TR/CSS21/box.html#collapsing-margins" target="_blank" rel="noopener">叠加</a>。 在块级格式化上下文中，每个框(box)的左外边缘挨着包含块的左边(如果是从右往左格式化，情况正好相反)。哪怕存在浮动也会如此，除非这个框(box)创建了一个新的块级格式化上下文(这种情况下，这个框会由于浮动而<a href="http://www.w3.org/TR/CSS21/visuren.html#bfc-next-to-float" target="_blank" rel="noopener">变窄</a>)。</p>
+<h2 id="说了这么多规则之后，在现实世界中这意味着什么？"><a href="#说了这么多规则之后，在现实世界中这意味着什么？" class="headerlink" title="说了这么多规则之后，在现实世界中这意味着什么？"></a>说了这么多规则之后，在现实世界中这意味着什么？</h2><p>块级格式化上下文或多或少有点像其他的块框(block box)，除了下面这些例外：</p>
+<h3 id="块级格式化上下文会阻止外边距叠加"><a href="#块级格式化上下文会阻止外边距叠加" class="headerlink" title="块级格式化上下文会阻止外边距叠加"></a>块级格式化上下文会阻止外边距叠加</h3><p>仅当两个相邻的块框在同一个块级格式化上下文中时，它们之间垂直方向的外边距才会<a href="http://www.w3.org/TR/CSS21/box.html#collapsing-margins" target="_blank" rel="noopener">叠加</a>。换句话说，如果这两个相邻的块框不属于同一个块级格式化上下文，那么它们的外边距就不会叠加。 例如：</p>
+<p>This is a paragraph inside a DIV with a blue background, styled with_margin:20px_</p>
+<p>This is a paragraph inside a DIV with a blue background, styled with_margin:20px_.</p>
+<p>This is a paragraph inside a DIV with a blue background, it is styled with_margin:20px_, The parent DIV is styled with <em>overflow:hidden;zoom:1</em>.</p>
+<p>在上面的前两个框中，第一个框的底部外边距和第二个框的顶部外边距叠加在了一起(它们之间的间距是20px而不是40px)，但是由于最后一个 DIV创建了一个新的块级格式化上下文，第三段的外边距并没有叠加，因此外边距没有超出段落所在的容器，而是成为了这个块框的一部分。 <strong>注意</strong>：在IE6中，如果没有明确的margin值，DIV将无法附上margin属性。 当谈到外边距叠加时，创建一个新的块级格式化上下文的作用是和给这个元素添加border或者padding属性是一样的。</p>
+<h3 id="块级格式化上下文包含浮动"><a href="#块级格式化上下文包含浮动" class="headerlink" title="块级格式化上下文包含浮动"></a>块级格式化上下文包含浮动</h3><p>我相信你应该听过这句话：“ a float always contains floats”，或者可能听过<a href="http://orderedlist.com/our-writing/blog/articles/clearing-floats-the-fne-method/" target="_blank" rel="noopener">FNE</a>方法。但是，这个方法的基础则是浮动是块级格式化上下文，所以用一种比较好的方式来表达这个就是“块级格式化上下文通常包含浮动”。 例如：</p>
+<p>This paragraph is a float inside a DIV with a blue background, it is styled with_margin:20px_.</p>
+<p>This paragraph is a float inside a DIV with a blue background, it is styled with_margin:20px_. The parent DIV is styled with <em>overflow:hidden;zoom:1</em>.</p>
+<p>第一个段落是个浮动的段落，所以它从流中移除了并且它所在的容器叠加在了一起，所以它所在的容器背景并没有显示出来。 第二个段落也是一个浮动的段落，但是它的内部包含了一个可以创建新的块级格式化上下文的DIV，因此这个容器附上了它子节点的margin属性。你 应该注意到，和第一个段落不一样的是，没有必要来清除前一个框的浮动。通常把这个称作“自我清除”（self-clearing），考虑到块级格式化上下 文是普通流的一部分，self-clearing将非常有意思。 <strong>注意</strong>：<em>clear</em>仅仅清除同一个块级格式化上下文里的浮动。</p>
+<h3 id="块级格式化上下文不会重叠浮动元素"><a href="#块级格式化上下文不会重叠浮动元素" class="headerlink" title="块级格式化上下文不会重叠浮动元素"></a>块级格式化上下文不会重叠浮动元素</h3><p>这个是<a href="http://www.ez-css.org/" target="_blank" rel="noopener">我最喜欢的</a>。根据规定，一个块级格式化上下文的边框不能和它里 面的元素的外边距重叠。这就意味着浏览器将会给块级格式化上下文创建隐式的外边距来阻止它和浮动元素的外边距叠加。由于这个原因，当给一个挨着浮动的块级 格式化上下文添加负的外边距时将会不起作用（Webkit和IE6在这点上有一个问题——可以看这个<a href="http://www.tjkdesign.com/lab/bfc/test.html" target="_blank" rel="noopener">测试用例</a>）。 例如：</p>
+<p><code>.sideBar { background: skyBlue; float: left; width: 180px; }</code></p>
+<p><code>.sideBar { background: yellow; float: right; width: 180px; }</code></p>
+<p><code>#main { background: pink; overflow: hidden; zoom: 1; border: 5px solid teal; }</code></p>
+<p>由于这个行为依附于有边框的框(border box)而不是有外边距的框，为了创建粉红色框和它兄弟框的间距(例如一个20px的间距)，编程人员需要做下面两件事情中的任何一个：</p>
+<ul>
+<li>给浮动元素设置一个20px的外边距</li>
+<li>将粉红色框的外边距设置的比浮动元素的宽度大一点(例如：margin:0 220px)</li>
+</ul>
+<p>是的，你会使用<em>220px</em>而不是<em>20px</em>。因为是有边框的框要试着处在两个浮动元素之间而不是有外边距的框。上句中的“试着”是因为如果这两个浮动元素之间没有足够的空间，那么这个容器就要下沉。 换句话说，如果粉红色的框设置了一个400px的宽度，那么当它的父容器小于770px(180px+180px+400px+10px)时，这个 框就会下沉。在少数情况下，在Firefox(至少在v.3.5.9中)中，这种行为将会被打破(例如，当上面的这个结构是body元素的第一个子节点时 —看<a href="http://www.tjkdesign.com/lab/bfc/test.html" target="_blank" rel="noopener">测试用例</a>)。 <strong>注意</strong>：在IE6中，粉红色框和两个浮动元素之间的显示的空间是由于IE中的<a href="http://www.positioniseverything.net/explorer/threepxtest.html" target="_blank" rel="noopener">3像素文本偏移的bug</a>。</p>
+<h2 id="hasLayout和BFC"><a href="#hasLayout和BFC" class="headerlink" title="hasLayout和BFC"></a>hasLayout和BFC</h2><p>正如你已经注意到的，前面的所有的例子都用了样式:<em>overflow:hidden;zoom:1</em>。第一个声明是为了在现代浏览器中创建一个块级格式化上下文，而第二个声明则是为了触发IE(IE5.5/6/7)的hasLayout。这是因为那些渲染都很相近(<a href="http://www.satzansatz.de/cssd/onhavinglayout.html#engineer" target="_blank" rel="noopener">CSS规则的相似处</a>)。就像块级格式化上下文一样，给元素一个布局似乎可以防止外边距叠加，也可以包含浮动和防止叠加浮动。</p>
+<h3 id="可以给元素添加布局的属性或者声明"><a href="#可以给元素添加布局的属性或者声明" class="headerlink" title="可以给元素添加布局的属性或者声明"></a>可以给元素添加布局的属性或者声明</h3><p>下面的清单显示了创建一个新的块级格式化上下文的同时也触发hasLayout的属性，至少这些属性会被浏览器支持，除了IE6或更低版本不支持overflow。 在IE5和6中：</p>
+<ul>
+<li>position:absolute</li>
+<li>position:fixed</li>
+<li>float:除了none的任何值</li>
+<li>display:inline-block</li>
+<li>width:除了outo之外的任何值</li>
+<li>height:除了auto之外的任何值</li>
+<li>zoom:除了normal之外的任何值</li>
+<li>writing-mode:tb-rl</li>
+<li>-ms-writing-mode:tb-rl</li>
+</ul>
+<p>在IE7中：</p>
+<ul>
+<li>min-width:任何值</li>
+<li>min-height:任何值</li>
+<li>max-width:除了none之外的任何值</li>
+<li>max-height:除了none之外的任何值</li>
+<li>添加了overflow样式的元素,并且overflow的值不为visible</li>
+<li>overflow-x、overflow-y:除了visible之外的任何值</li>
+</ul>
+<h3 id="需要考虑的事："><a href="#需要考虑的事：" class="headerlink" title="需要考虑的事："></a>需要考虑的事：</h3><ul>
+<li>zoom和writing-mode是IE专有的属性，并且无法通过验证。</li>
+<li>IE5.0不支持zoom</li>
+<li>仅当width和height属性应用到行内元素时才会触发hasLayout(例如在IE6怪异模式下)</li>
+<li>overflow-x和overflow-y是CSS盒模型模块的一部分</li>
+<li>当布局流和父布局流不同时也会触发hasLayout</li>
+</ul>
+<p>在怪异模式和IE7模式中</p>
+<ul>
+<li>当overflow设置的值不为visible时，table-cell元素不会创建新的块级格式化上下文</li>
+<li>当overflow的值为visible时，table-cell元素会创建一个新的块级格式化上下文。</li>
+</ul>
+<h3 id="HTML元素通常都会有布局："><a href="#HTML元素通常都会有布局：" class="headerlink" title="HTML元素通常都会有布局："></a>HTML元素通常都会有布局：</h3><p>在IE中，下面的元素默认情况下会有一个布局:</p>
+<ul>
+<li><body>（就像严格模式里的<html>一样）</html></body></li>
+<li><table>,<tr>,<th>,</th><td></td></tr></table></li>
+<li><img></li>
+<li><hr></li>
+<li><input>,<button>,</button><select>,</select><textarea>,<fieldset>,<legend></legend></fieldset></textarea></li>
+<li><iframe>,<embed>,<object>,<applet></applet></object></iframe></li>
+<li><marquee>
+
+</marquee></li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>为了减少现代浏览器和IE(&lt;8)之间的问题，编程人员可以给框(box)一个布局来创建新的块级格式化上下文。在这种情况下，流式相同的， 元素也是通过相同的方式清除浮动，clear也是清除相同的浮动，外边距也像预期的那样叠加。同时，编程人员在通过触发hasLayout的方式来给框添 加样式时必须留意因为这种添加样式的方法可能使那个元素变成新的块级格式化上下 <a href="http://jeehon.info/log/2011/11/11/block-formatting-contexts%E5%9D%97%E7%BA%A7%E6%A0%BC%E5%BC%8F%E5%8C%96%E4%B8%8A%E4%B8%8B%E6%96%87/" target="_blank" rel="noopener">via</a></p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/blog/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/blog/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

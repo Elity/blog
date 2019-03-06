@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Fighting">
+    <meta name="keyword" content="Fighting">
+    <link rel="shortcut icon" href="/blog/img/favicon.ico">
+
+    <title>
+        
+        结构化复制 - Fighting的博客 | Fighting&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/blog/css/aircloud.css">
+    <link rel="stylesheet" href="/blog/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Fighting&#39;s Blog </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/blog/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Fighting</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/blog/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Fighting&#39;s Blog </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        结构化复制
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2019-02-19 09:18:03</span></span>
+        
+        <span class="attr">Tags：/
+        
+        <a class="tag" href="/blog/tags/#Javascript" title="Javascript">Javascript</a>
+        <span>/</span>
+        
+        <a class="tag" href="/blog/tags/#深度拷贝" title="深度拷贝">深度拷贝</a>
+        <span>/</span>
+        
+        <a class="tag" href="/blog/tags/#结构化克隆" title="结构化克隆">结构化克隆</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <p>我一直以为的深度复制就是这样： * for…in循环 <em> 判断属性是否是自己的 </em> typeof结果为<code>object</code>还要额外区分具体是普通对象、还是array、还是map… <em> 函数、Error无法被深度复制 </em> 注意循环引用 * JSON API满足大部分需求 昨天看到<a href="https://zhuanlan.zhihu.com/p/33489557" target="_blank" rel="noopener">某篇</a>又是关于深度复制的文章，惯性思维告诉我，不就是深度复制么，写来写去有啥好写的。还好，看在作者是前端大佬的份上，倒是看他能不能把这份冷饭炒出鲜味来。这一看不得了，一个占据大篇幅的新概念冒了出来：<a href="https://developer.mozilla.org/zh-CN/docs/Web/Guide/API/DOM/The_structured_clone_algorithm" target="_blank" rel="noopener">结构化克隆算法</a> 。 具体的介绍直接看MDN，我这里只搬运几种常见的使用结构化克隆方式实现深度拷贝的方法：</p>
+<ul>
+<li><p>MessageChannel</p>
+<p>function structuralClone(obj) {<br>  return new Promise(resolve =&gt; {</p>
+<pre><code>const {port1, port2} = new MessageChannel();
+port2.onmessage = ev =&gt; resolve(ev.data);
+port1.postMessage(obj);
+</code></pre><p>  });<br>}<br>const obj = /<em> … </em>/;<br>const clone = await structuralClone(obj);</p>
+</li>
+</ul>
+<p>特点：异步、兼容性ok</p>
+<ul>
+<li><p>History API</p>
+<p>function structuralClone(obj) {<br>  const oldState = history.state;<br>  history.replaceState(obj, document.title);<br>  const copy = history.state;<br>  history.replaceState(oldState, document.title);<br>  return copy;<br>}</p>
+<p>const obj = /<em> … </em>/;<br>const clone = structuralClone(obj); </p>
+</li>
+</ul>
+<p>特点：Safari对replaceState调用的限制数量为 30 秒内 100 次。</p>
+<ul>
+<li><p>Notification API</p>
+<p>function structuralClone(obj) {<br>  return new Notification(‘’, {data: obj, silent: true}).data;<br>}</p>
+<p>const obj = /<em> … </em>/;<br>const clone = structuralClone(obj);</p>
+</li>
+</ul>
+<p>特点：简洁、兼容性不佳（safari全系列不支持） 当然，由于是<a href="https://html.spec.whatwg.org/multipage/structured-data.html#structuredserializeinternal" target="_blank" rel="noopener">whatwg</a>提出的东西，nodejs是沾不上边的，这三个方法都只能用于浏览器端。</p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/blog/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/blog/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Fighting">
+    <meta name="keyword" content="Fighting">
+    <link rel="shortcut icon" href="/blog/img/favicon.ico">
+
+    <title>
+        
+        javascript中的function和感叹号 - Fighting的博客 | Fighting&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/blog/css/aircloud.css">
+    <link rel="stylesheet" href="/blog/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Fighting&#39;s Blog </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/blog/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Fighting</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/blog/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Fighting&#39;s Blog </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        javascript中的function和感叹号
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2013-08-02 10:57:08</span></span>
+        
+        <span class="attr">Tags：/
+        
+        <a class="tag" href="/blog/tags/#Javascript" title="Javascript">Javascript</a>
+        <span>/</span>
+        
+        <a class="tag" href="/blog/tags/#js" title="js">js</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <p>以前在国外某大站的JS代码中看到过诸如此类的代码</p>
+<p>!function(){<br>//some code<br>}()</p>
+<p>当时就纠结过那个叹号，但是未加思考便去群里问人，没有人回答，后来便不了了之了。</p>
+<p>前天在百度音乐的代码中又看到了这个，详见：<a href="http://mu8.bdstatic.com/player/t/j/NP35LU1G.js" target="_blank" rel="noopener"></a><a href="http://mu8.bdstatic.com/player/t/j/NP35LU1G.js" target="_blank" rel="noopener">http://mu8.bdstatic.com/player/t/j/NP35LU1G.js</a></p>
+<p>想了下运算符优先级的问题，但功底太差，还是没想出个所以然来。。。果断把谷歌和百度一起上，发现了这篇文章，感慨颇深。对于一个看似简单的技术问题，能分析如此透彻，而且动用工具对各种可能的情况进行性能分析，最后得出最佳写法。。。这才是对待技术问题的态度，很值得学习</p>
+<p>================================================</p>
+<p>最近有空可以让我静下心来看看各种代码，function与感叹号的频繁出现，让我回想起2个月前我回杭州最后参加团队会议的时候，<a href="http://weibo.com/exqy" target="_blank" rel="noopener">@西子剑影</a>抛出的一样的问题：<strong>如果在function之前加上感叹号 (!) 会怎么样</strong>？比如下面的代码：</p>
+<p>!function(){alert(‘iifksp’)}()// true</p>
+<p>在控制台运行后得到的值时true，为什么是true这很容易理解，因为这个匿名函数没有返回值，默认返回的就是undefined，求反的结果很自然的就是true。所以问题并不在于结果值，而是在于，为什么求反操作能够让一个匿名函数的自调变的合法？</p>
+<p>平时我们可能对添加括号来调用匿名函数的方式更为习惯：</p>
+<p>(function(){alert(‘iifksp’)})()  // true</p>
+<p>或者：</p>
+<p>(function(){alert(‘iifksp’)}())  // true</p>
+<p>虽然上述两者括号的位置不同，不过效果完全一样。</p>
+<p>那么，是什么好处使得为数不少的人对这种叹号的方式情有独钟？如果只是为了节约一个字符未免太没有必要了，这样算来即使一个100K的库恐怕也节省不了多少空间。既然不是空间，那么就是说也许还有时间上的考量，事实很难说清，文章的最后有提到性能。</p>
+<p>回到核心问题，为什么能这么做？甚至更为核心的问题是，为什么必须这么做？</p>
+<p>其实无论是括号，还是感叹号，让整个语句合法做的事情只有一件，就是<strong>让一个函数声明语句变成了一个表达式</strong>。</p>
+<p>function a(){alert(‘iifksp’)}  // undefined</p>
+<p>这是一个函数声明，如果在这么一个声明后直接加上括号调用，解析器自然不会理解而报错：</p>
+<p>function a(){alert(‘iifksp’)}()  // SyntaxError: unexpected_token</p>
+<p>因为这样的代码混淆了函数声明和函数调用，以这种方式声明的函数a，就应该以 a(); 的方式调用。</p>
+<p>但是括号则不同，它将一个函数声明转化成了一个表达式，解析器不再以函数声明的方式处理函数a，而是作为一个函数表达式处理，也因此只有在程序执行到函数a时它才能被访问。</p>
+<p>所以，<strong>任何消除函数声明和函数表达式间歧义的方法，都可以被解析器正确识别</strong>。比如：</p>
+<p>var i =function(){return10}();  // undefined</p>
+<p>1&amp;&amp;function(){returntrue}();  // </p>
+<p>true1,function(){alert(‘iifksp’)}();  // undefined</p>
+<p>赋值，逻辑，甚至是逗号，各种操作符都可以告诉解析器，这个不是函数声明，它是个函数表达式。并且，对函数一元运算可以算的上是消除歧义最快的方式，感叹号只是其中之一，如果不在乎返回值，这些<strong>一元运算都是有效的</strong>：</p>
+<p>!function(){alert(‘iifksp’)}()  // true</p>
+<p>+function(){alert(‘iifksp’)}()  // NaN</p>
+<p>-function(){alert(‘iifksp’)}()  // NaN<br>~function(){alert(‘iifksp’)}()  // -1</p>
+<p>甚至下面这些关键字，都能很好的工作：</p>
+<p>void function(){alert(‘iifksp’)}()  // undefined</p>
+<p>new function(){alert(‘iifksp’)}()  // Object</p>
+<p>delete function(){alert(‘iifksp’)}()  // true</p>
+<p>最后，括号做的事情也是一样的，消除歧义才是它真正的工作，而不是把函数作为一个整体，所以无论括号括在声明上还是把整个函数都括在里面，都是合法的：</p>
+<p>(function(){alert(‘iifksp’)})()  // undefined</p>
+<p>(function(){alert(‘iifksp’)}())  // undefined</p>
+<p>说了这么多，实则在说的一些都是最为基础的概念——语句，表达式，表达式语句，这些概念如同指针与指针变量一样容易产生混淆。虽然这种混淆对编程无表征影响，但却是一块绊脚石随时可能因为它而头破血流。</p>
+<p>最后讨论下性能。我在jsperf上简单建立了一个测试：<a href="http://jsperf.com/js-funcion-expression-speed" target="_blank" rel="noopener">http://jsperf.com/js-funcion-expression-speed</a>，可以用不同浏览器访问，运行测试查看结果。我也同时将结果罗列如下表所示（由于我比较穷，测试配置有点丢人不过那也没办法：奔腾双核1.4G，2G内存，win7企业版）：</p>
+<p>Option</p>
+<p>Code</p>
+<p>Ops/sec</p>
+<p>Chrome 13</p>
+<p>Firefox 6</p>
+<p>IE9</p>
+<p>Safari 5</p>
+<p>!</p>
+<p>!function(){;}()</p>
+<p>3,773,196</p>
+<p>10,975,198</p>
+<p>572,694</p>
+<p>2,810,197</p>
+<p>+</p>
+<p>+function(){;}()</p>
+<p>21,553,847</p>
+<p>12,135,960</p>
+<p>572,694</p>
+<p>1,812,238</p>
+<p>-</p>
+<p>-function(){;}()</p>
+<p>21,553,847</p>
+<p>12,135,960</p>
+<p>572,694</p>
+<p>1,864,155</p>
+<p>~</p>
+<p>~function(){;}()</p>
+<p>3,551,136</p>
+<p>3,651,652</p>
+<p>572,694</p>
+<p>1,876,002</p>
+<p>(1)</p>
+<p>(function(){;})()</p>
+<p>3,914,953</p>
+<p>12,135,960</p>
+<p>572,694</p>
+<p>3,025,608</p>
+<p>(2)</p>
+<p>(function(){;}())</p>
+<p>4,075,201</p>
+<p>12,135,960</p>
+<p>572,694</p>
+<p>3,025,608</p>
+<p>void</p>
+<p>void function(){;}()</p>
+<p>4,030,756</p>
+<p>12,135,960</p>
+<p>572,694</p>
+<p>3,025,608</p>
+<p>new</p>
+<p>new function(){;}()</p>
+<p>619,606</p>
+<p>299,100</p>
+<p>407,104</p>
+<p>816,903</p>
+<p>delete</p>
+<p>delete function(){;}()</p>
+<p>4,816,225</p>
+<p>12,135,960</p>
+<p>572,694</p>
+<p>2,693,524</p>
+<p>=</p>
+<p>var i = function(){;}()</p>
+<p>4,984,774</p>
+<p>12,135,960</p>
+<p>565,982</p>
+<p>2,602,630</p>
+<p>&amp;&amp;</p>
+<p>1 &amp;&amp; function(){;}()</p>
+<p>5,307,200</p>
+<p>4,393,486</p>
+<p>572,694</p>
+<p>2,565,645</p>
+<p>||</p>
+<p>0 || function(){;}()</p>
+<p>5,000,000</p>
+<p>4,406,035</p>
+<p>572,694</p>
+<p>2,490,128</p>
+<p>&amp;</p>
+<p>1 &amp; function(){;}()</p>
+<p>4,918,209</p>
+<p>12,135,960</p>
+<p>572,694</p>
+<p>1,705,551</p>
+<p>|</p>
+<p>1 | function(){;}()</p>
+<p>4,859,802</p>
+<p>12,135,960</p>
+<p>572,694</p>
+<p>1,612,372</p>
+<p>^</p>
+<p>1 ^ function(){;}()</p>
+<p>4,654,916</p>
+<p>12,135,960</p>
+<p>572,694</p>
+<p>1,579,778</p>
+<p>,</p>
+<p>1, function(){;}()</p>
+<p>4,878,193</p>
+<p>12,135,960</p>
+<p>572,694</p>
+<p>2,281,186</p>
+<p>可见不同的方式产生的结果并不相同，而且，差别很大，因浏览器而异。</p>
+<p>但我们还是可以从中找出很多共性：<strong>new方法永远最慢</strong>——这也是理所当然的。其它方面很多差距其实不大，但有一点可以肯定的是，感叹号并非最为理想的选择。反观<strong>传统的括号，在测试里表现始终很快</strong>，在大多数情况下比感叹号更快——所以平时我们常用的方式毫无问题，甚至可以说是最优的。<strong>加减号在chrome表现惊人</strong>，而且在其他浏览器下也普遍很快，相比感叹号效果更好。</p>
+<p>当然这只是个简单测试，不能说明问题。但有些结论是有意义的：括号和加减号最优。</p>
+<p>但是为什么这么多开发者钟情于感叹号？我觉得这只是一个习惯问题，它们之间的优劣完全可以忽略。一旦习惯了一种代码风格，那么这种约定会使得程序从混乱变得可读。如果习惯了感叹号，我不得不承认，它比括号有更好的可读性。我不用在阅读时留意括号的匹配，也不用在编写时粗心遗忘——</p>
+<p>当我也这么干然后嚷嚷着这居然又节省了一个字符而沾沾自喜的时候，却忘了自己仓皇翻出一本卷边的C语言教科书的窘迫和荒唐……任何人都有忘记的时候，当再捡起来的时候，捡起的就已经不单单是忘掉的东西了。</p>
+<p>2011-10-31更新：如果你使用aptana，那么在使用（!+-）时要注意一点，它们会让aptana的解析失效，导致Outline窗口没有任何显示。但是就代码本身而言，其运行没有任何问题。</p>
+<p><a href="http://www.swordair.com/blog/2011/10/714/" target="_blank" rel="noopener">via</a></p>
+<p><img src="http://ww1.sinaimg.cn/large/6d1c4ea2gw1e784jrlsvrj20hg06ymyp.jpg" alt></p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/blog/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/blog/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

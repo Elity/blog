@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Fighting">
+    <meta name="keyword" content="Fighting">
+    <link rel="shortcut icon" href="/blog/img/favicon.ico">
+
+    <title>
+        
+        wordpress评论框中添加提示文字或圖片 - Fighting的博客 | Fighting&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/blog/css/aircloud.css">
+    <link rel="stylesheet" href="/blog/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Fighting&#39;s Blog </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/blog/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Fighting</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/blog/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Fighting&#39;s Blog </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        wordpress评论框中添加提示文字或圖片
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2011-09-26 00:58:50</span></span>
+        
+        <span class="attr">Tags：/
+        
+        <a class="tag" href="/blog/tags/#wordpress" title="wordpress">wordpress</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <p>添加文字</p>
+<p>我想很多朋友应该见过，在一些WordPress博客的评论狂中会有一段提示问题，就像一些站点的搜索框中的提示文字那样，当鼠标点击时会自动消失，就像本站的评论框这样，来看一下如何实现的吧！</p>
+<p>方法很简单，在主题目录的comments.php中找到这段代码：</p>
+<p> [ccein_html][/ccein_html]</p>
+<p>將以上代码修改为</p>
+<p>[ccein_html]友情提示：请勿发表色情、违法、商业广告等信息！[/ccein_html]</p>
+<p>如果你不想让评论框中的文字是灰色的，可以把这句去掉：</p>
+<blockquote>
+<p>[ccein_html]style=”color:gray”[/ccein_html]</p>
+</blockquote>
+<p>这样，当你鼠标点击评论框时提示文字就自动消失了！</p>
+<p>添加圖片</p>
+<p>是否觉得你的WordPress评论框太单调呢？前面有说到给WordPress评论框添加提示文字，这里再来看看给WordPress评论框添加背景图片吧！</p>
+<p>效果图：</p>
+<p><a href="http://ccc5.cc/wp-content/uploads/2011/09/WordPress_thumb1.jpg" target="_blank" rel="noopener"><img src="http://ccc5.cc/wp-content/uploads/2011/09/WordPress_thumb1-300x125.jpg" alt title="WordPress_thumb1"></a></p>
+<p>方法：</p>
+<p>找到主题目录的comment.php文件，一般评论框都是用textarea代码来控制，那么就看textarea文本区域对应的CSS样式表ID是多少，一般为comment，这样我们就到主题样式表style.css里找到#comment代码，类似于这样的：</p>
+<blockquote>
+<p>#comment {width:645px;}</p>
+</blockquote>
+<p>我们将其修以下代码</p>
+<blockquote>
+<p>#comment {width:645px;background-image:url(img/comment-bg.gif);background-repeat:no-repeat;background-position:right bottom;}</p>
+</blockquote>
+<p>自己把代码中的图片修改一下即可，</p>
+<p>相关解释：</p>
+<p>width:是定义评论框的宽度；</p>
+<p>background-image:url(图片地址)，这里的图片可以绝对地址，也可以是相对地址，相对地址是相对style.css文件的，我就是用的相对地址。</p>
+<p>background-repeat:no-repeat; 定义图片是不是重复；</p>
+<p>background-position:right bottom; 定义图片对齐方式，这里是向右、底对齐。</p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/blog/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/blog/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

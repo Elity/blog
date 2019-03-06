@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Fighting">
+    <meta name="keyword" content="Fighting">
+    <link rel="shortcut icon" href="/blog/img/favicon.ico">
+
+    <title>
+        
+        PHP中逻辑运算符AND/OR与||/&amp;&amp;的一个坑 - Fighting的博客 | Fighting&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/blog/css/aircloud.css">
+    <link rel="stylesheet" href="/blog/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Fighting&#39;s Blog </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/blog/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Fighting</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/blog/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Fighting&#39;s Blog </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        PHP中逻辑运算符AND/OR与||/&amp;&amp;的一个坑
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2014-07-14 10:03:56</span></span>
+        
+        <span class="attr">Tags：/
+        
+        <a class="tag" href="/blog/tags/#php，运算符" title="php，运算符">php，运算符</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <p>我原来以为PHP中的and和&amp;&amp;是一样的, 只是写法上为了可读性和美观, 事实上我错了. 这里面深藏了一个坑!</p>
+<pre><code>$bA = true;
+$bB = false;
+$b1 = $bA and $bB;
+$b2 = $bA &amp;&amp; $bB;
+var_dump($b1); // $b1 = true
+var_dump($b2); // $b2 = false
+
+$bA = false;
+$bB = true;
+$b3 = $bA or $bB;
+$b4 = $bA || $bB;
+var_dump($b3); // $b3 = false
+var_dump($b4); // $b4 = true
+</code></pre><p>奇怪吧,and/&amp;&amp;和or/||出来的结果竟然不一样的. 问题出在哪里呢?我们再看一段代码:</p>
+<pre><code>$bA = true;
+$bB = false;
+var_dump($bA and $bB); // false
+var_dump($bA &amp;&amp; $bB); // false
+
+$bA = false;
+$bB = true;
+var_dump($bA or $bB); // true
+var_dump($bA || $bB); // true
+</code></pre><p>更奇怪, 这时怎么是对的. 所以问题可能出现在<code>=</code>上, 一番google和文档,终于找到了答案! <a href="http://cn2.php.net/manual/en/language.operators.precedence.php" target="_blank" rel="noopener">运算符优先级</a>通过这个表, 我们可以看到and/&amp;&amp;和or/||这两组运算符的优先级竟然是不一样的.and和or的优先级是低于<code>=</code>的, 所以上面的代码就好理解了, 就是先做赋值然后再做了一个and或or的逻辑运算, 这个运算的结果并没有存下来. 所以最后出来让我们匪夷所思的结果.</p>
+<blockquote>
+<p>The following table lists the operators in order of precedence, with the highest-precedence ones at the top. Operators on the same line have equal precedence, in which case associativity decides grouping.</p>
+</blockquote>
+<p>总结:慎重使用and,or和xor的逻辑运算符, 避免和赋值号以及&amp;&amp;和||一起用, 以免发生不必要的逻辑错误. 其实我更喜欢javascript那样的逻辑运算符:</p>
+<pre><code>var  a=&quot;a&quot;,b=&quot;b&quot;;
+console.log( a&amp;&amp;b );//  &quot;b&quot;
+
+var  a=&quot;a&quot;,b=&quot;b&quot;;
+console.log( a||b );//  &quot;a&quot;
+</code></pre>
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/blog/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/blog/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

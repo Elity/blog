@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Fighting">
+    <meta name="keyword" content="Fighting">
+    <link rel="shortcut icon" href="/blog/img/favicon.ico">
+
+    <title>
+        
+        绕过华军验证码方法 附Chrome扩展(修复下载) - Fighting的博客 | Fighting&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/blog/css/aircloud.css">
+    <link rel="stylesheet" href="/blog/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Fighting&#39;s Blog </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/blog/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Fighting</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/blog/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Fighting&#39;s Blog </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        绕过华军验证码方法 附Chrome扩展(修复下载)
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2012-06-15 00:04:34</span></span>
+        
+        <span class="attr">Tags：/
+        
+        <a class="tag" href="/blog/tags/#Javascript" title="Javascript">Javascript</a>
+        <span>/</span>
+        
+        <a class="tag" href="/blog/tags/#Chrome插件" title="Chrome插件">Chrome插件</a>
+        <span>/</span>
+        
+        <a class="tag" href="/blog/tags/#chrome扩展" title="chrome扩展">chrome扩展</a>
+        <span>/</span>
+        
+        <a class="tag" href="/blog/tags/#js" title="js">js</a>
+        <span>/</span>
+        
+        <a class="tag" href="/blog/tags/#华军软件" title="华军软件">华军软件</a>
+        <span>/</span>
+        
+        <a class="tag" href="/blog/tags/#验证码" title="验证码">验证码</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <p>现在的各类网站为了赚钱可谓出尽奇招，比如华军这样的：</p>
+<p><img src="http://pic.yupoo.com/a408115319/C2B3Dj34/sE8nP.png" alt></p>
+<p>您不输入验证码就是不让您下载，从根本上解决了一些使用Chrome、FF之类浏览器的用户通过插件屏蔽广告</p>
+<p>但突然冒出这么个东西对用户体验是很不好滴  让人看了很不爽</p>
+<p>无聊看了下网页加载完成后的本地代码，发现各个下载点的下载地址其实在网页加载完成就已经加载到本地了，存在于JS的数组中，待用户输入正确的验证码再通过js还原各个下载地址，代码如下</p>
+<p><img src="http://pic.yupoo.com/a408115319/C2B3DRnq/tltwK.png" alt></p>
+<p>然后找了下网页加载的JS文件，发现可疑文件<a href="http://www.onlinedown.net/js/checkcode_1.2.js" target="_blank" rel="noopener">http://www.onlinedown.net/js/checkcode_1.2.js</a></p>
+<p><img src="http://pic.yupoo.com/a408115319/C2Bk4UyH/CMlSt.png" alt></p>
+<p>关键代码：</p>
+<blockquote>
+<p><code>var checkok =’checkok‘;showDownlist(type,checkok);</code></p>
+</blockquote>
+<p>本地执行一下即可看到效果</p>
+<p>当然，如果每次下载东西都要特意输入代码执行的话，还不如直接输入验证码来得容易</p>
+<p>解决方法一</p>
+<p>本方法适合所有浏览器，把如下代码存为书签栏的书签，然后每次进入文件下载页点下书签即可</p>
+<p>javascript:showDownlist(type,’checkok’);</p>
+<p>或把下面的链接拖拽到您浏览器的书签栏  下次进入华军的下载页面点击该书签即可</p>
+<p><a href="http://javascript:showDownlist(type,&#39;checkok&#39;" target="_blank" rel="noopener">华军验证码</a>; “把我拖入书签栏”)</p>
+<p>解决方法二</p>
+<p>本方法仅适合Chrome浏览器及一些Chrome内核浏览器（如360极速、枫树浏览器等）</p>
+<p>下载下面的扩展安装即可解决问题，连点击书签都省了 安装扩展后的下载页面效果如图：</p>
+<p><img src="http://pic.yupoo.com/a408115319/C2Bk4Z7Q/kbntw.png" alt></p>
+<p>既然是做成扩展了，顺便把广告框框和验证码框去掉了</p>
+<p><a href="http://115.com/file/e7j7liyk" target="_blank" rel="noopener">115下载</a></p>
+<p><a href="http://dl.dbank.com/c0hrxma6de" target="_blank" rel="noopener">Dbank下载</a></p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/blog/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/blog/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

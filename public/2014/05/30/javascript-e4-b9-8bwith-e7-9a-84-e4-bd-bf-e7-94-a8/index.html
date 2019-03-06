@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Fighting">
+    <meta name="keyword" content="Fighting">
+    <link rel="shortcut icon" href="/blog/img/favicon.ico">
+
+    <title>
+        
+        javascript之with的使用 - Fighting的博客 | Fighting&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/blog/css/aircloud.css">
+    <link rel="stylesheet" href="/blog/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Fighting&#39;s Blog </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/blog/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Fighting</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/blog/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/blog/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Fighting&#39;s Blog </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        javascript之with的使用
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2014-05-30 11:38:07</span></span>
+        
+        <span class="attr">Tags：/
+        
+        <a class="tag" href="/blog/tags/#Javascript" title="Javascript">Javascript</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <p><img src="http://ww3.sinaimg.cn/large/6d1c4ea2gw1egw5cyv6dnj2074074jrf.jpg" alt></p>
+<blockquote>
+<p>妹的，昨天都快写完了，一不小心点了个关闭，然后。。。就没有然后了</p>
+<p>wordpress的自动保存功能咋就这么不靠谱呢</p>
+</blockquote>
+<p>  记得还在懵懂学习JavaScript基础之时，坊间便有传言“with语句是低效率语句，若非必要，请不要使用该语句”，同时， ECMAScript 5 的strict mode下是禁止使用with语句的，所以一直以来我对with语句一直没啥好感。</p>
+<p>  今天在知乎有个话题大概说的是“你觉得什么东西相当有B格”之类的，然后就有人贴了这段代码：</p>
+<p>with(document)with(body)with(insertBefore(createElement(“script”), firstChild))setAttribute(“exparams”,”category=&amp;userid=68497352&amp;aplus&amp;yunid=”, id = “tb-beacon-aplus”, src = (location &gt; “https” ? “//s”: “//a”) + “.tbcdn.cn/s/aplus_v2.js”)</p>
+<p>据说是淘宝首页的，好奇心使然，果断跑去淘宝看了下，有图有真相哪：</p>
+<p>点击图片查看大图</p>
+<p><a href="http://ww1.sinaimg.cn/large/6d1c4ea2gw1egw4i3i2mmj21f302qjsg.jpg" title="查看大图" target="_blank" rel="noopener"><img src="http://ww1.sinaimg.cn/large/6d1c4ea2gw1egw4i3i2mmj21f302qjsg.jpg" alt></a></p>
+<p>淘宝这种大项目一般是十分讲究效率的，居然会使用传说中的低效率代码？</p>
+<p>我们试着用正常代码来达到上面的功能：</p>
+<p>var s = document.createElement(“script”);<br>s.setAttribute(“exparams”,”category=&amp;userid=68497352&amp;aplus&amp;yunid=”);<br>s.setAttribute(“src”,(location&gt;”https”?”//s”:”//a”)+”.tbcdn.cn/s/aplus_v2.js”);<br>s.id=”tb-beacon-aplus”;<br>document.body.insertBefore(s,document.body.firstChild)</p>
+<p>这是我能写出的最简单的代码了，当然，您可以尝试像淘宝那代码一样setAttribute，不过结果会让你很受伤！！！经过我的测试，他那样带3个以上的参数设置节点属性仅在with语句下有效，而且第三个及以后参数所设置的属性只能是HTML标准属性。原因我也不知道，有大牛愿意指教么？</p>
+<p>代码压缩后，淘宝代码224字节，我写的代码264字节。</p>
+<p>我得出的结论是：大的网站惜字节如金，特别是像淘宝这种每天流量巨大的网站，为了节省流量（别看只有几个字节，乘以个大的访问量后结果还是挺惊人的）而稍微牺牲下用户代码运行的效率是完全值得的。况且，在浏览器代码执行效率日新月异的今天，with语句效率真有那么低么？</p>
+<p>秉承一颗探索的心（此刻内心略为激动。。），做了如下代码测试，</p>
+<p>html代码：</p>
+<p>&lt;!doctype html&gt;</p>
+<html lang="en"><br><head><meta name="generator" content="Hexo 3.8.0"><br>    <meta charset="UTF-8"><br>    <title>test</title><br><link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head><br><body><br>    <div id="one" data="test data"></div><br></body><br></html>
+
+<p>with语句获取div#data值</p>
+<p>var now = +new Date;<br>for(var i=0;i&lt;1000000;i++){<br>   with(document)with(getElementById(“one”))getAttribute(“data”)<br>}<br>console.log(new Date-now)</p>
+<p>一般代码获取div#one的data值</p>
+<p>var now = +new Date;<br>for(var i=0;i&lt;1000000;i++){<br>   document.getElementById(“one”).getAttribute(“data”)<br>}<br>console.log(new Date-now)</p>
+<p>获取属性值的代码均循环运行100W次，输出运行时间，测试浏览器为Chrome 35与IE 11：</p>
+<p>申明：谁特么说我是IE黑，我和谁急！！！</p>
+<p>.entry-content tr td{padding: 6px}</p>
+<p>Chrome 35</p>
+<p>数值单位：ms</p>
+<p>第1次</p>
+<p>第2次</p>
+<p>第3次</p>
+<p>第4次</p>
+<p>第5次</p>
+<p>第6次</p>
+<p>第7次</p>
+<p>第8次</p>
+<p>第9次</p>
+<p>第10次</p>
+<p>平均值</p>
+<p>10W次差值</p>
+<p>单次差值</p>
+<p>一般代码</p>
+<p>1362</p>
+<p>1358</p>
+<p>1379</p>
+<p>1377</p>
+<p>1372</p>
+<p>1411</p>
+<p>1371</p>
+<p>1341</p>
+<p>1356</p>
+<p>1339</p>
+<p>1366.6</p>
+<p>888.7</p>
+<p>0.89μs</p>
+<p>with语句</p>
+<p>2237</p>
+<p>2238</p>
+<p>2313</p>
+<p>2262</p>
+<p>2248</p>
+<p>2253</p>
+<p>2240</p>
+<p>2226</p>
+<p>2308</p>
+<p>2228</p>
+<p>2255.3</p>
+<p>IE 11</p>
+<p>单位：ms</p>
+<p>第1次</p>
+<p>第2次</p>
+<p>第3次</p>
+<p>第4次</p>
+<p>第5次</p>
+<p>第6次</p>
+<p>第7次</p>
+<p>第8次</p>
+<p>第9次</p>
+<p>第10次</p>
+<p>平均值</p>
+<p>10W次差值</p>
+<p>单次差值</p>
+<p>正常情况</p>
+<p>2352</p>
+<p>2332</p>
+<p>2321</p>
+<p>2347</p>
+<p>2342</p>
+<p>2339</p>
+<p>2365</p>
+<p>2373</p>
+<p>2353</p>
+<p>2343</p>
+<p>2346.7</p>
+<p>861.7</p>
+<p>0.86μs</p>
+<p>with语句</p>
+<p>3233</p>
+<p>3222</p>
+<p>3195</p>
+<p>3200</p>
+<p>3197</p>
+<p>3200</p>
+<p>3207</p>
+<p>3210</p>
+<p>3210</p>
+<p>3210</p>
+<p>3208.4</p>
+<p>   由于其它软件运行的影响及两种代码运行的先后顺序，结果可能不是十分严谨，但个人认为还是不会影响我们得出最终的结论：with语句在不是嵌套十分复杂的情况下，相比于一般代码对执行效率的影响其实微乎其微。</p>
+<p>   我想ECMAScript 5 的strict mode下禁用with语句的主要原因应该是with语句让个对象与方法与属性的关系变得更模糊， 不利于JavaScript向面向对象编程靠拢吧。</p>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/blog/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/blog/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>
