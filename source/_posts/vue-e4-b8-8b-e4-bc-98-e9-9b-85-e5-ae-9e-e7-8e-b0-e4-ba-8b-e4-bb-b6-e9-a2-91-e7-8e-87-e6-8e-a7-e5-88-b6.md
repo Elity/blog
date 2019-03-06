@@ -19,18 +19,18 @@ date: 2017-09-04 09:26:18
 借鉴`debounce`与`throttle`的思路，我们第一次可能想到的是自己定义一个频率控制的高阶函数(比如`oneTime`)，接受我们传入的事件响应函数作为参数，得到一个新的函数传入`@click`里面，就像：
 
 ```html
-&lt;button @click=&quot;oneTime(myFn)&gt;测试&lt;/button&gt;
+<button @click="oneTime(myFn)>测试</button>
 ```
 
 经过实验，发现这样不行。查看vue.js[源码](https://github.com/vuejs/vue/blob/91deb4fd910afd51137820f120d4c26d0a99e629/src/core/vdom/helpers/update-listeners.js#L26)：
 
 ```javascript
-export function createFnInvoker (fns: Function | Array&lt;Function&gt;): Function {
+export function createFnInvoker (fns: Function | Array<Function>): Function {
   function invoker () {
     const fns = invoker.fns
     if (Array.isArray(fns)) {
       const cloned = fns.slice()
-      for (let i = 0; i &lt; cloned.length; i++) {
+      for (let i = 0; i < cloned.length; i++) {
         cloned[i].apply(null, arguments)
       }
     } else {
@@ -51,7 +51,7 @@ function oneTime(method, duration) {
 	let timer = null,running = false;
 	return function (...args) {
 		clearTimeout(timer);
-		timer = setTimeout(()=&gt;{
+		timer = setTimeout(()=>{
 			running = false
 		}, duration);
 		if(running)return;
@@ -60,14 +60,14 @@ function oneTime(method, duration) {
 	}
 }
 	
-Vue.directive(&#039;freq&#039;, { 
+Vue.directive('freq', { 
 	inserted(el,bd,vnode) { 
-			console.log(&#039;here&#039;,vnode.data.on)
+			console.log('here',vnode.data.on)
 		let all = {};
-		if(typeof bd.value === &#039;string&#039;){
+		if(typeof bd.value === 'string'){
 			all[bd.value] = 500
 		}else if(Array.isArray(bd.value)){
-			bd.value.forEach(val=&gt;all[val] = 500)
+			bd.value.forEach(val=>all[val] = 500)
 		}else{
 			all = bd.value
 		}
@@ -84,23 +84,23 @@ Vue.directive(&#039;freq&#039;, {
 然后我们就可以这样使用了：
 
 ```html
-&lt;button @click=&quot;fn&quot; v-freq=&quot;{click:500}&quot;&gt;
+<button @click="fn" v-freq="{click:500}">
     测试
-&lt;/button&gt;
+</button>
 ```
 
 或者这样：
 
 ```html
-&lt;button @click=&quot;fn&quot; v-freq=&quot;&#039;click&#039;&quot;&gt;
+<button @click="fn" v-freq="'click'">
     测试
-&lt;/button&gt;
+</button>
 ```
 
 甚至这样：
 
 ```html
-&lt;button @click=&quot;fn&quot; v-freq=&quot;[&#039;click&#039;,&#039;mouseenter&#039;]&quot;&gt;
+<button @click="fn" v-freq="['click','mouseenter']">
     测试
-&lt;/button&gt;
+</button>
 ```

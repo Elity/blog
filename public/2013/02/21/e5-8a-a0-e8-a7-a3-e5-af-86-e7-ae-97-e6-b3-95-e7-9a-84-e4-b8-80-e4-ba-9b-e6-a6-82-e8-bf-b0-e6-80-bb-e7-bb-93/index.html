@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Fighting">
+    <meta name="description" content="写给未来的回忆录">
     <meta name="keyword" content="Fighting">
     <link rel="shortcut icon" href="/blog/img/favicon.ico">
 
@@ -22,7 +22,7 @@
     <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
     <!-- ga & ba script hoook -->
     <script></script>
-<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"><script src="/blog/js/prism.js"></script></head>
 
 <body>
 
@@ -145,7 +145,7 @@
 </span>
 
     </div>
-    <div class="post-content ">
+    <div class="post-content no-indent">
         <p><img src="http://www.ccc5.cc/wp-content/uploads/2013/02/01300000312288126872494608052_s.jpg" alt></p>
 <p>一、单向散列算法<br>也称为Hash（哈希）算法。是一种将任意长度的消息压缩到某一固定长度（消息摘要）的函数（该过程不可逆）。Hash函数可用于数字签名、消息的完整性检测、消息起源的认证检测等。常见的散列算法有MD5、SHA、RIPE-MD、HAVAL、N-Hash、Tiger等。<br>1. MD5算法<br>MD5消息摘要算法（Message Digest Algorithm）。对输入的任意长度的消息进行运算，产生一个128位的消息摘要。<br>用到4个常量初始化数据：A=01234567h，B=89abcdefh，C=fedcba98h，D=76543210h。可以使用其他数据作为变形。<br>2. SHA算法<br>安全散列算法（Secure Hash Algorithm）简称SHA。有SHA-1、SHA-256、SHA-384、SHA-512几种，分别产生160位、256位、384位和512位的散列值。<br>2.1 SHA-1算法<br>是一种主流的散列加密算法，设计时基于和MD4相同的原理，并模仿了该算法。消息分组和填充方式与MD5相同。也用到了一些常量做初始化数据。<br>总结，随着密码分析技术的发展，现有的散列算法都是不安全的。如SHA-160、MD5、RIPEMD、HAVAL、Tiger在某些条件下能构造出碰撞。建议选择SHA-256//384/512，或者Whirlpool。如果在解密时碰到Hash算法，一般只需根据每种Hash算法的特征搞清楚具体哪一种Hash算法以及是否为某种算法的变形，继而通过该Hash的源代码即可破解。  </p>
 <p>二、对称加密算法<br>加密密钥和解密密钥是完全相同的。其安全性依赖于：1.加密算法足够强；2.密钥的秘密性。<br>常见的对称分组加密算法有DES（Data Encryption Standard）、IDEA（International Data Encryption Algorithm）、AES（Advanced Encryption Standard）、BlowFish、Twofish等。<br>1. RC4流密码<br>现今最为流行的流密码，应用于SSL（Secure Sockes Layer）、WEP。RC4生成一种称为密钥流的伪随机流，它同明文通过异或操作相混合以达到加密的目的。解密时，同密文进行异或操作。其密钥流的生成有两部分组成：KSA（the Key-Scheduling Algorithm)和PRGA(the Pseudo-Random Generation Algorithm)。由于RC4算法加密采用XOR，所以一旦密钥序列出现重复，密文就有可能被破解。推荐使用RC4算法时，必须对加密密钥进行测试，判断其是否为弱密钥。<br>2. TEA算法<br>TEA（Tiny Encryption Algorithm）算法。分组长度为64位，密钥长度为128位。采用Feistel网络。其作者推荐使用32次循环加密，即64轮。TEA算法简单易懂，容易实现。但存在很大的缺陷，如相关密钥攻击。由此提出一些改进算法，如XTEA。<br>3. IDEA算法<br>IDEA（International Data Encryption Algorithm）国际数据加密算法。分组密码IDEA明文和密文的分组长度为64位，密钥长度为128位。该算法的特点是使用了3种不同的代数群上的操作。IDEA共使用52个16位的子密钥，由输入的128位密钥生成。加密过程由8个相同的加密步骤（加密轮函数）和一个输出变换组成。而解密过程与加密过程相同。解密与加密唯一不同的地方就是使用不同的子密钥。首先，解密所用的52个子密钥是加密的子密钥的相应于不同操作运算的逆元，其次，解密时子密钥必须以相反的顺序使用。<br>4. BlowFish算法<br>BlowFish算法是一个64位分组及可变密钥长度的分组密码算法，该算法是非专利的。BlowFish算法基于Feistel网络（替换/置换网络的典型代表），加密函数迭代执行16轮。分组长度为64位（bit），密钥长度可以从32位到448位。算法由两部分组成：密钥扩展部分和数据加密部分。密钥扩展部分将最长为448位的密钥转化为共4168字节长度的子密钥数组。其中，数据加密由一个16轮的Feistel网络完成。每一轮由一个密钥相关置换和一个密钥与数据相关的替换组成。<br>5. AES算法<br>AES（Advanced Encryption Standard，高级加密标准），用于替代DES成为新一代的加密标准。具有128比特的分组长度，并支持128、192和256比特的密钥长度，可在全世界范围内免费得到。其前身为Rijndael（读作：Rain Doll）。Rijndael算法与AES的唯一区别在于各自所支持的分组长度和密码密钥长度的反胃不同。Rijndael是具有可变分组长度和可变密钥长度的分组密码，其分组长度和密钥长度均可独立地设定为32比特的任意倍数，最小值128bit，最大256bit。而AES将分组长度固定为128位，而且仅支持128、192和256位的密钥长度，分别称为AES-128，AES-192，AES-256。  </p>

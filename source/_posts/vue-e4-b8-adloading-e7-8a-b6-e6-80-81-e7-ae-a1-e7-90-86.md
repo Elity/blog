@@ -12,9 +12,9 @@ date: 2018-05-12 21:48:34
 
 为了提升用户体验，我们一般会在做耗时操作时显示loading效果，缓解用户等待的焦虑.通常情况下，我们的代码可能是这样子：
 ```html
-&lt;div v-show=&quot;isLoading&quot;&gt;
+<div v-show="isLoading">
    loading...
-&lt;/div&gt;
+</div>
 ```
 ```javascript
 new Vue({
@@ -41,7 +41,7 @@ new Vue({
 我们通过Vue插件来实现该功能：
 ```javascript
 var VueLoadingPlugin = {};
-VueLoadingPlugin.install = (Vue,loadingNameSpace=&#039;tzLoading&#039;) =&gt; {
+VueLoadingPlugin.install = (Vue,loadingNameSpace='tzLoading') => {
   Vue.mixin({
     data() {
       return {
@@ -50,13 +50,13 @@ VueLoadingPlugin.install = (Vue,loadingNameSpace=&#039;tzLoading&#039;) =&gt; {
     },
     beforeCreate() {
       const methods = this.$options.methods || {};
-      Object.keys(methods).forEach(key =&gt; {
+      Object.keys(methods).forEach(key => {
         let fn = methods[key];
         this.$options.methods[key] = function(...args) {
           this.$set(this[loadingNameSpace], key, true);
           let ret = fn.apply(this, args);
-          if (ret &amp;&amp; typeof ret.catch === &quot;function&quot;) {
-            return ret.finally(() =&gt; (this[loadingNameSpace][key] = false));
+          if (ret "" typeof ret.catch === "function") {
+            return ret.finally(() => (this[loadingNameSpace][key] = false));
           } else {
             this[loadingNameSpace][key] = false;
             return ret;
@@ -79,7 +79,7 @@ new Vue({
 ```
 只需要在模版里面适当的地方订阅`fetchFn`的loading状态，然后，在每次fetchFn开始时都会自动出现加载效果，然后在fetchFn正常结束或出错后关闭加载效果：
 ```html
-&lt;div v-show=&quot;tzLoading.fetchFn&quot;&gt;
+<div v-show="tzLoading.fetchFn">
 loading...
-&lt;/div&gt;
+</div>
 ```

@@ -18,22 +18,22 @@ tags:
 
 - 定义`Iterable`
 ```dart
-Iterable&lt;int&gt; naturalsTo(int n) sync* {
+Iterable<int> naturalsTo(int n) sync* {
   int k = 0;
-  while (k &lt; n) yield k++;
+  while (k < n) yield k++;
 }
 ```
 - 定义`Stream`
 ```dart
-Stream&lt;int&gt; asynchronousNaturalsTo(int n) async* {
+Stream<int> asynchronousNaturalsTo(int n) async* {
   int k = 0;
-  while (k &lt; n) yield k++;
+  while (k < n) yield k++;
 }
 ```
 - 递归生成器
 ```dart
-Iterable&lt;int&gt; naturalsDownFrom(int n) sync* {
-  if (n &gt; 0) {
+Iterable<int> naturalsDownFrom(int n) sync* {
+  if (n > 0) {
     yield n;
     yield* naturalsDownFrom(n - 1);
   }

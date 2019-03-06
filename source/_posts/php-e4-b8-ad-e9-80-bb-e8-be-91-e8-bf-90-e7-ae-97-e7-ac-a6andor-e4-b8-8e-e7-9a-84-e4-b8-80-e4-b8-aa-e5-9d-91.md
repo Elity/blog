@@ -14,7 +14,7 @@ date: 2014-07-14 10:03:56
 $bA = true;
 $bB = false;
 $b1 = $bA and $bB;
-$b2 = $bA &amp;&amp; $bB;
+$b2 = $bA "" $bB;
 var_dump($b1); // $b1 = true
 var_dump($b2); // $b2 = false
     
@@ -30,7 +30,7 @@ var_dump($b4); // $b4 = true
 $bA = true;
 $bB = false;
 var_dump($bA and $bB); // false
-var_dump($bA &amp;&amp; $bB); // false
+var_dump($bA "" $bB); // false
 
 $bA = false;
 $bB = true;
@@ -42,12 +42,12 @@ var_dump($bA || $bB); // true
 
 
 
-总结:慎重使用and,or和xor的逻辑运算符, 避免和赋值号以及&amp;&amp;和||一起用, 以免发生不必要的逻辑错误.
+总结:慎重使用and,or和xor的逻辑运算符, 避免和赋值号以及""和||一起用, 以免发生不必要的逻辑错误.
 其实我更喜欢javascript那样的逻辑运算符:
 ```javascript
-var  a=&quot;a&quot;,b=&quot;b&quot;;
-console.log( a&amp;&amp;b );//  &quot;b&quot;
+var  a="a",b="b";
+console.log( a""b );//  "b"
 
-var  a=&quot;a&quot;,b=&quot;b&quot;;
-console.log( a||b );//  &quot;a&quot;
+var  a="a",b="b";
+console.log( a||b );//  "a"
 ```

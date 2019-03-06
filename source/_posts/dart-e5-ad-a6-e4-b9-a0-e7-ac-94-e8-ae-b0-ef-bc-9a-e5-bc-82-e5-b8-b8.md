@@ -20,9 +20,9 @@ Dart 提供了 `Exception` 和 `Error` 类型， 以及许多预定义的子类�
 > Dart 不仅仅可以抛出`Exception`或者`Error `对象，还可以抛出任何非`null`对象为异常。
 
 ```dart
-throw new FormatException(&#039;Expected at least 1 section&#039;);
+throw new FormatException('Expected at least 1 section');
 
-throw &#039;Out of llamas!&#039;;
+throw 'Out of llamas!';
 ```
 
 ### Catch
@@ -48,23 +48,23 @@ try {
 // e为异常对象，s为调用堆栈信息
 } on Exception catch (e, s) {
   // Anything else that is an exception
-  print(&#039;Unknown exception: $e&#039;);
+  print('Unknown exception: $e');
 } catch (e) {
   // No specified type, handles all
-  print(&#039;Something really unknown: $e&#039;);
+  print('Something really unknown: $e');
 }
 ```
 
 > 使用 `rethrow` 关键字可以把捕获的异常重新抛出。
 
 ```dart
-final foo = &#039;&#039;;
+final foo = '';
 
 void misbehave() {
   try {
-    foo = &quot;You can&#039;t change a final variable&#039;s value.&quot;;
+    foo = "You can't change a final variable's value.";
   } catch (e) {
-    print(&#039;misbehave() partially handled ${e.runtimeType}.&#039;);
+    print('misbehave() partially handled ${e.runtimeType}.');
     rethrow; // Allow callers to see the exception.
   }
 }
@@ -85,7 +85,7 @@ try {
 try {
   breedMoreLlamas();
 } catch(e) {
-  print(&#039;Error: $e&#039;);  // Handle the exception first.
+  print('Error: $e');  // Handle the exception first.
 } finally {
   cleanLlamaStalls();  // Then clean up.
 }

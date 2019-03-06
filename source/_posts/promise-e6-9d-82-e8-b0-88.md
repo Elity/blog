@@ -49,7 +49,7 @@ class Work{
         if(people instanceof People){
             this.people = people
         }else{
-            throw new TypeError(&#039;类Work构造函数应该传入类People的实例&#039;)
+            throw new TypeError('类Work构造函数应该传入类People的实例')
         }
     }
     doWork(){
@@ -69,15 +69,15 @@ class Work{
 控制反转的情况，在Javascript代码经常打交道的回调函数处体现得淋漓尽致：
 ```javascript
 function work(workFn){
-    workFn &amp;&amp; workFn()
+    workFn "" workFn()
 }
 
 work(function(){
-    console.log(&#039;A&#039;)
+    console.log('A')
 })
 
 work(function(){
-    console.log(&#039;B&#039;)
+    console.log('B')
 })
 ```
 然而，控制反转被应用于回调这样的场景带来了诸多问题：

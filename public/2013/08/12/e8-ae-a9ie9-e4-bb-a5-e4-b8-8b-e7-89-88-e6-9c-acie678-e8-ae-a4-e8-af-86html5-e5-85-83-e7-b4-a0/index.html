@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Fighting">
+    <meta name="description" content="写给未来的回忆录">
     <meta name="keyword" content="Fighting">
     <link rel="shortcut icon" href="/blog/img/favicon.ico">
 
@@ -22,7 +22,7 @@
     <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
     <!-- ga & ba script hoook -->
     <script></script>
-<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"><script src="/blog/js/prism.js"></script></head>
 
 <body>
 
@@ -139,7 +139,7 @@
 </span>
 </span>
     </div>
-    <div class="post-content ">
+    <div class="post-content no-indent">
         <p>html5现在十分流行，作为前端爱好者，怎能不跟随潮流呢。。</p>
 <p>在代码中插入html5元素后问题出现了，那些守旧用户仍在使用IE6、7、8，造成了一些麻烦：</p>
 <p>每个浏览器都有一份清单列举自己所支持的HTML元素。不在清单上的元素都将被视为未知元素。浏览器不会给未知元素设定任何样式（不同浏览器对元素会有不同的默认样式）。在IE9之前的版本中，也不能对未知元素设定样式。未知元素的DOM也显示不正确，IE会在DOM中插入一个没有子元素的空节点。所有你原本认为将会成为这个未知元素的子元素的元素会成为其兄弟节点。</p>
@@ -147,7 +147,7 @@
 <p>在使用里如article标签之前先用js创建一个虚假的article元素，IE就会识别这个元素了，而支持用css设定样式。这个虚假元素甚至都不需要插入到DOM中</p>
 <p>如代码：</p>
 <p>&lt; !DOCTYPE HTML&gt;</p>
-<html lang="en"><br><head><meta name="generator" content="Hexo 3.8.0"><br><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><br><title>unknown elements</title><br><style><br>article{display:block;border:1px solid red}<br></style><br><link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head><br><body><br><article><br><h1>welcome to feimos’s blog</h1><br><p>This is your <span>first time to visit this webSite.</span></p><br></article><br></body><br></html>
+<html lang="en"><br><head><meta name="generator" content="Hexo 3.8.0"><br><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><br><title>unknown elements</title><br><style><br>article{display:block;border:1px solid red}<br></style><br><link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"><script src="/blog/js/prism.js"></script></head><br><body><br><article><br><h1>welcome to feimos’s blog</h1><br><p>This is your <span>first time to visit this webSite.</span></p><br></article><br></body><br></html>
 
 <p>IE6不会识别article，所以也不会有红色边框。</p>
 <p>但是如果我们在head中加入一句js，情况立马就不一样了。</p>

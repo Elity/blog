@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Fighting">
+    <meta name="description" content="写给未来的回忆录">
     <meta name="keyword" content="Fighting">
     <link rel="shortcut icon" href="/blog/img/favicon.ico">
 
@@ -22,7 +22,7 @@
     <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
     <!-- ga & ba script hoook -->
     <script></script>
-<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"><script src="/blog/js/prism.js"></script></head>
 
 <body>
 
@@ -139,7 +139,7 @@
 </span>
 
     </div>
-    <div class="post-content ">
+    <div class="post-content no-indent">
         <p>本想按《Dart学习笔记 1: xxx》格式的，但这样就相当于立了flag，后面还需要有2、3、4…还是算了吧，指不定就烂尾了。<br>今天刚好又回过头来瞄了下<a href="https://www.dartlang.org/guides/language/language-tour#classes" target="_blank" rel="noopener">官方文档</a>，顺便记下笔记。</p>
 <h3 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h3><pre class=" language-dart"><code class="language-dart"><span class="token keyword">class</span> <span class="token class-name">Point</span> <span class="token punctuation">{</span>
   num x<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 成员变量x，初始值null.</span>
@@ -183,8 +183,8 @@ Point p1 <span class="token operator">=</span> <span class="token function">Poin
   num x<span class="token punctuation">;</span>
   num y<span class="token punctuation">;</span>
   Point<span class="token punctuation">.</span><span class="token function">fromJson</span><span class="token punctuation">(</span>Map json<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    x <span class="token operator">=</span> json<span class="token punctuation">[</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>x<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-    y <span class="token operator">=</span> json<span class="token punctuation">[</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>y<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    x <span class="token operator">=</span> json<span class="token punctuation">[</span><span class="token string">'x'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    y <span class="token operator">=</span> json<span class="token punctuation">[</span><span class="token string">'y'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
@@ -213,8 +213,8 @@ Point p1 <span class="token operator">=</span> <span class="token function">Poin
   bool mute <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
 
   <span class="token comment" spellcheck="true">// _cache 是库内私有</span>
-  <span class="token keyword">static</span> <span class="token keyword">final</span> Map<span class="token operator">&amp;</span>lt<span class="token punctuation">;</span>String<span class="token punctuation">,</span> Logger<span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> _cache <span class="token operator">=</span>
-      <span class="token operator">&amp;</span>lt<span class="token punctuation">;</span>String<span class="token punctuation">,</span> Logger<span class="token operator">&amp;</span>gt<span class="token punctuation">;</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token keyword">static</span> <span class="token keyword">final</span> Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Logger<span class="token operator">></span> _cache <span class="token operator">=</span>
+      <span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Logger<span class="token operator">></span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
 
   <span class="token keyword">factory</span> <span class="token function">Logger</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span>_cache<span class="token punctuation">.</span><span class="token function">containsKey</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -234,8 +234,8 @@ Point p1 <span class="token operator">=</span> <span class="token function">Poin
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 <span class="token comment" spellcheck="true">// 使用的时候和其它构造函数一样</span>
-<span class="token keyword">var</span> logger <span class="token operator">=</span> <span class="token function">Logger</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>UI<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-logger<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>Button clicked<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> logger <span class="token operator">=</span> <span class="token function">Logger</span><span class="token punctuation">(</span><span class="token string">'UI'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+logger<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'Button clicked'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <h3 id="重定向构造函数"><a href="#重定向构造函数" class="headerlink" title="重定向构造函数"></a>重定向构造函数</h3><blockquote>
 <p>有时候一个构造函数会调动类中的其他构造函数。 一个重定向构造函数是没有代码的，在构造函数声明后，使用冒号调用其他构造函数。</p>
@@ -259,25 +259,25 @@ logger<span class="token punctuation">.</span><span class="token function">log</
       <span class="token punctuation">:</span> x <span class="token operator">=</span> x<span class="token punctuation">,</span>
         y <span class="token operator">=</span> y<span class="token punctuation">,</span>
         distanceFromOrigin <span class="token operator">=</span> <span class="token function">sqrt</span><span class="token punctuation">(</span>x <span class="token operator">*</span> x <span class="token operator">+</span> y <span class="token operator">*</span> y<span class="token punctuation">)</span><span class="token punctuation">{</span>
-            <span class="token function">print</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>In Point<span class="token punctuation">.</span><span class="token function">fromJson</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">(</span>$x<span class="token punctuation">,</span> $y<span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">'In Point.fromJson(): ($x, $y)'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
 <h3 id="调用超类构造函数"><a href="#调用超类构造函数" class="headerlink" title="调用超类构造函数"></a>调用超类构造函数</h3><pre class=" language-dart"><code class="language-dart"><span class="token keyword">class</span> <span class="token class-name">Person</span> <span class="token punctuation">{</span>
   String firstName<span class="token punctuation">;</span>
   Person<span class="token punctuation">.</span><span class="token function">fromJson</span><span class="token punctuation">(</span>Map data<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token function">print</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token keyword">in</span> Person<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">'in Person'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 
 <span class="token keyword">class</span> <span class="token class-name">Employee</span> <span class="token keyword">extends</span> <span class="token class-name">Person</span> <span class="token punctuation">{</span>
   <span class="token comment" spellcheck="true">// Person类没有默认构造函数，必须手动调用super.fromJson(data);</span>
   Employee<span class="token punctuation">.</span><span class="token function">fromJson</span><span class="token punctuation">(</span>Map data<span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">fromJson</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token function">print</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token keyword">in</span> Employee<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">'in Employee'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><pre class=" language-dart"><code class="language-dart"><span class="token keyword">import</span> <span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>dart<span class="token punctuation">:</span>math<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><pre class=" language-dart"><code class="language-dart"><span class="token keyword">import</span> <span class="token string">'dart:math'</span><span class="token punctuation">;</span>
 
 <span class="token keyword">class</span> <span class="token class-name">Point</span> <span class="token punctuation">{</span>
   num x<span class="token punctuation">;</span>
@@ -302,10 +302,10 @@ logger<span class="token punctuation">.</span><span class="token function">log</
 
   <span class="token function">Rectangle</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>left<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>top<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>width<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>height<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  num <span class="token keyword">get</span> right             <span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> left <span class="token operator">+</span> width<span class="token punctuation">;</span>
-      <span class="token keyword">set</span> <span class="token function">right</span><span class="token punctuation">(</span>num value<span class="token punctuation">)</span>  <span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> left <span class="token operator">=</span> value <span class="token operator">-</span> width<span class="token punctuation">;</span>
-  num <span class="token keyword">get</span> bottom            <span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> top <span class="token operator">+</span> height<span class="token punctuation">;</span>
-      <span class="token keyword">set</span> <span class="token function">bottom</span><span class="token punctuation">(</span>num value<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> top <span class="token operator">=</span> value <span class="token operator">-</span> height<span class="token punctuation">;</span>
+  num <span class="token keyword">get</span> right             <span class="token operator">=</span><span class="token operator">></span> left <span class="token operator">+</span> width<span class="token punctuation">;</span>
+      <span class="token keyword">set</span> <span class="token function">right</span><span class="token punctuation">(</span>num value<span class="token punctuation">)</span>  <span class="token operator">=</span><span class="token operator">></span> left <span class="token operator">=</span> value <span class="token operator">-</span> width<span class="token punctuation">;</span>
+  num <span class="token keyword">get</span> bottom            <span class="token operator">=</span><span class="token operator">></span> top <span class="token operator">+</span> height<span class="token punctuation">;</span>
+      <span class="token keyword">set</span> <span class="token function">bottom</span><span class="token punctuation">(</span>num value<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> top <span class="token operator">=</span> value <span class="token operator">-</span> height<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
 <h3 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h3><blockquote>
@@ -327,15 +327,15 @@ logger<span class="token punctuation">.</span><span class="token function">log</
   <span class="token function">Person</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>_name<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
   <span class="token comment" spellcheck="true">// In the interface.</span>
-  String <span class="token function">greet</span><span class="token punctuation">(</span>String who<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> <span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>Hello<span class="token punctuation">,</span> $who<span class="token punctuation">.</span> I am $_name<span class="token punctuation">.</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+  String <span class="token function">greet</span><span class="token punctuation">(</span>String who<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token string">'Hello, $who. I am $_name.'</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
 <span class="token comment" spellcheck="true">// Impostor必须实现Person的所有成员函数及变量.</span>
 <span class="token keyword">class</span> <span class="token class-name">Impostor</span> <span class="token keyword">implements</span> <span class="token class-name">Person</span> <span class="token punctuation">{</span>
   <span class="token comment" spellcheck="true">// 尽管不会用到_name，也必须定义该成员变量</span>
-  <span class="token keyword">get</span> _name <span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> <span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+  <span class="token keyword">get</span> _name <span class="token operator">=</span><span class="token operator">></span> <span class="token string">''</span><span class="token punctuation">;</span>
 
-  String <span class="token function">greet</span><span class="token punctuation">(</span>String who<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> <span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>Hi $who<span class="token punctuation">.</span> Do you know who I am<span class="token operator">?</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+  String <span class="token function">greet</span><span class="token punctuation">(</span>String who<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token string">'Hi $who. Do you know who I am?'</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
 </code></pre>
@@ -400,7 +400,7 @@ logger<span class="token punctuation">.</span><span class="token function">log</
 </ol>
 <pre class=" language-dart"><code class="language-dart"><span class="token keyword">class</span> <span class="token class-name">Walker</span> <span class="token punctuation">{</span>
   <span class="token keyword">void</span> <span class="token function">walk</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token function">print</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span>I<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>m walking<span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"I'm walking"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
@@ -409,9 +409,9 @@ logger<span class="token punctuation">.</span><span class="token function">log</
 </ol>
 <pre class=" language-dart"><code class="language-dart"><span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name">Walker</span> <span class="token punctuation">{</span>
   <span class="token comment" spellcheck="true">// This class is intended to be used as a mixin, and should not be extended directly.</span>
-  <span class="token keyword">factory</span> Walker<span class="token punctuation">.</span><span class="token function">_</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+  <span class="token keyword">factory</span> Walker<span class="token punctuation">.</span><span class="token function">_</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token keyword">null</span><span class="token punctuation">;</span>
   <span class="token keyword">void</span> <span class="token function">walk</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token function">print</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span>I<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>m walking<span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"I'm walking"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
@@ -425,11 +425,11 @@ logger<span class="token punctuation">.</span><span class="token function">log</
 
   <span class="token keyword">void</span> <span class="token function">entertainMe</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span>canPlayPiano<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token function">print</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>Playing piano<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">'Playing piano'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>canConduct<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token function">print</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>Waving hands<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">'Waving hands'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-      <span class="token function">print</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>Humming to self<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">'Humming to self'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Fighting">
+    <meta name="description" content="写给未来的回忆录">
     <meta name="keyword" content="Fighting">
     <link rel="shortcut icon" href="/blog/img/favicon.ico">
 
@@ -22,7 +22,7 @@
     <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
     <!-- ga & ba script hoook -->
     <script></script>
-<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"><script src="/blog/js/prism.js"></script></head>
 
 <body>
 
@@ -142,7 +142,7 @@
 </span>
 </span>
     </div>
-    <div class="post-content ">
+    <div class="post-content no-indent">
         <p>IE对于大家来说一定很熟悉了，作为一名Web前端开发人员或者是说前端攻程师来说，浏览器的兼容问题一定处理过不少了，特别是IE6的兼容问题，如果你的用户是针对中国市场来说，IE6下的效果是必须得处理了，一个让人头痛而又不得不去面对的一件事情，特别是对于刚接触CSS的童子们，更让无从下手，那么今天我重新开始针对浏览器的兼容问题，说说一些我自己的经验，以及尽可能多的搜集相关经典问题的处理方法。希望能对有需要的朋友有所帮助。</p>
 <p>中国古语——万物都是相生相克的。这句话用到我们写CSS的人身上也是一样的，不管在哪个浏览器下，出现了问题，首先要追究的问题是我们自己怕HTML结构和CSS样式有没有出问题，然后在看看是不是因为浏览器各自的解析不同而造成的。千万不要一看到IE出问题，就骂上了ＩＥ，其实人家并不是那么差劲，另外有一点也需要注意的就是，不要动不动就使用你知道的HACK手段来解决各浏览器的兼容问题。小生有自己的一个原则——“处理各浏览器的兼容问题，未到情非得以的情况下才使用HACK”。</p>
 <p>开头来了一大段的开场白，下面我们就开始我们的旅行——浏览器兼容之旅的第一站：<strong>如何创建条件样式</strong>。</p>
@@ -151,7 +151,7 @@
         &lt;!\-\- End Header Section Content --&gt;
 </code></pre><p>那么我们在上面的基础是增加一个条件语句，我们就可以使用条件注释，我们在平时用到的就是IE的有条件注释。IE的有条件注释是一种专有的（非标准的）、对常规(X)HTML注释的Miscrosoft扩展。换句话说，有条件注释使你能够根据条件（比如说浏览器的版本）显示代码块。尽管是非标准的，但是有条件注释对于其他所有浏览器作为常规注释出现,因此本质上是无害的。有条件注释在 Windows 上的 IE5 中首次出现,并且得到了 Widnows 浏览器所有后续版本的支持。</p>
 <p>那么为什么要创建条件样式呢？言外之意我们创建条件样式有什么好处呢？创建条件样式优点在于：<strong>可以将部分兼容代码识让符合条件的浏览器识别；其二让你的主要样式表整洁，清爽。</strong>不过大家要记住，虽然我们这里说的是创建有条件样式，但这种条件注释标签的使用不仅仅只能用于CSS，你可以应用在javaScript中，他们甚至可以在您的网站内容显示特殊的IE浏览器特定的消息。下面我们一起来看看其具体的应用，和使用方法。</p>
-<h4 id="调用条件样式的方法"><a href="#调用条件样式的方法" class="headerlink" title="调用条件样式的方法"></a>调用条件样式的方法</h4><p>我们调用条件样式方法和<link>标签一样，常常放置在<head><meta name="generator" content="Hexo 3.8.0">标签中。和前面所见识的普通注释不一样的是，这里需要加上条件判断，具体格式如下所示：<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head></p>
+<h4 id="调用条件样式的方法"><a href="#调用条件样式的方法" class="headerlink" title="调用条件样式的方法"></a>调用条件样式的方法</h4><p>我们调用条件样式方法和<link>标签一样，常常放置在<head><meta name="generator" content="Hexo 3.8.0">标签中。和前面所见识的普通注释不一样的是，这里需要加上条件判断，具体格式如下所示：<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"><script src="/blog/js/prism.js"></script></head></p>
 <pre><code>        &lt;!--\[if IE\]&gt;
             ...
         &lt;!\[endif\]--&gt;

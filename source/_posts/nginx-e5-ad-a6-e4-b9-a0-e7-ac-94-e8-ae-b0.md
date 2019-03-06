@@ -70,7 +70,7 @@ server中的rewrite break和last没什么区别，都会去匹配location，所�
 301永久重定向
 
 ## if
-由于nginx中的配置是分阶段执行的，而非一般编程语言中的线性执行，所以执行顺序看上去会有些怪异，再加上nginx内部对于if处理的一些机制，让初学者很是不解。看文章：[How nginx &quot;location if&quot; works](http://damacheng009.iteye.com/blog/1583879)
+由于nginx中的配置是分阶段执行的，而非一般编程语言中的线性执行，所以执行顺序看上去会有些怪异，再加上nginx内部对于if处理的一些机制，让初学者很是不解。看文章：[How nginx "location if" works](http://damacheng009.iteye.com/blog/1583879)
 
 ## location匹配
 

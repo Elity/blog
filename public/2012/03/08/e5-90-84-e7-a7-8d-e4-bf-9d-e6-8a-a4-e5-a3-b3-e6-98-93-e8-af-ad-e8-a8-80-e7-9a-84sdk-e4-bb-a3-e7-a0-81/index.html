@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Fighting">
+    <meta name="description" content="写给未来的回忆录">
     <meta name="keyword" content="Fighting">
     <link rel="shortcut icon" href="/blog/img/favicon.ico">
 
@@ -22,7 +22,7 @@
     <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
     <!-- ga & ba script hoook -->
     <script></script>
-<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"><script src="/blog/js/prism.js"></script></head>
 
 <body>
 
@@ -145,7 +145,7 @@
 </span>
 
     </div>
-    <div class="post-content ">
+    <div class="post-content no-indent">
         <p><strong>ZProtect</strong></p>
 <p>//Code_Confusion 是代码乱序加密标记，允许您选择一部分被乱序的代码<br>置入代码 ({ 235, 8, 83, 84, 95, 83, 84, 65, 82, 84 }) ‘ Code_Confusion标记开始<br>置入代码 ({ 235, 8, 83, 84, 95, 83, 84, 69, 78, 68 }) ‘ Code_Confusion标记结尾<br>//Code_Elimination 是代码清除标记，允许您选择一部分代码在运行后从内存中删除；使用此标记的目的是为了防止破解者从内存中转储出完整的程序代码。<br>置入代码 ({ 235, 8, 79, 67, 95, 83, 84, 65, 82, 84 }) ‘ Code_Elimination标记开始<br>置入代码 ({ 235, 8, 79, 67, 95, 79, 67, 69, 78, 68 }) ‘ Code_Elimination标记结尾<br>//Decode_onExec 是动态解码标记，允许您选择一部分只在执行时才解密的代码段；这部分代码仅在需要执行时才解码，执行前和执行后均处于加密状态<br>置入代码 ({ 235, 8, 68, 89, 95, 83, 84, 65, 82, 84 }) // Decode_onExec标记开始<br>置入代码 ({ 235, 8, 68, 89, 95, 68, 89, 69, 78, 68 }) // Decode_onExec标记结尾<br>//Decode_onReg 是注册解码标记，允许您选择一部分使用有效密钥才解密的代码；如果注册密钥不正确，那么这部分代码将永远处于加密状态。通俗地讲，这部分代码仅在注册版中执行<br>//源代码中可以使用任意数量的 Decode_onReg 标记，但是这些代码段在执行时会同时解密。注册解码标记主要用于激活未注册版中被限制的功能，使之注册成为完整版。<br>置入代码 ({ 235, 8, 82, 68, 95, 83, 84, 65, 82, 84 }) // Decode_onReg标记开始<br>置入代码 ({ 235, 8, 82, 68, 95, 82, 68, 69, 78, 68 }) // Decode_onReg标记结尾<br>//Zprotect_VM 是虚拟机加密标记，允许您选择一部分代码放到虚拟机中运行；虚拟机的指令系统是完全不同于现有的 x86 指令，可以有效阻止代码还原及分析<br>置入代码 ({ 235, 8, 86, 77, 95, 83, 84, 65, 82, 84 }) // Zprotect_VM标记开始<br>置入代码 ({ 235, 8, 86, 77, 95, 86, 77, 69, 78, 68 }) // Zprotect_VM标记结尾<br>———–适用于ZProtect V1.4.9.0版本———</p>
 <p><strong>VMProtect.**</strong>易的<strong>**SDK</strong><br>置入代码 ({ 235, 16, 86, 77, 80, 114, 111, 116, 101, 99, 116, 32, 98, 101, 103, 105, 110, 0 }) ‘ VMP保护开始标志<br>‘关键代码<br>置入代码 ({ 235, 14, 86, 77, 80, 114, 111, 116, 101, 99, 116, 32, 101, 110, 100, 0 }) ‘ VMP保护结束标志</p>

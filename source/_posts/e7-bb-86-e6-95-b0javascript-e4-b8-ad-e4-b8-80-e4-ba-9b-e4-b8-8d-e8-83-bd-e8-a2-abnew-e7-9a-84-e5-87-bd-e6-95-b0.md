@@ -21,7 +21,7 @@ Uncaught TypeError: xxx is not a constructor
 ```javascript
 var obj = {
 	a(){},
-	b: ()=&gt;{},
+	b: ()=>{},
 	c: function* (){},
 	d: async function d(){},
 	e: async function* e(){},

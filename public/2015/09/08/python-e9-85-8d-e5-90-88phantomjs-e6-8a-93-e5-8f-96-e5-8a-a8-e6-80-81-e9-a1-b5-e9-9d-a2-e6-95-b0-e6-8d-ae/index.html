@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Fighting">
+    <meta name="description" content="写给未来的回忆录">
     <meta name="keyword" content="Fighting">
     <link rel="shortcut icon" href="/blog/img/favicon.ico">
 
@@ -22,7 +22,7 @@
     <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
     <!-- ga & ba script hoook -->
     <script></script>
-<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"><script src="/blog/js/prism.js"></script></head>
 
 <body>
 
@@ -139,10 +139,10 @@
 </span>
 
     </div>
-    <div class="post-content ">
+    <div class="post-content no-indent">
         <p>首先事先准备js页面，方便phantomjs调用。路径为 d:\stdout.js 需要网页地址作为第一个参数</p>
-<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">var</span> page <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>webpage<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    args <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>system<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">.</span>args<span class="token punctuation">;</span>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">var</span> page <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'webpage'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    args <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'system'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>args<span class="token punctuation">;</span>
 <span class="token keyword">if</span><span class="token punctuation">(</span>args<span class="token punctuation">.</span>length <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
     console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span>
     phantom<span class="token punctuation">.</span><span class="token function">exit</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
@@ -151,10 +151,10 @@
 page<span class="token punctuation">.</span>settings <span class="token operator">=</span> <span class="token punctuation">{</span>
   javascriptEnabled<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
   loadImages<span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">//禁止加载图片，提供速度</span>
-  userAgent<span class="token punctuation">:</span> <span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>Mozilla<span class="token operator">/</span><span class="token number">5.0</span> <span class="token punctuation">(</span>Windows NT <span class="token number">6.1</span><span class="token punctuation">)</span> AppleWebKit<span class="token operator">/</span><span class="token number">537.31</span> <span class="token punctuation">(</span>KHTML<span class="token punctuation">,</span> like Gecko<span class="token punctuation">)</span> PhantomJS<span class="token operator">/</span><span class="token number">19.0</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>
+  userAgent<span class="token punctuation">:</span> <span class="token string">'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.31 (KHTML, like Gecko) PhantomJS/19.0'</span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
 page<span class="token punctuation">.</span><span class="token function">open</span><span class="token punctuation">(</span>url<span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>status<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span>status <span class="token operator">!=</span> <span class="token operator">&amp;</span>quot<span class="token punctuation">;</span>success<span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>status <span class="token operator">!=</span> <span class="token string">"success"</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
         console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span>
     <span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
         <span class="token keyword">var</span> result <span class="token operator">=</span> page<span class="token punctuation">.</span><span class="token function">evaluate</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
@@ -168,8 +168,8 @@ page<span class="token punctuation">.</span><span class="token function">open</s
 <p>python中则可利用截获命令行的标准输出获取到phantomjs的输出数据</p>
 <pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> subprocess
 
-url <span class="token operator">=</span> r<span class="token operator">&amp;</span>quot<span class="token punctuation">;</span>http<span class="token punctuation">:</span><span class="token operator">//</span>www<span class="token punctuation">.</span>baidu<span class="token punctuation">.</span>com<span class="token operator">&amp;</span>quot<span class="token punctuation">;</span>
-cmd <span class="token operator">=</span> <span class="token operator">&amp;</span>quot<span class="token punctuation">;</span>phantomjs d<span class="token punctuation">:</span>\stdout<span class="token punctuation">.</span>js <span class="token operator">%</span>s<span class="token operator">&amp;</span>quot<span class="token punctuation">;</span> <span class="token operator">%</span> url
+url <span class="token operator">=</span> r<span class="token string">"http://www.baidu.com"</span>
+cmd <span class="token operator">=</span> <span class="token string">"phantomjs d:\stdout.js %s"</span> <span class="token operator">%</span> url
 stdout<span class="token punctuation">,</span>stderr <span class="token operator">=</span> subprocess<span class="token punctuation">.</span>Popen<span class="token punctuation">(</span>cmd<span class="token punctuation">,</span>shell<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span>stdout<span class="token operator">=</span>subprocess<span class="token punctuation">.</span>PIPE<span class="token punctuation">,</span>stderr<span class="token operator">=</span>subprocess<span class="token punctuation">.</span>PIPE<span class="token punctuation">)</span><span class="token punctuation">.</span>communicate<span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token keyword">print</span><span class="token punctuation">(</span>stdout<span class="token punctuation">)</span>
 

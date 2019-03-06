@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Fighting">
+    <meta name="description" content="写给未来的回忆录">
     <meta name="keyword" content="Fighting">
     <link rel="shortcut icon" href="/blog/img/favicon.ico">
 
@@ -22,7 +22,7 @@
     <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
     <!-- ga & ba script hoook -->
     <script></script>
-<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"><script src="/blog/js/prism.js"></script></head>
 
 <body>
 
@@ -145,15 +145,15 @@
 </span>
 
     </div>
-    <div class="post-content ">
+    <div class="post-content no-indent">
         <p>这几天利用空余时间在完成一个去年未尽的活：从零开始实现一个Promise。</p>
 <p>原生的Promise，then里面的回调被放入<a href="/2378.html" title="事件循环">事件循环</a>中的微任务队列，而setTimeout的回调则被放入了宏任务队列。一轮事件循环结束，先清空微任务队列，才会执行一个宏任务。所以，Promise中then的回调执行时机早于setTimeou的回调执行时机的。</p>
 <p>我们既然打算自己实现一个Promise的话，那么它的执行时机越早越好，从目前我所知的各种回调来说，没有什么比Promise更早了，那么存不存在一个比setTimeout执行时机更早的呢？</p>
 <p>好在，原来看<a href="https://www.cnblogs.com/rubylouvre/" title="司徒正美的博客" target="_blank" rel="noopener">司徒正美的博客</a>有留意到他提过某些标签的onerror事件执行会比较早，具体记不得是哪篇博客了，于是乎自己尝试一番得到了下面这个函数：</p>
 <pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">nextTick</span><span class="token punctuation">(</span>fn<span class="token punctuation">)</span><span class="token punctuation">{</span>
-    <span class="token keyword">var</span> img <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>img<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> img <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'img'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     img<span class="token punctuation">.</span>onerror <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token function">fn</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
-    img<span class="token punctuation">.</span>src<span class="token operator">=</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>data<span class="token punctuation">:</span><span class="token punctuation">;</span><span class="token punctuation">,</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>
+    img<span class="token punctuation">.</span>src<span class="token operator">=</span><span class="token string">'data:;,'</span>
 <span class="token punctuation">}</span>
 </code></pre>
 <p>测试：</p>
@@ -165,10 +165,10 @@
 <p>在IE9+及其他现代浏览器上得到的输出顺序都是：2、1</p>
 <p>创建一个Dom元素而不插入文档流，代价应该不是很大，如果实在要纠结这个，我们不如把它放入一个闭包中，达到重复利用：</p>
 <pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">var</span> nextTick <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-    <span class="token keyword">var</span> img <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>img<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> img <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'img'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token keyword">function</span> <span class="token function">nextTick</span><span class="token punctuation">(</span>fn<span class="token punctuation">)</span><span class="token punctuation">{</span>
         img<span class="token punctuation">.</span>onerror <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token function">fn</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
-        img<span class="token punctuation">.</span>src<span class="token operator">=</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>data<span class="token punctuation">:</span><span class="token punctuation">;</span><span class="token punctuation">,</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>
+        img<span class="token punctuation">.</span>src<span class="token operator">=</span><span class="token string">'data:;,'</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 
@@ -176,9 +176,9 @@
 <p>另外，在IE10、IE11及Edge上有一个非标准的函数：<code>setImmediate</code>，<a href="https://github.com/vuejs/vue/blob/52719ccab8fccffbdf497b96d3731dc86f04c1ce/src/core/util/next-tick.js#L37" title="Vue" target="_blank" rel="noopener">Vue</a>中的nextTick实现也会优先使用它，但我实验发现，它与<code>setTimeou</code>的执行顺序是无法确定。</p>
 <p>另外另外另外再提一句，MutationObserver的回调和Promise一样，也属于micro-task，而且他的执行时机更是早于Promise。以下是实现：</p>
 <pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">function</span>  <span class="token function">nextTick</span><span class="token punctuation">(</span>fn<span class="token punctuation">)</span><span class="token punctuation">{</span>
-    <span class="token keyword">var</span> div <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>div<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> div <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'div'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">new</span> <span class="token class-name">MutationObserver</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token function">fn</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">observe</span><span class="token punctuation">(</span>div<span class="token punctuation">,</span> <span class="token punctuation">{</span>  attributes<span class="token punctuation">:</span> <span class="token boolean">true</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
-    div<span class="token punctuation">.</span><span class="token function">setAttribute</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>data<span class="token operator">-</span>test<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">,</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>test<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span>
+    div<span class="token punctuation">.</span><span class="token function">setAttribute</span><span class="token punctuation">(</span><span class="token string">'data-test'</span><span class="token punctuation">,</span><span class="token string">'test'</span><span class="token punctuation">)</span>
 <span class="token punctuation">}</span>
 </code></pre>
 

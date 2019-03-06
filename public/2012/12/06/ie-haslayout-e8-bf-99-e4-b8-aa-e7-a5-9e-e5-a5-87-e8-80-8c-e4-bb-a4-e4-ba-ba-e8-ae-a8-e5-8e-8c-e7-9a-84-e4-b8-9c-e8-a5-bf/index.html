@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Fighting">
+    <meta name="description" content="写给未来的回忆录">
     <meta name="keyword" content="Fighting">
     <link rel="shortcut icon" href="/blog/img/favicon.ico">
 
@@ -22,7 +22,7 @@
     <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
     <!-- ga & ba script hoook -->
     <script></script>
-<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"><script src="/blog/js/prism.js"></script></head>
 
 <body>
 
@@ -142,7 +142,7 @@
 </span>
 
     </div>
-    <div class="post-content ">
+    <div class="post-content no-indent">
         <pre><code>   接触CSS一年多了，今天看一篇博文关于网站重构的，文中例举了几个大站Facebook Yahoo等都采用了zoom:1，原来其实也看到过这条属性，搜索到的资料是说zoom是设置网页的显示比例，当时也没多想，默认就是1:1显示的网页，再加个zoom:1不是多此一举么。今天再次看到这个，果断好好去找了下这个属性的相关资料，原来是为了解决万恶IE的Bug;
 </code></pre><p>============================资料原文================================</p>
 <h1 id="认识hasLayout——IE浏览器css-bug的一大罪恶根源"><a href="#认识hasLayout——IE浏览器css-bug的一大罪恶根源" class="headerlink" title="认识hasLayout——IE浏览器css bug的一大罪恶根源"></a>认识hasLayout——IE浏览器css bug的一大罪恶根源</h1><p><strong>什么是hasLayout</strong>？hasLayout是IE特有的一个属性。很多的ie下的css bug都与其息息相关。在ie中，一个元素要么自己对自身的内容进行计算大小和组织，要么依赖于父元素来计算尺寸和组织内容。当一个元素的hasLayout属性值为true时，它负责对自己和可能的子孙元素进行尺寸计算和定位。虽然这意味着这个元素需要花更多的代价来维护自身和里面的内容，而不是依赖于祖先元素来完成这些工作。<br>下列元素默认 hasLayout=true  </p>

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Fighting">
+    <meta name="description" content="写给未来的回忆录">
     <meta name="keyword" content="Fighting">
     <link rel="shortcut icon" href="/blog/img/favicon.ico">
 
@@ -22,7 +22,7 @@
     <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
     <!-- ga & ba script hoook -->
     <script></script>
-<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"><script src="/blog/js/prism.js"></script></head>
 
 <body>
 
@@ -136,12 +136,12 @@
 </span>
 
     </div>
-    <div class="post-content ">
+    <div class="post-content no-indent">
         <p>我原来以为PHP中的and和&amp;&amp;是一样的, 只是写法上为了可读性和美观, 事实上我错了. 这里面深藏了一个坑!</p>
 <pre class=" language-php"><code class="language-php"><span class="token variable">$bA</span> <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
 <span class="token variable">$bB</span> <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
 <span class="token variable">$b1</span> <span class="token operator">=</span> <span class="token variable">$bA</span> <span class="token keyword">and</span> <span class="token variable">$bB</span><span class="token punctuation">;</span>
-<span class="token variable">$b2</span> <span class="token operator">=</span> <span class="token variable">$bA</span> <span class="token operator">&amp;</span>amp<span class="token punctuation">;</span><span class="token operator">&amp;</span>amp<span class="token punctuation">;</span> <span class="token variable">$bB</span><span class="token punctuation">;</span>
+<span class="token variable">$b2</span> <span class="token operator">=</span> <span class="token variable">$bA</span> <span class="token string">""</span> <span class="token variable">$bB</span><span class="token punctuation">;</span>
 <span class="token function">var_dump</span><span class="token punctuation">(</span><span class="token variable">$b1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// $b1 = true</span>
 <span class="token function">var_dump</span><span class="token punctuation">(</span><span class="token variable">$b2</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// $b2 = false</span>
 
@@ -156,7 +156,7 @@
 <pre class=" language-php"><code class="language-php"><span class="token variable">$bA</span> <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
 <span class="token variable">$bB</span> <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
 <span class="token function">var_dump</span><span class="token punctuation">(</span><span class="token variable">$bA</span> <span class="token keyword">and</span> <span class="token variable">$bB</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// false</span>
-<span class="token function">var_dump</span><span class="token punctuation">(</span><span class="token variable">$bA</span> <span class="token operator">&amp;</span>amp<span class="token punctuation">;</span><span class="token operator">&amp;</span>amp<span class="token punctuation">;</span> <span class="token variable">$bB</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// false</span>
+<span class="token function">var_dump</span><span class="token punctuation">(</span><span class="token variable">$bA</span> <span class="token string">""</span> <span class="token variable">$bB</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// false</span>
 
 <span class="token variable">$bA</span> <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
 <span class="token variable">$bB</span> <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
@@ -167,12 +167,12 @@
 <blockquote>
 <p>The following table lists the operators in order of precedence, with the highest-precedence ones at the top. Operators on the same line have equal precedence, in which case associativity decides grouping.</p>
 </blockquote>
-<p>总结:慎重使用and,or和xor的逻辑运算符, 避免和赋值号以及&amp;&amp;和||一起用, 以免发生不必要的逻辑错误.<br>其实我更喜欢javascript那样的逻辑运算符:</p>
-<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">var</span>  a<span class="token operator">=</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span>a<span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token punctuation">,</span>b<span class="token operator">=</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span>b<span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token punctuation">;</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span> a<span class="token operator">&amp;</span>amp<span class="token punctuation">;</span><span class="token operator">&amp;</span>amp<span class="token punctuation">;</span>b <span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//  &amp;quot;b&amp;quot;</span>
+<p>总结:慎重使用and,or和xor的逻辑运算符, 避免和赋值号以及””和||一起用, 以免发生不必要的逻辑错误.<br>其实我更喜欢javascript那样的逻辑运算符:</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">var</span>  a<span class="token operator">=</span><span class="token string">"a"</span><span class="token punctuation">,</span>b<span class="token operator">=</span><span class="token string">"b"</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span> a<span class="token string">""</span>b <span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//  "b"</span>
 
-<span class="token keyword">var</span>  a<span class="token operator">=</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span>a<span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token punctuation">,</span>b<span class="token operator">=</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span>b<span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token punctuation">;</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span> a<span class="token operator">||</span>b <span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//  &amp;quot;a&amp;quot;</span>
+<span class="token keyword">var</span>  a<span class="token operator">=</span><span class="token string">"a"</span><span class="token punctuation">,</span>b<span class="token operator">=</span><span class="token string">"b"</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span> a<span class="token operator">||</span>b <span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//  "a"</span>
 </code></pre>
 
         

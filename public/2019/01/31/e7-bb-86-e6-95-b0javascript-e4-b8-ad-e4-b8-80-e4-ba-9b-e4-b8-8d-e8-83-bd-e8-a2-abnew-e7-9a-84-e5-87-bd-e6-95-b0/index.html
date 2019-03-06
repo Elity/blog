@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Fighting">
+    <meta name="description" content="写给未来的回忆录">
     <meta name="keyword" content="Fighting">
     <link rel="shortcut icon" href="/blog/img/favicon.ico">
 
@@ -22,7 +22,7 @@
     <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
     <!-- ga & ba script hoook -->
     <script></script>
-<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"><script src="/blog/js/prism.js"></script></head>
 
 <body>
 
@@ -139,14 +139,14 @@
 </span>
 
     </div>
-    <div class="post-content ">
+    <div class="post-content no-indent">
         <p>最近发现组内的很多人基础太不牢固，打算整一个关于JavaScript的思维导图，搞一次技术分享。结果发现原来自己也遗漏了相当多得细节。接下来，我就来细数下那些不能被new的函数，这些函数被new的时候会抛出错误：</p>
 <pre class=" language-bash"><code class="language-bash">Uncaught TypeError: xxx is not a constructor
 </code></pre>
 <p>在js中，<code>function</code>类型是一种特殊的对象，特殊在何处呢？特殊在于它是一个在引擎内部实现了<code>[[Call]]</code>方法的对象，所以，在使用<code>typeof</code>取值的时候被特殊对待，返回了<code>function</code>。<br>对于<code>new</code>操作符也是一样，会去查看该对象内部是否实现了<code>[[Construct]]</code>方法，未实现则抛出上述的<code>TypeError</code>。</p>
 <pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">var</span> obj <span class="token operator">=</span> <span class="token punctuation">{</span>
     <span class="token function">a</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
-    b<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    b<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">=</span><span class="token operator">></span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
     c<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token operator">*</span> <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
     d<span class="token punctuation">:</span> <span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">d</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
     e<span class="token punctuation">:</span> <span class="token keyword">async</span> <span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">e</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>

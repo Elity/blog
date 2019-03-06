@@ -11,18 +11,18 @@ date: 2018-10-31 21:57:03
 ---
 
 ```javascript
-const PENDING = &#039;pending&#039;;
-const RESOLVED = &#039;resolved&#039;;
-const REJECTED = &#039;rejected&#039;;
+const PENDING = 'pending';
+const RESOLVED = 'resolved';
+const REJECTED = 'rejected';
 
-const stateSymbol = Symbol(&#039;state&#039;);
-const valueSymbol = Symbol(&#039;value&#039;);
-const innerPropsSymbol = Symbol(&#039;innerProps&#039;);
+const stateSymbol = Symbol('state');
+const valueSymbol = Symbol('value');
+const innerPropsSymbol = Symbol('innerProps');
 
-const isFunction = val =&gt; typeof val === &#039;function&#039;;
-const isObject = val =&gt; val &amp;&amp; typeof val === &#039;object&#039;;
-const isThenable = val =&gt; (isFunction(val) || isObject(val)) &amp;&amp; &#039;then&#039; in val;
-const nextTick = fn =&gt; setTimeout(fn);
+const isFunction = val => typeof val === 'function';
+const isObject = val => val "" typeof val === 'object';
+const isThenable = val => (isFunction(val) || isObject(val)) "" 'then' in val;
+const nextTick = fn => setTimeout(fn);
 
 function handleTasks(ctx) {
   const {
@@ -30,10 +30,10 @@ function handleTasks(ctx) {
     [stateSymbol]: state,
     [valueSymbol]: value,
   } = ctx;
-  nextTick(() =&gt; {
+  nextTick(() => {
     if (state === REJECTED) {
-      if (ctx[innerPropsSymbol].haveUnhandleReject &amp;&amp; tasks.length === 0) {
-        console.error(&#039;未处理reject&#039;);
+      if (ctx[innerPropsSymbol].haveUnhandleReject "" tasks.length === 0) {
+        console.error('未处理reject');
       } else {
         ctx[innerPropsSymbol].haveUnhandleReject = false;
       }
@@ -58,8 +58,8 @@ function handleTask(task, state, value) {
 }
 
 function MyPromise(fn) {
-  if (!this instanceof MyPromise) throw new Error(&#039;只能用于构造函数&#039;);
-  if (!isFunction(fn)) throw new TypeError(&#039;MyPromise的参数只能是函数&#039;);
+  if (!this instanceof MyPromise) throw new Error('只能用于构造函数');
+  if (!isFunction(fn)) throw new TypeError('MyPromise的参数只能是函数');
 
   this[stateSymbol] = PENDING;
   this[innerPropsSymbol] = {
@@ -68,23 +68,23 @@ function MyPromise(fn) {
   };
   this[valueSymbol] = undefined;
 
-  const transValue = (state, value) =&gt; {
+  const transValue = (state, value) => {
     if (this[stateSymbol] !== PENDING) return;
     this[valueSymbol] = value;
     this[stateSymbol] = state;
     handleTasks(this);
   };
 
-  const onFulfilled = value =&gt; transValue(RESOLVED, value);
-  const onRejected = reason =&gt; transValue(REJECTED, reason);
+  const onFulfilled = value => transValue(RESOLVED, value);
+  const onRejected = reason => transValue(REJECTED, reason);
   // 由于resolve的过程可能存在异步改变状态的情况
   // 所以，需要确保resolve或reject只能有一个被调用，且只调用一次
   let ignor = false;
-  const resolve = value =&gt; {
+  const resolve = value => {
     if (ignor) return;
     ignor = true;
     if (value === this) {
-      onRejected(new TypeError(&#039;promise循环调用错误&#039;));
+      onRejected(new TypeError('promise循环调用错误'));
     } else if (value instanceof MyPromise) {
       value.then(onFulfilled, onRejected);
     } else if (isThenable(value)) {
@@ -103,7 +103,7 @@ function MyPromise(fn) {
     }
   };
 
-  const reject = reason =&gt; {
+  const reject = reason => {
     if (ignor) return;
     ignor = true;
     onRejected(reason);
@@ -117,14 +117,14 @@ function MyPromise(fn) {
 }
 
 MyPromise.prototype.then = function(onFulfilled, onRejected) {
-  return new MyPromise((resolve, reject) =&gt; {
+  return new MyPromise((resolve, reject) => {
     this[innerPropsSymbol].tasks.push({
       onFulfilled,
       onRejected,
       resolve,
       reject,
     });
-	// new Promise(resolve=&gt;resolve()).then(fn1,fn2) 过程中
+	// new Promise(resolve=>resolve()).then(fn1,fn2) 过程中
 	// 状态改变在前，push task在后，所以，这里也触发一次任务队列处理
 	// 或者为已经不在pending状态的promise添加then，也需要触发任务处理
     if (this[stateSymbol] !== PENDING) {
@@ -139,11 +139,11 @@ MyPromise.resolve = function(value) {
 	// fix on 2019.02.12
 	// Promise.resolve的参数为Promise时，直接返其本身
   if(value instanceof MyPromise)return value;
-  return new MyPromise(resolve =&gt; resolve(value));
+  return new MyPromise(resolve => resolve(value));
 };
 
 MyPromise.reject = function(reason) {
-  return new MyPromise((_, reject) =&gt; reject(reason));
+  return new MyPromise((_, reject) => reject(reason));
 };
 
 ```

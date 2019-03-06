@@ -17,24 +17,24 @@ npm i -D @vue/test-utils babel-jest  jest  jest-serializer-vue  vue-jest
 ```
 2.配置jest (package.json)
 ```json
-{	&quot;scripts&quot;:{
-		&quot;test&quot;: &quot;jest&quot;
+{	"scripts":{
+		"test": "jest"
 	},
-	&quot;jest&quot;: {
-    &quot;testURL&quot;: &quot;http://localhost&quot;,
-    &quot;moduleFileExtensions&quot;: [
-      &quot;js&quot;,
-      &quot;vue&quot;
+	"jest": {
+    "testURL": "http://localhost",
+    "moduleFileExtensions": [
+      "js",
+      "vue"
     ],
-    &quot;moduleNameMapper&quot;: {
-      &quot;^@/(.*)$&quot;: &quot;&lt;rootDir&gt;/src/$1&quot;
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/src/$1"
     },
-    &quot;transform&quot;: {
-      &quot;^.+\\.js$&quot;: &quot;&lt;rootDir&gt;/node_modules/babel-jest&quot;,
-      &quot;.*\\.(vue)$&quot;: &quot;&lt;rootDir&gt;/node_modules/vue-jest&quot;
+    "transform": {
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
+      ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest"
     },
-    &quot;snapshotSerializers&quot;: [
-      &quot;&lt;rootDir&gt;/node_modules/jest-serializer-vue&quot;
+    "snapshotSerializers": [
+      "<rootDir>/node_modules/jest-serializer-vue"
     ]
   }
 }
@@ -44,9 +44,9 @@ npm i -D @vue/test-utils babel-jest  jest  jest-serializer-vue  vue-jest
 
 ```json
 {
-	&quot;env&quot;: {
-    &quot;test&quot;: {
-      &quot;presets&quot;: [[&quot;env&quot;, { &quot;targets&quot;: { &quot;node&quot;: &quot;current&quot; } }]]
+	"env": {
+    "test": {
+      "presets": [["env", { "targets": { "node": "current" } }]]
     }
   }
 }
@@ -54,41 +54,41 @@ npm i -D @vue/test-utils babel-jest  jest  jest-serializer-vue  vue-jest
 4.项目根目录新建test文件夹
 添加测试文件 `test.spec.js`
 ```javascript
-import { shallowMount } from &#039;@vue/test-utils&#039;;
-import ContentLength from &#039;@/components/ContentLength&#039;;
+import { shallowMount } from '@vue/test-utils';
+import ContentLength from '@/components/ContentLength';
 
-describe(&#039;Component.ContentLength&#039;, () =&gt; {
+describe('Component.ContentLength', () => {
   const wrapper = shallowMount(ContentLength, {
     propsData: {
-      content: &#039;Hello&#039;,
+      content: 'Hello',
       maxLength: 10,
     },
   });
 
-  it(&#039;传值正确&#039;, () =&gt; {
-    expect(wrapper.vm.content).toBe(&#039;Hello&#039;);
+  it('传值正确', () => {
+    expect(wrapper.vm.content).toBe('Hello');
     expect(wrapper.vm.maxLength).toBe(10);
   });
 
-  it(&#039;未超过长度渲染正确&#039;, () =&gt; {
-    expect(wrapper.find(&#039;.exceed&#039;).exists()).toBe(false);
+  it('未超过长度渲染正确', () => {
+    expect(wrapper.find('.exceed').exists()).toBe(false);
   });
 
-  it(&#039;超过长度渲染正确&#039;, () =&gt; {
+  it('超过长度渲染正确', () => {
     wrapper.setProps({
-      content: &#039;Hello World!&#039;,
+      content: 'Hello World!',
     });
-    expect(wrapper.find(&#039;.exceed&#039;).exists()).toBe(true);
+    expect(wrapper.find('.exceed').exists()).toBe(true);
   });
 
-  it(&#039;长度计算正确&#039;, () =&gt; {
+  it('长度计算正确', () => {
     wrapper.setProps({
-      content: &#039;Hello World!&#039;,
+      content: 'Hello World!',
     });
     expect(wrapper.vm.currentLength).toBe(12);
     wrapper.setProps({
-      content: &#039;你好世界！&#039;,
-      mode: &#039;content&#039;,
+      content: '你好世界！',
+      mode: 'content',
     });
     expect(wrapper.vm.currentLength).toBe(10);
   });

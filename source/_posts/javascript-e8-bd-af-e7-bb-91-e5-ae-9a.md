@@ -15,10 +15,10 @@ date: 2017-12-22 17:50:10
 说道软绑定，那么不得不首先提到什么是硬绑定，如Function.prototype.bind，就是硬绑定，有如下代码：
 ```javascript
 let obj1 = {
-    id:&#039;obj1&#039;
+    id:'obj1'
 },
 obj2 = {
-    id: &#039;obj2&#039;
+    id: 'obj2'
 };
 
 function print(){

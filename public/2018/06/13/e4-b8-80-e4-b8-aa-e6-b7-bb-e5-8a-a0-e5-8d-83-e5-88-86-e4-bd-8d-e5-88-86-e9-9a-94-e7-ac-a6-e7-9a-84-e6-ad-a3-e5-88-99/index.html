@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Fighting">
+    <meta name="description" content="写给未来的回忆录">
     <meta name="keyword" content="Fighting">
     <link rel="shortcut icon" href="/blog/img/favicon.ico">
 
@@ -22,7 +22,7 @@
     <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
     <!-- ga & ba script hoook -->
     <script></script>
-<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"><script src="/blog/js/prism.js"></script></head>
 
 <body>
 
@@ -136,7 +136,7 @@
 </span>
 
     </div>
-    <div class="post-content ">
+    <div class="post-content no-indent">
         <p>在只使用正则的情况下，把一个整数用千分位分隔符（半角逗号）分隔，如<br>原始字符：</p>
 <pre><code>198123123123123
 </code></pre><p>变为</p>
@@ -162,11 +162,11 @@
 <pre class=" language-javascript"><code class="language-javascript"><span class="token regex">/(?!^)(?=(\d{3})+$)/g</span>
 </code></pre>
 <p>4.测试</p>
-<pre class=" language-javascript"><code class="language-javascript"><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token number">123123123123123123123123</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex">/(?!^)(?=(\d{3})+$)/g</span><span class="token punctuation">,</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">,</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token string">'123123123123123123123123'</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex">/(?!^)(?=(\d{3})+$)/g</span><span class="token punctuation">,</span><span class="token string">','</span><span class="token punctuation">)</span>
 </code></pre>
-<pre class=" language-javascript"><code class="language-javascript"><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token number">9123123123123123123123123</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex">/(?!^)(?=(\d{3})+$)/g</span><span class="token punctuation">,</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">,</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token string">'9123123123123123123123123'</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex">/(?!^)(?=(\d{3})+$)/g</span><span class="token punctuation">,</span><span class="token string">','</span><span class="token punctuation">)</span>
 </code></pre>
-<pre class=" language-javascript"><code class="language-javascript"><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token number">99123123123123123123123123</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex">/(?!^)(?=(\d{3})+$)/g</span><span class="token punctuation">,</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">,</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token string">'99123123123123123123123123'</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex">/(?!^)(?=(\d{3})+$)/g</span><span class="token punctuation">,</span><span class="token string">','</span><span class="token punctuation">)</span>
 </code></pre>
 <h5 id="思路2、"><a href="#思路2、" class="headerlink" title="思路2、"></a>思路2、</h5><p>1.找到所有挨着的三个数字</p>
 <pre class=" language-javascript"><code class="language-javascript"><span class="token regex">/\d{3}/</span>
@@ -184,11 +184,11 @@
 <pre class=" language-javascript"><code class="language-javascript"><span class="token regex">/(\d)(?=(\d{3})+$)/g</span>
 </code></pre>
 <p>6.测试</p>
-<pre class=" language-javascript"><code class="language-javascript"><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token number">123123123123123123123123</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex">/(\d)(?=(?:\d{3})+$)/g</span><span class="token punctuation">,</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>$<span class="token number">1</span><span class="token punctuation">,</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token string">'123123123123123123123123'</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex">/(\d)(?=(?:\d{3})+$)/g</span><span class="token punctuation">,</span><span class="token string">'$1,'</span><span class="token punctuation">)</span>
 </code></pre>
-<pre class=" language-javascript"><code class="language-javascript"><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token number">9123123123123123123123123</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex">/(\d)(?=(?:\d{3})+$)/g</span><span class="token punctuation">,</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>$<span class="token number">1</span><span class="token punctuation">,</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token string">'9123123123123123123123123'</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex">/(\d)(?=(?:\d{3})+$)/g</span><span class="token punctuation">,</span><span class="token string">'$1,'</span><span class="token punctuation">)</span>
 </code></pre>
-<pre class=" language-javascript"><code class="language-javascript"><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token number">99123123123123123123123123</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex">/(\d)(?=(?:\d{3})+$)/g</span><span class="token punctuation">,</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>$<span class="token number">1</span><span class="token punctuation">,</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token string">'99123123123123123123123123'</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex">/(\d)(?=(?:\d{3})+$)/g</span><span class="token punctuation">,</span><span class="token string">'$1,'</span><span class="token punctuation">)</span>
 </code></pre>
 
         

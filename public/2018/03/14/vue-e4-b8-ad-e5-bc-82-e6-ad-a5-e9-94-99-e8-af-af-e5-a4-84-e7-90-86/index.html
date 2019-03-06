@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Fighting">
+    <meta name="description" content="写给未来的回忆录">
     <meta name="keyword" content="Fighting">
     <link rel="shortcut icon" href="/blog/img/favicon.ico">
 
@@ -22,7 +22,7 @@
     <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
     <!-- ga & ba script hoook -->
     <script></script>
-<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"><script src="/blog/js/prism.js"></script></head>
 
 <body>
 
@@ -139,13 +139,13 @@
 </span>
 
     </div>
-    <div class="post-content ">
+    <div class="post-content no-indent">
         <p>一般在一个项目开始之前，我们一般会对现有的框架做一定功能上的丰富，比如对ajax请求功能的二次封装，封装的功能可能包含了：通用错误处理，请求过滤，响应过滤等等。如果我们封装的函数叫request，那么业务中触发一个ajax请求的流程大致如图：<br><img src="http://ww1.sinaimg.cn/large/0060lm7Tly1fpc3uu4pp5j30p90qbmyc.jpg" alt="正常ajax请求流程图"><br>通常，这样的流程处理能满足需求，然而，更多的情况，我们希望request的返回数据，经过request预处理后，首先交由业务代码这边自行判断是否合法，是否需要处理错误，如果不合法，且自己不打算处理错误，则再抛出错误，这样的话，就符合很多后端框架的流程了，业务层的错误，先自己catch，要么处理，要么往框架抛，框架统一处理，流程大致如图：<br><img src="http://ww2.sinaimg.cn/large/0060lm7Tly1fpc4gonkflj30p90qbmya.jpg" alt="改造后的request请求图"></p>
 <p>这样的话，所有的错误，业务层有了优先处理的权利，不需要自行处理的情况才交由框架做通用处理。<br>当然，在javascript中，异步错误的处理不能简简单单地通过<code>window.onerror</code>可以搞定的，在vue下改造，具体的思路是将我们需要按新的流程处理的函数处理成async函数，这样，我们就能用promise的那套错误处理机制来处理了。<br>具体实现看代码：</p>
 <pre class=" language-javascript"><code class="language-javascript"><span class="token comment" spellcheck="true">//为了不影响vue自有的Vue.config.errorHandler正常工作</span>
 <span class="token comment" spellcheck="true">//我们再单独定义一个异步错误处理函数</span>
-Vue<span class="token punctuation">.</span>config<span class="token punctuation">.</span>asyncErrorHandler <span class="token operator">=</span> err <span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> <span class="token punctuation">{</span>
-  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token keyword">catch</span> <span class="token keyword">async</span> error<span class="token punctuation">:</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+Vue<span class="token punctuation">.</span>config<span class="token punctuation">.</span>asyncErrorHandler <span class="token operator">=</span> err <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'catch async error:'</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
 <span class="token punctuation">}</span>
 
 </code></pre>
@@ -155,11 +155,11 @@ Vue<span class="token punctuation">.</span>config<span class="token punctuation"
 Vue<span class="token punctuation">.</span><span class="token function">mixin</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
   <span class="token function">beforeCreate</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">const</span> methods <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>$options<span class="token punctuation">.</span>methods <span class="token operator">||</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
-    Object<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span>methods<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>key <span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> <span class="token punctuation">{</span>
+    Object<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span>methods<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>key <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
       <span class="token keyword">let</span> fn <span class="token operator">=</span> methods<span class="token punctuation">[</span>key<span class="token punctuation">]</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>$options<span class="token punctuation">.</span>methods<span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token operator">...</span>args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">let</span> ret <span class="token operator">=</span> fn<span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>ret <span class="token operator">&amp;</span>amp<span class="token punctuation">;</span><span class="token operator">&amp;</span>amp<span class="token punctuation">;</span> <span class="token keyword">typeof</span> ret<span class="token punctuation">.</span><span class="token keyword">catch</span> <span class="token operator">===</span> <span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token keyword">function</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>ret <span class="token string">""</span> <span class="token keyword">typeof</span> ret<span class="token punctuation">.</span><span class="token keyword">catch</span> <span class="token operator">===</span> <span class="token string">'function'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
           <span class="token keyword">return</span> ret<span class="token punctuation">.</span><span class="token keyword">catch</span><span class="token punctuation">(</span>Vue<span class="token punctuation">.</span>config<span class="token punctuation">.</span>asyncErrorHandler<span class="token punctuation">)</span>
         <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
           <span class="token keyword">return</span> ret
@@ -173,21 +173,21 @@ Vue<span class="token punctuation">.</span><span class="token function">mixin</s
 <p>这样的话，我们在新建vue实例的时候，将我们需要按新流程处理错误的方法声明为async：</p>
 <pre class=" language-javascript"><code class="language-javascript">
 <span class="token keyword">new</span> <span class="token class-name">Vue</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-  el<span class="token punctuation">:</span> <span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>#test<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">,</span>
+  el<span class="token punctuation">:</span> <span class="token string">'#test'</span><span class="token punctuation">,</span>
   methods<span class="token punctuation">:</span> <span class="token punctuation">{</span>
     <span class="token keyword">async</span> <span class="token function">fn</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> <span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>click<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>
-      <span class="token keyword">await</span> <span class="token function">timeout</span><span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true">// &amp;lt;==== timeout中reject的错误会被捕获</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> <span class="token string">'click'</span>
+      <span class="token keyword">await</span> <span class="token function">timeout</span><span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true">// &lt;==== timeout中reject的错误会被捕获</span>
     <span class="token punctuation">}</span><span class="token punctuation">,</span>
     <span class="token keyword">async</span> <span class="token function">fn1</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> <span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>click1<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>
-      <span class="token keyword">throw</span> <span class="token punctuation">{</span>msg<span class="token punctuation">:</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token keyword">async</span>函数中同步抛错<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">,</span>status<span class="token punctuation">:</span><span class="token number">1000</span><span class="token punctuation">}</span> <span class="token comment" spellcheck="true">// &amp;lt;==== 同步抛错也会被捕获</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> <span class="token string">'click1'</span>
+      <span class="token keyword">throw</span> <span class="token punctuation">{</span>msg<span class="token punctuation">:</span><span class="token string">'async函数中同步抛错'</span><span class="token punctuation">,</span>status<span class="token punctuation">:</span><span class="token number">1000</span><span class="token punctuation">}</span> <span class="token comment" spellcheck="true">// &lt;==== 同步抛错也会被捕获</span>
     <span class="token punctuation">}</span><span class="token punctuation">,</span>
     <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token comment" spellcheck="true">// 原来的方式书写method，人为触发不捕获，</span>
       <span class="token comment" spellcheck="true">// 生命周期中调用被Vue.config.errorHandler捕获</span>
       <span class="token keyword">throw</span> <span class="token punctuation">{</span>
-        msg<span class="token punctuation">:</span> <span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>非<span class="token keyword">async</span>方法还是按照原来的方式处理错误<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">,</span>
+        msg<span class="token punctuation">:</span> <span class="token string">'非async方法还是按照原来的方式处理错误'</span><span class="token punctuation">,</span>
         status<span class="token punctuation">:</span> <span class="token number">3000</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>

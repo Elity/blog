@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Fighting">
+    <meta name="description" content="写给未来的回忆录">
     <meta name="keyword" content="Fighting">
     <link rel="shortcut icon" href="/blog/img/favicon.ico">
 
@@ -22,7 +22,7 @@
     <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
     <!-- ga & ba script hoook -->
     <script></script>
-<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"><script src="/blog/js/prism.js"></script></head>
 
 <body>
 
@@ -136,7 +136,7 @@
 </span>
 
     </div>
-    <div class="post-content ">
+    <div class="post-content no-indent">
         <h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><h3 id="自定义变量"><a href="#自定义变量" class="headerlink" title="自定义变量"></a>自定义变量</h3><p>set $a 123;<br>set $b “$a 456”;<br>set $c “{$b}789”</p>
 <blockquote>
 <p>自定义变量在配置被加载时创建，执行时才被赋值。定义全局有效，甚至可以跨vhost，但值仅在内部跳转间有效。<a href="http://openresty.org/download/agentzh-nginx-tutorials-zhcn.html#01-NginxVariables02" target="_blank" rel="noopener">详见</a></p>
@@ -165,7 +165,7 @@
 <h3 id="break"><a href="#break" class="headerlink" title="break"></a>break</h3><p>终止rewrite阶段，执行后续的其它阶段，对比last，不会重新去匹配location</p>
 <h3 id="redirect"><a href="#redirect" class="headerlink" title="redirect"></a>redirect</h3><p>302临时重定向</p>
 <h3 id="permanent"><a href="#permanent" class="headerlink" title="permanent"></a>permanent</h3><p>301永久重定向</p>
-<h2 id="if"><a href="#if" class="headerlink" title="if"></a>if</h2><p>由于nginx中的配置是分阶段执行的，而非一般编程语言中的线性执行，所以执行顺序看上去会有些怪异，再加上nginx内部对于if处理的一些机制，让初学者很是不解。看文章：<a href="http://damacheng009.iteye.com/blog/1583879" target="_blank" rel="noopener">How nginx &quot;location if&quot; works</a></p>
+<h2 id="if"><a href="#if" class="headerlink" title="if"></a>if</h2><p>由于nginx中的配置是分阶段执行的，而非一般编程语言中的线性执行，所以执行顺序看上去会有些怪异，再加上nginx内部对于if处理的一些机制，让初学者很是不解。看文章：<a href="http://damacheng009.iteye.com/blog/1583879" target="_blank" rel="noopener">How nginx “location if” works</a></p>
 <h2 id="location匹配"><a href="#location匹配" class="headerlink" title="location匹配"></a>location匹配</h2><p>语法：</p>
 <pre><code> location [=|~|~*|^~] /uri/ { … }
  location @name { ... } 

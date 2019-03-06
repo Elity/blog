@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Fighting">
+    <meta name="description" content="写给未来的回忆录">
     <meta name="keyword" content="Fighting">
     <link rel="shortcut icon" href="/blog/img/favicon.ico">
 
@@ -22,7 +22,7 @@
     <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
     <!-- ga & ba script hoook -->
     <script></script>
-<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"><script src="/blog/js/prism.js"></script></head>
 
 <body>
 
@@ -136,7 +136,7 @@
 </span>
 
     </div>
-    <div class="post-content ">
+    <div class="post-content no-indent">
         <p>上次破解了V2.5版  <a href="http://www.ccc5.cc/1245.html" target="_blank" rel="noopener">http://www.ccc5.cc/1245.html</a> 今天想下载个静态网页，找了好几个软件都不满意，找来找去又找到了这<a href="http://www.onlinedown.net/soft/118426.htm" target="_blank" rel="noopener">http://www.onlinedown.net/soft/118426.htm</a> 发现这货居然升级到了V4.0版  而且运行就要登陆  还增加了什么SEO用户  站群用户…. 正好好久没搞破解了  继续拿来练练手 查壳依旧和原来一样结果 E Language -&gt; WuTao   <em> Sign.By.fly </em> 依旧舍不得加壳 易语言独立编译的   好吧  对付这种软件的老规矩了 OD载入—-找字符串“error”——下段该字符串上面的第一个”je”——–F9跑起来,断在了je处———–Alt+E查看加载的模块  双击krnln.fnr模块 ————–Ctrl+B搜索FF55FC—————–下断找到的第一个CALL————F9来到CALL——F7跟进 来到程序的关键段了 开始找关键地方了 查找字符串  留意“用户密码错误”、“商业用户”之类的字眼  找到其上的关键跳下断 首先我找到这个三个跳   <code>00533D2D    A3 BC044D01     mov dword ptr ds:[14D04BC],eax 00533D32    68 BC044D01     push 14D04BC 00533D37    E8 C3340000     call 超级网站.005371FF 00533D3C    8945 E4         mov dword ptr ss:[ebp-1C],eax 00533D3F    837D E4 01      cmp dword ptr ss:[ebp-1C],1 00533D43    0F85 F30A0000   jnz 超级网站.0053483C        ; 大跳 00533D49    68 01000000     push 1 00533D4E    68 02000000     push 2 00533D53    68 BC044D01     push 14D04BC 00533D58    E8 13350000     call 超级网站.00537270 00533D5D    8945 E8         mov dword ptr ss:[ebp-18],eax 00533D60    8B45 FC         mov eax,dword ptr ss:[ebp-4] 00533D63    50              push eax</code> <code>00533DE5    B8 01000000     mov eax,1 00533DEA    EB 02           jmp short 超级网站.00533DEE 00533DEC    33C0            xor eax,eax 00533DEE    85C0            test eax,eax 00533DF0    0F84 110A0000   je 超级网站.00534807     ; 这也是个大跳 00533DF6    68 01000000     push 1 00533DFB    68 0A000000     push 0A 00533E00    68 BC044D01     push 14D04BC 00533E05    E8 66340000     call 超级网站.00537270 00533E0A    8945 E8         mov dword ptr ss:[ebp-18],eax 00533E0D    68 04000080     push 80000004</code> <code>00533F56    E8 E86AFEFF     call 超级网站.0051AA43 00533F5B    8945 EC         mov dword ptr ss:[ebp-14],eax 00533F5E    837D EC 01      cmp dword ptr ss:[ebp-14],1 00533F62    0F85 1F020000   jnz 超级网站.00534187     ; 这还是个大跳 00533F68    68 01000000     push 1 00533F6D    68 05000000     push 5 00533F72    68 BC044D01     push 14D04BC 00533F77    E8 F4320000     call 超级网站.00537270</code> 均是大跳，如果实现则把下面的“商业用户”跳过去了，下断它，继续寻找~~~ 还找到几个，由于我试验过，均没什么影响，就不提了 然后F9把程序跑起来，跑了好久才跑起来，期待的启动界面没出来 给我弹出个框框说</p>
 <blockquote>
 <p>初始化失败,可能一下原因\n服务器地址不对,通讯密保不对,或者软件号不对</p>

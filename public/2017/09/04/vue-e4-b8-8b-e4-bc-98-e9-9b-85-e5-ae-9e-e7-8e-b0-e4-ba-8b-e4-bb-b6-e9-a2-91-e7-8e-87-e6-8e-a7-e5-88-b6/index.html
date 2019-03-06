@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Fighting">
+    <meta name="description" content="写给未来的回忆录">
     <meta name="keyword" content="Fighting">
     <link rel="shortcut icon" href="/blog/img/favicon.ico">
 
@@ -22,7 +22,7 @@
     <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
     <!-- ga & ba script hoook -->
     <script></script>
-<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"><script src="/blog/js/prism.js"></script></head>
 
 <body>
 
@@ -139,21 +139,21 @@
 </span>
 
     </div>
-    <div class="post-content ">
+    <div class="post-content no-indent">
         <blockquote>
 <p>该方式在vue2.4以后不再可用，之后的版本，在绑定事件的时候，内部给函数有包装了一层，我们无法在指令内部移除事件监听。源码见 <a href="https://github.com/vuejs/vue/blob/c3553196b8b15a71f982bd5e04c61be52e87c828/src/platforms/web/runtime/modules/events.js#L48" target="_blank" rel="noopener">-&gt;-&gt;-&gt;这里</a></p>
 </blockquote>
 <p>在web开发中，对DOM事件做频率限制随处可见，特别是涉及网络请求。这样的需求下，我们希望事件在第一次触发后立即响应,然后不接受响应，接下来在特定的时间内没再次收到该事件，则解除该限制。</p>
 <p>借鉴<code>debounce</code>与<code>throttle</code>的思路，我们第一次可能想到的是自己定义一个频率控制的高阶函数(比如<code>oneTime</code>)，接受我们传入的事件响应函数作为参数，得到一个新的函数传入<code>@click</code>里面，就像：</p>
-<pre class=" language-html"><code class="language-html"><span class="token entity" title="&lt;">&amp;lt;</span>button @click=<span class="token entity" title="&quot;">&amp;quot;</span>oneTime(myFn)<span class="token entity" title="&gt;">&amp;gt;</span>测试<span class="token entity" title="&lt;">&amp;lt;</span>/button<span class="token entity" title="&gt;">&amp;gt;</span>
+<pre class=" language-html"><code class="language-html">&lt;button @click="oneTime(myFn)>测试<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
 </code></pre>
 <p>经过实验，发现这样不行。查看vue.js<a href="https://github.com/vuejs/vue/blob/91deb4fd910afd51137820f120d4c26d0a99e629/src/core/vdom/helpers/update-listeners.js#L26" target="_blank" rel="noopener">源码</a>：</p>
-<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">export</span> <span class="token keyword">function</span> createFnInvoker <span class="token punctuation">(</span>fns<span class="token punctuation">:</span> Function <span class="token operator">|</span> Array<span class="token operator">&amp;</span>lt<span class="token punctuation">;</span>Function<span class="token operator">&amp;</span>gt<span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">:</span> Function <span class="token punctuation">{</span>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">export</span> <span class="token keyword">function</span> createFnInvoker <span class="token punctuation">(</span>fns<span class="token punctuation">:</span> Function <span class="token operator">|</span> Array<span class="token operator">&lt;</span>Function<span class="token operator">></span><span class="token punctuation">)</span><span class="token punctuation">:</span> Function <span class="token punctuation">{</span>
   <span class="token keyword">function</span> invoker <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">const</span> fns <span class="token operator">=</span> invoker<span class="token punctuation">.</span>fns
     <span class="token keyword">if</span> <span class="token punctuation">(</span>Array<span class="token punctuation">.</span><span class="token function">isArray</span><span class="token punctuation">(</span>fns<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token keyword">const</span> cloned <span class="token operator">=</span> fns<span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-      <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&amp;</span>lt<span class="token punctuation">;</span> cloned<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> cloned<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
         cloned<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">,</span> arguments<span class="token punctuation">)</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
@@ -170,7 +170,7 @@
     <span class="token keyword">let</span> timer <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">,</span>running <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token operator">...</span>args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token function">clearTimeout</span><span class="token punctuation">(</span>timer<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        timer <span class="token operator">=</span> <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span><span class="token punctuation">{</span>
+        timer <span class="token operator">=</span> <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">=</span><span class="token operator">></span><span class="token punctuation">{</span>
             running <span class="token operator">=</span> <span class="token boolean">false</span>
         <span class="token punctuation">}</span><span class="token punctuation">,</span> duration<span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token keyword">if</span><span class="token punctuation">(</span>running<span class="token punctuation">)</span><span class="token keyword">return</span><span class="token punctuation">;</span>
@@ -179,14 +179,14 @@
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 
-Vue<span class="token punctuation">.</span><span class="token function">directive</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>freq<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> 
+Vue<span class="token punctuation">.</span><span class="token function">directive</span><span class="token punctuation">(</span><span class="token string">'freq'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> 
     <span class="token function">inserted</span><span class="token punctuation">(</span>el<span class="token punctuation">,</span>bd<span class="token punctuation">,</span>vnode<span class="token punctuation">)</span> <span class="token punctuation">{</span> 
-            console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>here<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">,</span>vnode<span class="token punctuation">.</span>data<span class="token punctuation">.</span>on<span class="token punctuation">)</span>
+            console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'here'</span><span class="token punctuation">,</span>vnode<span class="token punctuation">.</span>data<span class="token punctuation">.</span>on<span class="token punctuation">)</span>
         <span class="token keyword">let</span> all <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token keyword">typeof</span> bd<span class="token punctuation">.</span>value <span class="token operator">===</span> <span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>string<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token keyword">typeof</span> bd<span class="token punctuation">.</span>value <span class="token operator">===</span> <span class="token string">'string'</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
             all<span class="token punctuation">[</span>bd<span class="token punctuation">.</span>value<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">500</span>
         <span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>Array<span class="token punctuation">.</span><span class="token function">isArray</span><span class="token punctuation">(</span>bd<span class="token punctuation">.</span>value<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-            bd<span class="token punctuation">.</span>value<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>val<span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span>all<span class="token punctuation">[</span>val<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">500</span><span class="token punctuation">)</span>
+            bd<span class="token punctuation">.</span>value<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>val<span class="token operator">=</span><span class="token operator">></span>all<span class="token punctuation">[</span>val<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">500</span><span class="token punctuation">)</span>
         <span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
             all <span class="token operator">=</span> bd<span class="token punctuation">.</span>value
         <span class="token punctuation">}</span>
@@ -200,19 +200,19 @@ Vue<span class="token punctuation">.</span><span class="token function">directiv
 <span class="token punctuation">}</span><span class="token punctuation">)</span>
 </code></pre>
 <p>然后我们就可以这样使用了：</p>
-<pre class=" language-html"><code class="language-html"><span class="token entity" title="&lt;">&amp;lt;</span>button @click=<span class="token entity" title="&quot;">&amp;quot;</span>fn<span class="token entity" title="&quot;">&amp;quot;</span> v-freq=<span class="token entity" title="&quot;">&amp;quot;</span>{click:500}<span class="token entity" title="&quot;">&amp;quot;</span><span class="token entity" title="&gt;">&amp;gt;</span>
+<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">@click</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>fn<span class="token punctuation">"</span></span> <span class="token attr-name">v-freq</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>{click:500}<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
     测试
-<span class="token entity" title="&lt;">&amp;lt;</span>/button<span class="token entity" title="&gt;">&amp;gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
 </code></pre>
 <p>或者这样：</p>
-<pre class=" language-html"><code class="language-html"><span class="token entity" title="&lt;">&amp;lt;</span>button @click=<span class="token entity" title="&quot;">&amp;quot;</span>fn<span class="token entity" title="&quot;">&amp;quot;</span> v-freq=<span class="token entity" title="&quot;">&amp;quot;</span><span class="token entity" title="&#039;">&amp;#039;</span>click<span class="token entity" title="&#039;">&amp;#039;</span><span class="token entity" title="&quot;">&amp;quot;</span><span class="token entity" title="&gt;">&amp;gt;</span>
+<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">@click</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>fn<span class="token punctuation">"</span></span> <span class="token attr-name">v-freq</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span><span class="token punctuation">'</span>click<span class="token punctuation">'</span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
     测试
-<span class="token entity" title="&lt;">&amp;lt;</span>/button<span class="token entity" title="&gt;">&amp;gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
 </code></pre>
 <p>甚至这样：</p>
-<pre class=" language-html"><code class="language-html"><span class="token entity" title="&lt;">&amp;lt;</span>button @click=<span class="token entity" title="&quot;">&amp;quot;</span>fn<span class="token entity" title="&quot;">&amp;quot;</span> v-freq=<span class="token entity" title="&quot;">&amp;quot;</span>[<span class="token entity" title="&#039;">&amp;#039;</span>click<span class="token entity" title="&#039;">&amp;#039;</span>,<span class="token entity" title="&#039;">&amp;#039;</span>mouseenter<span class="token entity" title="&#039;">&amp;#039;</span>]<span class="token entity" title="&quot;">&amp;quot;</span><span class="token entity" title="&gt;">&amp;gt;</span>
+<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">@click</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>fn<span class="token punctuation">"</span></span> <span class="token attr-name">v-freq</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>[<span class="token punctuation">'</span>click<span class="token punctuation">'</span>,<span class="token punctuation">'</span>mouseenter<span class="token punctuation">'</span>]<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
     测试
-<span class="token entity" title="&lt;">&amp;lt;</span>/button<span class="token entity" title="&gt;">&amp;gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
 </code></pre>
 
         

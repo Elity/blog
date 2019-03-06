@@ -15,21 +15,21 @@ date: 2018-10-12 17:02:16
 实现一个函数LazyMan，执行情况如下：
 
 ```javascript
-LazyMan(&quot;Hank&quot;)
+LazyMan("Hank")
 // 输出:Hi! This is Hank!
  
-LazyMan(&quot;Hank&quot;).sleep(10).eat(&quot;dinner&quot;)
+LazyMan("Hank").sleep(10).eat("dinner")
 // 输出 Hi! This is Hank!
 // 等待10秒..
 // 输出 Wake up after 10
 // 输出 Eat dinner
  
-LazyMan(&quot;Hank&quot;).eat(&quot;dinner&quot;).eat(&quot;supper&quot;)
+LazyMan("Hank").eat("dinner").eat("supper")
 // 输出 Hi This is Hank!
 // 输出 Eat dinner
 // 输出 Eat supper
  
-LazyMan(&quot;Hank&quot;).sleepFirst(5).eat(&quot;supper&quot;)
+LazyMan("Hank").sleepFirst(5).eat("supper")
 // 等待5秒
 // 输出 Hi This is Hank!
 // 输出 Eat supper

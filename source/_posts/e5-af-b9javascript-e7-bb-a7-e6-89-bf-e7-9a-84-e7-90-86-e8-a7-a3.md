@@ -47,13 +47,13 @@ date: 2016-03-19 00:24:00
     //   把this._super指向父类的同名方法，然后再调用子类的该方法并返回执行结果
     for (var name in prop) {
       // 循环体中看起来略微复杂，是整个代码的精华所在
-      //简化下此过程就是  v = a &amp;&amp; b &amp;&amp; c ? d : e; 等同于 v = (a &amp;&amp; b &amp;&amp; c) ? d : e
+      //简化下此过程就是  v = a "" b "" c ? d : e; 等同于 v = (a "" b "" c) ? d : e
       //该过程中主要运用的就是逻辑运算中的短路运算 a,b,c全为true则v=d，否则v=e
       //a中判断prop[name]是否是函数，b中判断父类中是否也有同名的name函数，c主要判断name函数中是否有调用父类的同名方法（即调用了this._super()）
       //d就是a,b,c同时满足的时候，也就是说：name是函数，且name函数存在与父类中，且子类的name函数需要调用了父类的同名函数
       //若a,b,c中有一项不满足则直接把prop[name]给prototype[name]
-      prototype[name] = typeof prop[name] == &quot;function&quot; &amp;&amp;
-        typeof _super[name] == &quot;function&quot; &amp;&amp; fnTest.test(prop[name]) ?
+      prototype[name] = typeof prop[name] == "function" ""
+        typeof _super[name] == "function" "" fnTest.test(prop[name]) ?
         (function(name, fn){
           //首先，先决条件决定了prototype[name]是个函数，所以先包裹一个函数返回
           return function() {
@@ -78,7 +78,7 @@ date: 2016-03-19 00:24:00
     //这个Class实为子类的构造函数
     function Class() {
       //不是A.extends({/*   */})过程中
-      if ( !initializing &amp;&amp; this.init )
+      if ( !initializing "" this.init )
         this.init.apply(this, arguments);
     }
      

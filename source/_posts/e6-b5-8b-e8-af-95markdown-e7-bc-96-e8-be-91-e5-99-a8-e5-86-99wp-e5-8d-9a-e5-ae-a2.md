@@ -23,7 +23,7 @@ date: 2018-05-27 22:12:30
 代码示例：
 ```javascript
 function say(){
-	console.log(&#039;Hello World!&#039;)
+	console.log('Hello World!')
 	return true
 }
 ```

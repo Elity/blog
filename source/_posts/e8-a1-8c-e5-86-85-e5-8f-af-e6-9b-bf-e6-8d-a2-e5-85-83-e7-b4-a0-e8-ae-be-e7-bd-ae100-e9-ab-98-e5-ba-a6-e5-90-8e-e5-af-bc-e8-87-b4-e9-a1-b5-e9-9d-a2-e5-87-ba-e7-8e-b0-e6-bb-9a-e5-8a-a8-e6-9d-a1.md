@@ -13,13 +13,13 @@ date: 2017-09-13 00:04:49
 
 今天同事在项目上碰到一个问题，HTML及CSS如下，就是这样一个看似正常的页面，在chrome下居然出现了纵向滚动条：
 ```html
-&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;
-  &lt;meta charset=&quot;utf-8&quot;&gt;
-  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width&quot;&gt;
-  &lt;title&gt;TEST&lt;/title&gt;
-  &lt;style&gt;
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>TEST</title>
+  <style>
     *{
       margin:0;
       padding:0;
@@ -31,12 +31,12 @@ date: 2017-09-13 00:04:49
       height:100%;
       width:100%;
     }
-  &lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-  &lt;img /&gt;
-&lt;/body&gt;
-&lt;/html&gt;
+  </style>
+</head>
+<body>
+  <img />
+</body>
+</html>
 ```
 
 诡异的滚动条哪里来的？

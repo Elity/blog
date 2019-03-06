@@ -65,9 +65,9 @@ o = undefined;
 #### 不可变：
 
 ```javascript
-var s = &#039;hello world&#039;;
+var s = 'hello world';
 console.log(s[1]); // 输出 e
-s[1] = &#039;a&#039;;
+s[1] = 'a';
 console.log(s); // 依然是 hello world
 ```
 
@@ -76,8 +76,8 @@ console.log(s); // 依然是 hello world
 可以通过[内存快照](https://developers.google.com/web/tools/chrome-devtools/memory-problems/heap-snapshots)的方式验证如下变量`a`和`b`是否指向同样的内存地址:
 
 ```javascript
-var a = &#039;hello&#039;;
-var b = &#039;hello&#039;;
+var a = 'hello';
+var b = 'hello';
 ```
 
 #### 无方法/属性：
@@ -85,7 +85,7 @@ var b = &#039;hello&#039;;
 初看有些难以理解，毕竟我们经常这样用：
 
 ```javascript
-&#039;Hello World&#039;.split(&#039; &#039;);
+'Hello World'.split(' ');
 ```
 
 我们首先要搞明白两个事情：
@@ -93,13 +93,13 @@ var b = &#039;hello&#039;;
 - 上面的`split`方法就是`String.prototype.split`，验证：
 
 ```javascript
-&#039;Hello World&#039;.split === String.prototype.split; // true
+'Hello World'.split === String.prototype.split; // true
 ```
 
 - 而 `"Hello World"` 并不是 `String` 的实例，验证：
 
 ```javascript
-&#039;Hello World&#039; instanceof String; // false
+'Hello World' instanceof String; // false
 ```
 
 上面这个例子要铭记，原始类型不能用`instanceof`判断。
@@ -115,7 +115,7 @@ var b = &#039;hello&#039;;
 所以，在调用`"Hello World".split(" ")`时，实际调用的是`"Hello World"`对应的包装类`String`,实例化后的方法，等同于：
 
 ```javascript
-new String(&#039;Hello World&#039;).split(&#039; &#039;);
+new String('Hello World').split(' ');
 ```
 
 如下几种基本类型：`string`、`number`、`boolean`、`symbol`都有对于的包装类，分别是[String](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/String)、[Number](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Number)、[Boolean](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Boolean)、[Symbol](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Symbol)
@@ -171,10 +171,10 @@ console.log(arr); // 你说张三毁容没毁容？
 
 ```javascript
 function fn() {}
-fn.hehe = &#039;hehe&#039;;
+fn.hehe = 'hehe';
 console.log(fn.hehe); // 输出啥？
 function factory(o) {
-  o.hehe = &#039;haha&#039;;
+  o.hehe = 'haha';
 }
 factory(fn);
 console.log(fn.hehe); // 输出啥？
@@ -200,14 +200,14 @@ function a(){} === function a(){} // false
 
 ```javascript
 typeof 123 // number
-typeof &#039;str&#039; // string
+typeof 'str' // string
 typeof true // boolean
 typeof Symbol() // symbol
 typeof undefined // undefined
 typeof fucntion(){} // function
 typeof {} // object
 typeof null // object
-typeof new String(&quot;hello&quot;) // object
+typeof new String("hello") // object
 ```
 
 `typeof null === 'object'`是一开始设计 JavaScript 的时候产生的[bug](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/typeof#null)，只能将错就错一直沿用下来，这是客户端语言的无奈（向下兼容）。
@@ -216,7 +216,7 @@ typeof new String(&quot;hello&quot;) // object
 
 ```javascript
 function isObject(obj) {
-  return obj &amp;&amp; typeof obj === &#039;object&#039;;
+  return obj "" typeof obj === 'object';
 }
 ```
 
@@ -225,7 +225,7 @@ function isObject(obj) {
 另外另外另外，还有一种[特例](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/typeof#%E4%BE%8B%E5%A4%96)：
 
 ```javascript
-typeof document.all === &#039;undefined&#039;;
+typeof document.all === 'undefined';
 ```
 
 至于原因，看看`document.all`与 IE 的[爱恨纠葛](https://www.cnblogs.com/ziyunfei/p/5618152.html)
@@ -300,7 +300,7 @@ class MyClass {
 
 Object.create(null) instanceof MyClass; // true   完全不顾原型了
 
-&#039;sss&#039; instanceof MyClass; // 连基本类型也不管了
+'sss' instanceof MyClass; // 连基本类型也不管了
 
 var a;
 // 理论上来讲，a 是任意值，下面表达式都为 true
@@ -316,7 +316,7 @@ a instanceof MyClass; // true
 ```javascript
 Object.prototype.toString.call([]); // [object Array]
 Object.prototype.toString.call({}); // [object Object]
-Object.prototype.toString.call(&#039;&#039;); // [object String]
+Object.prototype.toString.call(''); // [object String]
 Object.prototype.toString.call(new Date()); // [object Date]
 Object.prototype.toString.call(1); // [object Number]
 Object.prototype.toString.call(function() {}); // [object Function]
@@ -365,7 +365,7 @@ function toString(val){
 ```javascript
 let o = [];
 Object.prototype.toString.call(o); // [object Array]
-o[Symbol.toStringTag] = &#039;MyClass&#039;;
+o[Symbol.toStringTag] = 'MyClass';
 Object.prototype.toString.call(o); // [object MyClass]
 ```
 
@@ -396,9 +396,9 @@ Object.prototype.then = function(resolve, reject) {};
 依然拿`thenable`来说，在`Promise`正式进入规范之前，已经有很多库实现了类似思想，比如[Q](https://github.com/kriskowal/q)、[jQuery.Deferred](https://api.jquery.com/category/deferred-object/)，如何保证已经使用了这些库的既有项目如何快速过度到标准的`Promise`呢？噢！感谢上帝，这些类库有一个共同特点，就是它们的对象都有`then`方法，在实现`Promise`时只需要这样判断一个值是否是`thenable`：
 
 ```javascript
-var isThenable = obj =&gt;
-  (typeof obj === &#039;function&#039; || (obj &amp;&amp; typeof obj === &#039;object&#039;)) &amp;&amp;
-  &#039;then&#039; in obj;
+var isThenable = obj =>
+  (typeof obj === 'function' || (obj "" typeof obj === 'object')) ""
+  'then' in obj;
 ```
 
 如果用判断鸭子类型的方式来判断一个数组，我们可能需要这样判断：
@@ -406,7 +406,7 @@ var isThenable = obj =&gt;
 ```javascript
 var obj = {};
 var isArr = false;
-if(&#039;splice&#039; in obj &amp;&amp; &#039;push&#039; in obj &amp;&amp; &#039;pop&#039; in obj....){
+if('splice' in obj "" 'push' in obj "" 'pop' in obj....){
   isArr = true;
 }
 ```

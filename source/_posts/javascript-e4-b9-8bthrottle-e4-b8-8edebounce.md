@@ -28,7 +28,7 @@ function throttle(method, delay) {
     ctx = this;
     args = arguments;
     clearTimeout(timer);
-    if (diff &gt;= 0) {
+    if (diff >= 0) {
       exec()
     } else {
       timer = setTimeout(exec, -diff)

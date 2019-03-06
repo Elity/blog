@@ -11,7 +11,7 @@ categories:
 date: 2013-05-03 14:10:12
 ---
 
-<p>刚接触jQuery那会，一直以为jQuery(&#39;....&#39;)返回的是数组，如图：</p><p><img src="http://ww2.sinaimg.cn/large/a74ecc4cjw1e4b1lgvqwaj20k5029mxn.jpg" width="725" height="81" style="float:none;" border="0" hspace="0" vspace="0" /><span class="span4br"></span></p><p>谁能在当时告诉我这个刚触及门槛的菜鸟这货不是数组么？chrome控制台输出的明明就是&quot;数组&quot;</p><p>后来渐渐发现了jQuery返回的那东西并没有Array的许多方法..自然 如下代码的结果是false</p><pre class="brush:js;toolbar:false;">jQuery('body') instanceof Array</pre><p>那么，jQuery对象究竟是一种怎样的存在呢？ 众里寻他千百度，那货就在灯火阑珊处:</p><pre class="brush:js;toolbar:false;">var node = document.getElementsByTagName('span');</pre><p>这里的node&quot;专业点&quot;来讲是<span style="color:#ff0000;">NodeList</span>,即节点列表或集合，说白了就是<span style="color:#ff0000;">伪数组</span>。</p><p>jQuery返回的也是伪数组,我也找过关于如何创建伪数组的资料,但在chrome浏览器下console的结果却并不是jQuery那样的&quot;数组的样子&quot;;</p><p><span style="font-family:宋体;">我纠结了，尝试阅读jQuery的源码 </span><a href="http://code.jquery.com/jquery-1.9.1.js"></a><a href="http://code.jquery.com/jquery-1.9.1.js">http://code.jquery.com/jquery-1.9.1.js</a></p><p><a href="http://code.jquery.com/jquery-1.9.1.js"></a></p><p>好多地方我暂时看不明白，不要紧，我们精简到只看我们需要的（代码中的注释仅仅只是我自己的见解,如有错误欢迎指正）</p><pre class="brush:js;toolbar:false;">(function( window, undefined ) {
+<p>刚接触jQuery那会，一直以为jQuery('....')返回的是数组，如图：</p><p><img src="http://ww2.sinaimg.cn/large/a74ecc4cjw1e4b1lgvqwaj20k5029mxn.jpg" width="725" height="81" style="float:none;" border="0" hspace="0" vspace="0" /><span class="span4br"></span></p><p>谁能在当时告诉我这个刚触及门槛的菜鸟这货不是数组么？chrome控制台输出的明明就是"数组"</p><p>后来渐渐发现了jQuery返回的那东西并没有Array的许多方法..自然 如下代码的结果是false</p><pre class="brush:js;toolbar:false;">jQuery('body') instanceof Array</pre><p>那么，jQuery对象究竟是一种怎样的存在呢？ 众里寻他千百度，那货就在灯火阑珊处:</p><pre class="brush:js;toolbar:false;">var node = document.getElementsByTagName('span');</pre><p>这里的node"专业点"来讲是<span style="color:#ff0000;">NodeList</span>,即节点列表或集合，说白了就是<span style="color:#ff0000;">伪数组</span>。</p><p>jQuery返回的也是伪数组,我也找过关于如何创建伪数组的资料,但在chrome浏览器下console的结果却并不是jQuery那样的"数组的样子";</p><p><span style="font-family:宋体;">我纠结了，尝试阅读jQuery的源码 </span><a href="http://code.jquery.com/jquery-1.9.1.js"></a><a href="http://code.jquery.com/jquery-1.9.1.js">http://code.jquery.com/jquery-1.9.1.js</a></p><p><a href="http://code.jquery.com/jquery-1.9.1.js"></a></p><p>好多地方我暂时看不明白，不要紧，我们精简到只看我们需要的（代码中的注释仅仅只是我自己的见解,如有错误欢迎指正）</p><pre class="brush:js;toolbar:false;">(function( window, undefined ) {
     jQuery = function( selector, context ) {
         // 这里解释了为什么我们无需new jQuery()来创建jQuery对象了
         //当然，也说明了我们创建的jQuery对象其实是jQuery.fn.init对象
@@ -43,15 +43,15 @@ date: 2013-05-03 14:10:12
 ### N年后转行做前端更新
 其实要让一个对象在chrome控制台看起来像数组，只需要这样：
 ```javascript
-var fakeArr = {0:&#039;foo&#039;,1:&#039;bar&#039;,length:2,splice:function(){}}
+var fakeArr = {0:'foo',1:'bar',length:2,splice:function(){}}
 console.log(fakeArr)
 ```
 但是这样，会在数组末尾有一项splice，不是那么完美，要完美就自己造对象：
 ```javascript
 function A(){
 	this.length = 2
-	this[0] = &#039;foo&#039;
-	this[1] = &#039;bar&#039;
+	this[0] = 'foo'
+	this[1] = 'bar'
 }
 A.prototype.splice = function(){}
 var fakeArr = new A

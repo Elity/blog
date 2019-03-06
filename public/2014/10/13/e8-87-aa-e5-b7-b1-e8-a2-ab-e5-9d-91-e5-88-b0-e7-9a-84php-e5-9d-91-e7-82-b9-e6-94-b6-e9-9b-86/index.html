@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Fighting">
+    <meta name="description" content="写给未来的回忆录">
     <meta name="keyword" content="Fighting">
     <link rel="shortcut icon" href="/blog/img/favicon.ico">
 
@@ -22,7 +22,7 @@
     <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
     <!-- ga & ba script hoook -->
     <script></script>
-<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"><script src="/blog/js/prism.js"></script></head>
 
 <body>
 
@@ -136,7 +136,7 @@
 </span>
 
     </div>
-    <div class="post-content ">
+    <div class="post-content no-indent">
         <p>1.PHP5.4以下版本，定义数组还是老老实实用</p>
 <pre class=" language-php"><code class="language-php"><span class="token variable">$arr</span> <span class="token operator">=</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
@@ -145,37 +145,37 @@
 </code></pre>
 <p>2.要使用<code>json_decode</code>函数时，记得把每组冒号前后的字符串用双引号括起来，然后最外层再用单引号</p>
 <p>例如以下字符串是无法解析的（当然，这是PHP完全遵循JSON规范）：</p>
-<pre class=" language-php"><code class="language-php"><span class="token variable">$questions</span> <span class="token operator">=</span> <span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">:</span><span class="token operator">&amp;</span><span class="token shell-comment comment">#039;语言是存在的家园，这是谁的理论？&amp;#039;,1:&amp;#039;描写君子的外表下面哪个不常见？&amp;#039;,2:&amp;#039;君王要想使人信服须具备&amp;#039;}&amp;quot;;</span>
+<pre class=" language-php"><code class="language-php"><span class="token variable">$questions</span> <span class="token operator">=</span> <span class="token string">"{0:'语言是存在的家园，这是谁的理论？',1:'描写君子的外表下面哪个不常见？',2:'君王要想使人信服须具备'}"</span><span class="token punctuation">;</span>
 </code></pre>
 <p>而应使用像下面这样的：</p>
-<pre class=" language-php"><code class="language-php"><span class="token variable">$questions</span> <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token shell-comment comment">#039;{0:&amp;quot;语言是存在的家园，这是谁的理论？&amp;quot;,1:&amp;quot;描写君子的外表下面哪个不常见？&amp;quot;,2:&amp;quot;君王要想使人信服须具备&amp;quot;}&amp;#039;;</span>
+<pre class=" language-php"><code class="language-php"><span class="token variable">$questions</span> <span class="token operator">=</span> <span class="token string">'{0:"语言是存在的家园，这是谁的理论？",1:"描写君子的外表下面哪个不常见？",2:"君王要想使人信服须具备"}'</span><span class="token punctuation">;</span>
 </code></pre>
 <p>3.<strong>PHP5.4以下版本不能这样写</strong></p>
-<pre class=" language-php"><code class="language-php"><span class="token keyword">echo</span> <span class="token function">explode</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token operator">--</span><span class="token operator">-</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token punctuation">,</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token number">123</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<pre class=" language-php"><code class="language-php"><span class="token keyword">echo</span> <span class="token function">explode</span><span class="token punctuation">(</span><span class="token string">"---"</span><span class="token punctuation">,</span><span class="token string">"123"</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 </code></pre>
 <p>应该这样写，不然会报错：</p>
-<pre class=" language-php"><code class="language-php"><span class="token variable">$arr</span> <span class="token operator">=</span> <span class="token function">explode</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token operator">--</span><span class="token operator">-</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token punctuation">,</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token number">123</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre class=" language-php"><code class="language-php"><span class="token variable">$arr</span> <span class="token operator">=</span> <span class="token function">explode</span><span class="token punctuation">(</span><span class="token string">"---"</span><span class="token punctuation">,</span><span class="token string">"123"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">echo</span> <span class="token variable">$arr</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 </code></pre>
 <p>4.</p>
-<pre class=" language-php"><code class="language-php"><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span>a<span class="token operator">&amp;</span>quot<span class="token punctuation">;</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token punctuation">;</span>   <span class="token comment" spellcheck="true">//true</span>
+<pre class=" language-php"><code class="language-php"><span class="token string">"a"</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token punctuation">;</span>   <span class="token comment" spellcheck="true">//true</span>
 </code></pre>
 <p>5.</p>
-<pre class=" language-php"><code class="language-php"><span class="token variable">$arr</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token operator">&amp;</span><span class="token shell-comment comment">#039;12a&amp;#039;,&amp;#039;b&amp;#039;];</span>
+<pre class=" language-php"><code class="language-php"><span class="token variable">$arr</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'12a'</span><span class="token punctuation">,</span><span class="token string">'b'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 <span class="token keyword">echo</span> <span class="token function">in_array</span><span class="token punctuation">(</span><span class="token number">12</span><span class="token punctuation">,</span><span class="token variable">$arr</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">// true</span>
 </code></pre>
 <p>6.cURL执行时会无视PHP的超时设置：</p>
-<pre class=" language-php"><code class="language-php"><span class="token function">ini_set</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span>max_execution_time<span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token punctuation">,</span><span class="token number">1800</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre class=" language-php"><code class="language-php"><span class="token function">ini_set</span><span class="token punctuation">(</span><span class="token string">"max_execution_time"</span><span class="token punctuation">,</span><span class="token number">1800</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>所以最好设置每次使用cURL时设置<code>CURLOPT_TIMEOUT</code></p>
 <p>7.<code>strpos</code> 第二个参数若为数字，PHP内部的计算方式如下：</p>
-<pre class=" language-php"><code class="language-php"><span class="token function">strpos</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token shell-comment comment">#039;a1b2c777777&amp;#039;,777777);</span>
+<pre class=" language-php"><code class="language-php"><span class="token function">strpos</span><span class="token punctuation">(</span><span class="token string">'a1b2c777777'</span><span class="token punctuation">,</span><span class="token number">777777</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token comment" spellcheck="true">//等价于</span>
-<span class="token function">strpos</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token shell-comment comment">#039;a1b2c777777&amp;#039;,chr(777777%256));</span>
+<span class="token function">strpos</span><span class="token punctuation">(</span><span class="token string">'a1b2c777777'</span><span class="token punctuation">,</span><span class="token function">chr</span><span class="token punctuation">(</span><span class="token number">777777</span><span class="token operator">%</span><span class="token number">256</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>得到的结果就是字符’1’在字符串中出现的位置</p>
 <ol start="8">
-<li><pre class=" language-php"><code class="language-php"><span class="token function">list</span><span class="token punctuation">(</span><span class="token variable">$key</span><span class="token punctuation">,</span><span class="token variable">$value</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token function">each</span><span class="token punctuation">(</span><span class="token keyword">array</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token shell-comment comment">#039;123&amp;#039;=&amp;gt;&amp;#039;abc&amp;#039;));</span>
+<li><pre class=" language-php"><code class="language-php"><span class="token function">list</span><span class="token punctuation">(</span><span class="token variable">$key</span><span class="token punctuation">,</span><span class="token variable">$value</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token function">each</span><span class="token punctuation">(</span><span class="token keyword">array</span><span class="token punctuation">(</span><span class="token string">'123'</span><span class="token operator">=</span><span class="token operator">></span><span class="token string">'abc'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 PHP会自作主张把 ‘123’转换成 int</li>
 </ol>

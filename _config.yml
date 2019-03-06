@@ -5,7 +5,7 @@
 # Site
 title: 写给未来的回忆录
 subtitle: Fighting's Blog
-description: Fighting
+description: 写给未来的回忆录
 author: Fighting
 language: zh-CN
 timezone: Asia/Shanghai
@@ -26,17 +26,17 @@ keyword: 'Fighting'
 
 # 文章样式(是否首行缩进)：
 post_style:
-  indent: default
+  indent: 0
 
 search:
   path: search.json
   field: post
 
 prism_plugin:
-  mode: 'preprocess' # realtime/preprocess
+  mode: 'realtime' # realtime/preprocess
   theme: 'tomorrow'
   line_number: false # default false
-  # custom_css: 'path/to/your/custom.css'     # optional
+  # custom_css: css/index.css # optional
 
 # Directory
 source_dir: source

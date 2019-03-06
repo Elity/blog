@@ -62,8 +62,8 @@ class Point {
   num x;
   num y;
   Point.fromJson(Map json) {
-    x = json[&#039;x&#039;];
-    y = json[&#039;y&#039;];
+    x = json['x'];
+    y = json['y'];
   }
 }
 ```
@@ -90,8 +90,8 @@ class Logger {
   bool mute = false;
 
   // _cache 是库内私有
-  static final Map&lt;String, Logger&gt; _cache =
-      &lt;String, Logger&gt;{};
+  static final Map<String, Logger> _cache =
+      <String, Logger>{};
 
   factory Logger(String name) {
     if (_cache.containsKey(name)) {
@@ -111,8 +111,8 @@ class Logger {
   }
 }
 // 使用的时候和其它构造函数一样
-var logger = Logger(&#039;UI&#039;);
-logger.log(&#039;Button clicked&#039;);
+var logger = Logger('UI');
+logger.log('Button clicked');
 ```
 
 
@@ -143,7 +143,7 @@ class Point {
       : x = x,
         y = y,
         distanceFromOrigin = sqrt(x * x + y * y){
-			print(&#039;In Point.fromJson(): ($x, $y)&#039;);
+			print('In Point.fromJson(): ($x, $y)');
 		}
 }
 ```
@@ -154,21 +154,21 @@ class Point {
 class Person {
   String firstName;
   Person.fromJson(Map data) {
-    print(&#039;in Person&#039;);
+    print('in Person');
   }
 }
 
 class Employee extends Person {
   // Person类没有默认构造函数，必须手动调用super.fromJson(data);
   Employee.fromJson(Map data) : super.fromJson(data) {
-    print(&#039;in Employee&#039;);
+    print('in Employee');
   }
 }
 ```
 
 ### 方法
 ```dart
-import &#039;dart:math&#039;;
+import 'dart:math';
 
 class Point {
   num x;
@@ -195,10 +195,10 @@ class Rectangle {
 
   Rectangle(this.left, this.top, this.width, this.height);
 
-  num get right             =&gt; left + width;
-      set right(num value)  =&gt; left = value - width;
-  num get bottom            =&gt; top + height;
-      set bottom(num value) =&gt; top = value - height;
+  num get right             => left + width;
+      set right(num value)  => left = value - width;
+  num get bottom            => top + height;
+      set bottom(num value) => top = value - height;
 }
 ```
 
@@ -224,15 +224,15 @@ class Person {
   Person(this._name);
 
   // In the interface.
-  String greet(String who) =&gt; &#039;Hello, $who. I am $_name.&#039;;
+  String greet(String who) => 'Hello, $who. I am $_name.';
 }
 
 // Impostor必须实现Person的所有成员函数及变量.
 class Impostor implements Person {
   // 尽管不会用到_name，也必须定义该成员变量
-  get _name =&gt; &#039;&#039;;
+  get _name => '';
 
-  String greet(String who) =&gt; &#039;Hi $who. Do you know who I am?&#039;;
+  String greet(String who) => 'Hi $who. Do you know who I am?';
 }
 
 ```
@@ -307,7 +307,7 @@ class Vector {
 ```dart
 class Walker {
   void walk() {
-    print(&quot;I&#039;m walking&quot;);
+    print("I'm walking");
   }
 }
 ```
@@ -316,9 +316,9 @@ class Walker {
 ```dart
 abstract class Walker {
   // This class is intended to be used as a mixin, and should not be extended directly.
-  factory Walker._() =&gt; null;
+  factory Walker._() => null;
   void walk() {
-    print(&quot;I&#039;m walking&quot;);
+    print("I'm walking");
   }
 }
 ```
@@ -332,11 +332,11 @@ mixin Musical {
 
   void entertainMe() {
     if (canPlayPiano) {
-      print(&#039;Playing piano&#039;);
+      print('Playing piano');
     } else if (canConduct) {
-      print(&#039;Waving hands&#039;);
+      print('Waving hands');
     } else {
-      print(&#039;Humming to self&#039;);
+      print('Humming to self');
     }
   }
 }

@@ -23,7 +23,7 @@ function dfs(node) {
     while (tmp = stack.pop()) {
         nodes.push(tmp)
         let childs = tmp.children, len = childs.length, i = len - 1;
-        for (; i &gt; -1; i--) {
+        for (; i > -1; i--) {
             stack.push(childs[i])
         }
     }
@@ -40,7 +40,7 @@ function bfs(node) {
     while (tmp = stack.pop()) {
         nodes.push(tmp)
         let childs = tmp.children, len = childs.length, i = 0;
-        for (; i &lt; len; i++) {
+        for (; i < len; i++) {
             stack.unshift(childs[i])
         }
     }

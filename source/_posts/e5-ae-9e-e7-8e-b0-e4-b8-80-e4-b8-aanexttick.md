@@ -23,9 +23,9 @@ date: 2018-10-26 20:17:25
 
 ```javascript
 function nextTick(fn){
-	var img = document.createElement(&#039;img&#039;);
+	var img = document.createElement('img');
 	img.onerror = function(){fn()}
-	img.src=&#039;data:;,&#039;
+	img.src='data:;,'
 }
 ```
 测试：
@@ -41,10 +41,10 @@ nextTick(function(){console.log(2)});
 
 ```javascript
 var nextTick = (function(){
-	var img = document.createElement(&#039;img&#039;);
+	var img = document.createElement('img');
 	return function nextTick(fn){
 		img.onerror = function(){fn()}
-		img.src=&#039;data:;,&#039;
+		img.src='data:;,'
 	}
 })()
 
@@ -55,8 +55,8 @@ var nextTick = (function(){
 另外另外另外再提一句，MutationObserver的回调和Promise一样，也属于micro-task，而且他的执行时机更是早于Promise。以下是实现：
 ```javascript
 function  nextTick(fn){
-    var div = document.createElement(&#039;div&#039;);
+    var div = document.createElement('div');
     new MutationObserver(function(){fn()}).observe(div, {  attributes: true })
-    div.setAttribute(&#039;data-test&#039;,&#039;test&#039;)
+    div.setAttribute('data-test','test')
 }
 ```

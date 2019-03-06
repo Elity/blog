@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Fighting">
+    <meta name="description" content="写给未来的回忆录">
     <meta name="keyword" content="Fighting">
     <link rel="shortcut icon" href="/blog/img/favicon.ico">
 
@@ -22,7 +22,7 @@
     <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
     <!-- ga & ba script hoook -->
     <script></script>
-<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"><script src="/blog/js/prism.js"></script></head>
 
 <body>
 
@@ -139,18 +139,18 @@
 </span>
 
     </div>
-    <div class="post-content ">
+    <div class="post-content no-indent">
         <p>部分安卓机由于rem计算不准确，导致页面在这些机型下出现了水平滚动条。<br>主要解决思路是：<br>1.设置1rem与px的对应关系，即html元素的font-size，我这里设置为屏幕视口宽度的1/10;<br>2.然后设置body的宽度为10rem;<br>3.取body的计算宽度,是否与html的宽度一致，不一致则说明rem计算有误，将html的font-size按比例缩放至正确大小</p>
 <pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">function</span> fixRem <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">var</span> html <span class="token operator">=</span> document<span class="token punctuation">.</span>documentElement<span class="token punctuation">,</span>
         body <span class="token operator">=</span> document<span class="token punctuation">.</span>body<span class="token punctuation">,</span>
         bodyW <span class="token operator">=</span> body<span class="token punctuation">.</span>style<span class="token punctuation">.</span>width<span class="token punctuation">;</span>
-    body<span class="token punctuation">.</span>style<span class="token punctuation">.</span>width <span class="token operator">=</span> <span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>10rem<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 假如页面的视口宽度为10rem</span>
+    body<span class="token punctuation">.</span>style<span class="token punctuation">.</span>width <span class="token operator">=</span> <span class="token string">'10rem'</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 假如页面的视口宽度为10rem</span>
     <span class="token keyword">var</span> bodyWidth <span class="token operator">=</span> <span class="token function">parseInt</span><span class="token punctuation">(</span>window<span class="token punctuation">.</span><span class="token function">getComputedStyle</span><span class="token punctuation">(</span>body<span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">.</span>width<span class="token punctuation">)</span><span class="token punctuation">,</span>
         htmlWidth <span class="token operator">=</span> <span class="token function">parseInt</span><span class="token punctuation">(</span>window<span class="token punctuation">.</span><span class="token function">getComputedStyle</span><span class="token punctuation">(</span>html<span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">.</span>width<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span>bodyWidth <span class="token operator">!=</span> htmlWidth<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">var</span> size <span class="token operator">=</span>  <span class="token function">parseInt</span><span class="token punctuation">(</span>html<span class="token punctuation">.</span>style<span class="token punctuation">.</span>fontSize<span class="token punctuation">)</span><span class="token operator">*</span> htmlWidth<span class="token operator">/</span>bodyWidth<span class="token punctuation">;</span>
-        html<span class="token punctuation">.</span>style<span class="token punctuation">.</span>fontSize <span class="token operator">=</span> size <span class="token operator">+</span> <span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>px<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+        html<span class="token punctuation">.</span>style<span class="token punctuation">.</span>fontSize <span class="token operator">=</span> size <span class="token operator">+</span> <span class="token string">'px'</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
     body<span class="token punctuation">.</span>style<span class="token punctuation">.</span>width <span class="token operator">=</span> bodyW<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>

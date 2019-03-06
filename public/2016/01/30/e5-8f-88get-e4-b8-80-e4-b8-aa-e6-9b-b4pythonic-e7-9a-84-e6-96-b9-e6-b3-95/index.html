@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Fighting">
+    <meta name="description" content="写给未来的回忆录">
     <meta name="keyword" content="Fighting">
     <link rel="shortcut icon" href="/blog/img/favicon.ico">
 
@@ -22,7 +22,7 @@
     <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
     <!-- ga & ba script hoook -->
     <script></script>
-<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"><script src="/blog/js/prism.js"></script></head>
 
 <body>
 
@@ -139,7 +139,7 @@
 </span>
 
     </div>
-    <div class="post-content ">
+    <div class="post-content no-indent">
         <p>原来自己写一个单独的类文件，常常是文件一个名字，类一个名字，在别的文件导入的时候则需要这样些：</p>
 <pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> 文件名 <span class="token keyword">import</span> <span class="token operator">*</span>
 </code></pre>
@@ -152,10 +152,10 @@
 
     <span class="token keyword">def</span> <span class="token function">__setattr__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> name<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">:</span>
         <span class="token keyword">if</span> self<span class="token punctuation">.</span>__dict__<span class="token punctuation">.</span>get<span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">:</span>
-            <span class="token keyword">raise</span> self<span class="token punctuation">.</span>ConstError<span class="token punctuation">(</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span>Can<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#039;t change const. %s&amp;quot; %name)</span>
+            <span class="token keyword">raise</span> self<span class="token punctuation">.</span>ConstError<span class="token punctuation">(</span><span class="token string">"Can't change const. %s"</span> <span class="token operator">%</span>name<span class="token punctuation">)</span>
         <span class="token keyword">if</span> <span class="token operator">not</span> name<span class="token punctuation">.</span>isupper<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
             <span class="token keyword">raise</span>  self<span class="token punctuation">.</span>ConstCaseError<span class="token punctuation">(</span>\
-                <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#039;const name &amp;quot;%s&amp;quot; is not all uppercase&amp;#039; %name)</span>
+                <span class="token string">'const name "%s" is not all uppercase'</span> <span class="token operator">%</span>name<span class="token punctuation">)</span>
         self<span class="token punctuation">.</span>__dict__<span class="token punctuation">[</span>name<span class="token punctuation">]</span> <span class="token operator">=</span> value
 
 <span class="token keyword">import</span> sys

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Fighting">
+    <meta name="description" content="写给未来的回忆录">
     <meta name="keyword" content="Fighting">
     <link rel="shortcut icon" href="/blog/img/favicon.ico">
 
@@ -22,7 +22,7 @@
     <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
     <!-- ga & ba script hoook -->
     <script></script>
-<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"><script src="/blog/js/prism.js"></script></head>
 
 <body>
 
@@ -139,7 +139,7 @@
 </span>
 
     </div>
-    <div class="post-content ">
+    <div class="post-content no-indent">
         <p>对于这一问题，如果去百度的话，得到的答案多是如下：</p>
 <p>新建个记事本，命名为  XXX.reg  编辑写入如下内容</p>
 <p>[ccein_html] Windows Registry Editor Version 5.00 [HKEY_CLASSES_ROOT\<em>\shell\runas] @=”管理员取得所有权” “NoWorkingDirectory”=”” [HKEY_CLASSES_ROOT\</em>\shell\runas\command] @=”cmd.exe /c takeown /f \“%1\“ &amp;&amp; icacls \“%1\“ /grant administrators:F” “IsolatedCommand”=”cmd.exe /c takeown /f \“%1\“ &amp;&amp; icacls \“%1\“ /grant administrators:F” [HKEY_CLASSES_ROOT\exefile\shell\runas2] @=”管理员取得所有权” “NoWorkingDirectory”=”” [HKEY_CLASSES_ROOT\exefile\shell\runas2\command] @=”cmd.exe /c takeown /f \“%1\“ &amp;&amp; icacls \“%1\“ /grant administrators:F” “IsolatedCommand”=”cmd.exe /c takeown /f \“%1\“ &amp;&amp; icacls \“%1\“ /grant administrators:F” [HKEY_CLASSES_ROOT\Directory\shell\runas] @=”管理员取得所有权” “NoWorkingDirectory”=”” [HKEY_CLASSES_ROOT\Directory\shell\runas\command] @=”cmd.exe /c takeown /f \“%1\“ /r /d y &amp;&amp; icacls \“%1\“ /grant administrators:F /t” “IsolatedCommand”=”cmd.exe /c takeown /f \“%1\“ /r /d y &amp;&amp; icacls \“%1\“ /grant administrators:F /t” [/ccein_html]</p>

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Fighting">
+    <meta name="description" content="写给未来的回忆录">
     <meta name="keyword" content="Fighting">
     <link rel="shortcut icon" href="/blog/img/favicon.ico">
 
@@ -22,7 +22,7 @@
     <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
     <!-- ga & ba script hoook -->
     <script></script>
-<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"><script src="/blog/js/prism.js"></script></head>
 
 <body>
 
@@ -142,7 +142,7 @@
 </span>
 
     </div>
-    <div class="post-content ">
+    <div class="post-content no-indent">
         <p>我一直以为的深度复制就是这样：</p>
 <ul>
 <li>for…in循环</li>
@@ -157,9 +157,9 @@
 <p>具体的介绍直接看MDN，我这里只搬运几种常见的使用结构化克隆方式实现深度拷贝的方法：</p>
 <ul>
 <li>MessageChannel<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">structuralClone</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-<span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span>resolve <span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> <span class="token punctuation">{</span>
+<span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span>resolve <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
   <span class="token keyword">const</span> <span class="token punctuation">{</span>port1<span class="token punctuation">,</span> port2<span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MessageChannel</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  port2<span class="token punctuation">.</span>onmessage <span class="token operator">=</span> ev <span class="token operator">=</span><span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> <span class="token function">resolve</span><span class="token punctuation">(</span>ev<span class="token punctuation">.</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  port2<span class="token punctuation">.</span>onmessage <span class="token operator">=</span> ev <span class="token operator">=</span><span class="token operator">></span> <span class="token function">resolve</span><span class="token punctuation">(</span>ev<span class="token punctuation">.</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span>
   port1<span class="token punctuation">.</span><span class="token function">postMessage</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
@@ -188,7 +188,7 @@
 <li>Notification API</li>
 </ul>
 <pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">structuralClone</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Notification</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>data<span class="token punctuation">:</span> obj<span class="token punctuation">,</span> silent<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span>data<span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Notification</span><span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>data<span class="token punctuation">:</span> obj<span class="token punctuation">,</span> silent<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span>data<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
 <span class="token keyword">const</span> obj <span class="token operator">=</span> <span class="token comment" spellcheck="true">/* ... */</span><span class="token punctuation">;</span>

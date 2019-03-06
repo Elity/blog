@@ -23,12 +23,12 @@ HTTP协议当然是无状态的，我们在实际场景中是如何区分客户�
 - Set-Cookie(http方式)
 服务端通过在Response Header中添加Set-Cookie，告知客户端如何存储cookie，一般格式：
 ```
-Set-Cookie: &lt;cookie-name&gt;=&lt;cookie-value&gt;; Domain=&lt;domain-value&gt;;Max-Age=&lt;non-zero-digit&gt;;Expires=&lt;date&gt;;Path=&lt;path-value&gt;;SameSite=&lt;Strict|Lax&gt;; Secure; HttpOnly
+Set-Cookie: <cookie-name>=<cookie-value>; Domain=<domain-value>;Max-Age=<non-zero-digit>;Expires=<date>;Path=<path-value>;SameSite=<Strict|Lax>; Secure; HttpOnly
 ```
 - document.cookie(代码方式)
 客户端（通常指浏览器）通过javascript直接给document.cookie赋值设置cookie
 ```javascript
-document.cookie=&quot;&lt;cookie-name&gt;=&lt;cookie-value&gt;; Domain=&lt;domain-value&gt;;Max-Age=&lt;non-zero-digit&gt;;Expires=&lt;date&gt;;Path=&lt;path-value&gt;;SameSite=&lt;Strict|Lax&gt;; Secure;&quot;
+document.cookie="<cookie-name>=<cookie-value>; Domain=<domain-value>;Max-Age=<non-zero-digit>;Expires=<date>;Path=<path-value>;SameSite=<Strict|Lax>; Secure;"
 ```
 很明显，除了客户端无法设置HttpOnly外，其他与服务端基本一致。
 

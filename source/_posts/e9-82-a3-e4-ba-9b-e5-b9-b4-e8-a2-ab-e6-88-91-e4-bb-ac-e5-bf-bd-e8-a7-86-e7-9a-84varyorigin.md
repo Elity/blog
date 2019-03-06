@@ -49,5 +49,5 @@ Vary其它取值情况看文档，不具体说明，聊下可以解决问题的�
 既然是第一次通过img加载图片造成的缓存“污染”，那么，我们让img加载图片的方式走CORS不就好了么？简直太机智了。。[img crossorigin](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/img#attr-crossorigin)
 
 ```html
-&lt;img src=&quot;xxxx&quot; crossorigin /&gt;
+<img src="xxxx" crossorigin />
 ```

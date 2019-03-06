@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Fighting">
+    <meta name="description" content="写给未来的回忆录">
     <meta name="keyword" content="Fighting">
     <link rel="shortcut icon" href="/blog/img/favicon.ico">
 
@@ -22,7 +22,7 @@
     <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
     <!-- ga & ba script hoook -->
     <script></script>
-<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"><script src="/blog/js/prism.js"></script></head>
 
 <body>
 
@@ -148,7 +148,7 @@
 </span>
 
     </div>
-    <div class="post-content ">
+    <div class="post-content no-indent">
         <p>之前刷知乎有看到<a href="https://zhuanlan.zhihu.com/p/38972475?utm_source=qq&amp;utm_medium=social&amp;utm_oi=26757239406592" title="一篇文章" target="_blank" rel="noopener">一篇文章</a>，讲Vary头未配置引起资源缓存错乱的问题，当时只是大概瞄了下，对Vary这个头有了点印象，便没有继续深究。</p>
 <p>今天同事碰到一个奇怪的bug，由于chrome65开始禁止通过a标签设置download属性下载跨域资源，官方说明在这里：<a href="https://developers.google.com/web/updates/2018/02/chrome-65-deprecations#chrome_no_longer_trusting_certain_symantec_certificates" target="_blank" rel="noopener">Block cross-origin <a download></a>，同事打算先用xhr读取图片，然后转成base64塞到a标签实现下载。</a></p>
 <p>然鹅，理想很丰满，现实挺骨干，实现的时候，在服务端配置Access-Control-Allow-Origin:*后，浏览器端发送xhr并没有得到该响应头，然后浏览器报跨域错误了。</p>
@@ -166,7 +166,7 @@
 <p>不过针对我们项目碰到的问题，要是使用阿里云OSS，高兴为时过早了，因为阿里云后台仅支持配置9种可选的响应header，并不包含Vary。 (┬＿┬)</p>
 <p>不过，既然发现了问题根源，解决问题就从根源着手。</p>
 <p>既然是第一次通过img加载图片造成的缓存“污染”，那么，我们让img加载图片的方式走CORS不就好了么？简直太机智了。。<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/img#attr-crossorigin" target="_blank" rel="noopener">img crossorigin</a></p>
-<pre class=" language-html"><code class="language-html"><span class="token entity" title="&lt;">&amp;lt;</span>img src=<span class="token entity" title="&quot;">&amp;quot;</span>xxxx<span class="token entity" title="&quot;">&amp;quot;</span> crossorigin /<span class="token entity" title="&gt;">&amp;gt;</span>
+<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>xxxx<span class="token punctuation">"</span></span> <span class="token attr-name">crossorigin</span> <span class="token punctuation">/></span></span>
 </code></pre>
 
         

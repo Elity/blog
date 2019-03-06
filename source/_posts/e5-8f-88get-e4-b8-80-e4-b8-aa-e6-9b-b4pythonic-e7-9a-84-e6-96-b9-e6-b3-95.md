@@ -25,10 +25,10 @@ class _const:
  
     def __setattr__(self, name, value):
         if self.__dict__.get(name):
-            raise self.ConstError(&quot;Can&#039;t change const. %s&quot; %name)
+            raise self.ConstError("Can't change const. %s" %name)
         if not name.isupper():
             raise  self.ConstCaseError(\
-                &#039;const name &quot;%s&quot; is not all uppercase&#039; %name)
+                'const name "%s" is not all uppercase' %name)
         self.__dict__[name] = value
  
 import sys

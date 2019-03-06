@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Fighting">
+    <meta name="description" content="写给未来的回忆录">
     <meta name="keyword" content="Fighting">
     <link rel="shortcut icon" href="/blog/img/favicon.ico">
 
@@ -22,7 +22,7 @@
     <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
     <!-- ga & ba script hoook -->
     <script></script>
-<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"><script src="/blog/js/prism.js"></script></head>
 
 <body>
 
@@ -139,7 +139,7 @@
 </span>
 
     </div>
-    <div class="post-content ">
+    <div class="post-content no-indent">
         <p>在未指定强缓存相关响应头（Cache-Control 、 Expires 、 Pragma）的情况下，以我的<a href="./2191.html">认知</a>，觉得浏览器应该把ETag发到服务器，然后服务器对文件做校验，是否需要更新，然后返回<code>304</code>或<code>200</code>。</p>
 <p>事实上，目前Firfox(61.0.2)和Edge(42.17134.1.0)的行为确实与我的认知一致。但今天发现Chrome(68.0.3440.106)请求一个资源时，在第一次请求，服务端未返回任何强缓存头的情况下：<br><img src="http://wx3.sinaimg.cn/mw690/0060lm7Tly1fulu9fcvk4j30hh0gm750.jpg" alt="第一次请求"></p>
 <p>我F5刷新，第二次直接从本地读取了：</p>

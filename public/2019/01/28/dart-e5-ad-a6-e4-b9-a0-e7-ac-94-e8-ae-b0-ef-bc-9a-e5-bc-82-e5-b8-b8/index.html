@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Fighting">
+    <meta name="description" content="写给未来的回忆录">
     <meta name="keyword" content="Fighting">
     <link rel="shortcut icon" href="/blog/img/favicon.ico">
 
@@ -22,7 +22,7 @@
     <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
     <!-- ga & ba script hoook -->
     <script></script>
-<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"><script src="/blog/js/prism.js"></script></head>
 
 <body>
 
@@ -139,15 +139,15 @@
 </span>
 
     </div>
-    <div class="post-content ">
+    <div class="post-content no-indent">
         <p>Dart 和 Java 不同的是，所有的 Dart 异常是非检查异常。 方法不声明他们可能抛出的异常， 并且你不被要求捕获任何异常。</p>
 <p>Dart 提供了 <code>Exception</code> 和 <code>Error</code> 类型， 以及许多预定义的子类型。你还可以定义自己的异常类型。</p>
 <h3 id="Throw"><a href="#Throw" class="headerlink" title="Throw"></a>Throw</h3><blockquote>
 <p>Dart 不仅仅可以抛出<code>Exception</code>或者<code>Error</code>对象，还可以抛出任何非<code>null</code>对象为异常。</p>
 </blockquote>
-<pre class=" language-dart"><code class="language-dart"><span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">FormatException</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>Expected at least <span class="token number">1</span> section<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre class=" language-dart"><code class="language-dart"><span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">FormatException</span><span class="token punctuation">(</span><span class="token string">'Expected at least 1 section'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="token keyword">throw</span> <span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>Out of llamas<span class="token operator">!</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+<span class="token keyword">throw</span> <span class="token string">'Out of llamas!'</span><span class="token punctuation">;</span>
 </code></pre>
 <h3 id="Catch"><a href="#Catch" class="headerlink" title="Catch"></a>Catch</h3><blockquote>
 <p>捕获异常可以避免异常继续传递（你重新抛出异常除外）。 捕获异常给你一个处理该异常的机会。</p>
@@ -169,22 +169,22 @@
 <span class="token comment" spellcheck="true">// e为异常对象，s为调用堆栈信息</span>
 <span class="token punctuation">}</span> on Exception <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">e</span><span class="token punctuation">,</span> s<span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token comment" spellcheck="true">// Anything else that is an exception</span>
-  <span class="token function">print</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>Unknown exception<span class="token punctuation">:</span> $e<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">'Unknown exception: $e'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">e</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token comment" spellcheck="true">// No specified type, handles all</span>
-  <span class="token function">print</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>Something really unknown<span class="token punctuation">:</span> $e<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">'Something really unknown: $e'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
 <blockquote>
 <p>使用 <code>rethrow</code> 关键字可以把捕获的异常重新抛出。</p>
 </blockquote>
-<pre class=" language-dart"><code class="language-dart"><span class="token keyword">final</span> foo <span class="token operator">=</span> <span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+<pre class=" language-dart"><code class="language-dart"><span class="token keyword">final</span> foo <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">;</span>
 
 <span class="token keyword">void</span> <span class="token function">misbehave</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">try</span> <span class="token punctuation">{</span>
-    foo <span class="token operator">=</span> <span class="token operator">&amp;</span>quot<span class="token punctuation">;</span>You can<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>t change a <span class="token keyword">final</span> variable<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>s value<span class="token punctuation">.</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token punctuation">;</span>
+    foo <span class="token operator">=</span> <span class="token string">"You can't change a final variable's value."</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">e</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token function">print</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token function">misbehave</span><span class="token punctuation">(</span><span class="token punctuation">)</span> partially handled $<span class="token punctuation">{</span>e<span class="token punctuation">.</span>runtimeType<span class="token punctuation">}</span><span class="token punctuation">.</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">'misbehave() partially handled ${e.runtimeType}.'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">rethrow</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// Allow callers to see the exception.</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
@@ -202,7 +202,7 @@
 <span class="token keyword">try</span> <span class="token punctuation">{</span>
   <span class="token function">breedMoreLlamas</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span> <span class="token keyword">catch</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token function">print</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>Error<span class="token punctuation">:</span> $e<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">// Handle the exception first.</span>
+  <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">'Error: $e'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">// Handle the exception first.</span>
 <span class="token punctuation">}</span> <span class="token keyword">finally</span> <span class="token punctuation">{</span>
   <span class="token function">cleanLlamaStalls</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">// Then clean up.</span>
 <span class="token punctuation">}</span>

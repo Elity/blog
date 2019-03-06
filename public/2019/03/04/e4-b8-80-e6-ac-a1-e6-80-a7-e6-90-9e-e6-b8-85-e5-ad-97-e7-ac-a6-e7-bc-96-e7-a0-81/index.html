@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Fighting">
+    <meta name="description" content="写给未来的回忆录">
     <meta name="keyword" content="Fighting">
     <link rel="shortcut icon" href="/blog/img/favicon.ico">
 
@@ -22,7 +22,7 @@
     <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
     <!-- ga & ba script hoook -->
     <script></script>
-<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"><script src="/blog/js/prism.js"></script></head>
 
 <body>
 
@@ -145,11 +145,11 @@
 </span>
 
     </div>
-    <div class="post-content ">
+    <div class="post-content no-indent">
         <h2 id="正文开始前的絮叨"><a href="#正文开始前的絮叨" class="headerlink" title="正文开始前的絮叨"></a>正文开始前的絮叨</h2><p><strong>不看并不影响后面的理解</strong></p>
 <p>弄清各种编码的念头在我脑海里面已经浮现过 N 回了，我相信很多人也一样，特别是接触过后端语言的人，会时不时碰到乱码，需要按正确的编码类型解码才能得到正常的文字。一提到编码，我们脑海里可能冒出了 N 多词汇：ASCII 码、Unicode、utf8、gbk、Latin1…他们分别是什么？在什么场合下使用？了解 js/node.js 的小伙伴，对如下两个函数并不陌生：</p>
-<pre class=" language-javascript"><code class="language-javascript"><span class="token function">encodeURI</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>一<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// &amp;quot;%E4%B8%80&amp;quot;</span>
-<span class="token function">escape</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>一<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// &amp;quot;%u4E00&amp;quot;</span>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token function">encodeURI</span><span class="token punctuation">(</span><span class="token string">'一'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// "%E4%B8%80"</span>
+<span class="token function">escape</span><span class="token punctuation">(</span><span class="token string">'一'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// "%u4E00"</span>
 </code></pre>
 <p>这两个函数运算的结果分别对应上面提到的哪种“编码”呢？</p>
 <h2 id="先说结论"><a href="#先说结论" class="headerlink" title="先说结论"></a>先说结论</h2><ol start="0">
@@ -166,9 +166,9 @@
 01100011
 </code></pre>
 <p>分别转成十进制就是<code>97</code>、<code>98</code>、<code>99</code>:</p>
-<pre class=" language-javascript"><code class="language-javascript"><span class="token function">parseInt</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token number">01100001</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 97</span>
-<span class="token function">parseInt</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token number">01100010</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 98</span>
-<span class="token function">parseInt</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token number">01100011</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 99</span>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token function">parseInt</span><span class="token punctuation">(</span><span class="token string">'01100001'</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 97</span>
+<span class="token function">parseInt</span><span class="token punctuation">(</span><span class="token string">'01100010'</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 98</span>
+<span class="token function">parseInt</span><span class="token punctuation">(</span><span class="token string">'01100011'</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 99</span>
 </code></pre>
 <p>查 ASCII 码表我们知道，这个文件的内容就是<code>abc</code>。</p>
 <h3 id="Latin1，gbk"><a href="#Latin1，gbk" class="headerlink" title="Latin1，gbk"></a>Latin1，gbk</h3><p>我们知道，一个字节有 8 个比特位，一个比特位又可以用<code>0</code>和<code>1</code>表示两种状态，那么，这 8 个比特位都用上的话，理论上来说可以表示 2^8 =256 个字符，而现在 ASCII 码才占用了 128 个，多浪费啊！！后来，欧洲一些使用拉丁字母的国家率先发现了这个“惊天秘密”，在 ASCII 码表的后面继续编码，从 161 开始 256 结束，加入 96 个字母及符号，还搞了个国际化标准名，叫<a href="https://zh.wikipedia.org/wiki/ISO/IEC_8859-1" target="_blank" rel="noopener">ISO 8859-1</a>，又叫 Latin-1，从此这些国家也可以愉快的使用计算机了。</p>
@@ -243,14 +243,14 @@
 <ol>
 <li>node.js 安装<code>iconv-lite</code>库，然后：</li>
 </ol>
-<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">const</span> iconv <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>iconv<span class="token operator">-</span>lite<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-iconv<span class="token punctuation">.</span><span class="token function">encode</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>一<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>utf8<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">// 得到 &amp;lt;Buffer e4 b8 80&amp;gt;</span>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">const</span> iconv <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'iconv-lite'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+iconv<span class="token punctuation">.</span><span class="token function">encode</span><span class="token punctuation">(</span><span class="token string">'一'</span><span class="token punctuation">,</span> <span class="token string">'utf8'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// 得到 &lt;Buffer e4 b8 80></span>
 </code></pre>
 <ol start="2">
 <li>通过 JavaScript 内置函数<code>encodeURI</code>:</li>
 </ol>
-<pre class=" language-javascript"><code class="language-javascript"><span class="token function">encodeURI</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>一<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token function">encodeURI</span><span class="token punctuation">(</span><span class="token string">'一'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token comment" spellcheck="true">// 得到 %E4%B8%80</span>
 </code></pre>
 <h3 id="BOM"><a href="#BOM" class="headerlink" title="BOM"></a>BOM</h3><blockquote>
@@ -273,16 +273,16 @@ iconv<span class="token punctuation">.</span><span class="token function">encode
 </code></pre>
 <h3 id="x-html-实体"><a href="#x-html-实体" class="headerlink" title="&#x;html 实体"></a>&#x;html 实体</h3><p>规则<code>&amp;#</code> + 字符 Unicode 码十进制 + ‘;’</p>
 <p>字符<code>一</code>的 Unicode 十进制为：<code>19968</code>，所以有下面：</p>
-<pre class=" language-html"><code class="language-html"><span class="token entity" title="&lt;">&amp;lt;</span>span<span class="token entity" title="&gt;">&amp;gt;</span>一<span class="token entity" title="&lt;">&amp;lt;</span>/span<span class="token entity" title="&gt;">&amp;gt;</span>
-<span class="token entity" title="&lt;">&amp;lt;</span>!-- 二者等同 --<span class="token entity" title="&gt;">&amp;gt;</span>
-<span class="token entity" title="&lt;">&amp;lt;</span>span<span class="token entity" title="&gt;">&amp;gt;</span><span class="token entity" title="&#19968;">&amp;#19968;</span><span class="token entity" title="&lt;">&amp;lt;</span>/span<span class="token entity" title="&gt;">&amp;gt;</span>
+<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span><span class="token punctuation">></span></span>一<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
+<span class="token comment" spellcheck="true">&lt;!-- 二者等同 --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span><span class="token punctuation">></span></span>一<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
 </code></pre>
 <h3 id="encodeURI-encodeURIComponent"><a href="#encodeURI-encodeURIComponent" class="headerlink" title="encodeURI/encodeURIComponent"></a>encodeURI/encodeURIComponent</h3><p>转换<code>U+0000 - U+007F</code>以外的字符为 utf-8 形式：</p>
-<pre class=" language-javascript"><code class="language-javascript"><span class="token function">encodeURIComponent</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>一<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// &amp;quot;%E4%B8%80&amp;quot;</span>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token function">encodeURIComponent</span><span class="token punctuation">(</span><span class="token string">'一'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// "%E4%B8%80"</span>
 </code></pre>
 <h3 id="escape"><a href="#escape" class="headerlink" title="escape"></a>escape</h3><p>得到码点在<code>U+0000ff</code> 之后字符的<code>UTF-16</code>：</p>
-<pre class=" language-javascript"><code class="language-javascript"><span class="token function">escape</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>一<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// %u4E00</span>
-<span class="token function">escape</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>\uD842\uDFB7<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// %uD842%uDFB7</span>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token function">escape</span><span class="token punctuation">(</span><span class="token string">'一'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// %u4E00</span>
+<span class="token function">escape</span><span class="token punctuation">(</span><span class="token string">'\uD842\uDFB7'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// %uD842%uDFB7</span>
 </code></pre>
 <h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ol>
 <li><a href="http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html" target="_blank" rel="noopener">字符编码笔记：ASCII，Unicode 和 UTF-8</a></li>

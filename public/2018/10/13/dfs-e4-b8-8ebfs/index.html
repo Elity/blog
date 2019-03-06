@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Fighting">
+    <meta name="description" content="写给未来的回忆录">
     <meta name="keyword" content="Fighting">
     <link rel="shortcut icon" href="/blog/img/favicon.ico">
 
@@ -22,7 +22,7 @@
     <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
     <!-- ga & ba script hoook -->
     <script></script>
-<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"><script src="/blog/js/prism.js"></script></head>
 
 <body>
 
@@ -139,7 +139,7 @@
 </span>
 
     </div>
-    <div class="post-content ">
+    <div class="post-content no-indent">
         <p>DFS与BFS实现，考虑到递归有爆栈的可能，所以，采用循环来做，实现思路都是通过维护一个stack，只是入栈的规则不一样。<br>以遍历DOM节点为例：</p>
 <pre class=" language-javascript"><code class="language-javascript">
 <span class="token keyword">function</span> <span class="token function">dfs</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -149,7 +149,7 @@
     <span class="token keyword">while</span> <span class="token punctuation">(</span>tmp <span class="token operator">=</span> stack<span class="token punctuation">.</span><span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
         nodes<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>tmp<span class="token punctuation">)</span>
         <span class="token keyword">let</span> childs <span class="token operator">=</span> tmp<span class="token punctuation">.</span>children<span class="token punctuation">,</span> len <span class="token operator">=</span> childs<span class="token punctuation">.</span>length<span class="token punctuation">,</span> i <span class="token operator">=</span> len <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span> i <span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span> i <span class="token operator">></span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
             stack<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>childs<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span>
         <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
@@ -164,7 +164,7 @@
     <span class="token keyword">while</span> <span class="token punctuation">(</span>tmp <span class="token operator">=</span> stack<span class="token punctuation">.</span><span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
         nodes<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>tmp<span class="token punctuation">)</span>
         <span class="token keyword">let</span> childs <span class="token operator">=</span> tmp<span class="token punctuation">.</span>children<span class="token punctuation">,</span> len <span class="token operator">=</span> childs<span class="token punctuation">.</span>length<span class="token punctuation">,</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span> i <span class="token operator">&amp;</span>lt<span class="token punctuation">;</span> len<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> len<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
             stack<span class="token punctuation">.</span><span class="token function">unshift</span><span class="token punctuation">(</span>childs<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span>
         <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>

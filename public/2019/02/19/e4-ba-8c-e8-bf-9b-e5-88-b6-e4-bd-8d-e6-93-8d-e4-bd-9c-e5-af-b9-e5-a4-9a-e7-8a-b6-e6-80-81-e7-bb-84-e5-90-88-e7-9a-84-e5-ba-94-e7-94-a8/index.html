@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Fighting">
+    <meta name="description" content="写给未来的回忆录">
     <meta name="keyword" content="Fighting">
     <link rel="shortcut icon" href="/blog/img/favicon.ico">
 
@@ -22,7 +22,7 @@
     <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
     <!-- ga & ba script hoook -->
     <script></script>
-<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"><script src="/blog/js/prism.js"></script></head>
 
 <body>
 
@@ -136,14 +136,14 @@
 </span>
 
     </div>
-    <div class="post-content ">
+    <div class="post-content no-indent">
         <p>这其实是属于前辈级程序员们玩剩下的东西，去写win32的程序，调用win32 api的时候，经常会碰到属性状态的组合，比如这个<a href="https://docs.microsoft.com/en-us/windows/desktop/api/winuser/nf-winuser-messagebox#examples" target="_blank" rel="noopener">例子</a>：</p>
 <pre class=" language-c"><code class="language-c"><span class="token keyword">int</span> <span class="token function">DisplayResourceNAMessageBox</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
     <span class="token keyword">int</span> msgboxID <span class="token operator">=</span> <span class="token function">MessageBox</span><span class="token punctuation">(</span>
         <span class="token constant">NULL</span><span class="token punctuation">,</span>
-        <span class="token punctuation">(</span>LPCWSTR<span class="token punctuation">)</span>L<span class="token operator">&amp;</span>quot<span class="token punctuation">;</span>Resource not available\nDo you want to try again<span class="token operator">?</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token punctuation">,</span>
-        <span class="token punctuation">(</span>LPCWSTR<span class="token punctuation">)</span>L<span class="token operator">&amp;</span>quot<span class="token punctuation">;</span>Account Details<span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token punctuation">,</span>
+        <span class="token punctuation">(</span>LPCWSTR<span class="token punctuation">)</span>L<span class="token string">"Resource not available\nDo you want to try again?"</span><span class="token punctuation">,</span>
+        <span class="token punctuation">(</span>LPCWSTR<span class="token punctuation">)</span>L<span class="token string">"Account Details"</span><span class="token punctuation">,</span>
         MB_ICONWARNING <span class="token operator">|</span> MB_CANCELTRYCONTINUE <span class="token operator">|</span> MB_DEFBUTTON2
     <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
@@ -172,8 +172,8 @@
 <span class="token keyword">const</span> STATUS_D <span class="token operator">=</span> <span class="token number">8</span> <span class="token comment" spellcheck="true">// 二进制 1000</span>
 </code></pre>
 <p>为什么这么定义？ 因为二进制的<code>或运算(|)</code>有如下特征：</p>
-<pre class=" language-asm"><code class="language-asm">1000 | 10 ==&gt; 1010
-10 | 101 ==&gt; 111
+<pre class=" language-asm"><code class="language-asm">1000 | 10 ==> 1010
+10 | 101 ==> 111
 ...
 </code></pre>
 <p>二进制位右对齐后，两个同位置的值有一个为1，则结果为1，否则结果为0。</p>
@@ -183,18 +183,18 @@
 <p>很明显<code>STATUS_B</code>对应的第二位与<code>STATUS_D</code>对应的第四位被置为了1，而另两位依然是0</p>
 <p>人眼是很容易看明白哪位为0，哪位为1，程序有什么快速的方式知道呢？</p>
 <p>答案，依然是位运算，不过这次用<code>与运算(&amp;)</code>，特征如下：</p>
-<pre class=" language-asm"><code class="language-asm">101 &amp; 11  ==&gt; 101
-111 &amp; 10  ==&gt; 110
+<pre class=" language-asm"><code class="language-asm">101 " 11  ==> 101
+111 " 10  ==> 110
 ...
 </code></pre>
 <p>二进制位右对齐后，两个同位置的值同时为1，则结果为1，其中一项不为1，则结果为0。</p>
 <p>利用这个特性，当我们需要知道某状态是否被设置时，只需要入参的值与该状态的值做<code>与运算</code>就好了，因为该状态的值对应位的值肯定为1，所以就有：</p>
 <pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">let</span> status <span class="token operator">=</span> STATUS_B <span class="token operator">|</span> STATUS_D <span class="token comment" spellcheck="true">// 得到 status 为二进制 1010</span>
 
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>status <span class="token operator">&amp;</span>amp<span class="token punctuation">;</span> STATUS_A<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 输出0</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>status <span class="token operator">&amp;</span>amp<span class="token punctuation">;</span> STATUS_B<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 输出十进制2 对应二进制 10</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>status <span class="token operator">&amp;</span>amp<span class="token punctuation">;</span> STATUS_C<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 输出0</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>status <span class="token operator">&amp;</span>amp<span class="token punctuation">;</span> STATUS_D<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 输出十进制8 对应二进制 1000</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>status " STATUS_A<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 输出0</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>status " STATUS_B<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 输出十进制2 对应二进制 10</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>status " STATUS_C<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 输出0</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>status " STATUS_D<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 输出十进制8 对应二进制 1000</span>
 </code></pre>
 <p>聪明的你，应该已经知道答案了吧。</p>
 <p>完整示例：</p>
@@ -205,17 +205,17 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <span class="token keyword">const</span> STATUS_D <span class="token operator">=</span> <span class="token function">parseInt</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span>
 
 <span class="token keyword">function</span> <span class="token function">statusHandle</span><span class="token punctuation">(</span>statuMask<span class="token punctuation">)</span><span class="token punctuation">{</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span>statuMask <span class="token operator">&amp;</span>amp<span class="token punctuation">;</span> STATUS_A<span class="token punctuation">)</span><span class="token punctuation">{</span>
-        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>状态A被设置<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>statuMask " STATUS_A<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'状态A被设置'</span><span class="token punctuation">)</span>
     <span class="token punctuation">}</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span>statuMask <span class="token operator">&amp;</span>amp<span class="token punctuation">;</span> STATUS_B<span class="token punctuation">)</span><span class="token punctuation">{</span>
-        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>状态B被设置<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>statuMask " STATUS_B<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'状态B被设置'</span><span class="token punctuation">)</span>
     <span class="token punctuation">}</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span>statuMask <span class="token operator">&amp;</span>amp<span class="token punctuation">;</span> STATUS_C<span class="token punctuation">)</span><span class="token punctuation">{</span>
-        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>状态C被设置<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>statuMask " STATUS_C<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'状态C被设置'</span><span class="token punctuation">)</span>
     <span class="token punctuation">}</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span>statuMask <span class="token operator">&amp;</span>amp<span class="token punctuation">;</span> STATUS_D<span class="token punctuation">)</span><span class="token punctuation">{</span>
-        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>状态D被设置<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>statuMask " STATUS_D<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'状态D被设置'</span><span class="token punctuation">)</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 <span class="token comment" spellcheck="true">/*      test       */</span>

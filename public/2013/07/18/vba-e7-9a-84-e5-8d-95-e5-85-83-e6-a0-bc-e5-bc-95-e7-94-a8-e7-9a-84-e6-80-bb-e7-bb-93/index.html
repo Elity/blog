@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Fighting">
+    <meta name="description" content="写给未来的回忆录">
     <meta name="keyword" content="Fighting">
     <link rel="shortcut icon" href="/blog/img/favicon.ico">
 
@@ -22,7 +22,7 @@
     <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
     <!-- ga & ba script hoook -->
     <script></script>
-<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"><script src="/blog/js/prism.js"></script></head>
 
 <body>
 
@@ -139,7 +139,7 @@
 </span>
 
     </div>
-    <div class="post-content ">
+    <div class="post-content no-indent">
         <p>   初到公司，除了偶尔去工地看看，大多数时间都在办公室帮忙整理资料。频繁使用excel后觉得很有必要好好学学VBA。网上找了点资料开始学习。学习过程中发现，VBA对于单元格的引用有点类似于CSS（其实更像jQuery）的选择器，先引用区域，再对区域进行各项操作。于是乎网上找到了这篇整理好的《vba的单元格引用的总结》。</p>
 <p>=====================================================================================</p>
 <h1 id="在使用ExcelVBA进行编程时，我们通常需要频繁地引用单元格区域，然后再使用相应的属性和方法对区域进行操作。所谓单元格区域，指的是单个的单元格、或者是由多个单元格组成的区域、或者是整行、整列等。下面，我们设定一些情形，以问答的形式对引用单元格区域的方式进行归纳。"><a href="#在使用ExcelVBA进行编程时，我们通常需要频繁地引用单元格区域，然后再使用相应的属性和方法对区域进行操作。所谓单元格区域，指的是单个的单元格、或者是由多个单元格组成的区域、或者是整行、整列等。下面，我们设定一些情形，以问答的形式对引用单元格区域的方式进行归纳。" class="headerlink" title="在使用ExcelVBA进行编程时，我们通常需要频繁地引用单元格区域，然后再使用相应的属性和方法对区域进行操作。所谓单元格区域，指的是单个的单元格、或者是由多个单元格组成的区域、或者是整行、整列等。下面，我们设定一些情形，以问答的形式对引用单元格区域的方式进行归纳。"></a>在使用ExcelVBA进行编程时，我们通常需要频繁地引用单元格区域，然后再使用相应的属性和方法对区域进行操作。所谓单元格区域，指的是单个的单元格、或者是由多个单元格组成的区域、或者是整行、整列等。下面，我们设定一些情形，以问答的形式对引用单元格区域的方式进行归纳。</h1><p>问题一：在VBA代码中，如何引用当前工作表中的单个单元格(例如引用单元格C3)？<br>回答：可以使用下面列举的任一方式对当前工作表中的单元格(C3)进行引用。<br>(1) Range(“C3”)<br>(2) [C3]<br>(3) Cells(3, 3)<br>(4) Cells(3, “C”)<br>(5) Range(“C4”).Offset(-1)<br>Range(“D3”).Offset(, -1)<br>Range(“A1”).Offset(2, 2)<br>(6) 若C3为当前单元格，则可使用：ActiveCell<br>(7) 若将C3单元格命名为“Range1”，则可使用：Range(“Range1”)或[Range1]<br>(8) Cells(4, 3).Offset(-1)  </p>

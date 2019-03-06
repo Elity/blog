@@ -23,9 +23,9 @@ Object.keys(String(Array(101)));
 
 ②
 ```javascript
-Array.from({length:100},(v,k)=&gt;k);
+Array.from({length:100},(v,k)=>k);
 //or
-Array.from(Array(100), (v,k)=&gt;k);
+Array.from(Array(100), (v,k)=>k);
 ```
 
 ③
@@ -45,7 +45,7 @@ Number.prototype[Symbol.iterator] = function() {
         next() {
             return {
                 value: this.v++,
-                done: this.v &gt; this.e
+                done: this.v > this.e
             }
         }
     }
@@ -57,17 +57,17 @@ Number.prototype[Symbol.iterator] = function() {
 ```javascript
 function* angry(i){
   yield i;
-  if (i &lt; 99) { yield* angry(i + 1); }
+  if (i < 99) { yield* angry(i + 1); }
 };
 Array.from(angry(0));
 ```
 ⑦递归
 ```javascript
-(function wallace(i) { return (i &lt; 0) ? [] : wallace(i - 1).concat(i); })(99);
+(function wallace(i) { return (i < 0) ? [] : wallace(i - 1).concat(i); })(99);
 ```
 ⑧尾递归
 ```javascript
-(function mistake(i, acc) { return (i &lt; 100) ? mistake(i + 1, acc.concat(i)) : acc; })(0, []);
+(function mistake(i, acc) { return (i < 100) ? mistake(i + 1, acc.concat(i)) : acc; })(0, []);
 ```
 ⑨计时器都想到了
 ```javascript
@@ -75,7 +75,7 @@ var i = 0;
 var a = [];
 var timer = setInterval(function () {
   a[i] = i++;
-  if (i &gt;= 100) {
+  if (i >= 100) {
     clearInterval(timer);
     console.log(a);
   }
@@ -86,7 +86,7 @@ var timer = setInterval(function () {
 var a = [];
 var i = 0;
 function step(timestamp) { 
-  if (i &lt; 100) {
+  if (i < 100) {
     a[i] = i++;
     requestAnimationFrame(step);
   } else {
@@ -97,9 +97,9 @@ requestAnimationFrame(step);
 ```
 ⑩
 ```javascript
-new Array(101).join(&#039;a&#039;)
-    .replace(/a/g, function (v, i) { return i + &#039;,&#039;; })
-    .split(&#039;,&#039;).splice(0, 100);
+new Array(101).join('a')
+    .replace(/a/g, function (v, i) { return i + ','; })
+    .split(',').splice(0, 100);
 ```
 ⑾ Y组合子
 ```javascript
@@ -111,7 +111,7 @@ new Array(101).join(&#039;a&#039;)
     });
 })(function (excited) {
     return function (i) {
-        return (i &lt; 0) ? [] : excited(i - 1).concat(i);
+        return (i < 0) ? [] : excited(i - 1).concat(i);
     }
 })(99);
 ```
@@ -138,31 +138,31 @@ VM.prototype.interpret = function() {
   var ops = instruction.slice(1)
  
   switch (op) {
-    case &#039;jl&#039;:
-      if (vm.ax &lt; vm.bx) {
+    case 'jl':
+      if (vm.ax < vm.bx) {
         vm.pc = ops[0]
         return vm.interpret()
       }
-    case &#039;inc&#039;:
+    case 'inc':
       vm.ax++
       break
-    case &#039;ld&#039;:
+    case 'ld':
       vm[ops[0]] = ops[1]
       break
-    case &#039;push&#039;:
+    case 'push':
       vm.stack.push(vm[ops[0]])
       break
-    case &#039;pop&#039;:
+    case 'pop':
       vm[ops[0]] = vm.stack.pop()
       break
-    case &#039;arr_push&#039;:
+    case 'arr_push':
       vm.bx.push(vm.ax)
       break
-    case &#039;ret&#039;:
+    case 'ret':
       return vm.ax
       break
     default:
-      throw &#039;wtf??&#039;
+      throw 'wtf??'
   }
   vm.pc++
   return vm.interpret()
@@ -170,21 +170,21 @@ VM.prototype.interpret = function() {
  
 function make_a_100_len_array_without_fucking_loop() {
   var codes = [
-    [&#039;ld&#039;, &#039;ax&#039;, 0],  // 0
-    [&#039;ld&#039;, &#039;bx&#039;, []], // 1
-    [&#039;push&#039;, &#039;bx&#039;],   // 2
-    [&#039;push&#039;, &#039;ax&#039;],   // 3
-    [&#039;pop&#039;, &#039;ax&#039;],    // 4
-    [&#039;pop&#039;, &#039;bx&#039;],    // 5
-    [&#039;arr_push&#039;],     // 6
-    [&#039;inc&#039;],          // 7
-    [&#039;push&#039;, &#039;bx&#039;],   // 8
-    [&#039;push&#039;, &#039;ax&#039;],   // 9
-    [&#039;ld&#039;, &#039;bx&#039;, 100],// 10
-    [&#039;jl&#039;, 4],        // 11
-    [&#039;pop&#039;, &#039;bx&#039;],    // 12
-    [&#039;pop&#039;, &#039;ax&#039;],    // 13
-    [&#039;ret&#039;]
+    ['ld', 'ax', 0],  // 0
+    ['ld', 'bx', []], // 1
+    ['push', 'bx'],   // 2
+    ['push', 'ax'],   // 3
+    ['pop', 'ax'],    // 4
+    ['pop', 'bx'],    // 5
+    ['arr_push'],     // 6
+    ['inc'],          // 7
+    ['push', 'bx'],   // 8
+    ['push', 'ax'],   // 9
+    ['ld', 'bx', 100],// 10
+    ['jl', 4],        // 11
+    ['pop', 'bx'],    // 12
+    ['pop', 'ax'],    // 13
+    ['ret']
   ]
   var vm = new VM()
   return vm.run(codes)

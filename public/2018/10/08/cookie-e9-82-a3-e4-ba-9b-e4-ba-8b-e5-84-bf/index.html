@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Fighting">
+    <meta name="description" content="写给未来的回忆录">
     <meta name="keyword" content="Fighting">
     <link rel="shortcut icon" href="/blog/img/favicon.ico">
 
@@ -22,7 +22,7 @@
     <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
     <!-- ga & ba script hoook -->
     <script></script>
-<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"><script src="/blog/js/prism.js"></script></head>
 
 <body>
 
@@ -136,15 +136,15 @@
 </span>
 
     </div>
-    <div class="post-content ">
+    <div class="post-content no-indent">
         <p>面试别人的时候，经常碰到自诩精通HTTP协议的人，我一般会丢个问题“HTTP协议是否有状态？”，来试探是否真的“了解”HTTP协议，很多人听到问题就懵逼了，这TM还是我认识的HTTP协议么。偶尔碰到一个说是无状态的，我继续追问“既然HTTP是无状态的，那么我打开一个网站，然后刷新一下，服务器能否知道这次的访问者和上次的访问者是否是同一个客户端？”，然后继续懵逼，转而把答案改为“那应该是有状态的吧？”</p>
 <p>所以啊，我们很多时候学技术性东西，还是要追求甚解，知其然，知其所以然。</p>
 <p>HTTP协议当然是无状态的，我们在实际场景中是如何区分客户的呢？传统的做法就是利用Cookie来标记用户，用户第一次访问服务器，服务器便在Response Header中添加Set-Cookie，写入标记该用户的唯一标识符，用户二次访问时，将该标识符带回，服务器即可区分该用户是否是之前的用户了。</p>
 <p>说到我们本文的主角Cookie，当然不是那么简简单单的事情（事实上是我自己一直以来将其看得过于简单，后来脸被打肿）。</p>
 <h3 id="两种方式设置cookie："><a href="#两种方式设置cookie：" class="headerlink" title="两种方式设置cookie："></a>两种方式设置cookie：</h3><ul>
-<li>Set-Cookie(http方式)<br>服务端通过在Response Header中添加Set-Cookie，告知客户端如何存储cookie，一般格式：<pre><code>Set-Cookie: &amp;lt;cookie-name&amp;gt;=&amp;lt;cookie-value&amp;gt;; Domain=&amp;lt;domain-value&amp;gt;;Max-Age=&amp;lt;non-zero-digit&amp;gt;;Expires=&amp;lt;date&amp;gt;;Path=&amp;lt;path-value&amp;gt;;SameSite=&amp;lt;Strict|Lax&amp;gt;; Secure; HttpOnly
+<li>Set-Cookie(http方式)<br>服务端通过在Response Header中添加Set-Cookie，告知客户端如何存储cookie，一般格式：<pre><code>Set-Cookie: &lt;cookie-name&gt;=&lt;cookie-value&gt;; Domain=&lt;domain-value&gt;;Max-Age=&lt;non-zero-digit&gt;;Expires=&lt;date&gt;;Path=&lt;path-value&gt;;SameSite=&lt;Strict|Lax&gt;; Secure; HttpOnly
 </code></pre></li>
-<li>document.cookie(代码方式)<br>客户端（通常指浏览器）通过javascript直接给document.cookie赋值设置cookie<pre class=" language-javascript"><code class="language-javascript">document<span class="token punctuation">.</span>cookie<span class="token operator">=</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token operator">&amp;</span>lt<span class="token punctuation">;</span>cookie<span class="token operator">-</span>name<span class="token operator">&amp;</span>gt<span class="token punctuation">;</span><span class="token operator">=</span><span class="token operator">&amp;</span>lt<span class="token punctuation">;</span>cookie<span class="token operator">-</span>value<span class="token operator">&amp;</span>gt<span class="token punctuation">;</span><span class="token punctuation">;</span> Domain<span class="token operator">=</span><span class="token operator">&amp;</span>lt<span class="token punctuation">;</span>domain<span class="token operator">-</span>value<span class="token operator">&amp;</span>gt<span class="token punctuation">;</span><span class="token punctuation">;</span>Max<span class="token operator">-</span>Age<span class="token operator">=</span><span class="token operator">&amp;</span>lt<span class="token punctuation">;</span>non<span class="token operator">-</span>zero<span class="token operator">-</span>digit<span class="token operator">&amp;</span>gt<span class="token punctuation">;</span><span class="token punctuation">;</span>Expires<span class="token operator">=</span><span class="token operator">&amp;</span>lt<span class="token punctuation">;</span>date<span class="token operator">&amp;</span>gt<span class="token punctuation">;</span><span class="token punctuation">;</span>Path<span class="token operator">=</span><span class="token operator">&amp;</span>lt<span class="token punctuation">;</span>path<span class="token operator">-</span>value<span class="token operator">&amp;</span>gt<span class="token punctuation">;</span><span class="token punctuation">;</span>SameSite<span class="token operator">=</span><span class="token operator">&amp;</span>lt<span class="token punctuation">;</span>Strict<span class="token operator">|</span>Lax<span class="token operator">&amp;</span>gt<span class="token punctuation">;</span><span class="token punctuation">;</span> Secure<span class="token punctuation">;</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span>
+<li>document.cookie(代码方式)<br>客户端（通常指浏览器）通过javascript直接给document.cookie赋值设置cookie<pre class=" language-javascript"><code class="language-javascript">document<span class="token punctuation">.</span>cookie<span class="token operator">=</span><span class="token string">"&lt;cookie-name>=&lt;cookie-value>; Domain=&lt;domain-value>;Max-Age=&lt;non-zero-digit>;Expires=&lt;date>;Path=&lt;path-value>;SameSite=&lt;Strict|Lax>; Secure;"</span>
 </code></pre>
 很明显，除了客户端无法设置HttpOnly外，其他与服务端基本一致。</li>
 </ul>

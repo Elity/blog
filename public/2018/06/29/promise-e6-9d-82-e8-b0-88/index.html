@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Fighting">
+    <meta name="description" content="写给未来的回忆录">
     <meta name="keyword" content="Fighting">
     <link rel="shortcut icon" href="/blog/img/favicon.ico">
 
@@ -22,7 +22,7 @@
     <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
     <!-- ga & ba script hoook -->
     <script></script>
-<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"><script src="/blog/js/prism.js"></script></head>
 
 <body>
 
@@ -139,7 +139,7 @@
 </span>
 
     </div>
-    <div class="post-content ">
+    <div class="post-content no-indent">
         <blockquote>
 <p>最近又花时间理了一下Promise的设计逻辑，有一些小收获整理下。</p>
 </blockquote>
@@ -169,7 +169,7 @@
         <span class="token keyword">if</span><span class="token punctuation">(</span>people <span class="token keyword">instanceof</span> <span class="token class-name">People</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
             <span class="token keyword">this</span><span class="token punctuation">.</span>people <span class="token operator">=</span> people
         <span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
-            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">TypeError</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>类Work构造函数应该传入类People的实例<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">TypeError</span><span class="token punctuation">(</span><span class="token string">'类Work构造函数应该传入类People的实例'</span><span class="token punctuation">)</span>
         <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
     <span class="token function">doWork</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
@@ -186,15 +186,15 @@
 <p>显然，重构以后，使用<code>Man</code>与<code>Woman</code>的控制权交到了使用<code>Work</code>类的人手中，而不是创建<code>Work</code>类的人手中，这就是控制反转。</p>
 <p>控制反转的情况，在Javascript代码经常打交道的回调函数处体现得淋漓尽致：</p>
 <pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">work</span><span class="token punctuation">(</span>workFn<span class="token punctuation">)</span><span class="token punctuation">{</span>
-    workFn <span class="token operator">&amp;</span>amp<span class="token punctuation">;</span><span class="token operator">&amp;</span>amp<span class="token punctuation">;</span> <span class="token function">workFn</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    workFn <span class="token string">""</span> <span class="token function">workFn</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token punctuation">}</span>
 
 <span class="token function">work</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>A<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'A'</span><span class="token punctuation">)</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span>
 
 <span class="token function">work</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>B<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'B'</span><span class="token punctuation">)</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span>
 </code></pre>
 <p>然而，控制反转被应用于回调这样的场景带来了诸多问题：</p>

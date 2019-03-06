@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Fighting">
+    <meta name="description" content="写给未来的回忆录">
     <meta name="keyword" content="Fighting">
     <link rel="shortcut icon" href="/blog/img/favicon.ico">
 
@@ -22,7 +22,7 @@
     <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
     <!-- ga & ba script hoook -->
     <script></script>
-<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"><script src="/blog/js/prism.js"></script></head>
 
 <body>
 
@@ -142,7 +142,7 @@
 </span>
 
     </div>
-    <div class="post-content ">
+    <div class="post-content no-indent">
         <p>昨天读了关于javascript继承的<a href="http://www.cnblogs.com/sanshi/archive/2009/07/08/1519036.html" target="_blank" rel="noopener">几篇文章</a>，对原型链、construct、this有了新的认识。</p>
 <p>由于javascript原生是不支持类的(ES6已经支持class与extends)，更不用谈继承、多态了，为了模拟出一些其它面向对象编程语言的这些特性，有好多大牛写了给出了实现方式，看了John Resig的<a href="http://ejohn.org/blog/simple-javascript-inheritance/" target="_blank" rel="noopener">《Simple JavaScript Inheritance》</a>这篇文章，深深被折服了。原来短短几十行javascript也可以这么强大、优雅。</p>
 <p>下面以我的理解方式来解读下。主要实现了继承、访问父类的重名方法（这里的实现方式太妙了），但遗憾的是不能实现成员变量/函数的隐藏。</p>
@@ -176,13 +176,13 @@
     <span class="token comment" spellcheck="true">//   把this._super指向父类的同名方法，然后再调用子类的该方法并返回执行结果</span>
     <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> name <span class="token keyword">in</span> prop<span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token comment" spellcheck="true">// 循环体中看起来略微复杂，是整个代码的精华所在</span>
-      <span class="token comment" spellcheck="true">//简化下此过程就是  v = a &amp;amp;&amp;amp; b &amp;amp;&amp;amp; c ? d : e; 等同于 v = (a &amp;amp;&amp;amp; b &amp;amp;&amp;amp; c) ? d : e</span>
+      <span class="token comment" spellcheck="true">//简化下此过程就是  v = a "" b "" c ? d : e; 等同于 v = (a "" b "" c) ? d : e</span>
       <span class="token comment" spellcheck="true">//该过程中主要运用的就是逻辑运算中的短路运算 a,b,c全为true则v=d，否则v=e</span>
       <span class="token comment" spellcheck="true">//a中判断prop[name]是否是函数，b中判断父类中是否也有同名的name函数，c主要判断name函数中是否有调用父类的同名方法（即调用了this._super()）</span>
       <span class="token comment" spellcheck="true">//d就是a,b,c同时满足的时候，也就是说：name是函数，且name函数存在与父类中，且子类的name函数需要调用了父类的同名函数</span>
       <span class="token comment" spellcheck="true">//若a,b,c中有一项不满足则直接把prop[name]给prototype[name]</span>
-      prototype<span class="token punctuation">[</span>name<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">typeof</span> prop<span class="token punctuation">[</span>name<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token keyword">function</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span> <span class="token operator">&amp;</span>amp<span class="token punctuation">;</span><span class="token operator">&amp;</span>amp<span class="token punctuation">;</span>
-        <span class="token keyword">typeof</span> _super<span class="token punctuation">[</span>name<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token keyword">function</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span> <span class="token operator">&amp;</span>amp<span class="token punctuation">;</span><span class="token operator">&amp;</span>amp<span class="token punctuation">;</span> fnTest<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>prop<span class="token punctuation">[</span>name<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">?</span>
+      prototype<span class="token punctuation">[</span>name<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">typeof</span> prop<span class="token punctuation">[</span>name<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">"function"</span> <span class="token string">""</span>
+        <span class="token keyword">typeof</span> _super<span class="token punctuation">[</span>name<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">"function"</span> <span class="token string">""</span> fnTest<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>prop<span class="token punctuation">[</span>name<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">?</span>
         <span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span> fn<span class="token punctuation">)</span><span class="token punctuation">{</span>
           <span class="token comment" spellcheck="true">//首先，先决条件决定了prototype[name]是个函数，所以先包裹一个函数返回</span>
           <span class="token keyword">return</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -207,7 +207,7 @@
     <span class="token comment" spellcheck="true">//这个Class实为子类的构造函数</span>
     <span class="token keyword">function</span> <span class="token function">Class</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token comment" spellcheck="true">//不是A.extends({</span><span class="token comment" spellcheck="true">/*   */</span><span class="token punctuation">}</span><span class="token punctuation">)</span>过程中
-      <span class="token keyword">if</span> <span class="token punctuation">(</span> <span class="token operator">!</span>initializing <span class="token operator">&amp;</span>amp<span class="token punctuation">;</span><span class="token operator">&amp;</span>amp<span class="token punctuation">;</span> <span class="token keyword">this</span><span class="token punctuation">.</span>init <span class="token punctuation">)</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span> <span class="token operator">!</span>initializing <span class="token string">""</span> <span class="token keyword">this</span><span class="token punctuation">.</span>init <span class="token punctuation">)</span>
         <span class="token keyword">this</span><span class="token punctuation">.</span>init<span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> arguments<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 

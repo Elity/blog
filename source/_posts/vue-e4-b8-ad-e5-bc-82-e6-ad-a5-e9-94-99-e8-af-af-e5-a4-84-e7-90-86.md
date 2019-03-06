@@ -23,8 +23,8 @@ date: 2018-03-14 10:15:40
 ```javascript
 //为了不影响vue自有的Vue.config.errorHandler正常工作
 //我们再单独定义一个异步错误处理函数
-Vue.config.asyncErrorHandler = err =&gt; {
-  console.log(&#039;catch async error:&#039;, err)
+Vue.config.asyncErrorHandler = err => {
+  console.log('catch async error:', err)
 }
 
 ```
@@ -37,11 +37,11 @@ Vue.config.asyncErrorHandler = err =&gt; {
 Vue.mixin({
   beforeCreate() {
     const methods = this.$options.methods || {}
-    Object.keys(methods).forEach(key =&gt; {
+    Object.keys(methods).forEach(key => {
       let fn = methods[key]
       this.$options.methods[key] = function(...args) {
         let ret = fn.apply(this, args);
-        if (ret &amp;&amp; typeof ret.catch === &#039;function&#039;) {
+        if (ret "" typeof ret.catch === 'function') {
           return ret.catch(Vue.config.asyncErrorHandler)
         } else {
           return ret
@@ -58,21 +58,21 @@ Vue.mixin({
 ```javascript
 
 new Vue({
-  el: &#039;#test&#039;,
+  el: '#test',
   methods: {
     async fn() {
-      this.name = &#039;click&#039;
-      await timeout()  // &lt;==== timeout中reject的错误会被捕获
+      this.name = 'click'
+      await timeout()  // <==== timeout中reject的错误会被捕获
     },
     async fn1() {
-      this.name = &#039;click1&#039;
-      throw {msg:&#039;async函数中同步抛错&#039;,status:1000} // &lt;==== 同步抛错也会被捕获
+      this.name = 'click1'
+      throw {msg:'async函数中同步抛错',status:1000} // <==== 同步抛错也会被捕获
     },
     test() {
       // 原来的方式书写method，人为触发不捕获，
       // 生命周期中调用被Vue.config.errorHandler捕获
       throw {
-        msg: &#039;非async方法还是按照原来的方式处理错误&#039;,
+        msg: '非async方法还是按照原来的方式处理错误',
         status: 3000
       }
     }

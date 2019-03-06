@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Fighting">
+    <meta name="description" content="写给未来的回忆录">
     <meta name="keyword" content="Fighting">
     <link rel="shortcut icon" href="/blog/img/favicon.ico">
 
@@ -22,7 +22,7 @@
     <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
     <!-- ga & ba script hoook -->
     <script></script>
-<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"><script src="/blog/js/prism.js"></script></head>
 
 <body>
 
@@ -142,23 +142,23 @@
 </span>
 
     </div>
-    <div class="post-content ">
+    <div class="post-content no-indent">
         <p>实现一个函数LazyMan，执行情况如下：</p>
-<pre class=" language-javascript"><code class="language-javascript"><span class="token function">LazyMan</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span>Hank<span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token punctuation">)</span>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token function">LazyMan</span><span class="token punctuation">(</span><span class="token string">"Hank"</span><span class="token punctuation">)</span>
 <span class="token comment" spellcheck="true">// 输出:Hi! This is Hank!</span>
  
-<span class="token function">LazyMan</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span>Hank<span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">eat</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span>dinner<span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token punctuation">)</span>
+<span class="token function">LazyMan</span><span class="token punctuation">(</span><span class="token string">"Hank"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">eat</span><span class="token punctuation">(</span><span class="token string">"dinner"</span><span class="token punctuation">)</span>
 <span class="token comment" spellcheck="true">// 输出 Hi! This is Hank!</span>
 <span class="token comment" spellcheck="true">// 等待10秒..</span>
 <span class="token comment" spellcheck="true">// 输出 Wake up after 10</span>
 <span class="token comment" spellcheck="true">// 输出 Eat dinner</span>
  
-<span class="token function">LazyMan</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span>Hank<span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">eat</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span>dinner<span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">eat</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span>supper<span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token punctuation">)</span>
+<span class="token function">LazyMan</span><span class="token punctuation">(</span><span class="token string">"Hank"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">eat</span><span class="token punctuation">(</span><span class="token string">"dinner"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">eat</span><span class="token punctuation">(</span><span class="token string">"supper"</span><span class="token punctuation">)</span>
 <span class="token comment" spellcheck="true">// 输出 Hi This is Hank!</span>
 <span class="token comment" spellcheck="true">// 输出 Eat dinner</span>
 <span class="token comment" spellcheck="true">// 输出 Eat supper</span>
  
-<span class="token function">LazyMan</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span>Hank<span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">sleepFirst</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">eat</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>quot<span class="token punctuation">;</span>supper<span class="token operator">&amp;</span>quot<span class="token punctuation">;</span><span class="token punctuation">)</span>
+<span class="token function">LazyMan</span><span class="token punctuation">(</span><span class="token string">"Hank"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">sleepFirst</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">eat</span><span class="token punctuation">(</span><span class="token string">"supper"</span><span class="token punctuation">)</span>
 <span class="token comment" spellcheck="true">// 等待5秒</span>
 <span class="token comment" spellcheck="true">// 输出 Hi This is Hank!</span>
 <span class="token comment" spellcheck="true">// 输出 Eat supper</span>

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Fighting">
+    <meta name="description" content="写给未来的回忆录">
     <meta name="keyword" content="Fighting">
     <link rel="shortcut icon" href="/blog/img/favicon.ico">
 
@@ -22,7 +22,7 @@
     <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
     <!-- ga & ba script hoook -->
     <script></script>
-<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"><script src="/blog/js/prism.js"></script></head>
 
 <body>
 
@@ -136,7 +136,7 @@
 </span>
 
     </div>
-    <div class="post-content ">
+    <div class="post-content no-indent">
         <h3 id="1-Promise-race"><a href="#1-Promise-race" class="headerlink" title="1.Promise.race"></a>1.Promise.race</h3><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise/race#Description" target="_blank" rel="noopener">Promise.race</a>用于处理一般竞态问题，参数为一个<del>迭代器</del>可迭代对象，该对象中的任意成员状态发生改变，<code>Promise.race</code>返回的<code>promise</code>状态随即发生改变。<br>然而，当该对象里面没有值的情况下，<code>Promise.race</code>返回的<code>promise</code>将永远处于<code>pending</code>状态。<br><code>Promise.all</code>对于空的可迭代对象则永远返回一个<code>resolved</code>状态的<code>promise</code>。<br>此情此景类似于<code>Array.prototype.some</code>与<code>Array.prototype.every</code>:<br><code>[].some(()=&gt;{}) === false</code><br><code>[].every(()=&gt;{}) === true</code></p>
 <h3 id="2-thenable"><a href="#2-thenable" class="headerlink" title="2.thenable"></a>2.thenable</h3><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise/resolve" target="_blank" rel="noopener">Promise.resolve</a> 接受的参数可能为一个<code>promise</code>对象或其他对象，当这个对象不是<code>Promise</code>对象的实例时，若这个对象有then方法或其原型链上面有then方法，我们称这个对象为thenable对象，<code>Promise.resolve</code>内部会执行这个<code>then</code>方法，并传入<code>onFulfilled</code>与<code>onRejected</code>两个原生函数，用于调用决定返回的Promise实例的状态。<br>此策略用于将<code>jQuery.Deferred()</code>返回的对象及其他<code>类Promise</code>对象转成原生Promise，然而，此举导致我们在<code>resolve</code>一个值时需要格外小心，这个值的原型链上面是否有自定义的then方法，比如：</p>
 <pre class=" language-javascript"><code class="language-javascript">Array<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>then <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>

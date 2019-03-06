@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Fighting">
+    <meta name="description" content="写给未来的回忆录">
     <meta name="keyword" content="Fighting">
     <link rel="shortcut icon" href="/blog/img/favicon.ico">
 
@@ -22,7 +22,7 @@
     <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
     <!-- ga & ba script hoook -->
     <script></script>
-<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"><script src="/blog/js/prism.js"></script></head>
 
 <body>
 
@@ -136,7 +136,7 @@
 </span>
 
     </div>
-    <div class="post-content ">
+    <div class="post-content no-indent">
         <ul>
 <li>用如下表达式表示包含数字的情况<pre class=" language-javascript"><code class="language-javascript"><span class="token regex">/\D*\d/</span>
 </code></pre>
@@ -145,9 +145,9 @@
 </code></pre>
 </li>
 </ul>
-<h6 id="测试："><a href="#测试：" class="headerlink" title="测试："></a>测试：</h6><pre class=" language-javascript"><code class="language-javascript"><span class="token regex">/(?:\D*\d){3}/</span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>aaawqdw<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span>   <span class="token comment" spellcheck="true">//false</span>
-<span class="token regex">/(?:\D*\d){3}/</span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>aaa12wqdw<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span>   <span class="token comment" spellcheck="true">//false</span>
-<span class="token regex">/(?:\D*\d){3}/</span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span>a1aaw2qd3w<span class="token operator">&amp;</span>#<span class="token number">039</span><span class="token punctuation">;</span><span class="token punctuation">)</span>   <span class="token comment" spellcheck="true">//true</span>
+<h6 id="测试："><a href="#测试：" class="headerlink" title="测试："></a>测试：</h6><pre class=" language-javascript"><code class="language-javascript"><span class="token regex">/(?:\D*\d){3}/</span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span><span class="token string">'aaawqdw'</span><span class="token punctuation">)</span>   <span class="token comment" spellcheck="true">//false</span>
+<span class="token regex">/(?:\D*\d){3}/</span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span><span class="token string">'aaa12wqdw'</span><span class="token punctuation">)</span>   <span class="token comment" spellcheck="true">//false</span>
+<span class="token regex">/(?:\D*\d){3}/</span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span><span class="token string">'a1aaw2qd3w'</span><span class="token punctuation">)</span>   <span class="token comment" spellcheck="true">//true</span>
 </code></pre>
 
         

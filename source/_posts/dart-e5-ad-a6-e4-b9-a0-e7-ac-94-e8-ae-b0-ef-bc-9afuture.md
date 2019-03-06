@@ -21,13 +21,13 @@ Dart下的`Future`类似于ES6下新增的`Promise`，也是为了解决异步�
 computation 的返回值可以是普通值或者是`Future`对象
 
 ```dart
-Future&lt;num&gt; future1 = Future((){
-	print(&#039;async call1&#039;);
+Future<num> future1 = Future((){
+	print('async call1');
 	return 123;
 });
 
-Future&lt;Future&gt; future2 = Future((){
-	print(&#039;async call2&#039;);
+Future<Future> future2 = Future((){
+	print('async call2');
 	return future1;
 });
 
@@ -37,8 +37,8 @@ Future&lt;Future&gt; future2 = Future((){
 > `Future.sync(FutureOr<T> computation())`
 
 ```dart
-Future&lt;num&gt; future = Future.sync((){
-	print(&#039;sync call&#039;);
+Future<num> future = Future.sync((){
+	print('sync call');
 	return 123;
 });
 ```
@@ -48,7 +48,7 @@ Future&lt;num&gt; future = Future.sync((){
 延时后再执行computation
 ```dart
 Future.delayed(Duration(seconds: 1), () {
-	print(&quot;print after 1 second&quot;);
+	print("print after 1 second");
 });
 ```
 
@@ -64,14 +64,14 @@ Future.value(123);
 
 创建一个future对象，以错误状态完成
 ```dart
-Future.error(&#039;some error&#039;);
+Future.error('some error');
 ```
 
 > `Future.microtask(FutureOr<T> computation())`
 
 dart下的异步任务队列有两个：`event queue`和`microtask queue`，`microtask queue`的优先级更高，而future的任务默认是属于`event queue`。上面这个构造函数就可以创建属于`microtask queue`的future。
 ```dart
-Future.microtask(()=&gt;print(&quot;microtask&quot;));
+Future.microtask(()=>print("microtask"));
 ```
 
 ### 实例方法
@@ -80,16 +80,16 @@ Future.microtask(()=&gt;print(&quot;microtask&quot;));
 
 行为与ES6中`Promise.prototype.then`几乎一致
 ```dart
-Future.val(123).then((val)=&gt;print(val));
+Future.val(123).then((val)=>print(val));
 
-Future.error(&quot;some error&quot;).then((val) {},{onError: (err) =&gt; print(err)});
+Future.error("some error").then((val) {},{onError: (err) => print(err)});
 ```
 
 > `catchError(Function onError, { bool test(Object error) }) → Future<T>`
 
 处理future中的异常，第二个参数不使用的情况下，与ES6中的`Promise.prototype.catch`一致
 ```dart
-Future.error(&quot;some error&quot;).catchError((err) =&gt; print(err));
+Future.error("some error").catchError((err) => print(err));
 ```
 第二个参数提供的情况下，必须返回true，回调函数才能正常捕获错误。暂没想到该参数有什么用。
 
@@ -104,8 +104,8 @@ Future.error(&quot;some error&quot;).catchError((err) =&gt; print(err));
 ```dart
   Future.delayed(Duration(seconds: 2)).timeout(Duration(seconds: 1),
       onTimeout: () {
-    print(&quot;timeout&quot;);
-    return &quot;TIME OUT&quot;;
+    print("timeout");
+    return "TIME OUT";
   });
 ```
 
@@ -113,8 +113,8 @@ Future.error(&quot;some error&quot;).catchError((err) =&gt; print(err));
 
 类似于ES7中的`Promise.prototype.finally`,无论future是正常完成还是产生异常都会执行
 ```dart
-Future.value(&quot;value&quot;).whenComplete(() {
-    print(&#039;complete&#039;);
+Future.value("value").whenComplete(() {
+    print('complete');
   })
 ```
 
@@ -127,9 +127,9 @@ Future.value(&quot;value&quot;).whenComplete(() {
 
 ```dart
 Future.any([
-  Future.delayed(Duration(seconds: 1)).then((val) =&gt; 1),
-  Future.delayed(Duration(seconds: 2)).then((val) =&gt; 2),
-  Future.delayed(Duration(seconds: 3)).then((val) =&gt; 3),
+  Future.delayed(Duration(seconds: 1)).then((val) => 1),
+  Future.delayed(Duration(seconds: 2)).then((val) => 2),
+  Future.delayed(Duration(seconds: 3)).then((val) => 3),
 ]).then((val) {
   print(val); // val == 1
 });
@@ -142,8 +142,8 @@ do{}while()的异步版本
 var i = 0;
 Future.doWhile(() {
   print(i++);
-  return Future.value(i &lt; 10);
-}).then((val) =&gt; print(&#039;after doWhile&#039;));
+  return Future.value(i < 10);
+}).then((val) => print('after doWhile'));
 ```
 
 > `forEach<T>(Iterable<T> elements, FutureOr action(T element)) → Future`
@@ -154,7 +154,7 @@ Future.doWhile(() {
 Future.forEach([1, Future.delayed(Duration(seconds: 2)), 3], (val) {
   print(val);
   return val;
-}).then((val) =&gt; print(&#039;success=&gt;&gt;&gt;$val&#039;));
+}).then((val) => print('success=>>>$val'));
 ```
 
 
@@ -163,10 +163,10 @@ Future.forEach([1, Future.delayed(Duration(seconds: 2)), 3], (val) {
 只`eagerError`参数未`true`的情况下，其行为与ES6中`Promise.all`基本一致
 ```dart
 Future.wait([
-  Future.delayed(Duration(seconds: 1)).then((val) =&gt; 1),
-  Future.delayed(Duration(seconds: 2)).then((val) =&gt; 2),
-  Future.delayed(Duration(seconds: 3)).then((val) =&gt; 3),
-]).then((val) =&gt; print(val));  // 3s后得到val 为 [1,2,3]
+  Future.delayed(Duration(seconds: 1)).then((val) => 1),
+  Future.delayed(Duration(seconds: 2)).then((val) => 2),
+  Future.delayed(Duration(seconds: 3)).then((val) => 3),
+]).then((val) => print(val));  // 3s后得到val 为 [1,2,3]
 ```
 `eagerError`默认值为`false`，表明futures中任何一项执行出错都不会立即返回新的future，而是需要等待所有项都是完成状态才会返回。
 
@@ -174,28 +174,28 @@ Future.wait([
 ```dart
 Future.wait([
   Future.delayed(Duration(milliseconds: 1500))
-      .then((val) =&gt; Future.error(&#039;error&#039;)),
-  Future.delayed(Duration(seconds: 1)).then((val) =&gt; 1),
-  Future.delayed(Duration(seconds: 2)).then((val) =&gt; 2),
-  Future.delayed(Duration(seconds: 3)).then((val) =&gt; 3),
+      .then((val) => Future.error('error')),
+  Future.delayed(Duration(seconds: 1)).then((val) => 1),
+  Future.delayed(Duration(seconds: 2)).then((val) => 2),
+  Future.delayed(Duration(seconds: 3)).then((val) => 3),
 ], eagerError: false)
-    .then((val) =&gt; print(&#039;then=&gt;$val&#039;), onError: (err) =&gt; print(&#039;err=&gt;$err&#039;));
+    .then((val) => print('then=>$val'), onError: (err) => print('err=>$err'));
 ```
 `cleanUp`在futures中某项出错的时候，会给每项正常执行的future提供清理操作，传递给`cleanUp`的参数为每个正常执行项的完成值，`Future.await`只会处理最先抛出的错误，但是整个程序会等待所有的future项完成才会结束。
 ```dart
 Future.wait([
   Future.delayed(Duration(milliseconds: 1500))
-      .then((val) =&gt; Future.error(&#039;error&#039;)),
-  Future.delayed(Duration(seconds: 1)).then((val) =&gt; 1),
-  Future.delayed(Duration(seconds: 2)).then((val) =&gt; 2),
-], cleanUp: (val) =&gt; print(&#039;complete=&gt;${val}&#039;))
-    .then((val) =&gt; print(&#039;then=&gt;$val&#039;), onError: (err) =&gt; print(&#039;err=&gt;$err&#039;));
+      .then((val) => Future.error('error')),
+  Future.delayed(Duration(seconds: 1)).then((val) => 1),
+  Future.delayed(Duration(seconds: 2)).then((val) => 2),
+], cleanUp: (val) => print('complete=>${val}'))
+    .then((val) => print('then=>$val'), onError: (err) => print('err=>$err'));
 ```
 以上代码会在1.5s后依次输出：
 ```
-complete=&gt;1
-complete=&gt;2
-err=&gt;error
+complete=>1
+complete=>2
+err=>error
 ```
 
 
