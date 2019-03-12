@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="写给未来的回忆录">
     <meta name="keyword" content="Fighting">
-    <link rel="shortcut icon" href="/blog/img/favicon.ico">
+    <link rel="shortcut icon" href="/img/favicon.ico">
 
     <title>
         
@@ -16,13 +16,13 @@
     </title>
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/blog/css/aircloud.css">
-    <link rel="stylesheet" href="/blog/css/gitment.css">
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
     <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
     <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
     <!-- ga & ba script hoook -->
     <script></script>
-<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"><script src="/blog/js/prism.js"></script></head>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"><script src="/js/prism.js"></script></head>
 
 <body>
 
@@ -45,7 +45,7 @@
 <div class="nav" id="nav">
     <div class="avatar-name">
         <div class="avatar">
-            <img src="/blog/img/avatar.png">
+            <img src="/img/avatar.png">
         </div>
         <div class="name">
             <i>Fighting</i>
@@ -54,25 +54,25 @@
     <div class="contents" id="nav-content">
         <ul>
             <li>
-                <a href="/blog/">
+                <a href="/">
                     <i class="iconfont icon-shouye1"></i>
                     <span>HOME</span>
                 </a>
             </li>
             <li>
-                <a href="/blog/tags">
+                <a href="/tags">
                     <i class="iconfont icon-biaoqian1"></i>
                     <span>TAGS</span>
                 </a>
             </li>
             <li>
-                <a href="/blog/archives">
+                <a href="/archives">
                     <i class="iconfont icon-guidang2"></i>
                     <span>ARCHIVES</span>
                 </a>
             </li>
             <li>
-                <a href="/blog/about/">
+                <a href="/about/">
                     <i class="iconfont icon-guanyu2"></i>
                     <span>ABOUT</span>
                 </a>
@@ -127,13 +127,13 @@
         
         <span class="attr">Tags：/
         
-        <a class="tag" href="/blog/tags/#IE" title="IE">IE</a>
+        <a class="tag" href="/tags/#IE" title="IE">IE</a>
         <span>/</span>
         
-        <a class="tag" href="/blog/tags/#兼容" title="兼容">兼容</a>
+        <a class="tag" href="/tags/#兼容" title="兼容">兼容</a>
         <span>/</span>
         
-        <a class="tag" href="/blog/tags/#浏览器" title="浏览器">浏览器</a>
+        <a class="tag" href="/tags/#浏览器" title="浏览器">浏览器</a>
         <span>/</span>
         
         
@@ -151,7 +151,7 @@
         &lt;!\-\- End Header Section Content --&gt;
 </code></pre><p>那么我们在上面的基础是增加一个条件语句，我们就可以使用条件注释，我们在平时用到的就是IE的有条件注释。IE的有条件注释是一种专有的（非标准的）、对常规(X)HTML注释的Miscrosoft扩展。换句话说，有条件注释使你能够根据条件（比如说浏览器的版本）显示代码块。尽管是非标准的，但是有条件注释对于其他所有浏览器作为常规注释出现,因此本质上是无害的。有条件注释在 Windows 上的 IE5 中首次出现,并且得到了 Widnows 浏览器所有后续版本的支持。</p>
 <p>那么为什么要创建条件样式呢？言外之意我们创建条件样式有什么好处呢？创建条件样式优点在于：<strong>可以将部分兼容代码识让符合条件的浏览器识别；其二让你的主要样式表整洁，清爽。</strong>不过大家要记住，虽然我们这里说的是创建有条件样式，但这种条件注释标签的使用不仅仅只能用于CSS，你可以应用在javaScript中，他们甚至可以在您的网站内容显示特殊的IE浏览器特定的消息。下面我们一起来看看其具体的应用，和使用方法。</p>
-<h4 id="调用条件样式的方法"><a href="#调用条件样式的方法" class="headerlink" title="调用条件样式的方法"></a>调用条件样式的方法</h4><p>我们调用条件样式方法和<link>标签一样，常常放置在<head><meta name="generator" content="Hexo 3.8.0">标签中。和前面所见识的普通注释不一样的是，这里需要加上条件判断，具体格式如下所示：<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"><script src="/blog/js/prism.js"></script></head></p>
+<h4 id="调用条件样式的方法"><a href="#调用条件样式的方法" class="headerlink" title="调用条件样式的方法"></a>调用条件样式的方法</h4><p>我们调用条件样式方法和<link>标签一样，常常放置在<head><meta name="generator" content="Hexo 3.8.0">标签中。和前面所见识的普通注释不一样的是，这里需要加上条件判断，具体格式如下所示：<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"><script src="/blog/js/prism.js"></script><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"><script src="/js/prism.js"></script></head></p>
 <pre><code>        &lt;!--\[if IE\]&gt;
             ...
         &lt;!\[endif\]--&gt;
@@ -334,11 +334,11 @@
 <script>
     // We expose some of the variables needed by the front end
     window.hexo_search_path = "search.json"
-    window.hexo_root = "/blog/"
+    window.hexo_root = "/"
     window.isPost = true
 </script>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-<script src="/blog/js/index.js"></script>
+<script src="/js/index.js"></script>
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
