@@ -147,7 +147,7 @@
 <p>在使用里如article标签之前先用js创建一个虚假的article元素，IE就会识别这个元素了，而支持用css设定样式。这个虚假元素甚至都不需要插入到DOM中</p>
 <p>如代码：</p>
 <p>&lt; !DOCTYPE HTML&gt;</p>
-<html lang="en"><br><head><meta name="generator" content="Hexo 3.8.0"><br><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><br><title>unknown elements</title><br><style><br>article{display:block;border:1px solid red}<br></style><br><link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"><script src="/blog/js/prism.js"></script><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"><script src="/js/prism.js"></script></head><br><body><br><article><br><h1>welcome to feimos’s blog</h1><br><p>This is your <span>first time to visit this webSite.</span></p><br></article><br></body><br></html>
+<html lang="en"><br><head><meta name="generator" content="Hexo 3.8.0"><br><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><br><title>unknown elements</title><br><style><br>article{display:block;border:1px solid red}<br></style><br><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"><script src="/js/prism.js"></script></head><br><body><br><article><br><h1>welcome to feimos’s blog</h1><br><p>This is your <span>first time to visit this webSite.</span></p><br></article><br></body><br></html>
 
 <p>IE6不会识别article，所以也不会有红色边框。</p>
 <p>但是如果我们在head中加入一句js，情况立马就不一样了。</p>

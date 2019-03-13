@@ -157,7 +157,7 @@
 <p>秉承一颗探索的心（此刻内心略为激动。。），做了如下代码测试，</p>
 <p>html代码：</p>
 <p>&lt;!doctype html&gt;</p>
-<html lang="en"><br><head><meta name="generator" content="Hexo 3.8.0"><br>    <meta charset="UTF-8"><br>    <title>test</title><br><link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"><script src="/blog/js/prism.js"></script><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"><script src="/js/prism.js"></script></head><br><body><br>    <div id="one" data="test data"></div><br></body><br></html>
+<html lang="en"><br><head><meta name="generator" content="Hexo 3.8.0"><br>    <meta charset="UTF-8"><br>    <title>test</title><br><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"><script src="/js/prism.js"></script></head><br><body><br>    <div id="one" data="test data"></div><br></body><br></html>
 
 <p>with语句获取div#data值</p>
 <p>var now = +new Date;<br>for(var i=0;i&lt;1000000;i++){<br>   with(document)with(getElementById(“one”))getAttribute(“data”)<br>}<br>console.log(new Date-now)</p>
