@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="写给未来的回忆录">
+    <meta name="keyword" content="Fighting">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        华为网盘(dbank)免验证码/免登录下载破解 (提供chrome扩展) - Fighting的博客 | Fighting&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"><script src="/js/prism.js"></script></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Fighting&#39;s Blog </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Fighting</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Fighting&#39;s Blog </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        华为网盘(dbank)免验证码/免登录下载破解 (提供chrome扩展)
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2012-11-11 15:18:05</span></span>
+        
+        <span class="attr">Tags：/
+        
+        <a class="tag" href="/tags/#破解" title="破解">破解</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#dbankm" title="dbankm">dbankm</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#免登录" title="免登录">免登录</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#免验证码" title="免验证码">免验证码</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#华为网盘" title="华为网盘">华为网盘</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content no-indent">
+        <p>很早就想去解决这个问题了，经常想搞又忘记了，今天光棍节嘛！！！在寝室无聊着，找了它的js文件 ，发现获取地址还是挺简单的 ，粗看一下，直接找到了迅雷地址获取的函数，也许还有原地址，懒得去找了~~~直接用迅雷地址然后Base64解码得到原地址。当然，Base64解码的函数它已经定义了 dbank.base64.decode()</p>
+<p>关键文件 <a href="http://st1.dbank.com/netdisk/js/custom-link2.js" target="_blank" rel="noopener">http://st1.dbank.com/netdisk/js/custom-link2.js</a></p>
+<p>具体代码</p>
+<p>dbank.crt = {};<br>(function() {<br>    var c = function(h, l) {<br>        var k = [],<br>        e = 0,<br>        d,<br>        g = “”;<br>        for (var f = 0; f &lt; 256; f++) {<br>            k[f] = f<br>        }<br>        for (f = 0; f &lt; 256; f++) {<br>            e = (e + k[f] + h.charCodeAt(f % h.length)) % 256;<br>            d = k[f];<br>            k[f] = k[e];<br>            k[e] = d<br>        }<br>        f = 0;<br>        e = 0;<br>        for (var m = 0; m &lt; l.length; m++) {<br>            f = (f + 1) % 256;<br>            e = (e + k[f]) % 256;<br>            d = k[f];<br>            k[f] = k[e];<br>            k[e] = d;<br>            g += String.fromCharCode(l.charCodeAt(m) ^ k[(k[f] + k[e]) % 256])<br>        }<br>        return g<br>    };<br>    var b = function(d, e) {<br>        var h = 0,<br>        g = “”,<br>        l = e.length,<br>        f = d.length;<br>        for (; h &lt; f; h++) {<br>            var k = d.charCodeAt(h) ^ e.charCodeAt(h % l);<br>            g += String.fromCharCode(k)<br>        }<br>        return g<br>    };<br>    dbank.crt.decrypt = function(g, e) {<br>        g = dbank.base64.decode(g);<br>        var d,<br>        f = e.substr(0, 2);<br>        switch (f) {<br>        case “ea”:<br>            d = g;<br>            break;<br>        case “eb”:<br>            d = b(g, c(e, e));<br>            break;<br>        case “ed”:<br>            d = b(g, $.md5(e));<br>            break;<br>        default:<br>            d = g<br>        }<br>        return d<br>    };<br>    thunder_decode=function(u){<br>        u=u.replace(‘thunder:\/\/‘,’’);<br>        u=dbank.base64.decode(u).replace(/^AA/g,’’).replace(/ZZ$/g,’’);<br>        return u;<br>    };<br>    var checkbox = $(“#down_filelist”).find(“input[type=checkbox][checked]“);<br>    var allUrl=’’;<br>    for (var i = 0; i &lt; checkbox.length; i++) {<br>        var node= $(checkbox[i]).parent().next().find(“a”);<br>        var node_=$(checkbox[i]).parent().next().next().children().next().find(‘a’);<br>        var h = node.attr(“id”);<br>        var h_file = dbank.securelink.findDestFileById(h);<br>        h = dbank.crt.decrypt(h_file.xunleiurl, dbank.securelink.encrykey);<br>        h=thunder_decode(h);<br>        allUrl=allUrl+h+’&lt;br\&gt;&lt;br\&gt;’;<br>        node.attr(‘onclick’,’’);//还原每个文件的下载链接<br>        node.attr(‘href’,h);<br>        node_.attr(‘onclick’,’’);<br>        node_.attr(‘href’,h);<br>    }<br>    document.write(allUrl);<br>} ());</p>
+<p>提供一个简单方法，支持主流浏览器</p>
+<p>把下列<strong>蓝色</strong>文字拖拽到<strong>书签栏</strong>，在<strong>下载页</strong>面<strong>点击</strong>该书签即可</p>
+<p>就是这货，拖入书签栏→→→    <a href="javascript:(function(" target="_blank" rel="noopener">华为网盘</a>{var s=document.createElement(‘script’);s.src=’<a href="http://0.tiebaimg.duapp.com/huawei.txt&#39;;document.body.appendChild(s)})();" target="_blank" rel="noopener">http://0.tiebaimg.duapp.com/huawei.txt&#39;;document.body.appendChild(s)})();</a>)</p>
+<p>或者下载chrome类浏览器扩展（支持chrome18+ 360极速  搜狗等浏览器）</p>
+<p><a href="http://dl.vmall.com/c09kdhlh4k" target="_blank" rel="noopener"></a><a href="http://dl.vmall.com/c09kdhlh4k" target="_blank" rel="noopener">http://dl.vmall.com/c09kdhlh4k</a></p>
+<p>安装方法请自行百度</p>
+<p>这样，所有的按钮都可以点击下载了</p>
+<p><img src="http://pic.yupoo.com/a408115319/CpmoQz0k/625Ti.png" alt></p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="写给未来的回忆录">
+    <meta name="keyword" content="Fighting">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        使用 JSONP 实现跨域通信，第 1 部分: 结合 JSONP 和 jQuery 快速构建强大的 mashup - Fighting的博客 | Fighting&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"><script src="/js/prism.js"></script></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Fighting&#39;s Blog </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Fighting</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Fighting&#39;s Blog </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        使用 JSONP 实现跨域通信，第 1 部分: 结合 JSONP 和 jQuery 快速构建强大的 mashup
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2012-11-15 22:36:26</span></span>
+        
+        <span class="attr">Tags：/
+        
+        <a class="tag" href="/tags/#Javascript" title="Javascript">Javascript</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#跨域" title="跨域">跨域</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#JSON" title="JSON">JSON</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#JSONP" title="JSONP">JSONP</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content no-indent">
+        <p>最近想通过手机贴吧页面<a href="http://wapp.baidu.com实现在贴吧首页http://tieba.baidu.com点击自动签到" target="_blank" rel="noopener">http://wapp.baidu.com实现在贴吧首页http://tieba.baidu.com点击自动签到</a></p>
+<p>没想到遇到了跨域问题 ….好吧 js小白   没办法  网上找了这篇文章实现跨域 很详细</p>
+<p>=====================================================</p>
+<p>简介</p>
+<p>Asynchronous JavaScript and XML (Ajax) 是驱动新一代 Web 站点（流行术语为 Web 2.0 站点）的关键技术。Ajax 允许在不干扰 Web 应用程序的显示和行为的情况下在后台进行数据检索。使用 XMLHttpRequest 函数获取数据，它是一种 API，允许客户端 JavaScript 通过 HTTP 连接到远程服务器。Ajax 也是许多 mashup 的驱动力，它可将来自多个地方的内容集成为单一 Web 应用程序。</p>
+<p>不过，由于受到浏览器的限制，该方法不允许跨域通信。如果尝试从不同的域请求数据，会出现安全错误。如果能控制数据驻留的远程服务器并且每个请求都前往同一域，就可以避免这些安全错误。但是，如果仅停留在自己的服务器上，Web 应用程序还有什么用处呢？如果需要从多个第三方服务器收集数据时，又该怎么办？</p>
+<p>理解同源策略限制</p>
+<p>同源策略阻止从一个域上加载的脚本获取或操作另一个域上的文档属性。也就是说，受到请求的 URL 的域必须与当前 Web 页面的域相同。这意味着浏览器隔离来自不同源的内容，以防止它们之间的操作。这个浏览器策略很旧，从 Netscape Navigator 2.0 版本开始就存在。</p>
+<p>克服该限制的一个相对简单的方法是让 Web 页面向它源自的 Web 服务器请求数据，并且让 Web 服务器像代理一样将请求转发给真正的第三方服务器。尽管该技术获得了普遍使用，但它是不可伸缩的。另一种方式是使用框架要素在当前 Web 页面中创建新区域，并且使用 GET 请求获取任何第三方资源。不过，获取资源后，框架中的内容会受到同源策略的限制。</p>
+<p>克服该限制更理想方法是在 Web 页面中插入动态脚本元素，该页面源指向其他域中的服务 URL 并且在自身脚本中获取数据。脚本加载时它开始执行。该方法是可行的，因为同源策略不阻止动态脚本插入，并且将脚本看作是从提供 Web 页面的域上加载的。但如果该脚本尝试从另一个域上加载文档，就不会成功。幸运的是，通过添加 JavaScript Object Notation (JSON) 可以改进该技术。</p>
+<p>JSON 和 JSONP</p>
+<p>JSON 是用于在浏览器和服务器之间交换信息的轻量级数据格式（与 XML 相比）。JOSON 依赖于 JavaScript 开发人员，因为它是 JavaScript 对象的字符串表示。例如，假设有一个含两个属性的 ticker 对象：symbol 和 price。这是在 JavaScript 中定义 ticker 对象的方式：</p>
+<p>var ticker = {symbol: ‘IBM’, price: 91.42};</p>
+<p>并且这是它的 JSON 表示方式：</p>
+<p>{symbol: ‘IBM’, price: 91.42}</p>
+<p>从 <a href="http://www.ccc5.cc/1605.html#resources" target="_blank" rel="noopener">参考资料</a> 查找更多有关 JSON 和将其作为数据内部交换格式的信息。清单 1 定义了一个 JavaScript 函数，调用该函数时会显示 IBM 的股价。（我们没有详细介绍如何将该函数添加到 Web 页面）。</p>
+<p><strong>清单 1. 定义 showPrice 函数</strong></p>
+<p>function showPrice(data) {<br>    alert(“Symbol: “ + data.symbol + “, Price: “ + data.price);<br>}</p>
+<p>可以将 JSON 数据作为参数传递，以调用该函数：</p>
+<p>showPrice({symbol: ‘IBM’, price: 91.42}); // alerts: Symbol: IBM, Price: 91.42</p>
+<p>现在准备将这两个步骤包含到 Web 页面，如清单 2 所示。</p>
+<p><strong>清单 2. 在 Web 页面中包含 showPrice 函数和参数</strong></p>
+<script type="text/javascript">
+function showPrice(data) {
+    alert("Symbol: " + data.symbol + ", Price: " + data.price);
+}
+</script>
+<script type="text/javascript">showPrice({symbol: 'IBM', price: 91.42});</script>
+
+<p>加载页面后，应该看如图 1 所示的警告。</p>
+<p><strong>图 1. IBM ticker</strong><br><img src="http://www.ibm.com/developerworks/cn/web/wa-aj-jsonp1/ticker.jpg" alt="IBM ticker">  </p>
+<p>至此，本文已展示了如何将静态 JSON 数据作为参数调用 JavaScript 函数。不过，通过在函数调用中动态包装 JSON 数据可以用动态数据调用函数，这是一种动态 JavaScript 插入的技术。要查看其效果，将下面一行放入名为 ticker.js 的独立 JavaScript 文件中。</p>
+<p>showPrice({symbol: ‘IBM’, price: 91.42});</p>
+<p>现在改变 Web 页面中的脚本，使其和清单 3 一样。</p>
+<p><strong>清单 3. 动态 JavaScript 插入代码</strong></p>
+<script type="text/javascript">
+// This is our function to be called with JSON data
+function showPrice(data) {
+    alert("Symbol: " + data.symbol + ", Price: " + data.price);
+}
+var url = “ticker.js”; // URL of the external script
+// this shows dynamic script insertion
+var script = document.createElement('script');
+script.setAttribute('src', url);
+
+// load the script
+document.getElementsByTagName('head')\[0\].appendChild(script); 
+</script>
+
+<p>在清单 3 所示的例子中，动态插入的 JavaScript 代码位于 ticker.js 文件中，它将真正的 JSON 数据作为参数调用 showPrice()函数。</p>
+<p>前面已经提到，同源策略不阻止将动态脚本元素插入文档中。也就是说，可以动态插入来自不同域的 JavaScript，并且这些域都携带 JSON 数据。这其实是真正的 JSONP（JSON with Padding）：打包在函数调用中的 JSON 数据。注意，为了完成该操作，Web 页面必须在插入时具有已经定义好的回调函数，也就是我们例子中的 showPrice()。</p>
+<p>不过，所谓的 JSONP 服务（或 Remote JSON Service）是一种带有附加功能的 Web 服务，该功能支持在特定于用户的函数调用中打包返回的 JSON 数据。这种方法依赖于接受回调函数名作为请求参数的远程服务。然后该服务生成对该函数的调用，将 JSON 数据作为参数传递，在到达客户端时将其插入 Web 页面并开始执行。</p>
+<p>jQuery 的 JSONP 支持</p>
+<p>从 1.2 版本开始，jQuery 拥有对 JSONP 回调的本地支持。如果指定了 JSONP 回调，就可以加载位于另一个域的 JSON 数据，回调的语法为：url?callback=?。</p>
+<p>jQuery 自动将 <strong>?</strong> 替换为要调用的生成函数名。清单 4 显示了该代码。</p>
+<p><strong>清单 4. 使用 JSONP 回调</strong></p>
+<p>jQuery.getJSON(url+”&amp;callback=?”, function(data) {<br>    alert(“Symbol: “ + data.symbol + “, Price: “ + data.price);<br>});</p>
+<p>为此，jQuery 将一个全局函数附加到插入脚本时需要调用的窗口对象。另外，jQuery 也能优化非跨域调用。如果向同一个域发出请求，jQuery 就将其转化为普通 Ajax 请求。</p>
+<p>使用 JSONP 支持的示例服务</p>
+<p>在上一个例子中，使用了静态文件（ticker.js）将 JavaScript 动态插入到 Web 页面中。尽管返回了 JSONP 回复，但它不允许您在 URL 中定义回调函数名。这不是 JSONP 服务。因此，如何才能将其转换为真正的 JSONP 服务呢？可使用的方法很多。这里我们将分别使用 PHP 和 Java 展示两个示例。</p>
+<p>首先，假设您的服务在所请求的 URL 中接受了一个名为 callback 的参数。（参数名不重要，但是客户和服务器必须都同意该名称）。另外假设向服务发送的请求是这样的：</p>
+<blockquote>
+<p><a href="http://www.yourdomain.com/jsonp/ticker?symbol=IBM&amp;callback=showPrice" target="_blank" rel="noopener">http://www.yourdomain.com/jsonp/ticker?symbol=IBM&amp;callback=showPrice</a></p>
+</blockquote>
+<p>在这种情况下，symbol 是表示请求 ticker symbol 的请求参数，而 callback 是 Web 应用程序的回调函数的名称。使用清单 5 所示的代码可以通过 jQuery 的 JSONP 支持调用该服务。</p>
+<p><strong>清单 5. 调用回调服务</strong></p>
+<p>jQuery.getJSON(“<a href="http://www.yourdomain.com/jsonp/ticker?symbol=IBM&amp;callback=?&quot;" target="_blank" rel="noopener">http://www.yourdomain.com/jsonp/ticker?symbol=IBM&amp;callback=?&quot;</a>,<br>function(data) {<br>    alert(“Symbol: “ + data.symbol + “, Price: “ + data.price);<br>});</p>
+<p>注意，我们使用 ? 作为回调函数名，而非真实的函数名。因为 jQuery 会用生成的函数名替换 ?。所以您不用定义类似于 showPrice()的函数。</p>
+<p>清单 6 显示了用 PHP 实现的 JSONP 服务的一段代码。</p>
+<p><strong>清单 6. 用 PHP 实现的 JSONP 服务的代码片段</strong></p>
+<p>$jsonData = getDataAsJson($_GET[‘symbol’]);<br>echo $_GET[‘callback’] . ‘(‘ . $jsonData . ‘);’;<br>// prints: jsonp1232617941775({“symbol” : “IBM”, “price” : “91.42”});</p>
+<p>清单 7 显示了具有同样功能的 Java™ Servlet 方法。</p>
+<p><strong>清单 7. 用 Java servlet 实现的 JSONP 服务</strong></p>
+<p>@Override<br>protected void doGet(HttpServletRequest req, HttpServletResponse resp)<br>  throws ServletException, IOException {<br>    String jsonData = getDataAsJson(req.getParameter(“symbol”));<br>    String output = req.getParameter(“callback”) + “(“ + jsonData + “);”;</p>
+<pre><code>resp.setContentType(&quot;text/javascript&quot;);
+
+PrintWriter out = resp.getWriter();
+out.println(output);
+// prints: jsonp1232617941775({&quot;symbol&quot; : &quot;IBM&quot;, &quot;price&quot; : &quot;91.42&quot;});
+</code></pre><p>}</p>
+<p>那么，如果要构建 mashup 应该怎么办，是从第三方服务器收集内容，并在单一的 Web 页面中显示它们吗？答案很简单：您必须使用第三方 JSONP 服务。这种服务并不少。</p>
+<p>现成的 JSONP 服务</p>
+<p>知道如何使用 JSONP 之后，可以开始使用一些现成的 JSONP Web 服务来构建应用程序和 mashup。下面为接下来的开发项目做准备。（提示：您可以复制特定的 URL 并将其粘贴到浏览器的地址栏，以检查生成的 JSONP 响应）。</p>
+<p>Digg API：来自 Digg 的头条新闻：</p>
+<blockquote>
+<p><a href="http://services.digg.com/stories/top?appkey=http%3A%2F%2Fmashup.com&amp;type=javascript" target="_blank" rel="noopener">http://services.digg.com/stories/top?appkey=http%3A%2F%2Fmashup.com&amp;type=javascript</a><br>&amp;callback=?</p>
+</blockquote>
+<p>Geonames API：邮编的位置信息：</p>
+<blockquote>
+<p><a href="http://www.geonames.org/postalCodeLookupJSON?postalcode=10504&amp;country=US&amp;callback=" target="_blank" rel="noopener">http://www.geonames.org/postalCodeLookupJSON?postalcode=10504&amp;country=US&amp;callback=</a>?</p>
+</blockquote>
+<p>Flickr API：来自 Flickr 的最新猫图片：</p>
+<blockquote>
+<p><a href="http://api.flickr.com/services/feeds/photos_public.gne?tags=cat&amp;tagmode=any" target="_blank" rel="noopener">http://api.flickr.com/services/feeds/photos_public.gne?tags=cat&amp;tagmode=any</a><br>&amp;format=json&amp;jsoncallback=?</p>
+</blockquote>
+<p>Yahoo Local Search API：在邮编为 10504 的地区搜索比萨：</p>
+<blockquote>
+<p><a href="http://local.yahooapis.com/LocalSearchService/V3/localSearch?appid=YahooDemo&amp;query=pizza" target="_blank" rel="noopener">http://local.yahooapis.com/LocalSearchService/V3/localSearch?appid=YahooDemo&amp;query=pizza</a><br>&amp;zip=10504&amp;results=2&amp;output=json&amp;callback=?</p>
+</blockquote>
+<p><a href="http://www.ibm.com/developerworks/cn/web/wa-aj-jsonp1/#ibm-pcon" target="_blank" rel="noopener">回页首</a></p>
+<p>重要提示</p>
+<p>JSONP 是构建 mashup 的强大技术，但不幸的是，它并不是所有跨域通信需求的万灵药。它有一些缺陷，在提交开发资源之前必须认真考虑它们。第一，也是最重要的一点，没有关于 JSONP 调用的错误处理。如果动态脚本插入有效，就执行调用；如果无效，就静默失败。失败是没有任何提示的。例如，不能从服务器捕捉到 404 错误，也不能取消或重新开始请求。不过，等待一段时间还没有响应的话，就不用理它了。（未来的 jQuery 版本可能有终止 JSONP 请求的特性）。</p>
+<p>JSONP 的另一个主要缺陷是被不信任的服务使用时会很危险。因为 JSONP 服务返回打包在函数调用中的 JSON 响应，而函数调用是由浏览器执行的，这使宿主 Web 应用程序更容易受到各类攻击。如果打算使用 JSONP 服务，了解它能造成的威胁非常重要。（参见 <a href="http://www.ibm.com/developerworks/cn/web/wa-aj-jsonp1/#resources" target="_blank" rel="noopener">参考资料</a> 了解更多信息）。</p>
+<p><a href="http://www.ibm.com/developerworks/cn/web/wa-aj-jsonp1/#ibm-pcon" target="_blank" rel="noopener">回页首</a></p>
+<p>结束语</p>
+<p>在该系列的第一篇文章中，我们讲解了如何结合使用 JSONP 和 jQuery 快速构建强大的 mashup。主要主题包括：</p>
+<ul>
+<li><p>浏览器同源策略的限制以及解决办法</p>
+</li>
+<li><p>作为一种有效的跨域通信技术，JSONP 能够绕过当前浏览器的同源策略限制</p>
+</li>
+<li><p>JSONP 使 Web 应用程序开发人员能够快速构建 mashup</p>
+</li>
+<li><p>示例 JSONP 服务及其使用：Ticker 服务</p>
+</li>
+</ul>
+<p>本系列的下一篇文章将介绍 Yahoo! 查询语言（YQL），这种单端点 JSONP 服务允许您跨 Web 查询、过滤和合并数据。最后还使用 YQL 和 jQuery 构建 mashup 应用程序。</p>
+<p>参考资料</p>
+<ul>
+<li><p>了解 <a href="http://json.org/" target="_blank" rel="noopener">JSON</a>，它是针对 Java 和其他语言的 JavaScript Object Notation API。</p>
+</li>
+<li><p>阅读 “<a href="https://www.ibm.com/developerworks/cn/web/wa-ajaxintro10/" target="_blank" rel="noopener">掌握 Ajax，第 10 部分: 使用 JSON 进行数据传输</a>”，并了解在 Ajax 应用程序中使用 JSON 作为数据交换格式。</p>
+</li>
+<li><p>通过包含三部分的系列文章 “<a href="https://www.ibm.com/developerworks/cn/web/wa-jquery1/" target="_blank" rel="noopener">使用 jQuery</a>”了解 jQuery。</p>
+</li>
+<li><p><a href="http://code.google.com/p/browsersec/wiki/Part2#Same-origin_policy" target="_blank" rel="noopener">Browser Security Handbook</a> 提供关于同源策略的详细描述。</p>
+</li>
+<li><p>“<a href="https://www.ibm.com/developerworks/cn/xml/x-ajaxsecurity.html" target="_blank" rel="noopener">征服 Ajax 应用程序的安全威胁</a>”为确保 mashup 应用程序的安全提供技巧和最佳实践。</p>
+</li>
+<li><p>“<a href="https://www.ibm.com/developerworks/cn/xml/x-securemashups/" target="_blank" rel="noopener">打造安全 Ajax mashup 的未来</a>”讲解了如何为混合 Web 应用程序改进浏览器。</p>
+</li>
+<li><p>浏览 <a href="http://www.ibm.com/developerworks/apps/SendTo?bookstore=safari" target="_blank" rel="noopener">技术书店</a>，阅读有关这些主题和其他技术主题的图书。</p>
+</li>
+</ul>
+<p><a href="http://www.ibm.com/developerworks/cn/web/wa-aj-jsonp1" title="文章出处" target="_blank" rel="noopener">via</a></p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="写给未来的回忆录">
+    <meta name="keyword" content="Fighting">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        Cookie那些事儿 - Fighting的博客 | Fighting&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"><script src="/js/prism.js"></script></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Fighting&#39;s Blog </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Fighting</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#两种方式设置cookie："><span class="toc-text">两种方式设置cookie：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cookie-name-cookie-value"><span class="toc-text">cookie-name=cookie-value</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Domain-domain-value"><span class="toc-text">Domain=domain-value</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Path-path-value"><span class="toc-text">Path=path-value</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Expires-date"><span class="toc-text">Expires=date</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Max-Age-non-zero-digit"><span class="toc-text">Max-Age=non-zero-digit</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SameSite-Strict-Lax-Unset-默认"><span class="toc-text">SameSite=Strict|Lax|Unset(默认)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Secure"><span class="toc-text">Secure</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HttpOnly"><span class="toc-text">HttpOnly</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第三方Cookie"><span class="toc-text">第三方Cookie</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考链接："><span class="toc-text">参考链接：</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Fighting&#39;s Blog </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        Cookie那些事儿
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2018-10-08 16:22:55</span></span>
+        
+        <span class="attr">Tags：/
+        
+        <a class="tag" href="/tags/#cookie" title="cookie">cookie</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content no-indent">
+        <p>面试别人的时候，经常碰到自诩精通HTTP协议的人，我一般会丢个问题“HTTP协议是否有状态？”，来试探是否真的“了解”HTTP协议，很多人听到问题就懵逼了，这TM还是我认识的HTTP协议么。偶尔碰到一个说是无状态的，我继续追问“既然HTTP是无状态的，那么我打开一个网站，然后刷新一下，服务器能否知道这次的访问者和上次的访问者是否是同一个客户端？”，然后继续懵逼，转而把答案改为“那应该是有状态的吧？”</p>
+<p>所以啊，我们很多时候学技术性东西，还是要追求甚解，知其然，知其所以然。</p>
+<p>HTTP协议当然是无状态的，我们在实际场景中是如何区分客户的呢？传统的做法就是利用Cookie来标记用户，用户第一次访问服务器，服务器便在Response Header中添加Set-Cookie，写入标记该用户的唯一标识符，用户二次访问时，将该标识符带回，服务器即可区分该用户是否是之前的用户了。</p>
+<p>说到我们本文的主角Cookie，当然不是那么简简单单的事情（事实上是我自己一直以来将其看得过于简单，后来脸被打肿）。</p>
+<h3 id="两种方式设置cookie："><a href="#两种方式设置cookie：" class="headerlink" title="两种方式设置cookie："></a>两种方式设置cookie：</h3><ul>
+<li>Set-Cookie(http方式)<br>服务端通过在Response Header中添加Set-Cookie，告知客户端如何存储cookie，一般格式：<pre><code>Set-Cookie: &lt;cookie-name&gt;=&lt;cookie-value&gt;; Domain=&lt;domain-value&gt;;Max-Age=&lt;non-zero-digit&gt;;Expires=&lt;date&gt;;Path=&lt;path-value&gt;;SameSite=&lt;Strict|Lax&gt;; Secure; HttpOnly
+</code></pre></li>
+<li>document.cookie(代码方式)<br>客户端（通常指浏览器）通过javascript直接给document.cookie赋值设置cookie<pre class=" language-javascript"><code class="language-javascript">document<span class="token punctuation">.</span>cookie<span class="token operator">=</span><span class="token string">"&lt;cookie-name>=&lt;cookie-value>; Domain=&lt;domain-value>;Max-Age=&lt;non-zero-digit>;Expires=&lt;date>;Path=&lt;path-value>;SameSite=&lt;Strict|Lax>; Secure;"</span>
+</code></pre>
+很明显，除了客户端无法设置HttpOnly外，其他与服务端基本一致。</li>
+</ul>
+<p>另外，需要注意的是，书写顺序问题：<code>&lt;cookie-name&gt;=&lt;cookie-value&gt;;</code>必须写在最前面，后面的其他项顺序则可以随意了。这样也就限制了一句设置代码只能设置一个cookie，服务端需要在一次http响应中添加多个set-cookie header来一次性写入多个cookie，客户端则需要调用多次document.cookie赋值才能设置多个cookie。</p>
+<h3 id="cookie-name-cookie-value"><a href="#cookie-name-cookie-value" class="headerlink" title="cookie-name=cookie-value"></a>cookie-name=cookie-value</h3><p>根据<a href="http://www.ietf.org/rfc/rfc6265.txt" target="_blank" rel="noopener">RFC6265</a>,二者可取值情况如下：</p>
+<ul>
+<li>cookie-name 区分大小写，字母、数字以及!#$%&amp;’*+-.^_|`~。</li>
+<li>cookie-value 是可选的。支持字母、数字及!#$%&amp;’()*+-./:&lt;=&gt;?@[]^_{|}`~。关于编码：许多应用会对 cookie 值按照URL编码（URL encoding）规则进行编码，但是按照 RFC 规范，这不是必须的。不过满足规范中对于 <code>cookie-value</code> 所允许使用的字符的要求是有用的。</li>
+</ul>
+<p>尽管目前实验了Chrome及Firefox支持更多的字符串，甚至中文，但由于各浏览器、各服务端解析可能存在不一致的情况，还是推荐按标准形式，可以减少古怪问题出现的概率。</p>
+<ul>
+<li><strong>Secure-前缀，以 </strong>Secure- 为前缀的 cookie（其中连接符是前缀的一部分），必须与 secure 属性一同设置，同时必须应用于安全页面（即使用 HTTPS 访问的页面）。</li>
+<li><strong>Host-前缀，以 </strong>Host- 为前缀的 cookie，必须与 secure 属性一同设置，必须应用于安全页面（即使用 HTTPS 访问的页面），必须不能设置 domain 属性 （也就不会发送给子域），同时 path 属性的值必须为“/”。</li>
+</ul>
+<p>以<code>__Secure-</code>前缀为例讲解其如何弥补后面即将提到的<code>Secure</code>的不足之处：<br>由于发往服务端的Cookie只有key-value对，并不包含domain、secure之类的其它信息。当我们用<code>token</code>作为用户标识时，设置domain为<code>www.a.com</code>cookie，并带上了<code>Secure</code>设置，尽管<code>www.a.com</code>为https，但攻击者（中间人）完全可以构造一个非https的网站<code>xxx.a.com</code>诱导用户访问（被劫持的网站，不需要真实存在），然后设置domain为<code>.a.com</code>的cookie，当服务端拿到这两个token时并没法分别哪个是安全的token。<br>但是我们若不以<code>token</code>作为cookie name，而是使用<code>__Secure-token</code>，攻击者就无计可施了，因为设置<code>__Secure-</code>前缀的cookie必须同时设置<code>Secure</code>，而<code>Secure</code>的设置只能在https链接中，攻击者又无法通过中间人的方式攻击https。</p>
+<h3 id="Domain-domain-value"><a href="#Domain-domain-value" class="headerlink" title="Domain=domain-value"></a>Domain=domain-value</h3><p>用于设置cookie生效的范围。若不设置该项，浏览器默认将其标记为HostOnly，也就是只有在完全匹配的hostname（注意是<code>hostname</code>，而不是<code>host</code>，也就是说cookie的domain<strong>不区分端口</strong>）下面方可读取cookie。比如，我在<code>a.com</code>下面设置cookie时没有指定domain，那么我在<code>sub.a.com</code>下面就无法读取到该cookie。</p>
+<p>若设置domain，domain的取值只能是当前hostname或父级域，比如，在<code>sub.a.com</code>下面，可选的domain只能是<code>sub.a.com</code>或者<code>a.com</code>，其它取值将会被浏览器忽略。</p>
+<p>另外，非常值得注意的是，一些顶级域本来就有两段或多段，比如:<code>.com.cn</code>、<code>.usa.gov</code>、<code>.edu.cn</code>等等，我们就无法在形如<code>a.com.cn</code>的网站中设置domain为<code>.com.cn</code>的cookie。</p>
+<p>除了上面提到的多段顶级域名，一些提供网站服务的第三方平台，比如github.io、sina sae等，提供子域名给各个用户，也就是说<code>w3c.github.io</code>与<code>alibaba.github.io</code>不是同一个网站，那么在<code>w3c.github.io</code>下就不能写domain为<code>.github.io</code>的cookie。</p>
+<p>由于上面提到的两种情况存在，Mozilla很早之前就为此建立了一个列表<a href="https://publicsuffix.org/list/public_suffix_list.dat" target="_blank" rel="noopener">Public Suffix List</a>，专门用于维护顶级域名及类似于<code>github.io</code>这样的第三方网站提供商的域名。据<a href="https://publicsuffix.org/learn/" target="_blank" rel="noopener">Public Suffix List官网</a>介绍，目前使用该列表的软件包括Firefox、Chrome、IE等主流浏览器及其他一些对域名查询有需求的软件。<br>如果希望自己的网站添加进该列表，可以来<a href="https://github.com/publicsuffix/list" target="_blank" rel="noopener">这里</a>提PR（被通过应该需要很多手续）。</p>
+<h3 id="Path-path-value"><a href="#Path-path-value" class="headerlink" title="Path=path-value"></a>Path=path-value</h3><p>指定一个 URL 路径，这个路径必须出现在要请求的资源的路径中才可以发送 Cookie 首部。字符  %x2F (“/“) 可以解释为文件目录分隔符，此目录的下级目录也满足匹配的条件（例如，如果 path=/docs，那么 “/docs”, “/docs/Web/“ 或者 “/docs/Web/HTTP” 都满足匹配的条件）。<br>另外，由于domain与path是分开解析的，所以<code>a=1;domain=.a.com;path=/x/y</code>,也能在<code>sub.a.com/x/y</code>下被读取。</p>
+<h3 id="Expires-date"><a href="#Expires-date" class="headerlink" title="Expires=date"></a>Expires=date</h3><p>date应该是符合<code>&lt;day-name&gt;, &lt;day&gt; &lt;month&gt; &lt;year&gt; &lt;hour&gt;:&lt;minute&gt;:&lt;second&gt; GMT</code>格式的字符串，用于标识cookie的过期时间。若不设置该项（下面的max-age也不设置）则cookie是会话级的，浏览器关闭则清除该cookie。</p>
+<h3 id="Max-Age-non-zero-digit"><a href="#Max-Age-non-zero-digit" class="headerlink" title="Max-Age=non-zero-digit"></a>Max-Age=non-zero-digit</h3><p>non-zero-digit是只在 cookie 失效之前需要经过的秒数。一位或多位非零（1-9）数字（ps:其实0也可以，只是没意义，浏览器可以实现为直接忽略）。一些老的浏览器（ie6、ie7 和 ie8）不支持这个属性。对于其他浏览器来说，假如二者 （指 Expires 和Max-Age） 均存在，那么 Max-Age 优先级更高。</p>
+<h3 id="SameSite-Strict-Lax-Unset-默认"><a href="#SameSite-Strict-Lax-Unset-默认" class="headerlink" title="SameSite=Strict|Lax|Unset(默认)"></a>SameSite=Strict|Lax|Unset(默认)</h3><p>允许服务器设定一则 cookie 不随着跨域请求一起发送，这样可以在一定程度上防范跨站请求伪造攻击（CSRF）。</p>
+<ul>
+<li>Strict 任何时候都不跨域发送cookie，所以当你发现从a网站进入b网站，b网站的登陆状态总是失效的，然后刷新一下又正常了，不要悲伤、不要诧异，检查下你用于标记登陆状态的cookie是不是设置了samesite为strict</li>
+<li>Lax 点击a标签、form的get请求、通过location改变、通过window.open方式打开时会携带cookie，而ajax、script、link、img、iframe、form的post发起的跨域请求则不会携带cookie</li>
+<li>Unset 默认值，任何时候都会跨域携带cookie<br><code>samesite</code>目前属于实验性属性，还未进入标准，目前(2018.10.08)兼容性不是太乐观<a href="https://caniuse.com/#search=samesite" target="_blank" rel="noopener">can i use</a></li>
+</ul>
+<h3 id="Secure"><a href="#Secure" class="headerlink" title="Secure"></a>Secure</h3><p>一个带有安全属性的 cookie 只有在请求使用SSL和HTTPS协议的时候才会被发送到服务器，同时无法在非https的页面通过document.cookie读取，这可以有效防范<a href="https://github.com/Elity/sslstrip-nodejs" target="_blank" rel="noopener">SSl strip</a>后cookie失窃。然而，保密或敏感信息永远不要在 HTTP cookie 中存储或传输，因为整个机制从本质上来说都是不安全的，比如前述协议并不意味着所有的信息都是经过加密的。<br>新版Chrome与Firefox已经<code>不支持</code>在非https的链接中设置Secure了。</p>
+<h3 id="HttpOnly"><a href="#HttpOnly" class="headerlink" title="HttpOnly"></a>HttpOnly</h3><p>带此标识的cookie只能以http的方式设置于读取，也就是说，通过document.cookie的方式既不能写入也不能读取带HttpOnly标识的cookie，可有效防止xss的方式窃取cookie。事实上，一般后端web框架的sessionid一般都是设置了HttpOnly的。</p>
+<h3 id="第三方Cookie"><a href="#第三方Cookie" class="headerlink" title="第三方Cookie"></a>第三方Cookie</h3><p>跨域设置cookie的问题也顺带提一下，我已经在此处跌倒几次没长记性了：</p>
+<p>首先现代浏览器，在<code>a.com</code>引入<code>b.com</code>的资源（link、img、script等），是可以正常写入与携带cookie的（ps:老版本的IE需要配置<a href="https://www.w3.org/P3P/" target="_blank" rel="noopener">P3P</a>)，现在的广告追踪就是利用这个功能。</p>
+<p>在<code>a.com</code>下面通过ajax请求<code>b.com</code>，由于某些不可描述的原因，<code>b.com</code>会通过http的方式向浏览器写入cookie，未做任何处理的情况下，这种方式并不会正常写入cookie，而需要通过浏览器与服务端双方友好协商，你情我愿的情况下方可成功，流程就是：浏览器端发请求的时候告诉服务端，请同意我跨域带cookie给你，我也同意你跨域向我写cookie，如果这时候服务端应答：我愿意。</p>
+<p>那么他们就愉快的牵手永远幸福的生活下去了。。</p>
+<p>偏了偏了，差点写成言情小说了。</p>
+<p>浏览器通过fetch请求时配置<code>{credentials:&#39;include&#39;}</code>，通过XMLHttpRequest请求时配置<code>xhr.withCredentials</code>为<code>true</code>，然后服务端Response Header里面添加 <code>Access-Control-Allow-Credentials: true</code>就OK了。 当然这也还要注意，在配置CORS相关的Response Header时，若<code>Access-Control-Allow-Credentials</code>的值为<code>true</code>，<code>Access-Control-Allow-Origin</code>则不能设置为<code>*</code>，一来不安全，二来浏览器会报错。</p>
+<h3 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h3><ul>
+<li><a href="http://www.ietf.org/rfc/rfc6265.txt" target="_blank" rel="noopener">http://www.ietf.org/rfc/rfc6265.txt</a></li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Cookies" target="_blank" rel="noopener">https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Cookies</a></li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Set-Cookie" target="_blank" rel="noopener">https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Set-Cookie</a></li>
+<li><a href="https://www.cnblogs.com/ziyunfei/p/5637945.html" target="_blank" rel="noopener">https://www.cnblogs.com/ziyunfei/p/5637945.html</a></li>
+</ul>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

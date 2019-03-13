@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="写给未来的回忆录">
+    <meta name="keyword" content="Fighting">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        右键菜单与注册表那些事 - Fighting的博客 | Fighting&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"><script src="/js/prism.js"></script></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Fighting&#39;s Blog </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Fighting</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Fighting&#39;s Blog </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        右键菜单与注册表那些事
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2012-05-08 18:26:54</span></span>
+        
+        <span class="attr">Tags：/
+        
+        <a class="tag" href="/tags/#右键菜单" title="右键菜单">右键菜单</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#注册表" title="注册表">注册表</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content no-indent">
+        <p>在注册表中修改右键菜单，修改前要备份注册表，建议用第三方工具修改右键菜单，在右键菜单中不宜添加过多的菜单。</p>
+<p>一、添加右键菜单</p>
+<p>例1、为所有文件添加“用记事本打开”右键菜单<br>①展开 HKEY_CLASSES_ROOT\*\shell，右击“shell”键，选择“新建/项”，输入名称为“命令”;</p>
+<p><img src="http://i.6.cn/cvbnm/d3/cc/30/6dbdfc1b072efec43c0f3f1acacab82b.jpg" alt="在注册表中修改右键菜单讲课提纲 - 火力光波 - 火力光波的博客"></p>
+<p>②在右栏中右击“默认”，选择“修改”，输入值字符串“用记事本打开”，按确定；</p>
+<p><img src="http://i.6.cn/cvbnm/25/e2/e3/06aef3f39dbc90d641d336421e4576c3.jpg" alt="在注册表中修改右键菜单讲课提纲 - 火力光波 - 火力光波的博客"> </p>
+<p><img src="http://i.6.cn/cvbnm/3a/89/6a/7ad5d388e50f414910a307e975446580.jpg" alt="在注册表中修改右键菜单讲课提纲 - 火力光波 - 火力光波的博客"></p>
+<p>③在“命令”下面创建一个名称为“command”的子键，输入“默认”值“c:\windows notepad.exe %1”或“notepad.exe %1”，按确定退出。</p>
+<p><img src="http://i.6.cn/cvbnm/d5/27/27/9821b7e82700f4fdbb33d6df034a8d39.jpg" alt="在注册表中修改右键菜单讲课提纲 - 火力光波 - 火力光波的博客"></p>
+<p><img src="http://i.6.cn/cvbnm/55/a4/a3/782babd882ac6918bc80738f60644ed5.jpg" alt="在注册表中修改右键菜单讲课提纲 - 火力光波 - 火力光波的博客"> </p>
+<p>添加“用记事本打开”后的右键菜单：</p>
+<p><img src="http://i.6.cn/cvbnm/b0/70/a0/52b94483c3a631db5e3483c704b6f00b.jpg" alt="在注册表中修改右键菜单讲课提纲 - 火力光波 - 火力光波的博客"></p>
+<p>删除“用记事本打开”右键菜单，只需将“命令”子键删除即可。</p>
+<p><img src="http://i.6.cn/cvbnm/ae/41/83/25599c0f94ca9a98ffa07ea73bb179ad.jpg" alt="在注册表中修改右键菜单讲课提纲 - 火力光波 - 火力光波的博客"></p>
+<p>例2、为所有文件夹添加“注册表”右键菜单<br>①展开 HKEY_CLASSES_ROOT\Directory\shell<br>    在其下新建“regedit\command”    commmand键值：regedit.exe    (不影响驱动器)<br>②展开 HKEY_CLASSES_ROOT\folder\shell<br>    在其下新建“regedit\command”    commmand键值：regedit.exe     (影响驱动器)</p>
+<p>例3、为所有文件与文件夹添加“新浪UC蝴蝶版”右键菜单<br>展开 HKEY_CLASSES_ROOT\AllFilesystemObjects<br>在其下新建“shell\UC \command”    commmand键值：新浪UC蝴蝶版绝对路径 (不影响驱动器)</p>
+<p>例4、为所有文件与文件夹添加“复制到文件夹”右键菜单<br>展开 HKEY_CLASSES_ROOT\AllFilesystemObjects\shellex\ContextMenuHandlers\<br>在其下新建“命令\command”<br>Copy To   复制到文件夹   键值：{C2FBB630-2971-11d1-A18C-00C04FD75D13}<br>Move To   移动到文件夹   键值：{C2FBB631-2971-11D1-A18C-00C04FD75D13}<br>Send To   发送到             键值：{7BA4C740-9E81-11CF-99D3-00AA004AE837}</p>
+<p>例5、添加“我的电脑”右键菜单<br>展开 HKEY_CLASSES_ROOT\CLSID\{20D04fe0-3AEA-1069-A2D8-08002B30309D}\shell<br>在其下新建“我的电脑\command”      commmand键值：我的电脑绝对路径 </p>
+<p>例6、添加桌面空白处“注册表”右键菜单<br>展开 HKEY_CLASSES_ROOT\Directory\Background<br>在其下新建“shell\regedit\command”      commmand键值：regedit.exe</p>
+<p>例7、添加桌面空白处“新建.red”右键菜单<br>展开 HKEY_CLASSES_ROOT\.red<br>在其下新建 ShellNew，再新建字符串filename，键值为空，按F5刷新。<br>如将“ShellNew”改为“ShellNewOld”子键，则不显示菜单。</p>
+<p>例8、删除“IE浏览器”右键菜单<br>展开 HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\Menxt<br>在其下将子键删除。</p>
+<p>二、删除右键菜单</p>
+<p>1、自行添加的在shell处删除</p>
+<p>2、删除安装的程序菜单，从下面路径中找：</p>
+<p>HKEY_CLASSES_ROOT\*\shellex\ContextMenuHandlers\              对所有文件<br>HKEY_CLASSES_ROOT\Directory\Background                             对桌面空白处(文件背景)<br>HKEY_CLASSES_ROOT\Directory\shellex\ContextMenuHandlers\  对所有文件夹<br>HKEY_CLASSES_ROOT\folder\shellex\ContextMenuHandlers\       对所有文件夹(包括驱动器、回收站)<br>HKEY_CLASSES_ROOT\AllFilesystemObjects\shellex\ContextMenuHandlers\   对所有文件与文件夹</p>
+<p>3、删除“新建”中的程序菜单</p>
+<p>①用控制面板卸载软件。<br>②在文件夹选项中删除软件残余：选择“文件类型”，右键删除扩展名。<br>③将新建 ShellNew 改为 ShellNewOld子键，则不显示菜单。<br>④删除特殊文件夹-公文包，删除HKEY_CLASSES_ROOT\Briefcase\下的ShellNew。</p>
+<p>三、菜单故障处理</p>
+<p>1、丢失“发送到”<br>路径：KEY_CLASSES_ROOT\AllFilesystemObjects\shellex\ContextMenuHandlers\Send To<br>2、丢失“新建”菜单<br>路径：KEY_CLASSES_ROOT\Directory\Background\shellex\ContextMenuHandlers\New<br>解决方法：导入注册表或运行添加命令</p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

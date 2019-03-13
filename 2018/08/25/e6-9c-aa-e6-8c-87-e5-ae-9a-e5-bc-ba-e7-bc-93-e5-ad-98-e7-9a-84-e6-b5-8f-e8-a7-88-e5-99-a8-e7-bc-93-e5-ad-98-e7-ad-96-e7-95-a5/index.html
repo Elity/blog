@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="写给未来的回忆录">
+    <meta name="keyword" content="Fighting">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        未指定强缓存的浏览器缓存策略 - Fighting的博客 | Fighting&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"><script src="/js/prism.js"></script></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Fighting&#39;s Blog </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Fighting</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Fighting&#39;s Blog </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        未指定强缓存的浏览器缓存策略
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2018-08-25 12:41:02</span></span>
+        
+        <span class="attr">Tags：/
+        
+        <a class="tag" href="/tags/#Chrome" title="Chrome">Chrome</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#缓存" title="缓存">缓存</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content no-indent">
+        <p>在未指定强缓存相关响应头（Cache-Control 、 Expires 、 Pragma）的情况下，以我的<a href="./2191.html">认知</a>，觉得浏览器应该把ETag发到服务器，然后服务器对文件做校验，是否需要更新，然后返回<code>304</code>或<code>200</code>。</p>
+<p>事实上，目前Firfox(61.0.2)和Edge(42.17134.1.0)的行为确实与我的认知一致。但今天发现Chrome(68.0.3440.106)请求一个资源时，在第一次请求，服务端未返回任何强缓存头的情况下：<br><img src="http://wx3.sinaimg.cn/mw690/0060lm7Tly1fulu9fcvk4j30hh0gm750.jpg" alt="第一次请求"></p>
+<p>我F5刷新，第二次直接从本地读取了：</p>
+<p><img src="http://wx3.sinaimg.cn/mw690/0060lm7Tly1fulu9n5qblj30hg0go74y.jpg" alt="第二次请求"></p>
+<p>百思不得其解。</p>
+<p>后面经过放狗搜索，找到了可以解释这一现象的资料：HTTP1.1中，对于服务端未明确指定Cache-Control的情况，浏览器的缓存策略可由浏览器厂商自行决定。参考<a href="https://tools.ietf.org/html/rfc2616#section-13.4" target="_blank" rel="noopener">RFC 2616</a>：</p>
+<blockquote>
+<p> Unless specifically constrained by a cache-control (section 14.9)<br>   directive, a caching system MAY always store a successful response<br>   (see section 13.8) as a cache entry, MAY return it without validation<br>   if it is fresh, and MAY return it after successful validation.</p>
+</blockquote>
+<p>所以，若期望某资源不被缓存，需要在响应头中明确指定Cache-Control，不然，各家浏览器会实行自己的缓存策略了。</p>
+<p>有句港句，对于协议这么正式的东西，不应该处处使用<code>MUST</code>么，怎么一段里面有这么多<code>MAY</code>，本来很多人对什么协商缓存啊、强缓存啊之类的已经傻傻分不清楚了，现在又整这么一出浏览器各自按心情来实现的方案，实在是令人费解。</p>
+<p>不过，木已成舟，吐槽只能归吐槽，指不定大佬们有其它的考量呢。</p>
+<p>写这篇文章的结论就是：规范还是要经常读。</p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

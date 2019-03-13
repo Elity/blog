@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="写给未来的回忆录">
+    <meta name="keyword" content="Fighting">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        二进制位操作对多状态组合的应用 - Fighting的博客 | Fighting&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"><script src="/js/prism.js"></script></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Fighting&#39;s Blog </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Fighting</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Fighting&#39;s Blog </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        二进制位操作对多状态组合的应用
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2019-02-19 20:56:04</span></span>
+        
+        <span class="attr">Tags：/
+        
+        <a class="tag" href="/tags/#二进制" title="二进制">二进制</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content no-indent">
+        <p>这其实是属于前辈级程序员们玩剩下的东西，去写win32的程序，调用win32 api的时候，经常会碰到属性状态的组合，比如这个<a href="https://docs.microsoft.com/en-us/windows/desktop/api/winuser/nf-winuser-messagebox#examples" target="_blank" rel="noopener">例子</a>：</p>
+<pre class=" language-c"><code class="language-c"><span class="token keyword">int</span> <span class="token function">DisplayResourceNAMessageBox</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">int</span> msgboxID <span class="token operator">=</span> <span class="token function">MessageBox</span><span class="token punctuation">(</span>
+        <span class="token constant">NULL</span><span class="token punctuation">,</span>
+        <span class="token punctuation">(</span>LPCWSTR<span class="token punctuation">)</span>L<span class="token string">"Resource not available\nDo you want to try again?"</span><span class="token punctuation">,</span>
+        <span class="token punctuation">(</span>LPCWSTR<span class="token punctuation">)</span>L<span class="token string">"Account Details"</span><span class="token punctuation">,</span>
+        MB_ICONWARNING <span class="token operator">|</span> MB_CANCELTRYCONTINUE <span class="token operator">|</span> MB_DEFBUTTON2
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">switch</span> <span class="token punctuation">(</span>msgboxID<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+    <span class="token keyword">case</span> IDCANCEL<span class="token punctuation">:</span>
+        <span class="token comment" spellcheck="true">// TODO: add code</span>
+        <span class="token keyword">break</span><span class="token punctuation">;</span>
+    <span class="token keyword">case</span> IDTRYAGAIN<span class="token punctuation">:</span>
+        <span class="token comment" spellcheck="true">// TODO: add code</span>
+        <span class="token keyword">break</span><span class="token punctuation">;</span>
+    <span class="token keyword">case</span> IDCONTINUE<span class="token punctuation">:</span>
+        <span class="token comment" spellcheck="true">// TODO: add code</span>
+        <span class="token keyword">break</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">return</span> msgboxID<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><code>MessageBox</code>这个函数的第四个参数，用于定义窗体的显示形式，可以是多种形式的组合，就像上面的例子，传入的就是<code>MB_ICONWARNING | MB_CANCELTRYCONTINUE | MB_DEFBUTTON2</code></p>
+<p>这种形式的好处就在于，多个属性组合时，不需要为函数定义一大堆的入参，通过巧妙的属性值选取，配合二进制位操作，无论多少个属性，都可以通过一个参数完成。</p>
+<p>假如某函数可接受4种状态的组合：a,b,c,d<br>我们定义四个常量：</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">const</span> STATUS_A <span class="token operator">=</span> <span class="token number">1</span> <span class="token comment" spellcheck="true">// 二进制 1</span>
+<span class="token keyword">const</span> STATUS_B <span class="token operator">=</span> <span class="token number">2</span> <span class="token comment" spellcheck="true">// 二进制 10</span>
+<span class="token keyword">const</span> STATUS_C <span class="token operator">=</span> <span class="token number">4</span> <span class="token comment" spellcheck="true">// 二进制 100</span>
+<span class="token keyword">const</span> STATUS_D <span class="token operator">=</span> <span class="token number">8</span> <span class="token comment" spellcheck="true">// 二进制 1000</span>
+</code></pre>
+<p>为什么这么定义？ 因为二进制的<code>或运算(|)</code>有如下特征：</p>
+<pre class=" language-asm"><code class="language-asm">1000 | 10 ==> 1010
+10 | 101 ==> 111
+...
+</code></pre>
+<p>二进制位右对齐后，两个同位置的值有一个为1，则结果为1，否则结果为0。</p>
+<p>对于我们的例子：</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">let</span> status <span class="token operator">=</span> STATUS_B <span class="token operator">|</span> STATUS_D <span class="token comment" spellcheck="true">// 得到 status 为二进制 1010</span>
+</code></pre>
+<p>很明显<code>STATUS_B</code>对应的第二位与<code>STATUS_D</code>对应的第四位被置为了1，而另两位依然是0</p>
+<p>人眼是很容易看明白哪位为0，哪位为1，程序有什么快速的方式知道呢？</p>
+<p>答案，依然是位运算，不过这次用<code>与运算(&amp;)</code>，特征如下：</p>
+<pre class=" language-asm"><code class="language-asm">101 " 11  ==> 101
+111 " 10  ==> 110
+...
+</code></pre>
+<p>二进制位右对齐后，两个同位置的值同时为1，则结果为1，其中一项不为1，则结果为0。</p>
+<p>利用这个特性，当我们需要知道某状态是否被设置时，只需要入参的值与该状态的值做<code>与运算</code>就好了，因为该状态的值对应位的值肯定为1，所以就有：</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">let</span> status <span class="token operator">=</span> STATUS_B <span class="token operator">|</span> STATUS_D <span class="token comment" spellcheck="true">// 得到 status 为二进制 1010</span>
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>status " STATUS_A<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 输出0</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>status " STATUS_B<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 输出十进制2 对应二进制 10</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>status " STATUS_C<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 输出0</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>status " STATUS_D<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 输出十进制8 对应二进制 1000</span>
+</code></pre>
+<p>聪明的你，应该已经知道答案了吧。</p>
+<p>完整示例：</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token comment" spellcheck="true">// 采用parseInt中转一下，直接使用二进制定义更直观</span>
+<span class="token keyword">const</span> STATUS_A <span class="token operator">=</span> <span class="token function">parseInt</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span>
+<span class="token keyword">const</span> STATUS_B <span class="token operator">=</span> <span class="token function">parseInt</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span>
+<span class="token keyword">const</span> STATUS_C <span class="token operator">=</span> <span class="token function">parseInt</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span>
+<span class="token keyword">const</span> STATUS_D <span class="token operator">=</span> <span class="token function">parseInt</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span>
+
+<span class="token keyword">function</span> <span class="token function">statusHandle</span><span class="token punctuation">(</span>statuMask<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>statuMask " STATUS_A<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'状态A被设置'</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>statuMask " STATUS_B<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'状态B被设置'</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>statuMask " STATUS_C<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'状态C被设置'</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>statuMask " STATUS_D<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'状态D被设置'</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true">/*      test       */</span>
+<span class="token function">statusHandle</span><span class="token punctuation">(</span>STATUS_C<span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">// 状态C被设置</span>
+<span class="token function">statusHandle</span><span class="token punctuation">(</span>STATUS_A <span class="token operator">|</span> STATUS_D<span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">// 状态A被设置</span>
+<span class="token comment" spellcheck="true">// 状态D被设置</span>
+</code></pre>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

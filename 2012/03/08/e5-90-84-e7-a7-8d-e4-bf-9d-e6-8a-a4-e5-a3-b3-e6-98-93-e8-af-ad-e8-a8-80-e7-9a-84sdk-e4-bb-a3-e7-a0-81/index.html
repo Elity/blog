@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="写给未来的回忆录">
+    <meta name="keyword" content="Fighting">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        各种保护壳易语言的SDK代码  - Fighting的博客 | Fighting&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"><script src="/js/prism.js"></script></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Fighting&#39;s Blog </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Fighting</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Fighting&#39;s Blog </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        各种保护壳易语言的SDK代码 
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2012-03-08 15:24:51</span></span>
+        
+        <span class="attr">Tags：/
+        
+        <a class="tag" href="/tags/#易语言" title="易语言">易语言</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#SDK" title="SDK">SDK</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#保护壳" title="保护壳">保护壳</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#加壳" title="加壳">加壳</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content no-indent">
+        <p><strong>ZProtect</strong></p>
+<p>//Code_Confusion 是代码乱序加密标记，允许您选择一部分被乱序的代码<br>置入代码 ({ 235, 8, 83, 84, 95, 83, 84, 65, 82, 84 }) ‘ Code_Confusion标记开始<br>置入代码 ({ 235, 8, 83, 84, 95, 83, 84, 69, 78, 68 }) ‘ Code_Confusion标记结尾<br>//Code_Elimination 是代码清除标记，允许您选择一部分代码在运行后从内存中删除；使用此标记的目的是为了防止破解者从内存中转储出完整的程序代码。<br>置入代码 ({ 235, 8, 79, 67, 95, 83, 84, 65, 82, 84 }) ‘ Code_Elimination标记开始<br>置入代码 ({ 235, 8, 79, 67, 95, 79, 67, 69, 78, 68 }) ‘ Code_Elimination标记结尾<br>//Decode_onExec 是动态解码标记，允许您选择一部分只在执行时才解密的代码段；这部分代码仅在需要执行时才解码，执行前和执行后均处于加密状态<br>置入代码 ({ 235, 8, 68, 89, 95, 83, 84, 65, 82, 84 }) // Decode_onExec标记开始<br>置入代码 ({ 235, 8, 68, 89, 95, 68, 89, 69, 78, 68 }) // Decode_onExec标记结尾<br>//Decode_onReg 是注册解码标记，允许您选择一部分使用有效密钥才解密的代码；如果注册密钥不正确，那么这部分代码将永远处于加密状态。通俗地讲，这部分代码仅在注册版中执行<br>//源代码中可以使用任意数量的 Decode_onReg 标记，但是这些代码段在执行时会同时解密。注册解码标记主要用于激活未注册版中被限制的功能，使之注册成为完整版。<br>置入代码 ({ 235, 8, 82, 68, 95, 83, 84, 65, 82, 84 }) // Decode_onReg标记开始<br>置入代码 ({ 235, 8, 82, 68, 95, 82, 68, 69, 78, 68 }) // Decode_onReg标记结尾<br>//Zprotect_VM 是虚拟机加密标记，允许您选择一部分代码放到虚拟机中运行；虚拟机的指令系统是完全不同于现有的 x86 指令，可以有效阻止代码还原及分析<br>置入代码 ({ 235, 8, 86, 77, 95, 83, 84, 65, 82, 84 }) // Zprotect_VM标记开始<br>置入代码 ({ 235, 8, 86, 77, 95, 86, 77, 69, 78, 68 }) // Zprotect_VM标记结尾<br>———–适用于ZProtect V1.4.9.0版本———</p>
+<p><strong>VMProtect.**</strong>易的<strong>**SDK</strong><br>置入代码 ({ 235, 16, 86, 77, 80, 114, 111, 116, 101, 99, 116, 32, 98, 101, 103, 105, 110, 0 }) ‘ VMP保护开始标志<br>‘关键代码<br>置入代码 ({ 235, 14, 86, 77, 80, 114, 111, 116, 101, 99, 116, 32, 101, 110, 100, 0 }) ‘ VMP保护结束标志</p>
+<p><strong>Enigma**</strong>加密易语言的<strong>**SDK</strong><br>置入代码 ({ 235, 10, 69, 67, 82, 79, 78, 69, 88, 69, 67, 66 })’ 标记开始处<br>‘关键代码<br>置入代码 ({ 235, 10, 69, 67, 82, 79, 78, 69, 88, 69, 67, 69 })’ 标记结束处</p>
+<p><strong>NoobyProtect**</strong>加密易语言的<strong>**SDK</strong><br>置入代码 ({ 235, 6, 78, 80, 66, 69, 71, 78 })’ 标记开始处<br>‘关键代码<br>置入代码 ({ 235, 6, 78, 80, 69, 78, 68, 80 })’ 标记结束处</p>
+<p><strong>穿山甲调用功能型加密易语言**</strong>SDK<strong><strong>的</strong></strong>DEMO**<br>置入代码 ({ 235, 3, 214, 215, 1 })’ 标记开始处<br>‘关键代码<br>置入代码 ({ 235, 3, 214, 215, 0 })’ 标记结束处</p>
+<p><strong>ASP**</strong>加密易语言<strong>**SDK</strong></p>
+<p>置入代码 ({ 235, 4, 235, 5, 25, 1, 233, 37, 0 })’ 标记开始处<br>‘关键代码<br>置入代码 ({ 235, 4, 235, 5, 41, 1, 233, 133, 0, })’ 标记结束处</p>
+<p><strong>Shielden 2.0.1.0</strong><br>置入代码 ({ 235, 7, 83, 69, 66, 69, 71, 78, 0 })  ‘ SE_PROTECT_START<br>‘ 关键代码<br>置入代码 ({ 235, 7, 83, 69, 69, 78, 68, 80, 0 })  ‘ SE_PROTECT_END</p>
+<p>置入代码 ({ 235, 7, 83, 69, 66, 69, 71, 78, 77 })  ‘ SE_PROTECT_START_MUTATION<br>关键代码<br>置入代码 ({ 235, 7, 83, 69, 69, 78, 68, 80, 0 })  ‘ SE_PROTECT_END<br>置入代码 ({ 235, 7, 83, 69, 66, 69, 71, 78, 85 })  ‘ SE_PROTECT_START_ULTRA<br>关键代码<br>置入代码 ({ 235, 7, 83, 69, 69, 78, 68, 80, 0 })  ‘ SE_PROTECT_END<br>置入代码 ({ 235, 7, 83, 69, 66, 69, 71, 78, 86 })  ‘<br>‘ 关键代码<br>置入代码 ({ 235, 7, 83, 69, 69, 78, 68, 80, 0 })  ‘ SE_PROTECT_END</p>
+<p><strong>易语言**</strong>SDK<strong><strong>转换方法</strong></strong>↓*<em><br>随着E5.0静态编译对标准PE格式的支持，在E程序中引入加密壳SDK提升软件保护质量已经成为现实。<br>加密壳SDK大体可划分为两类，一类是功能型SDK，一类是保护型SDK。<br>一、功能性SDK。<br>功能性SDK用来处理序列号验证、授权时间验证等功能性操作。这类SDK有直接应用的各种函数在壳里提供，如WL；也有需要引入外部DLL的，如穿山甲。<br>对于无输出表的DLL，使用引入外部SDK，我们需要载入DLL，寻址SDK中的函数，通过E里边的调用子程序()命令可以很方便的对SDK函数完成传递参数获取返回值的操作，完事后把DLL一卸载就搞定了。<br>对于有输出表的DLL，使用E的DLL命令进行调用就OK了。<br>已经会调用DLL的朋友，对功能性SDK的操作可以说是轻松驾驭的啦，看一下壳具体的API手册就OK。<br>二、加密型SDK<br>通常加密型SDK于壳化挂钩，加密壳在软件中发觉特定的SDK标记后，将采用针对性方法对这一段代码进行针对性处理提高特定代码段的安全性。这种标记自然就是成对定义的汇编代码！<br>在易里边我们可以使用置入代码（）命令轻松调用汇编代码。具体到加密壳使用这块，我们按照如下方法做。<br>打开加密壳自带的SDK，找一门自己可以读懂的语言SDK头文件看一下。例如下面这一段LCC的头文件。<br>以下内容为程序代码:<br>1 #elif defined(__LCC__)<br>2 /</em> Provided by Rubem Pechansky, 26Feb2003 */<br>3 #define SECUREBEGIN _asm(“.byte 0xEB,0x03,0xD6,0xD6,0x00”);<br>4 #define SECUREEND _asm(“.byte 0xEB,0x03,0xD6,0xD6,0xFF”);<br>5 #define SECUREBEGIN_A _asm(“.byte 0xEB,0x03,0xD6,0xD6,0x01”);<br>6 #define SECUREEND_A _asm(“.byte 0xEB,0x03,0xD6,0xD6,0xFF”);<br>7 #define SECUREBEGIN_B _asm(“.byte 0xEB,0x03,0xD6,0xD6,0x02”);<br>8 #define SECUREEND_B _asm(“.byte 0xEB,0x03,0xD6,0xD6,0xFF”);<br>9 #define SECUREBEGIN_C _asm(“.byte 0xEB,0x03,0xD6,0xD6,0x03”);<br>10 #define SECUREEND_C _asm(“.byte 0xEB,0x03,0xD6,0xD6,0xFF”);<br>11 #define SECUREBEGIN_D _asm(“.byte 0xEB,0x03,0xD6,0xD6,0x04”);<br>12 #define SECUREEND_D _asm(“.byte 0xEB,0x03,0xD6,0xD6,0xFF”);<br>13 #define SECUREBEGIN_E _asm(“.byte 0xEB,0x03,0xD6,0xD6,0x05”);<br>14 #define SECUREEND_E _asm(“.byte 0xEB,0x03,0xD6,0xD6,0xFF”);<br>15 #define SECUREBEGIN_F _asm(“.byte 0xEB,0x03,0xD6,0xD6,0x06”);<br>16 #define SECUREEND_F _asm(“.byte 0xEB,0x03,0xD6,0xD6,0xFF”);<br>17 #define SECUREBEGIN_G _asm(“.byte 0xEB,0x03,0xD6,0xD6,0x07”);<br>18 #define SECUREEND_G _asm(“.byte 0xEB,0x03,0xD6,0xD6,0xFF”);<br>19 #define SECUREBEGIN_H _asm(“.byte 0xEB,0x03,0xD6,0xD6,0x08”);<br>20 #define SECUREEND_H _asm(“.byte 0xEB,0x03,0xD6,0xD6,0xFF”);<br>21 #define SECUREBEGIN_I _asm(“.byte 0xEB,0x03,0xD6,0xD6,0x09”);<br>22 #define SECUREEND_I _asm(“.byte 0xEB,0x03,0xD6,0xD6,0xFF”);<br>23 #define SECUREBEGIN_J _asm(“.byte 0xEB,0x03,0xD6,0xD6,0x0A”);<br>24 #define SECUREEND_J _asm(“.byte 0xEB,0x03,0xD6,0xD6,0xFF”);<br>25 #define SECUREBEGIN_K _asm(“.byte 0xEB,0x03,0xD6,0xD6,0x0B”);<br>26 #define SECUREEND_K _asm(“.byte 0xEB,0x03,0xD6,0xD6,0xFF”);<br>27 #define NANOBEGIN _asm(“.byte 0xEB,0x03,0xD6,0xD7,0x01”);<br>28 #define NANOEND _asm(“.byte 0xEB,0x03,0xD6,0xD7,0x00”);<br>用最后两句做解释，NANOBEGIN和NANOEND是C语言的CC代码段标记，被这两个标记包住的代码段，加密壳才会对其进行CC保护处理。NANOBEGIN 用汇编代码表示为 0xEB,0x03,0xD6,0xD7,0x01 ，他这句是C的16进制表示形式，在E里汇编语句是采用10进制表示的。也就是我们要翻译下这句代码。<br>0xEB = 235<br>0x03 = 3<br>0xD6 = 214<br>0xD7 = 215<br>0x01 = 1<br>那么NANOBEGIN在E语言里表现形式就是 置入代码({235, 3, 214, 215, 1}) 。</p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

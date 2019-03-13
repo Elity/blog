@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="写给未来的回忆录">
+    <meta name="keyword" content="Fighting">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        让VirtualBox支持从U盘启动 - Fighting的博客 | Fighting&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"><script src="/js/prism.js"></script></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Fighting&#39;s Blog </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Fighting</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Fighting&#39;s Blog </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        让VirtualBox支持从U盘启动
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2011-09-09 12:40:15</span></span>
+        
+        <span class="attr">Tags：/
+        
+        <a class="tag" href="/tags/#系统" title="系统">系统</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#U盘" title="U盘">U盘</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content no-indent">
+        <p>在VirtualBox中的虚拟系统启动后，我们可以通过选择主机中已加载的USB设备来读写U盘。但是，如果希望使用U盘来启动虚拟系统的话，却不能直接在虚拟系统的设置界面中选择。其实，通过命令行工具是可以实现这一功能的。用来启动的U盘应使用USB-HDD方式，在VirtualBox中，可以将其映射为一个硬盘。</p>
+<p>首先，将U盘插到主机上，等正确识别出来U盘之后，我们需要了解它是系统中的第几个磁盘设备。在开始-运行中执行“<strong>diskmgmt.msc</strong>”命令，打开磁盘管理窗口。</p>
+<p><a href="http://ccc5.cc/wp-content/uploads/2011/09/1.png" target="_blank" rel="noopener"><img src="http://ccc5.cc/wp-content/uploads/2011/09/1-300x263.png" alt title="1"></a></p>
+<p>在这个例子中，U盘显示为磁盘2。</p>
+<p>接下来打开cmd命令行窗口，进入VirtualBox的安装目录下，执行下图中的命令。这个命令将在指定目录下创建一个vmdk虚拟磁盘文件，而这个文件会链接到指定的物理磁盘。</p>
+<p><strong>vboxmanage internalcommands createrawvmdk -filename</strong> <strong>设备路径</strong></p>
+<p>其中第一个参数是vmdk文件的完整路径和文件名，第二个是指定的磁盘设备路径，因为刚才在磁盘管理中看到的U盘为磁盘2，所以这里写\.\PhysicalDrive2。</p>
+<p><a href="http://ccc5.cc/wp-content/uploads/2011/09/2.png" target="_blank" rel="noopener"><img src="http://ccc5.cc/wp-content/uploads/2011/09/2-300x122.png" alt title="2"></a></p>
+<p>这个命令成功执行完成之后，就可以在虚拟系统的硬盘设置中选择刚才生成的vmdk文件了。如果要从这个设备引导系统，应该设置为第一控制器主通道。</p>
+<p>用同样的办法，也可以将物理硬盘设备挂载到虚拟系统中，实现让虚拟系统直接读写实际的硬盘分区，不再赘述。</p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

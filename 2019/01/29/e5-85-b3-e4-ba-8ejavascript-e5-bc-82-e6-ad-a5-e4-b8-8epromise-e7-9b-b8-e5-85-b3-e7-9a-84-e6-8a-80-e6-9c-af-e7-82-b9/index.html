@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="写给未来的回忆录">
+    <meta name="keyword" content="Fighting">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        关于JavaScript异步与Promise相关的技术点 - Fighting的博客 | Fighting&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"><script src="/js/prism.js"></script></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Fighting&#39;s Blog </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Fighting</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Fighting&#39;s Blog </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        关于JavaScript异步与Promise相关的技术点
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2019-01-29 16:49:32</span></span>
+        
+        <span class="attr">Tags：/
+        
+        <a class="tag" href="/tags/#Javascript" title="Javascript">Javascript</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#Promise" title="Promise">Promise</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#异步" title="异步">异步</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content no-indent">
+        <ol>
+<li><p>promise、async有什么区别</p>
+</li>
+<li><p>通过什么做到并发请求</p>
+</li>
+<li><p>介绍Promise，异常捕获</p>
+</li>
+<li><p>JS异步解决方案的发展历程以及优缺点</p>
+</li>
+<li><p>对async、await的理解，内部原理及实现</p>
+</li>
+<li><p>介绍下Promise，内部实现</p>
+</li>
+<li><p>如何设计Promise.all()</p>
+</li>
+<li><p>介绍各种异步方案</p>
+</li>
+<li><p>使用Async会注意哪些东西</p>
+</li>
+<li><p>Async里面有多个await请求，可以怎么优化（请求是否有依赖）</p>
+</li>
+<li><p>Promise和Async处理失败的时候有什么区别</p>
+</li>
+<li><p>Promise有几个状态</p>
+</li>
+<li><p>异步请求,低版本feach如何适配</p>
+</li>
+<li><p>JS怎么实现异步</p>
+</li>
+<li><p>异步整个执行周期</p>
+</li>
+<li><p>Promise和SetTimeout执行先后的区别</p>
+</li>
+<li><p>JS为什么要区分宏任务和微任务</p>
+</li>
+<li><p>Promise构造函数是同步还是异步执行,then呢</p>
+</li>
+<li><p>a,b两个按钮,点击aba,返回顺序可能是baa,如何保证是aba(Promise.then)</p>
+</li>
+<li><p>介绍下表单提交,和formData有什么区别</p>
+</li>
+<li><p>setTimeout(1)和setTimeout(2)之间有什么区别</p>
+</li>
+<li><p>Promise里面和then里面执行有什么区别</p>
+</li>
+<li><p>Promise和async/awit和Callback的区别</p>
+</li>
+<li><p>Promise有没有真正解决异步的问题</p>
+</li>
+<li><p>Promise和setTimeOut的区别(EventLoop)</p>
+</li>
+<li><p>进程和线程的区别</p>
+</li>
+</ol>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

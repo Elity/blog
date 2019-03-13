@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="写给未来的回忆录">
+    <meta name="keyword" content="Fighting">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        对javascript继承的理解 - Fighting的博客 | Fighting&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"><script src="/js/prism.js"></script></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Fighting&#39;s Blog </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Fighting</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Fighting&#39;s Blog </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        对javascript继承的理解
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2016-03-19 00:24:00</span></span>
+        
+        <span class="attr">Tags：/
+        
+        <a class="tag" href="/tags/#Javascript" title="Javascript">Javascript</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#Class" title="Class">Class</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#继承" title="继承">继承</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content no-indent">
+        <p>昨天读了关于javascript继承的<a href="http://www.cnblogs.com/sanshi/archive/2009/07/08/1519036.html" target="_blank" rel="noopener">几篇文章</a>，对原型链、construct、this有了新的认识。</p>
+<p>由于javascript原生是不支持类的(ES6已经支持class与extends)，更不用谈继承、多态了，为了模拟出一些其它面向对象编程语言的这些特性，有好多大牛写了给出了实现方式，看了John Resig的<a href="http://ejohn.org/blog/simple-javascript-inheritance/" target="_blank" rel="noopener">《Simple JavaScript Inheritance》</a>这篇文章，深深被折服了。原来短短几十行javascript也可以这么强大、优雅。</p>
+<p>下面以我的理解方式来解读下。主要实现了继承、访问父类的重名方法（这里的实现方式太妙了），但遗憾的是不能实现成员变量/函数的隐藏。</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">//设置标志位，是new A()过程中还是 B=A.extends({</span><span class="token comment" spellcheck="true">/*   */</span><span class="token punctuation">}</span><span class="token punctuation">)</span>过程中<span class="token punctuation">;</span>
+  <span class="token keyword">var</span> initializing <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">,</span> 
+      <span class="token comment" spellcheck="true">//fnTest 可取结果为俩正则对象 /\b_super\b/与 /.*/ </span>
+      <span class="token comment" spellcheck="true">//当正则的test方法参数支持自动调用toString()方法时取前面那个</span>
+      fnTest <span class="token operator">=</span> <span class="token regex">/xyz/</span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>xyz<span class="token punctuation">;</span><span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token operator">/</span>\b_super\b<span class="token regex">/ : /</span><span class="token punctuation">.</span><span class="token operator">*</span><span class="token operator">/</span><span class="token punctuation">;</span>
+
+  <span class="token comment" spellcheck="true">// 创建一个全局的 Class对象</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>Class <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+  <span class="token comment" spellcheck="true">// 创建继承函数</span>
+  Class<span class="token punctuation">.</span>extend <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>prop<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">//此处把_super指向父类的prototype，属性继承时需要用其判断父、子是否有同名方法</span>
+    <span class="token keyword">var</span> _super <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>prototype<span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">//开始B=A.extends({</span><span class="token comment" spellcheck="true">/*   */</span><span class="token punctuation">}</span><span class="token punctuation">)</span>；
+    initializing <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">//实例化父类，并把父类的实例方法及属性给prototype</span>
+    <span class="token keyword">var</span> prototype <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">this</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    initializing <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">//结束B=A.extends({</span><span class="token comment" spellcheck="true">/*   */</span><span class="token punctuation">}</span><span class="token punctuation">)</span>；
+
+    <span class="token comment" spellcheck="true">// 遍历用户传入的用于构建子类的对象</span>
+    <span class="token comment" spellcheck="true">//处理的地方包括：</span>
+    <span class="token comment" spellcheck="true">//1、属性直接存到prototype上</span>
+    <span class="token comment" spellcheck="true">//2、方法中没通过this._super()调用父类中的同名方法，则直接把该方法存到prototype上</span>
+    <span class="token comment" spellcheck="true">//3、方法中有通过this._super()调用父类中的同名方法，则把如下过程包裹成一个函数存到prototype上:</span>
+    <span class="token comment" spellcheck="true">//   把this._super指向父类的同名方法，然后再调用子类的该方法并返回执行结果</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> name <span class="token keyword">in</span> prop<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true">// 循环体中看起来略微复杂，是整个代码的精华所在</span>
+      <span class="token comment" spellcheck="true">//简化下此过程就是  v = a "" b "" c ? d : e; 等同于 v = (a "" b "" c) ? d : e</span>
+      <span class="token comment" spellcheck="true">//该过程中主要运用的就是逻辑运算中的短路运算 a,b,c全为true则v=d，否则v=e</span>
+      <span class="token comment" spellcheck="true">//a中判断prop[name]是否是函数，b中判断父类中是否也有同名的name函数，c主要判断name函数中是否有调用父类的同名方法（即调用了this._super()）</span>
+      <span class="token comment" spellcheck="true">//d就是a,b,c同时满足的时候，也就是说：name是函数，且name函数存在与父类中，且子类的name函数需要调用了父类的同名函数</span>
+      <span class="token comment" spellcheck="true">//若a,b,c中有一项不满足则直接把prop[name]给prototype[name]</span>
+      prototype<span class="token punctuation">[</span>name<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">typeof</span> prop<span class="token punctuation">[</span>name<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">"function"</span> <span class="token string">""</span>
+        <span class="token keyword">typeof</span> _super<span class="token punctuation">[</span>name<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">"function"</span> <span class="token string">""</span> fnTest<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>prop<span class="token punctuation">[</span>name<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">?</span>
+        <span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span> fn<span class="token punctuation">)</span><span class="token punctuation">{</span>
+          <span class="token comment" spellcheck="true">//首先，先决条件决定了prototype[name]是个函数，所以先包裹一个函数返回</span>
+          <span class="token keyword">return</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">//作者这里备份，然后调用fn后又还原this._super</span>
+            <span class="token comment" spellcheck="true">//由于return的是一个function,具有延时调用的作用 所以在子类调用fn时this始终指向子类本身</span>
+            <span class="token comment" spellcheck="true">//而这里的_super是父类的_super,与this._super并无关系，所以备份应该是多余的</span>
+            <span class="token comment" spellcheck="true">//var tmp = this._super;</span>
+            <span class="token comment" spellcheck="true">//this._super指向与fn(即prop[name])同名的父类方法,方便fn内部调用</span>
+            <span class="token comment" spellcheck="true">//这里是实现子类中通过this._super()调用父类同名函数的关键</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>_super <span class="token operator">=</span> _super<span class="token punctuation">[</span>name<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">//此时再调用子类，子类里面的this._super已经指向了父类同名的函数，即_super[name]</span>
+            <span class="token keyword">var</span> ret <span class="token operator">=</span> fn<span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> arguments<span class="token punctuation">)</span><span class="token punctuation">;</span>    
+            <span class="token comment" spellcheck="true">//this._super = tmp;</span>
+            <span class="token comment" spellcheck="true">//返回执行结果</span>
+            <span class="token keyword">return</span> ret<span class="token punctuation">;</span>
+          <span class="token punctuation">}</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span> prop<span class="token punctuation">[</span>name<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">:</span>
+        prop<span class="token punctuation">[</span>name<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">//此“Class”与外头那个“Class”是两个东西</span>
+    <span class="token comment" spellcheck="true">//这个Class实为子类的构造函数</span>
+    <span class="token keyword">function</span> <span class="token function">Class</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true">//不是A.extends({</span><span class="token comment" spellcheck="true">/*   */</span><span class="token punctuation">}</span><span class="token punctuation">)</span>过程中
+      <span class="token keyword">if</span> <span class="token punctuation">(</span> <span class="token operator">!</span>initializing <span class="token string">""</span> <span class="token keyword">this</span><span class="token punctuation">.</span>init <span class="token punctuation">)</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>init<span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> arguments<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">//前面处理好的prototype绑定给子类的prototype</span>
+    Class<span class="token punctuation">.</span>prototype <span class="token operator">=</span> prototype<span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">//修正构造函数</span>
+    Class<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>constructor <span class="token operator">=</span> Class<span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">//赋予子类可被继续继承的功能</span>
+    Class<span class="token punctuation">.</span>extend <span class="token operator">=</span> arguments<span class="token punctuation">.</span>callee<span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> Class<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

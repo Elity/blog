@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="写给未来的回忆录">
+    <meta name="keyword" content="Fighting">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        我们的网站为什么需要分页？ - Fighting的博客 | Fighting&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"><script src="/js/prism.js"></script></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Fighting&#39;s Blog </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Fighting</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Fighting&#39;s Blog </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        我们的网站为什么需要分页？
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2017-08-24 13:44:13</span></span>
+        
+        <span class="attr">Tags：/
+        
+        <a class="tag" href="/tags/#产品" title="产品">产品</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#分页" title="分页">分页</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content no-indent">
+        <p>昨天晚上看到某微信公众号推荐一本书：《集装箱改变世界》，这本书我在几年前看过。记得当时有媒体公布了比尔盖茨一年看过的50本书籍，其中比尔盖茨首推的就是这本书。我当时脑子里钻进的第一个想法是：一个破箱子有啥好说的。我得承认，这是我惯常的思维，喜欢透过第一印象或表面现象看事物。但是作为崇拜者，还是怀着一颗好奇心去读了。 集装箱发明以前的码头，来来往往的是各类货车和劳工，一车车卸货然后然后一船船装货，这是我们会在各种时间线在二十世纪初的电视剧中看到的场景。以一个身处上百年后的现代人的眼光来评价：拥挤、低效。当然后来人们逐渐发现，干嘛不在每次运输到达的时候把车厢整个装到船上呢？省去了大量装卸货物的时间，也节省了运输车辆等待的时间。这样集装箱的雏形就出来了。之后一系列的反集装箱运动都是另外的话题了，毕竟经济全球化的发展，是无法阻止更高效更经济的集装箱占领各大码头的。 扯了这么久，其实都是题外话，告诫自己不要通过表象来给某事物下结论，或想当然的去设想他的必要性。 事情起因是我们正在做的作业考试系统，对于考试页面，理论上来说顶多一百题，我觉得根本不需要分页，而产品给的原型做了分页。当时我跟产品商量说在这个版本先不做分页吧，巴拉巴拉说了一些我认为合理的理由，说句实话，最主要的原因是我们前端要做分页也会费事很多，而且后台接口设计的同事当时也是没考虑这块分页的，现在需要都改的话会拖慢项目进度。产品也妥协了。 后来，我心里总存在个疙瘩，感觉这样推掉产品需求不好。直到重新回忆起《集装箱改变世界》的一些读后感。我开始思索：我们为什么需要分页？ 搜集了相关的一些资料，发现“分页”的发明在展示类的网站未出现的时候就有了，那时候的网络环境很差、服务商的流量也很贵，一篇很长的文章加载可能需要很长时间，包含图片的会更慢，为不需要的人加载一篇很长文章是种浪费。所以那时候分页的大部分用途就是为了节省网络流量，加快首页加载速度。 到后来网站内容越来越多，各种地方可能需要分页才能容下。商品（或其它）展示、文章列表、搜索结果……分页变得理所当然，后面为了增加用户体验出现的滚动到底部自动加载也是分页一个变种。 到了对分页习以为常的今天，我们对于分页的第一感觉可能就是网站内容达到我假想的长度就应该分页。 站在用事实说话的角度，我们重新来考量下传统分页的益处：</p>
+<ol>
+<li>节省网站流量</li>
+<li>划分数据量巨大的列表</li>
+<li>在2的基础上方便用户迅速定位到相应的位置</li>
+<li>SEO需要，搜索引擎会收录更多的网站页面</li>
+<li>网站PV值提示，广告展示更多</li>
+<li>切分长文章的核心点，避免造成用户阅读疲劳</li>
+</ol>
+<p>对于第1点：除了移动端节省用户流量，PC端一般是没什么意义了，所以应该少有网站会从这个角度考虑来使用分页； 对于第2点：就像淘宝或百度这样，单个搜索词的结果可能就有成千上万条，不分页确实是无法展示的； 对于第3点：还是淘宝或百度那样，如果采用用户体验更好的滚动加载，会导致用户滚动位置无法被记录，当需要向另外一个人推荐关键词搜索的某项结果时，没法量化的描述该怎么定位。更甚者，搜索排名靠后的可能永无展示的机会。（谁会无聊到不停地滚动下滑？并且并没有谁会告诉你到底需要滚动多久才算完）； 对于第4点：把一个文章分成几页展示，搜索引擎可能会收录几次，但到计算机运算能力显著加强的今天，搜索引擎可能会自动“去重”，进而导致网站被降权； 对于第5点：投放展示类广告确实会带来更好的收益。 对于第6点：仁者见仁智者见智了 “分页”对于用户体验来说在一定层面上肯定是有所降低的，毕竟用户需要靠多一次点击来切换到下一页内容。而体验更好的滚动加载的局限性又太大。 综合“分页”的优缺点来看，对于我们这个项目的考试页面，例举的6项优点，在这里似乎毫无用武之地。增加分页功能不但导致技术层面上的复杂（不是只单纯的分页复杂，而是如何分页的问题，基于题目类型分页？题目数量分页？页面高度分页？在这里实现的技术方案都不同，每样都有其明显的缺点），用户体验变差，而且带来的好处微乎其微。那么，在这里，我们真的需要分页吗？</p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

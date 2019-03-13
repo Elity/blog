@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="写给未来的回忆录">
+    <meta name="keyword" content="Fighting">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        浏览器兼容之旅的第一站:如何创建条件样式 - Fighting的博客 | Fighting&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"><script src="/js/prism.js"></script></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Fighting&#39;s Blog </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Fighting</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#调用条件样式的方法"><span class="toc-text">调用条件样式的方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#条件样式的使用方法"><span class="toc-text">条件样式的使用方法</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Fighting&#39;s Blog </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        浏览器兼容之旅的第一站:如何创建条件样式
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2012-12-12 10:19:39</span></span>
+        
+        <span class="attr">Tags：/
+        
+        <a class="tag" href="/tags/#IE" title="IE">IE</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#兼容" title="兼容">兼容</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#浏览器" title="浏览器">浏览器</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <p>IE对于大家来说一定很熟悉了，作为一名Web前端开发人员或者是说前端攻程师来说，浏览器的兼容问题一定处理过不少了，特别是IE6的兼容问题，如果你的用户是针对中国市场来说，IE6下的效果是必须得处理了，一个让人头痛而又不得不去面对的一件事情，特别是对于刚接触CSS的童子们，更让无从下手，那么今天我重新开始针对浏览器的兼容问题，说说一些我自己的经验，以及尽可能多的搜集相关经典问题的处理方法。希望能对有需要的朋友有所帮助。</p>
+<p>中国古语——万物都是相生相克的。这句话用到我们写CSS的人身上也是一样的，不管在哪个浏览器下，出现了问题，首先要追究的问题是我们自己怕HTML结构和CSS样式有没有出问题，然后在看看是不是因为浏览器各自的解析不同而造成的。千万不要一看到IE出问题，就骂上了ＩＥ，其实人家并不是那么差劲，另外有一点也需要注意的就是，不要动不动就使用你知道的HACK手段来解决各浏览器的兼容问题。小生有自己的一个原则——“处理各浏览器的兼容问题，未到情非得以的情况下才使用HACK”。</p>
+<p>开头来了一大段的开场白，下面我们就开始我们的旅行——浏览器兼容之旅的第一站：<strong>如何创建条件样式</strong>。</p>
+<p>大家都知道&lt;!-- –&gt;是HTML语言中的注释。它是一种添加到代码中的笔记，让自己或你的团队成员明白你写的是什么，写到什么时候等等信息，这种注释并不会在浏览器中显示出来，但大家在查看页面的源代码时可以看到这一部分，如下面的一个简单实例</p>
+<pre><code>        &lt;div id=&quot;header&quot;&gt;Header Section&lt;/div&gt;
+        &lt;!\-\- End Header Section Content --&gt;
+</code></pre><p>那么我们在上面的基础是增加一个条件语句，我们就可以使用条件注释，我们在平时用到的就是IE的有条件注释。IE的有条件注释是一种专有的（非标准的）、对常规(X)HTML注释的Miscrosoft扩展。换句话说，有条件注释使你能够根据条件（比如说浏览器的版本）显示代码块。尽管是非标准的，但是有条件注释对于其他所有浏览器作为常规注释出现,因此本质上是无害的。有条件注释在 Windows 上的 IE5 中首次出现,并且得到了 Widnows 浏览器所有后续版本的支持。</p>
+<p>那么为什么要创建条件样式呢？言外之意我们创建条件样式有什么好处呢？创建条件样式优点在于：<strong>可以将部分兼容代码识让符合条件的浏览器识别；其二让你的主要样式表整洁，清爽。</strong>不过大家要记住，虽然我们这里说的是创建有条件样式，但这种条件注释标签的使用不仅仅只能用于CSS，你可以应用在javaScript中，他们甚至可以在您的网站内容显示特殊的IE浏览器特定的消息。下面我们一起来看看其具体的应用，和使用方法。</p>
+<h4 id="调用条件样式的方法"><a href="#调用条件样式的方法" class="headerlink" title="调用条件样式的方法"></a>调用条件样式的方法</h4><p>我们调用条件样式方法和<link>标签一样，常常放置在<head><meta name="generator" content="Hexo 3.8.0">标签中。和前面所见识的普通注释不一样的是，这里需要加上条件判断，具体格式如下所示：<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"><script src="/js/prism.js"></script></head></p>
+<pre><code>        &lt;!--\[if IE\]&gt;
+            ...
+        &lt;!\[endif\]--&gt;
+</code></pre><p>在具体使用条件注释语句之前，有几种条件注释属性含义我们必须要理解：</p>
+<ol>
+<li><p><strong>gt(greate than):</strong>选择条件版本以上版本，不包含条件版本本身；</p>
+</li>
+<li><p><strong>lt(less than):</strong>这个刚好与gt相反，表示的是选择条件版本以下的版本，不包含条件版本自身；</p>
+</li>
+<li><p><strong>gte(greate than or equal):</strong>选择条件版本以上版本，并包含条件版本自身；</p>
+</li>
+<li><p><strong>lte(less than or equal):</strong>选择条件版本以下的版本，并包含条件版本自身；</p>
+</li>
+<li><p><strong>!:</strong>选择条件版本以外所有版本，无论高低。</p>
+</li>
+</ol>
+<h4 id="条件样式的使用方法"><a href="#条件样式的使用方法" class="headerlink" title="条件样式的使用方法"></a>条件样式的使用方法</h4><p>下面我们一起来看针对不同版本如何使用条件样式</p>
+<p><strong>1、支持所有IE浏览器</strong></p>
+<pre><code>        &lt;!--\[if IE\]&gt;
+            &lt;link rel=&quot;stylesheet&quot; href=&quot;all-ie-only.css&quot;  type=&quot;text/css&quot;/&gt;
+        &lt;!\[endif\]--&gt;
+</code></pre><p><strong>2、支持除IE外的所有浏览器</strong></p>
+<pre><code>        &lt;!--\[if !IE\]&gt;
+            &lt;link rel=&quot;stylesheet&quot; href=&quot;not-ie.css&quot;  type=&quot;text/css&quot;/&gt;
+        &lt;!\[endif\]--&gt;
+</code></pre><p>上面是除了IE浏览器外所有浏览器都识别这个样式，另外<a href="http://css-tricks.com/" target="_blank" rel="noopener">CSS-TRICKS</a>的《<a href="http://css-tricks.com/132-how-to-create-an-ie-only-stylesheet/" target="_blank" rel="noopener">How To Create an IE-Only Stylesheet</a>》一文中提供了另一种写法：</p>
+<pre><code>        &lt;!--\[if !IE\]&gt;&lt;!--&gt;
+           &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;not-ie.css&quot; /&gt;
+         &lt;!--&lt;!\[endif\]--&gt;
+</code></pre><p><strong>3、仅仅支持IE10</strong></p>
+<pre><code>        &lt;!--\[if IE 10\]&gt;
+            &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;ie10.css&quot;&gt;
+        &lt;!\[endif\]--&gt;
+</code></pre><p><strong>4、仅仅支持IE9</strong></p>
+<pre><code>        &lt;!--\[if IE 9\]&gt;
+            &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;ie9.css&quot;&gt;
+        &lt;!\[endif\]--&gt;
+</code></pre><p><strong>5、仅仅支持IE8</strong></p>
+<pre><code>        &lt;!--\[if IE 8\]&gt;
+            &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;ie8.css&quot;&gt;
+        &lt;!\[endif\]--&gt;
+</code></pre><p><strong>6、仅仅支持IE7</strong></p>
+<pre><code>        &lt;!--\[if IE 7\]&gt;
+            &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;ie7.css&quot;&gt;
+        &lt;!\[endif\]--&gt;
+</code></pre><p><strong>7、仅仅支持IE6</strong></p>
+<pre><code>        &lt;!--\[if IE 6\]&gt;
+            &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;ie6.css&quot;&gt;
+        &lt;!\[endif\]--&gt;
+</code></pre><p><strong>8、支持IE10以下版本（IE9以及IE9以下版本）</strong></p>
+<p>这种方法是样式表使用在低于IE10的浏览器,换句话说除了IE10以外的所有IE版本都将被支持。</p>
+<pre><code>        &lt;!--\[if lt IE 10\]&gt;
+            &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;ie9-and-down.css&quot;&gt;
+        &lt;!\[endif\]--&gt;
+</code></pre><p>也可以写成</p>
+<pre><code>        &lt;!--\[if lte IE 9\]&gt;
+            &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;ie9-and-down.css&quot;&gt;
+        &lt;!\[endif\]--&gt;
+</code></pre><p>前面我们也说过了lt和lte的区别,<strong>lt表示小于版本号，不包括条件版本号本身；而lte是小于或等于版本号，包括了版本号自身。</strong></p>
+<p><strong>9、支持IE9以下版本（IE8以及IE8以下版本）</strong></p>
+<pre><code>        &lt;!--\[if lt IE 9\]&gt;
+            &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;ie8-and-down.css&quot;&gt;
+        &lt;!\[endif\]--&gt;
+</code></pre><p>或：</p>
+<pre><code>        &lt;!--\[if lte IE 8\]&gt;
+            &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;ie8-and-down.css&quot;&gt;
+        &lt;!\[endif\]--&gt;
+</code></pre><p><strong>10、支持IE8以下版本（IE7以及IE7以下版本）</strong></p>
+<pre><code>        &lt;!--\[if lt IE 8\]&gt;
+            &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;ie7-and-down.css&quot;&gt;
+        &lt;!\[endif\]--&gt;
+</code></pre><p>或：</p>
+<pre><code>        &lt;!--\[if lte IE 7\]&gt;
+            &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;ie7-and-down.css&quot;&gt;
+        &lt;!\[endif\]--&gt;
+</code></pre><p><strong>11、支持IE7以下版本（IE6以及IE6以下版本）</strong></p>
+<pre><code>        &lt;!--\[if lt IE 7\]&gt;
+            &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;ie6-and-down.css&quot;&gt;
+        &lt;!\[endif\]--&gt;
+</code></pre><p>或：</p>
+<pre><code>        &lt;!--\[if lte IE 6\]&gt;
+            &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;ie6-and-down.css&quot;&gt;
+        &lt;!\[endif\]--&gt;
+</code></pre><p>上面8——11这几种方法，使用的是低于（lt）和低于或等于（lte）的方法来判断，我们也可以使用大于（gt）和大于或等于（gte）达到上面的效果：</p>
+<p><strong>12、高于IE9的版本(IE10以及IE10以上版本)</strong></p>
+<pre><code>        &lt;!--\[if gt IE 9\]&gt;
+            &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;ie10-and-up.css&quot;&gt;
+        &lt;!\[endif\]--&gt;
+</code></pre><p>或：</p>
+<pre><code>        &lt;!--\[if gte IE 10\]&gt;
+            &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;ie10-and-up.css&quot;&gt;
+        &lt;!\[endif\]--&gt;
+</code></pre><p><strong>13、高于IE8的版本(IE9以及IE9以上版本)</strong></p>
+<pre><code>        &lt;!--\[if gt IE 8\]&gt;
+            &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;ie9-and-up.css&quot;&gt;
+        &lt;!\[endif\]--&gt;
+</code></pre><p>或：</p>
+<pre><code>        &lt;!--\[if gte IE 9\]&gt;
+            &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;ie9-and-up.css&quot;&gt;
+        &lt;!\[endif\]--&gt;
+</code></pre><p><strong>14、高于IE7的版本(IE8以及IE8以上版本)</strong></p>
+<pre><code>        &lt;!--\[if gt IE 7\]&gt;
+            &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;ie8-and-up.css&quot;&gt;
+        &lt;!\[endif\]--&gt;
+</code></pre><p>或：</p>
+<pre><code>        &lt;!--\[if gte IE 8\]&gt;
+            &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;ie8-and-up.css&quot;&gt;
+        &lt;!\[endif\]--&gt;
+</code></pre><p><strong>15、高于IE6的版本(IE7以及IE7以上版本)</strong></p>
+<pre><code>        &lt;!--\[if gt IE 6\]&gt;
+            &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;ie7-and-up.css&quot;&gt;
+        &lt;!\[endif\]--&gt;
+</code></pre><p>或：</p>
+<pre><code>        &lt;!--\[if gte IE 7\]&gt;
+            &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;ie7-and-up.css&quot;&gt;
+        &lt;!\[endif\]--&gt;
+</code></pre><p><strong>16、高于IE5.5的版本(IE6以及IE6以上版本)</strong></p>
+<pre><code>        &lt;!--\[if gt IE 5.5\]&gt;
+            &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;ie6-and-up.css&quot;&gt;
+        &lt;!\[endif\]--&gt;
+</code></pre><p>或：</p>
+<pre><code>        &lt;!--\[if gte IE 6\]&gt;
+            &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;ie6-and-up.css&quot;&gt;
+        &lt;!\[endif\]--&gt;
+</code></pre><p>12-16几种方式刚好和8-11几方式相反，我们此处使用的是“gt”和“gte”，<strong>“gt”刚好和“lt”相反，表示的是大于条件版本号，不包括版本号本身；而“gte”则和”lte”相反，表示的是大于或等于条件版本号，包括了条件版本自身。</strong>一共罗列了16种条件注释所表达的含义，大家要呵以根据平时的应用对比参照一下，如果从未接触的朋友，可以动手尝试一下，动手能丰衣足食嘛。</p>
+<p>上面就是展示了如何创建条件注释样式，大家可以根据自己的需求使用其中的一种或是多种，最后总结一下<strong>条件注释主要针对的是IE浏览器，所以我们也把他称作IE条件注释。另外IE条件注释只有IE5以上的版本才开始支持IE条件注释，所以“只有ＩＥ”才能识别，换句话说，只有IE5版本以上才能识别IE条件注释。如此一来，我们管理给IE兼容写的单独样式，就带来了极大的方便与好处。最后有一点需要提出的是：“IE的条件注释不单单针对样式，我们也可以针对于javascrit或者其字的注释说明”</strong>。最后我们在来看一个IE条件注释应用在javaScript的实例：</p>
+<pre><code>        &lt;!--\[if IE 6\]&gt;
+            &lt;script type=&quot;text/javascript&quot; src=&quot;js/pngfix.js&quot;&gt;&lt;/script&gt;
+            &lt;script type=&quot;text/javascript&quot; src=&quot;js/ie6.js&quot;&gt;&lt;/script&gt;
+        &lt;!\[endif\]--&gt;
+</code></pre><p>这一节主要了解了如何在页面中创建IE条件注释,以及其带来的好处，和所起的作用。那么下一节将进入浏览器兼容之旅的第一站：<strong>浏览器对Hack的识别</strong>。感兴趣的朋友请观注本站的相关更新。</p>
+<p><a href="http://www.w3cplus.com/create-an-ie-only-stylesheet" target="_blank" rel="noopener">VIA</a></p>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

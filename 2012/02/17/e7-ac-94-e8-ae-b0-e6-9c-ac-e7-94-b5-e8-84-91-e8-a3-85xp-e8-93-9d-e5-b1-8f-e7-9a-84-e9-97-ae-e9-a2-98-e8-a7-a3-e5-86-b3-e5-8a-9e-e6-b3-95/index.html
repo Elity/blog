@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="写给未来的回忆录">
+    <meta name="keyword" content="Fighting">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        笔记本电脑装XP蓝屏的问题解决办法 - Fighting的博客 | Fighting&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"><script src="/js/prism.js"></script></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Fighting&#39;s Blog </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Fighting</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Fighting&#39;s Blog </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        笔记本电脑装XP蓝屏的问题解决办法
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2012-02-17 22:44:14</span></span>
+        
+        <span class="attr">Tags：/
+        
+        <a class="tag" href="/tags/#重装系统" title="重装系统">重装系统</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#AHCI" title="AHCI">AHCI</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#IDE" title="IDE">IDE</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#SATA" title="SATA">SATA</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#XP" title="XP">XP</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#系统" title="系统">系统</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content no-indent">
+        <p>今天帮同学的新款笔记本电脑装XP （顺带重新分区） </p>
+<p>开始用U盘进ADDS分区工具分区  320G分了三个区   然后进Ghost11.02选择已解压到U盘的XP GHO文件还原</p>
+<p>还原一切顺利    重启出现XP滚动条的时候果断给我蓝屏了        </p>
+<p>重启  进PE   用Ghost硬盘版还原  重启   蓝屏····</p>
+<p>重启 进PE 用镜像自带的工具点安装   重启  还原  重启  ···蓝屏   差点就蛋碎了 </p>
+<p>尼玛    纠结了半天     我勒个去  居然忘记了SATA硬盘模式分AHCI和IDE模式   最新的笔记本电脑一般默认是AHCI模式   令人蛋疼的XP只支持IDE</p>
+<p>所以进BIOS找到有关于SATA硬盘的设置   看见AHCI改为IDE（有的主板可能显示为compatibility或别的什么  总之别选AHCI就行了）</p>
+<p>然后保存  重启   顺利安装完成XP      </p>
+<p>XP是装完了   可是将AHCI改为IDE可能会对性能造成一定影响   此时如果重启改回AHCI的话进系统依旧会蓝屏  因为系统缺少必要的SATA驱动</p>
+<p>解决方法：到网上搜下笔记本对应型号的XP驱动安装 重启 改回AHCI模式  这样应该就解决了</p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

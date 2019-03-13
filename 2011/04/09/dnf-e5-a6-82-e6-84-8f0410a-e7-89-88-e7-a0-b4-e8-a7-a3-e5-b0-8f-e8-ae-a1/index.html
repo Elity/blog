@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="写给未来的回忆录">
+    <meta name="keyword" content="Fighting">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        DNF如意0410A版破解小记 - Fighting的博客 | Fighting&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"><script src="/js/prism.js"></script></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Fighting&#39;s Blog </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Fighting</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Fighting&#39;s Blog </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        DNF如意0410A版破解小记
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2011-04-09 19:01:20</span></span>
+        
+        <span class="attr">Tags：/
+        
+        <a class="tag" href="/tags/#DNF" title="DNF">DNF</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#外挂" title="外挂">外挂</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#破解" title="破解">破解</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content no-indent">
+        <pre><code>           首先OD载入，F9运行之（可能有时候要开DNF才能开外挂）  在VIP用户QQ处输入测试号123456 点击登入，弹出“登录失败，您不是会员，请充值！”  回到OD界面暂停   点击上面的“K”  查看调用堆栈    找到
+</code></pre><p> 调用堆栈：     主线程, 条目 8</p>
+<p>地址=0012E05C<br>堆栈=03630F8A<br>函数过程=? USER32.MessageBoxExA<br>调用来自=03630F85<br>结构=0012E058</p>
+<p>在其上Ctrl+F9执行到返回</p>
+<p>   然后点击被暂停的错误窗口 回到OD  F8跟进  知道程序跑到0040100后面</p>
+<p>查找ASCII码</p>
+<p>找到第一次提示登陆成功的地方</p>
+<p>00404133   /0F84 29010000   je DnF如意0.00404262</p>
+<p>00404139    6A 00           push 0x0</p>
+<p>0040413B    6A 00           push 0x0</p>
+<p>0040413D    6A 00           push 0x0</p>
+<p>0040413F    68 01030080     push 0x80000301</p>
+<p>00404144    6A 00           push 0x0</p>
+<p>00404146    68 00000000     push 0x0</p>
+<p>0040414B    68 04000080     push 0x80000004</p>
+<p>00404150    6A 00           push 0x0</p>
+<p>00404152    68 E1695400     push DnF如意0.005469E1      ; 登陆成功，进入仓库等30秒按HOME键呼出挂,如果呼不出请先开游戏后再开挂</p>
+<p>00404157    68 03000000     push 0x3</p>
+<p>0040415C    BB 30574100     mov ebx,DnF如意0.00415730</p>
+<p>记住00404139这个地址（不能再上去了，跳转太多顾不上）</p>
+<p>然后继续查找ASCII码</p>
+<p>找到提示“用户过期，请充值”（应该有两处）</p>
+<p>第一处</p>
+<p>0040E8FC    68 00000000     push 0x0</p>
+<p>0040E901    68 04000080     push 0x80000004</p>
+<p>0040E906    6A 00           push 0x0</p>
+<p>0040E908    68 E9BE6500     push DnF如意0.0065BEE9                     ; 用户已过期，请充值！</p>
+<p>0040E90D    68 03000000     push 0x3</p>
+<p>0040E912    BB 30574100     mov ebx,DnF如意0.00415730</p>
+<p>0040E917    E8 A94A0000     call DnF如意0.004133C5</p>
+<p>0040E91C    83C4 28         add esp,0x28</p>
+<p>0040E91F    E9 2B050000     jmp DnF如意0.0040EE4F</p>
+<p>第二处</p>
+<p>0040EDC5    6A 00           push 0x0</p>
+<p>0040EDC7    68 00000000     push 0x0</p>
+<p>0040EDCC    68 04000080     push 0x80000004</p>
+<p>0040EDD1    6A 00           push 0x0</p>
+<p>0040EDD3    68 E9BE6500     push DnF如意0.0065BEE9                     ; 用户已过期，请充值！</p>
+<p>0040EDD8    68 03000000     push 0x3</p>
+<p>0040EDDD    BB 30574100     mov ebx,DnF如意0.00415730</p>
+<p>0040EDE2    E8 DE450000     call DnF如意0.004133C5</p>
+<p>0040EDE7    83C4 28         add esp,0x28</p>
+<p>0040EDEA    E9 30000000     jmp DnF如意0.0040EE1F</p>
+<p>0040EDEF    6A 00           push 0x0</p>
+<p>将这两处call后面的地址均改成00404139</p>
+<p>别以为大功告成了  这要是以前确实可以了  但我们还稍微下拉一点就会发现还有两处提示</p>
+<p>0040EDFC    68 00000000     push 0x0</p>
+<p>0040EE01    68 04000080     push 0x80000004</p>
+<p>0040EE06    6A 00           push 0x0</p>
+<p>0040EE08    68 FEBE6500     push DnF如意0.0065BEFE                     ; 登陆失败！登陆失败！您不会会员请充值</p>
+<p>0040EE0D    68 03000000     push 0x3</p>
+<p>0040EE12    BB 30574100     mov ebx,DnF如意0.00415730</p>
+<p>0040EE17    E8 A9450000     call DnF如意0.004133C5</p>
+<p>0040EE1C    83C4 28         add esp,0x28</p>
+<p>0040EE1F    6A 00           push 0x0</p>
+<p>0040EE21    6A 00           push 0x0</p>
+<p>0040EE23    6A 00           push 0x0</p>
+<p>0040EE25    68 01030080     push 0x80000301</p>
+<p>0040EE2A    6A 00           push 0x0</p>
+<p>0040EE2C    68 00000000     push 0x0</p>
+<p>0040EE31    68 04000080     push 0x80000004</p>
+<p>0040EE36    6A 00           push 0x0</p>
+<p>0040EE38    68 FEBE6500     push DnF如意0.0065BEFE                     ; 登陆失败！登陆失败！您不会会员请充值</p>
+<p>0040EE3D    68 03000000     push 0x3</p>
+<p>0040EE42    BB 30574100     mov ebx,DnF如意0.00415730</p>
+<p>0040EE47    E8 79450000     call DnF如意0.004133C5</p>
+<p>0040EE4C    83C4 28         add esp,0x28</p>
+<p>0040EE4F    8B5D FC         mov ebx,dword ptr ss:[ebp-0x4]</p>
+<p>0040EE52    85DB            test ebx,ebx</p>
+<p>我们得把这两处的Call也得Call到正确的地方去  即00404139</p>
+<p>这才算大功告成，由于DNF如意一直加的TMD壳   真TMD难搞  非我等菜鸟所能脱的  那么就做内存补丁吧</p>
+<p>地址都找到了  内存补丁也容易了  附我的内存补丁</p>
+<p><a href="http://ccc5.cc/wp-content/uploads/2011/04/310.jpg" target="_blank" rel="noopener"><img src="http://ccc5.cc/wp-content/uploads/2011/04/310.jpg" alt title="3"></a></p>
+<p>下面附上两张破解成功的图</p>
+<p><a href="http://ccc5.cc/wp-content/uploads/2011/04/210.jpg" target="_blank" rel="noopener"><img src="http://ccc5.cc/wp-content/uploads/2011/04/210.jpg" alt title="2"></a></p>
+<p><a href="http://ccc5.cc/wp-content/uploads/2011/04/110.jpg" target="_blank" rel="noopener"><img src="http://ccc5.cc/wp-content/uploads/2011/04/110.jpg" alt title="1"></a></p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="写给未来的回忆录">
+    <meta name="keyword" content="Fighting">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        IE hasLayout  这个神奇而令人讨厌的东西 - Fighting的博客 | Fighting&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"><script src="/js/prism.js"></script></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Fighting&#39;s Blog </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Fighting</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#认识hasLayout——IE浏览器css-bug的一大罪恶根源"><span class="toc-text">认识hasLayout——IE浏览器css bug的一大罪恶根源</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Fighting&#39;s Blog </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        IE hasLayout  这个神奇而令人讨厌的东西
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2012-12-06 18:30:24</span></span>
+        
+        <span class="attr">Tags：/
+        
+        <a class="tag" href="/tags/#CSS" title="CSS">CSS</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#IE" title="IE">IE</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#zoom" title="zoom">zoom</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content no-indent">
+        <pre><code>   接触CSS一年多了，今天看一篇博文关于网站重构的，文中例举了几个大站Facebook Yahoo等都采用了zoom:1，原来其实也看到过这条属性，搜索到的资料是说zoom是设置网页的显示比例，当时也没多想，默认就是1:1显示的网页，再加个zoom:1不是多此一举么。今天再次看到这个，果断好好去找了下这个属性的相关资料，原来是为了解决万恶IE的Bug;
+</code></pre><p>============================资料原文================================</p>
+<h1 id="认识hasLayout——IE浏览器css-bug的一大罪恶根源"><a href="#认识hasLayout——IE浏览器css-bug的一大罪恶根源" class="headerlink" title="认识hasLayout——IE浏览器css bug的一大罪恶根源"></a>认识hasLayout——IE浏览器css bug的一大罪恶根源</h1><p><strong>什么是hasLayout</strong>？hasLayout是IE特有的一个属性。很多的ie下的css bug都与其息息相关。在ie中，一个元素要么自己对自身的内容进行计算大小和组织，要么依赖于父元素来计算尺寸和组织内容。当一个元素的hasLayout属性值为true时，它负责对自己和可能的子孙元素进行尺寸计算和定位。虽然这意味着这个元素需要花更多的代价来维护自身和里面的内容，而不是依赖于祖先元素来完成这些工作。<br>下列元素默认 hasLayout=true  </p>
+<p><table> <td> <body> <img> <hr> <input> <select> </select><textarea> </textarea><button> <iframe> <embed> <object> <applet> <marquee><br>很多情况下，我们把 hasLayout的状态改成true 就可以解决很大部分ie下显示的bug。<br>hasLayout属性不能直接设定，你只能通过设定一些特定的css属性来触发并改变 hasLayout 状态。下面列出可以触发hasLayout的一些CSS属性值。<br>-------------------------------------<br>display<br>启动haslayout的值:inline-block<br>取消hasLayout的值:其他值<br>--------------------------------------<br>width/height<br>启动hasLayout的值：除了auto以外的值<br>取消hasLayout的值：auto<br>---------------------------------------<br>position<br>启动hasLayout的值：absolute<br>取消hasLayout的值：static<br>----------------------------------------<br>float<br>启动hasLayout的值：left或right<br>取消hasLayout的值：none<br>---------------------------------------<br>zoom<br>启动hasLayout的值：有值<br>取消hasLayout的值：narmal或者空值<br>（zoom是微软IE专有属性，可以触发hasLayout但不会影响页面的显示效果。zoom: 1常用来除错，不过 ie 5 对这个属性不支持。）<br>----------------------------------------<br>writing-mode: tb-rl<br>这也是微软专有的属性。<br>ie7还有一些额外的属性可以触发该属性（不完全列表）：<br>min-height: (任何值)<br>max-height: (任何值除了none)<br>min-width: (任何值)<br>max-width: (任何值除了none)<br>overflow: (任何值除了visible)<br>overflow-x: (任何值除了visible)<br>overflow-y: (任何值除了visible)5<br>position: fixed<br>因元素hasLayout而导致的问题其实一般都很容易发现：往往是内容出现错位甚至完全不可见。举一个典型例子，当一个元素内含浮动或绝对定位的内容时，它通常会表现出奇怪和错误的行为，看下面的代码：  </marquee></applet></object></iframe></button></body></td></table></p>
+<div id="nofloatbox"><br>    <div id="floatbox"></div><br></div>
+
+
+<p>CSS代码如下：  </p>
+<p>#nofloatbox {<br>    border: 1px solid #FF0000;<br>    background: #CCC;<br>}   </p>
+<p>#floatbox {<br>    float: left;<br>    width: 100px;<br>    height: 100px;<br>    border: 1px solid #0000FF;<br>    background: #00FF00;<br>}</p>
+<p>ie显示结果如下图：</p>
+<p><img src="http://pic.yupoo.com/a408115319/Ctbnux9Q/mrQsp.jpg" alt></p>
+<p>可见无浮动的div并没有被里面的浮动元素的高度撑开，其高度并不会自动计算。我们下面再给这个无浮动的div加上个zoom:1;来触发其hasLayout属性试试，css代码如下：  </p>
+<p>#nofloatbox {<br>    border: 1px solid #FF0000;<br>    background: #CCC;<br>    zoom:1;<br>}   </p>
+<p>#floatbox {<br>    float: left;<br>    width: 100px;<br>    height: 100px;<br>    border: 1px solid #0000FF;<br>    background: #00FF00;<br>}</p>
+<p>保存刷新ie浏览器窗口，如下图：</p>
+<p><img src="http://pic.yupoo.com/a408115319/Ctbo3fuD/SKUQ0.jpg" alt></p>
+<p>可见这次外围容器的高度被撑起来了。<br>同样，设定上文所述的其他会触发hasLayout的css属性都会得到这个结果。<br>通常firefox等标准的遵守浏览器可以加上overflow: hidden;来解决，而IE则不行，需要触发其hasLayout属性才可以。<br>hasLayout对于内联元素也可以有效果，当内联元素的hasLayout为true的时候，可以给这个内联元素设定高度和宽度并得到期望的效果。如下例：<br>代码：  </p>
+<p>今天的<span style="width: 100px; height: 50px; background: #DDD;">天气</span>真好</p>
+
+<p>效果如下图所示：<img src="http://pic.yupoo.com/a408115319/CtboDGP3/We0M9.jpg" alt></p>
+<p>下面给span加上zoom: 1;来触发hasLayout：  </p>
+<p>今天的<span style="width: 100px; height: 50px; background: #DDD; zoom: 1;">天气</span>真好</p>
+
+
+<p>这回的效果如下图所示：</p>
+<p><img src="http://pic.yupoo.com/a408115319/CtboDJ6U/kiV4b.jpg" alt></p>
+<p>要注意的是，hasLayout是微软专有的东西，对firefox等比较遵守标准的浏览器就无效了，因此不可太过依赖。现在的IE8就已经不用特意去触发hasLayout就可以得到和firefox一致的效果，主要是针对IE6-7。</p>
+<p>其实依据合理的语义化，恰当的文档流，正确的标准化所生产出来的页面，在各个公司出品的标准渲染的浏览器下，一般并不会存在太多兼容性的问题的。<br>一般如果是因为layout而引起的显示不符期望效果的话，在ff下会表现正常，而在ie下会出现错误。这个时候可以尝试触发父容器及其中的子容器的haslayout属性，通常可以通过加上zoom: 1;来调试。直到找到了产生问题的元素，再进行针对性的修正。最好的办法是对这个元素设置尺寸属性。但是，有时不便指定尺寸属性的情况下，就只能寻找替代方案了。对于ie7 ，最好的办法是设置最小高度属性为0；这个技术是无害的，因为0本来就是这个属性的初始值。而且没有必要对其他浏览器隐藏这个属性。而对于ie6和更早版本中触发一个元素hasLayout的方法是在overflow属性是visible的情况下设置这个元素的高度属性为1%，然后对其他浏览器隐藏这个设置。这种技术就是著名的Holly hack。</p>
+<p><a href="http://neverned.blog.163.com/blog/static/1265524200933021130561/" target="_blank" rel="noopener">via</a></p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

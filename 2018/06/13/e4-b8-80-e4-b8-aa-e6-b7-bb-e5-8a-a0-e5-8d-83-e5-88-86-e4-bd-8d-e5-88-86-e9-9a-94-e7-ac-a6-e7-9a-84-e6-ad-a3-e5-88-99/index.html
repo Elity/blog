@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="写给未来的回忆录">
+    <meta name="keyword" content="Fighting">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        一个添加千分位分隔符的正则 - Fighting的博客 | Fighting&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"><script src="/js/prism.js"></script></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Fighting&#39;s Blog </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Fighting</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#思路1、"><span class="toc-text">思路1、</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#思路2、"><span class="toc-text">思路2、</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Fighting&#39;s Blog </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        一个添加千分位分隔符的正则
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2018-06-13 22:27:30</span></span>
+        
+        <span class="attr">Tags：/
+        
+        <a class="tag" href="/tags/#正则" title="正则">正则</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content no-indent">
+        <p>在只使用正则的情况下，把一个整数用千分位分隔符（半角逗号）分隔，如<br>原始字符：</p>
+<pre><code>198123123123123
+</code></pre><p>变为</p>
+<pre><code>198,123,123,123,123
+</code></pre><p>分析：</p>
+<ul>
+<li>从后往前每三个数字加一个逗号</li>
+<li>如果恰好是3的倍数个数字，最前面不需要逗号</li>
+<li>由于强制逗号后面必须跟3位数字，可能需要用到零宽断言找到符合条件的位置</li>
+</ul>
+<p>思路：</p>
+<ul>
+<li>1.可以找空白位置插入逗号</li>
+<li>2.可以找空白位置的前一位，替换成该位数字+逗号</li>
+</ul>
+<h5 id="思路1、"><a href="#思路1、" class="headerlink" title="思路1、"></a>思路1、</h5><p>1.找到所有后面接三位数字的位置，不消耗位置</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token regex">/(?=\d{3})/g</span>
+</code></pre>
+<p>2.这个位置后面的数字个数应该是3的倍数，也就是最终恰好匹配到结尾($)</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token regex">/(?=(\d{3})+$)/g</span>
+</code></pre>
+<p>3.这个位置不能是开始位置</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token regex">/(?!^)(?=(\d{3})+$)/g</span>
+</code></pre>
+<p>4.测试</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token string">'123123123123123123123123'</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex">/(?!^)(?=(\d{3})+$)/g</span><span class="token punctuation">,</span><span class="token string">','</span><span class="token punctuation">)</span>
+</code></pre>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token string">'9123123123123123123123123'</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex">/(?!^)(?=(\d{3})+$)/g</span><span class="token punctuation">,</span><span class="token string">','</span><span class="token punctuation">)</span>
+</code></pre>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token string">'99123123123123123123123123'</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex">/(?!^)(?=(\d{3})+$)/g</span><span class="token punctuation">,</span><span class="token string">','</span><span class="token punctuation">)</span>
+</code></pre>
+<h5 id="思路2、"><a href="#思路2、" class="headerlink" title="思路2、"></a>思路2、</h5><p>1.找到所有挨着的三个数字</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token regex">/\d{3}/</span>
+</code></pre>
+<p>2.重复匹配1中的结果，直到匹配最末尾的结束符($)</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token regex">/X+$/</span>           <span class="token comment" spellcheck="true">// X指代(1)中匹配的3个数字位</span>
+</code></pre>
+<p>3.找到所有这样的位置，它的后面是(2)中找到的位置</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token regex">/(?=X+$)/g</span>          <span class="token comment" spellcheck="true">// X指代(1)中匹配的3个数字位</span>
+</code></pre>
+<p>4.这个位置的前面必须有一个数字(确保在数字位数是3的倍数的时候，不在最开始添加逗号)，这个数字我们需要捕获</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token regex">/(\d)(?=X+$)/g</span>          <span class="token comment" spellcheck="true">// X指代(1)中匹配的3个数字位</span>
+</code></pre>
+<p>5.将X换回</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token regex">/(\d)(?=(\d{3})+$)/g</span>
+</code></pre>
+<p>6.测试</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token string">'123123123123123123123123'</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex">/(\d)(?=(?:\d{3})+$)/g</span><span class="token punctuation">,</span><span class="token string">'$1,'</span><span class="token punctuation">)</span>
+</code></pre>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token string">'9123123123123123123123123'</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex">/(\d)(?=(?:\d{3})+$)/g</span><span class="token punctuation">,</span><span class="token string">'$1,'</span><span class="token punctuation">)</span>
+</code></pre>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token string">'99123123123123123123123123'</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex">/(\d)(?=(?:\d{3})+$)/g</span><span class="token punctuation">,</span><span class="token string">'$1,'</span><span class="token punctuation">)</span>
+</code></pre>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

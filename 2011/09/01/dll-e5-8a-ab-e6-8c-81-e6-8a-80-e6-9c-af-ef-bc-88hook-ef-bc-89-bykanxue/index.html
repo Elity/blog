@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="写给未来的回忆录">
+    <meta name="keyword" content="Fighting">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        DLL劫持技术（Hook）    By:kanxue - Fighting的博客 | Fighting&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"><script src="/js/prism.js"></script></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> Fighting&#39;s Blog </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Fighting</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> Fighting&#39;s Blog </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        DLL劫持技术（Hook）    By:kanxue
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2011-09-01 14:22:33</span></span>
+        
+        <span class="attr">Tags：/
+        
+        <a class="tag" href="/tags/#Hook，DLL劫持" title="Hook，DLL劫持">Hook，DLL劫持</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#脱壳破解" title="脱壳破解">脱壳破解</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content no-indent">
+        <p>说明</p>
+<p>我是从CoDe_Inject帮助下才了解这个DLL劫持技术（或称HOOK），利用这个制作内存补丁非常的好用。Yonsm在几年前，写了个工具AheadLib，可以很方便地生成各类DLL头文件，见本帖2楼。<strong>这种补丁方法，适合制作被ASProtect,Armadillo,Themida等各类强壳保护软件的补丁。</strong></p>
+<p>当一个可执行文件运行时，Windows加载器将可执行模块映射到进程的地址空间中，加载器分析可执行模块的输入表，并设法找出任何需要的DLL，并将它们映射到进程的地址空间中。  </p>
+<p>由于输入表中只包含DLL名而没有它的路径名，因此加载程序必须在磁盘上搜索DLL文件。首先会尝试从当前程序所在的目录加载DLL，如果没找到，则在Windows系统目录查找，最后是在环境变量中列出的各个目录下查找。利用这个特点，先伪造一个系统同名的DLL，提供同样的输出表，每个输出函数转向真正的系统DLL。程序调用系统DLL时会先调用当前目录下伪造的DLL，完成相关功能后，再跳到系统DLL同名函数里执行，如图18.4。这个过程用个形象的词来描述就是系统DLL被劫持（hijack）了。</p>
+<p><a href="http://ccc5.cc/wp-content/uploads/2011/09/1.gif" target="_blank" rel="noopener"><img src="http://ccc5.cc/wp-content/uploads/2011/09/1-300x140.gif" alt title="1"></a></p>
+<p>利用这种方法取得控制权后，可以对主程序进行补丁。此种方法只对除kernel32.dll, ntdll.dll等核心系统库以外的DLL有效，如网络应用程序的ws2_32.dll，游戏程序中的d3d8.dll，还有大部分应用程序都调用的lpk.dll，这些DLL都可被劫持。<br>利用5.6.2章提供的CrackMeNet.exe来演示一下如何利用劫持技术制作补丁，目标文件用Themida v1.9.2.0加壳保护。  </p>
+<p><strong>1．补丁地址</strong><br>去除这个CrackMe网络验证方法参考第5章，将相关补丁代码存放到函数PatchProcess( )里。例如将401496h改成：</p>
+<p>代码:</p>
+<p>00401496 EB 29 jmp short 004014C1</p>
+<p>补丁编程实现就是：  </p>
+<p>代码:</p>
+<p>unsigned char p401496[2] = {0xEB, 0x29};<br>WriteProcessMemory(hProcess,(LPVOID)0x401496, p401496, 2, NULL);</p>
+<p>p401496这个数组的数据格式，可以用OllyDBG插件获得，或十六进制工具转换。例如Hex Workshop打开文件，执行菜单Edit/Copy As/Source即可得到相应的代码格式。  </p>
+<p><strong>2．构建输出函数</strong><br>查看实例CrackMeNet.exe输入表，会发现名称为ws2_32.dll的DLL，因此构造一个同名的DLL来完成补丁任务。伪造的ws2_32.dll有着真实ws2_32.dll一样的输出函数，完整源码见光盘。实现时，可以利用DLL模块中的函数转发器来实现这个目标，其会将对一个函数的调用转至另一个DLL中的另一个函数。可以这样使用一个pragma指令：  </p>
+<p>代码:</p>
+<p>#pragma comment(linker, “/EXPORT:SomeFunc=DllWork.someOtherFunc”)</p>
+<p>这个pragma告诉链接程序，被编译的DLL应该输出一个名叫SomeFunc的函数。但是SomeFunc函数的实现实际上位于另一个名叫SomeOtherFunc的函数中，该函数包含在称为DllWork. dll的模块中。<br>如要达到劫持DLL的目的，生成的DLl输出函数必须与目标DLL输出函数名一样，本例可以这样构造pragma指令：  </p>
+<p>代码:</p>
+<p>#pragma comment(linker, “/EXPORT:WSAStartup=_MemCode_WSAStartup,@115”)</p>
+<p>编译后的DLL，会有与ws2_32.dll同名的一个输出函数WSAStartup，实际操作时，必须为想要转发的每个函数创建一个单独的pragma代码行，读者可以写一个工具或用其他办法，将ws2_32.dll输出函数转换成相应的pragma指令。  </p>
+<p>当应用程序调用伪装ws2_32.dll的输出函数时，必须将其转到系统ws2_32.dl中去，这部分的代码自己实现。例如WSAStartup输出函数如下构造：  </p>
+<p>代码:</p>
+<p>ALCDECL MemCode_WSAStartup(void)<br>{<br>GetAddress(“WSAStartup”);<br>__asm JMP EAX;//转到系统ws2_32.dll的WSAStartup输出函数<br>}</p>
+<p>其中GetAddress()函数的代码如下：  </p>
+<p>代码:</p>
+<p>// MemCode 命名空间<br>namespace MemCode<br>{<br>HMODULE m_hModule = NULL; //原始模块句柄<br>DWORD m_dwReturn[500] = {0}; //原始函数返回地址<br>// 加载原始模块<br>inline BOOL WINAPI Load()<br>{<br>TCHAR tzPath[MAX_PATH]={0};<br>TCHAR tzTemp[MAX_PATH]={0};<br>GetSystemDirectory(tzPath, sizeof(tzPath));<br>strcat(tzPath,”<a href="&quot;file:">\\ws2_32.dll”);m_hModule = LoadLibrary(tzPath);//加载系统系统目录下ws2_32.dllif (m_hModule == NULL){wsprintf(tzTemp, TEXT(“无法加载 %s，程序无法正常运行。”), tzPath);MessageBox(NULL, tzTemp, TEXT(“MemCode”), MB_ICONSTOP);}return (m_hModule != NULL); } // 释放原始模块inline VOID WINAPI Free(){if (m_hModule)FreeLibrary(m_hModule);}// 获取原始函数地址FARPROC WINAPI GetAddress(PCSTR pszProcName){FARPROC fpAddress;TCHAR szProcName[16]={0};TCHAR tzTemp[MAX_PATH]={0}; if (m_hModule == NULL){if (Load() == FALSE)ExitProcess(-1);} fpAddress = GetProcAddress(m_hModule, pszProcName);if (fpAddress == NULL){if (HIWORD(pszProcName) == 0){wsprintf(szProcName, “%d”, pszProcName);pszProcName = szProcName;}wsprintf(tzTemp, TEXT(“无法找到函数 %hs，程序无法正常运行。”), pszProcName);MessageBox(NULL, tzTemp, TEXT(“MemCode”), MB_ICONSTOP);ExitProcess(-2);}return fpAddress;}}using namespace MemCode;</a><a href="&quot;file:"></a></p>
+<p>编译后，用LordPE查看伪造的ws2_32.dll输出函数，和真实ws2_32.dll完全一样，如图18.5所示。<a href="http://ccc5.cc/wp-content/uploads/2011/09/2.gif" target="_blank" rel="noopener"><img src="http://ccc5.cc/wp-content/uploads/2011/09/2-300x207.gif" alt title="2"></a></p>
+<p>查看伪造的ws2_32.dll中任意一个输出函数，例如WSACleanup：</p>
+<p>代码:</p>
+<p>.text:10001CC0 ; int __stdcall WSACleanup()<br>.text:10001CC0 WSACleanup proc near<br>.text:10001CC0 push offset aWsacleanup ;”WSACleanup”<br>.text:10001CC5 call sub_10001000 ;GetAddress(WSACleanup)<br>.text:10001CCA jmp eax<br>.text:10001CCA WSACleanup endp</p>
+<p>会发现输出函数WSACleanup()首先调用GetAddress(WSACleanup)，获得真实ws2_32.dll中WSACleanup的地址，然后跳过去执行，也就是说ws2_32.dll各输出函数被HOOK了。  </p>
+<p><strong>3．劫持输出函数</strong><br>ws2_32.dll有许多输出函数，经分析，程序发包或接包时，WSAStartup输出函数调用的比较早，因此在这个输出函数放上补丁的代码。代码如下：  </p>
+<p>代码:</p>
+<p>ALCDECL MemCode_WSAStartup(void)<br>{<br>hijack();<br>GetAddress(“WSAStartup”);<br>__asm JMP EAX;<br>}<br>hijack()函数主要是判断是不是目标程序，如是就调用PatchProcess()进行补丁。<br>void hijack()<br>{<br>if (isTarget(GetCurrentProcess())) //判断主程序是不是目标程序，是则补丁之<br>{<br>PatchProcess(GetCurrentProcess());<br>}<br>}</p>
+<p>伪造的ws2_32.dll制作好后，放到程序当前目录下，这样当原程序调用WSASTartup函数时就调用了伪造的ws2_32.dll的WSASTartup函数，此时hijack()函数负责核对目标程序校验，并将相关数据补丁好，处理完毕后，转到系统目录下的ws2_32.dll执行。<br>这种补丁技术，对加壳保护的软件很有效，选择挂接的函数最好是在壳中没有被调用，当挂接函数被执行时，相关的代码己被解压，可以直接补丁了。有些情况下，必须用计数器统计挂接的函数的调用次数来接近OEP。此方法巧妙地绕过了壳的复杂检测，很适合加壳程序的补丁制作。<br>一些木马或病毒也会利用DLL劫持技术搞破坏，因此当在应用程序目录下发现系统一些DLL文件存在时，应引起注意。  </p>
+<p>Kanxue<br>2008.3.8</p>
+<p>向大牛致敬   沿着大牛们的足迹前进</p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>
