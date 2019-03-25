@@ -99,4 +99,5 @@ theme: aircloud
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
+  branch: gh-pages
   repo: git@github.com:Elity/elity.github.io.git
