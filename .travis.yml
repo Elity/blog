@@ -1,0 +1,8 @@
+dist: trusty
+language: node_js
+node_js:
+  - '7'
+install:
+  - yarn install
+script:
+  - hexo g -d
