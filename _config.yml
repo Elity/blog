@@ -100,4 +100,4 @@ theme: aircloud
 deploy:
   type: git
   branch: gh-pages
-  repo: git@github.com:Elity/elity.github.io.git
+  repo: git@github.com:Elity/blog.git
